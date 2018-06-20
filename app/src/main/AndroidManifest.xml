@@ -17,8 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NewsDetailActivity" />
-        <activity android:name=".activities.GeneralInfoActivity" />
+        <activity android:name=".activities.NewsDetailActivity"
+            android:label="Noticia"/>
+        <activity android:name=".activities.GeneralInfoActivity"
+            android:label="Información del alumno"/>
         <activity
             android:name=".activities.NewsActivity"
             android:label="@string/title_activity_news"
