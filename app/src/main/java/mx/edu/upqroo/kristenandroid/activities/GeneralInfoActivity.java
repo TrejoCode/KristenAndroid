@@ -18,5 +18,8 @@ public class GeneralInfoActivity extends AppCompatActivity {
                                        "295.0", "VIGENTE", "(3153) SEP DIC 1", "00", "(09) (3182) MAY-AGO 18", "pepr970313hqrccd01",
                                         "1997-03-13", "SANTA CECILIA", "CANCUN", "77500", "991564564", "9981158454", "rodrigoupech13@gmail.com",
                                        "MANO AMIGA", "DIEGO LOVERA");
+
+        TextView alumnName = findViewById(R.id.text_alumn_name);
+        alumnName.setText(mGeneralInfo.getName());
     }
 }
