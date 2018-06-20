@@ -2,18 +2,28 @@ package mx.edu.upqroo.kristenandroid.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.models.NewsDetail;
+import mx.edu.upqroo.kristenandroid.common.Serializer;
+import mx.edu.upqroo.kristenandroid.models.News;
 
 public class NewsDetailActivity extends AppCompatActivity {
-    NewsDetail mNewsDetail;
+    public static final String EXTRA_NEWS = "KEY_NEWS";
+    News mNews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-        mNewsDetail = new NewsDetail("Noticia", "Kawaii", "Cuerpo de la noticias",
-                "https://mariskalrock.com/wp-content/uploads/2018/05/babymetal-18-promo.jpg");
+
+        if (getIntent().hasExtra(EXTRA_NEWS)) {
+            mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
+        } else {
+            throw new IllegalArgumentException("Activity cannot find  extras " + EXTRA_NEWS);
+        }
+
+        TextView title = findViewById(R.id.text_detail_title);
+        title.setText(mNews.getTitle());
     }
 }

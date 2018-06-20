@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mx.edu.upqroo.kristenandroid">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.NewsActivity" />
         <activity android:name=".activities.NewsDetailActivity" />
-        <activity android:name=".activities.GeneralInfoActivity"></activity>
+        <activity android:name=".activities.GeneralInfoActivity" />
+        <activity
+            android:name=".activities.NewsActivity"
+            android:label="@string/title_activity_news"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
