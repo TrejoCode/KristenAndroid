@@ -1,12 +1,14 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
+import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.models.News;
 
 public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHolder> {
@@ -43,12 +47,14 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         News actualNews = mData.get(position);
+        holder.news = actualNews;
         Picasso.get()
                 .load(actualNews.getCoverUrl())
                 .error(R.drawable.side_nav_bar)
                 .into(holder.imageNews);
         holder.textTitle.setText(actualNews.getTitle());
         holder.textSubtitle.setText(actualNews.getSubtitle());
+        holder.textBody.setText(actualNews.getDescription());
         if (position + 1 == getItemCount()) {
             setBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
         } else {
@@ -91,9 +97,12 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
     //region Class ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //region Fields
+        News news;
         ImageView imageNews;
         TextView textTitle;
         TextView textSubtitle;
+        TextView textBody;
+        Button buttonReadMore;
         //TextView mCategoryTittle;
         //endregion
 
@@ -103,6 +112,17 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
             imageNews = itemView.findViewById(R.id.image_item_news);
             textTitle = itemView.findViewById(R.id.text_item_title_news);
             textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
+            textBody = itemView.findViewById(R.id.text_item_body_news);
+            buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
+            buttonReadMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
+                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
+                            Serializer.Serialize(news));
+                    v.getContext().startActivity(intent);
+                }
+            });
             itemView.setOnClickListener(this);
         }
         //endregion

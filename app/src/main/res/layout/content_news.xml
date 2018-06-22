@@ -8,10 +8,11 @@
     tools:context=".activities.NewsActivity"
     tools:showIn="@layout/app_bar_news">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_news"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.EmptyFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

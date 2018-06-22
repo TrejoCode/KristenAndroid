@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Upqroo App</string>
+    <string name="nav_menu_news">Noticias</string>
+    <string name="nave_menu_user">Usuarios</string>
+    <string name="nav_menu_schedule">Horario</string>
+    <string name="nav_menu_school">Calificaciones</string>
+    <string name="nav_menu_kardex">Kardex</string>
+    <string name="nav_menu_group">Grupos</string>
+    <string name="nav_menu_logout">Cerrar Sesión</string>
 </resources>

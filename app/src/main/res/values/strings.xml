@@ -7,4 +7,14 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="nav_menu_news">News</string>
+    <string name="nave_menu_user">User</string>
+    <string name="nav_menu_schedule">Schedule</string>
+    <string name="nav_menu_school">Grades</string>
+    <string name="nav_menu_kardex">Kardex</string>
+    <string name="nav_menu_group">Groups</string>
+    <string name="nav_menu_logout">Logout</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
