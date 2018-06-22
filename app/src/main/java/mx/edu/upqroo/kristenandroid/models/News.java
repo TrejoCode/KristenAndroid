@@ -3,16 +3,20 @@ package mx.edu.upqroo.kristenandroid.models;
 public class News {
     private String title;
     private String subtitle;
-    private String imageUrl;
+    private String description;
+    private String category;
+    private String coverUrl;
 
     public News() {
 
     }
 
-    public News(String title, String subtitle, String imageUrl) {
+    public News(String title, String subtitle, String description,String category,String coverUrl) {
         this.title = title;
         this.subtitle = subtitle;
-        this.imageUrl = imageUrl;
+        this.description = description;
+        this.category = category;
+        this.coverUrl = coverUrl;
     }
 
     public String getTitle() {
@@ -31,12 +35,27 @@ public class News {
         this.subtitle = subtitle;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getCoverUrl() {
+        return coverUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setCoverUrl(String coverUrl) {
+        this.coverUrl = coverUrl;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

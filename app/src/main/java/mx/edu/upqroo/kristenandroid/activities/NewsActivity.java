@@ -133,15 +133,15 @@ public class NewsActivity extends AppCompatActivity
     }
 
     private void fillNewsList(ArrayList<News> news){
-        news.add(new News("Important new 1", "Generic subtitle",
+        news.add(new News("Important new 1", "Generic subtitle","lorem ipsum sdfvisjfgisjfigjsg","Noticia",
                 "https://i.pinimg.com/originals/1a/36/a7/1a36a7d0bba0eeaef587dbf29980e931.jpg"));
-        news.add(new News("Important new 2", "Generic subtitle",
+        news.add(new News("Important new 2", "Generic subtitle","lorem ipsum sdfvisjfgisjfigjsg","Aviso",
                 "http://www.babymetal-darake.com/wp-content/uploads/2018/05/31428231_1686186171497482_3686882304359137280_n-768x575.jpg"));
-        news.add(new News("Important new 3", "Generic subtitle",
+        news.add(new News("Important new 3", "Generic subtitle","lorem ipsum sdfvisjfgisjfigjsg","Noticia",
                 "https://cdnx.natalie.mu/media/news/music/2018/0522/_9Y1A2573_fixw_730_hq.jpg"));
-        news.add(new News("Important new 4", "Generic subtitle",
+        news.add(new News("Important new 4", "Generic subtitle","lorem ipsum sdfvisjfgisjfigjsg","Noticia",
                 "http://cdn-ak.f.st-hatena.com/images/fotolife/o/onigashima/20160406/20160406003728.jpg"));
-        news.add(new News("Dominando el mundo", "Las chinas van a dominar al mundo",
+        news.add(new News("Dominando el mundo", "Las chinas van a dominar al mundo","lorem ipsum sdfvisjfgisjfigjsg","Aviso",
                 "https://image.jimcdn.com/app/cms/image/transf/dimension=910x10000:format=jpg/path/sfeb3e2f9ecd74f84/image/i51e21e0d8017312a/version/1421125812/image.jpg"));
     }
 }

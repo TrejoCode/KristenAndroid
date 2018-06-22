@@ -44,7 +44,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         News actualNews = mData.get(position);
         Picasso.get()
-                .load(actualNews.getImageUrl())
+                .load(actualNews.getCoverUrl())
                 .error(R.drawable.side_nav_bar)
                 .into(holder.imageNews);
         holder.textTitle.setText(actualNews.getTitle());
