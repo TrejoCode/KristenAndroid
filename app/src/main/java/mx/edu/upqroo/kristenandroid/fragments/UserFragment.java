@@ -55,7 +55,7 @@ public class UserFragment extends Fragment {
         alumnValidity.setText(mGeneralInfo.getValidity());
 
         TextView alumnEntryP = v.findViewById(R.id.text_alumn_starting_period);
-        alumnEntryP.setText(mGeneralInfo.getEntryPeriiod());
+        alumnEntryP.setText(mGeneralInfo.getEntryPeriod());
 
         TextView alumnValidp = v.findViewById(R.id.text_alumn_valid_periods);
         alumnValidp.setText(mGeneralInfo.getValidPeriods());
@@ -67,7 +67,7 @@ public class UserFragment extends Fragment {
         alumnCurp.setText(mGeneralInfo.getCurp());
 
         TextView alumnBirth = v.findViewById(R.id.text_alumn_birth);
-        alumnBirth.setText(mGeneralInfo.getBirthdate());
+        alumnBirth.setText(mGeneralInfo.getDob());
 
         TextView alumnAddress = v.findViewById(R.id.text_alumn_address);
         alumnAddress.setText(mGeneralInfo.getAddress());
@@ -79,16 +79,16 @@ public class UserFragment extends Fragment {
         alumnCP.setText(mGeneralInfo.getCp());
 
         TextView alumnTelDom = v.findViewById(R.id.text_alumn_local_phone);
-        alumnTelDom.setText(mGeneralInfo.getTelDomicilio());
+        alumnTelDom.setText(mGeneralInfo.getPhone());
 
         TextView alumnTelCel = v.findViewById(R.id.text_alumn_mobile_phone);
-        alumnTelCel.setText(mGeneralInfo.getTelCelular());
+        alumnTelCel.setText(mGeneralInfo.getMobilePhone());
 
         TextView alumnEmail = v.findViewById(R.id.text_alumn_email);
         alumnEmail.setText(mGeneralInfo.getEmail());
 
         TextView alumnSchool = v.findViewById(R.id.text_alumn_origin_school);
-        alumnSchool.setText(mGeneralInfo.getOriginSchool());
+        alumnSchool.setText(mGeneralInfo.getPreviousSchool());
 
         TextView alumnTutor = v.findViewById(R.id.text_alumn_tutor);
         alumnTutor.setText(mGeneralInfo.getTutor());

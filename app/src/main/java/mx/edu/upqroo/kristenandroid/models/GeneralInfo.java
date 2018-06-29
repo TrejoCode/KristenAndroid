@@ -9,18 +9,18 @@ public class GeneralInfo {
     private String modSpecial;
     private String creditAcumm;
     private String validity;
-    private String entryPeriiod;
+    private String entryPeriod;
     private String validPeriods;
     private String currentPeriod;
     private String curp;
-    private String birthdate;
+    private String dob;
     private String address;
     private String city;
     private String cp;
-    private String telDomicilio;
-    private String telCelular;
+    private String phone;
+    private String mobilePhone;
     private String email;
-    private String originSchool;
+    private String previousSchool;
     private String tutor;
 
 
@@ -28,9 +28,9 @@ public class GeneralInfo {
 
     }
 
-    public GeneralInfo(String name, String lastName, String career, String enrollment, String planStudy, String modSpecial, String creditAcumm, String validity, String entryPeriiod,
-                       String validPeriods, String currentPeriod, String curp, String birthdate, String address, String city, String cp, String telDomicilio, String telCelular, String email,
-                       String originSchool, String tutor) {
+    public GeneralInfo(String name, String lastName, String career, String enrollment, String planStudy, String modSpecial, String creditAcumm, String validity, String entryPeriod,
+                       String validPeriods, String currentPeriod, String curp, String dob, String address, String city, String cp, String phone, String mobilePhone, String email,
+                       String previousSchool, String tutor) {
         this.name = name;
         this.lastName = lastName;
         this.career = career;
@@ -39,18 +39,18 @@ public class GeneralInfo {
         this.modSpecial = modSpecial;
         this.creditAcumm = creditAcumm;
         this.validity = validity;
-        this.entryPeriiod = entryPeriiod;
+        this.entryPeriod = entryPeriod;
         this.validPeriods = validPeriods;
         this.currentPeriod = currentPeriod;
         this.curp = curp;
-        this.birthdate = birthdate;
+        this.dob = dob;
         this.address = address;
         this.city = city;
         this.cp = cp;
-        this.telDomicilio = telDomicilio;
-        this.telCelular = telCelular;
+        this.phone = phone;
+        this.mobilePhone = mobilePhone;
         this.email = email;
-        this.originSchool = originSchool;
+        this.previousSchool = previousSchool;
         this.tutor = tutor;
     }
 
@@ -118,12 +118,12 @@ public class GeneralInfo {
         this.validity = validity;
     }
 
-    public String getEntryPeriiod() {
-        return entryPeriiod;
+    public String getEntryPeriod() {
+        return entryPeriod;
     }
 
-    public void setEntryPeriiod(String entryPeriiod) {
-        this.entryPeriiod = entryPeriiod;
+    public void setEntryPeriod(String entryPeriod) {
+        this.entryPeriod = entryPeriod;
     }
 
     public String getValidPeriods() {
@@ -150,12 +150,12 @@ public class GeneralInfo {
         this.curp = curp;
     }
 
-    public String getBirthdate() {
-        return birthdate;
+    public String getDob() {
+        return dob;
     }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getAddress() {
@@ -182,20 +182,20 @@ public class GeneralInfo {
         this.cp = cp;
     }
 
-    public String getTelDomicilio() {
-        return telDomicilio;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelDomicilio(String telDomicilio) {
-        this.telDomicilio = telDomicilio;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getTelCelular() {
-        return telCelular;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
 
-    public void setTelCelular(String telCelular) {
-        this.telCelular = telCelular;
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
     public String getEmail() {
@@ -206,12 +206,12 @@ public class GeneralInfo {
         this.email = email;
     }
 
-    public String getOriginSchool() {
-        return originSchool;
+    public String getPreviousSchool() {
+        return previousSchool;
     }
 
-    public void setOriginSchool(String originSchool) {
-        this.originSchool = originSchool;
+    public void setPreviousSchool(String previousSchool) {
+        this.previousSchool = previousSchool;
     }
 
     public String getTutor() {

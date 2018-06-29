@@ -10,12 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter;
+import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.models.News;
 
@@ -23,9 +25,10 @@ import mx.edu.upqroo.kristenandroid.models.News;
  * A simple {@link Fragment} subclass.
  */
 public class NewsListFragment extends Fragment {
-    RecyclerView mRecyclerNews;
-    NewsItemAdapter mNewsAdapter;
-    ArrayList<News> mNewsList;
+    private RecyclerView mRecyclerNews;
+    private NewsItemAdapter mNewsAdapter;
+    private ArrayList<News> mNewsList;
+    private EndlessRecyclerViewScrollListener mScrollListener;
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -40,9 +43,20 @@ public class NewsListFragment extends Fragment {
 
         mNewsList = new ArrayList<>();
         fillNewsList(mNewsList);
-        mRecyclerNews = v.findViewById(R.id.recycler_news);
-        mRecyclerNews.setHasFixedSize(true);
-        mRecyclerNews.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+        LinearLayoutManager lineaLayoutManager = new LinearLayoutManager(v.getContext());
+        mScrollListener = new EndlessRecyclerViewScrollListener(lineaLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                fillNewsList(mNewsList);
+                mNewsAdapter.notifyItemRangeInserted(totalItemsCount, 5);
+                Toast.makeText(view.getContext(), "Pagina actual: " + page +
+                        " Total items count: " + totalItemsCount, Toast.LENGTH_LONG).show();
+            }
+        };
+
         mNewsAdapter = new NewsItemAdapter(v.getContext(), mNewsList);
         mNewsAdapter.setClickListener(new NewsItemAdapter.ItemClickListener() {
             @Override
@@ -53,6 +67,10 @@ public class NewsListFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        mRecyclerNews = v.findViewById(R.id.recycler_news);
+        mRecyclerNews.setHasFixedSize(true);
+        mRecyclerNews.setLayoutManager(lineaLayoutManager);
+        mRecyclerNews.addOnScrollListener(mScrollListener);
         mRecyclerNews.setAdapter(mNewsAdapter);
         return v;
     }
