@@ -109,23 +109,23 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         //region Constructor
         ViewHolder(View itemView) {
             super(itemView);
-            imageNews = itemView.findViewById(R.id.image_item_news);
-            textTitle = itemView.findViewById(R.id.text_item_title_news);
-            textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
-            textBody = itemView.findViewById(R.id.text_item_body_news);
-            buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
+        imageNews = itemView.findViewById(R.id.image_item_news);
+        textTitle = itemView.findViewById(R.id.text_item_title_news);
+        textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
+        textBody = itemView.findViewById(R.id.text_item_body_news);
+        buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
             buttonReadMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
-                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
-                            Serializer.Serialize(news));
-                    v.getContext().startActivity(intent);
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
+                intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
+                        Serializer.Serialize(news));
+                v.getContext().startActivity(intent);
+            }
+        });
             itemView.setOnClickListener(this);
-        }
-        //endregion
+    }
+    //endregion
         //region onClick
         @Override
         public void onClick(View view) {
