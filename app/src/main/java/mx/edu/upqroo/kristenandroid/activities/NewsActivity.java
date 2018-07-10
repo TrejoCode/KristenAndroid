@@ -28,13 +28,14 @@ public class NewsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentHelper mFragmentHelper;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,12 +48,13 @@ public class NewsActivity extends AppCompatActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_news);
 
         mFragmentHelper = FragmentHelper.NEWS;
         NewsListFragment initialFrag = new NewsListFragment();
@@ -67,7 +69,8 @@ public class NewsActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //todo agregar dialogo que te pregunte si de verdad quieres salir de la aplicación
+            //super.onBackPressed();
         }
     }
 
@@ -93,7 +96,6 @@ public class NewsActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -106,6 +108,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
+                mToolbar.setTitle("News");
             }
         } else if (id == R.id.nav_user) {
             if (mFragmentHelper != FragmentHelper.USER){
@@ -114,6 +117,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
+                mToolbar.setTitle("Student");
             }
         } else if (id == R.id.nav_schedule) {
             if (mFragmentHelper != FragmentHelper.SCHEDULE) {
@@ -122,6 +126,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
+                mToolbar.setTitle("Schedule");
             }
         } else if (id == R.id.nav_school) {
             if (mFragmentHelper != FragmentHelper.GRADES) {
@@ -130,6 +135,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
+                mToolbar.setTitle("Grades");
             }
         } else if (id == R.id.nav_kardex) {
             if (mFragmentHelper != FragmentHelper.KARDEX) {
@@ -138,6 +144,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
+                mToolbar.setTitle("Kardex");
             }
         } else if (id == R.id.nav_group) {
             if (mFragmentHelper != FragmentHelper.GROUPS) {
@@ -146,8 +153,10 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
+                mToolbar.setTitle("Groups");
             }
         } else if (id == R.id.nav_logout) {
+            //todo agregar confirmación de cerrar sesión
             startActivity(new Intent(this, MainActivity.class));
         }
 

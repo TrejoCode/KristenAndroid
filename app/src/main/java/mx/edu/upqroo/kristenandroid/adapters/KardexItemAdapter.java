@@ -15,29 +15,25 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
 import mx.edu.upqroo.kristenandroid.models.Grades;
 
-/**
- * Created by RafaelKoh on 08/07/2018.
- */
-
-public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.GradeViewHolder>{
+public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.KardexViewHolder>{
 
     private List<Grades> gradeList;
     private LayoutInflater mInflater;
 
-    public GradesItemAdapter(Context context, List<Grades> gradeList) {
+    public KardexItemAdapter(Context context, List<Grades> gradeList) {
         this.mInflater = LayoutInflater.from(context);
         this.gradeList = gradeList;
     }
 
     @NonNull
     @Override
-    public GradeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public KardexItemAdapter.KardexViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View vista = mInflater.inflate(R.layout.item_grades,parent,false);
-        return new GradeViewHolder(vista);
+        return new KardexItemAdapter.KardexViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GradeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull KardexItemAdapter.KardexViewHolder holder, int position) {
         holder.code.setText(gradeList.get(position).getCode());
         holder.subject.setText(gradeList.get(position).getSubject());
         holder.generalGrade.setText(gradeList.get(position).getGeneralGrade());
@@ -59,7 +55,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         return gradeList.size();
     }
 
-    public class GradeViewHolder extends RecyclerView.ViewHolder {
+    public class KardexViewHolder extends RecyclerView.ViewHolder {
 
         TextView code;
         TextView subject;
@@ -69,7 +65,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         TextView gradeThree;
         TextView gradeFour;
 
-        public GradeViewHolder(View itemView) {
+        public KardexViewHolder(View itemView) {
             super(itemView);
 
             code = itemView.findViewById(R.id.text_item_code);

@@ -20,14 +20,13 @@ import mx.edu.upqroo.kristenandroid.models.Grades;
  * A simple {@link Fragment} subclass.
  */
 public class GradesFragment extends Fragment {
-
     ArrayList<Grades> mGradeList;
     RecyclerView mRecyclerGrade;
     GradesItemAdapter mGradeAdapter;
+
     public GradesFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,12 +47,9 @@ public class GradesFragment extends Fragment {
     }
 
     public void fillGradeList(ArrayList<Grades> grade){
-
         grade.add(new Grades("ADTA","ADMON DE TIC","9.5","9.0","9.0","8.0","8.0"));
         grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0"));
         grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0"));
         grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0"));
-
     }
-
 }
