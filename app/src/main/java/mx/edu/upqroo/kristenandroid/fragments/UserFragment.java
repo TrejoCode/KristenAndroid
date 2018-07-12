@@ -2,6 +2,7 @@ package mx.edu.upqroo.kristenandroid.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UserFragment extends Fragment {
-    GeneralInfo mGeneralInfo;
-
 
     public UserFragment() {
         // Required empty public constructor
@@ -24,74 +24,71 @@ public class UserFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        SessionHelper mSession = SessionHelper.getInstance();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
-        mGeneralInfo = new GeneralInfo("Rodrigo", "Pech", "Ing. Software", "201500100", "ISOF-2013 DE 375 CREDITOS", "( )",
-                "295.0", "VIGENTE", "(3153) SEP DIC 1", "00", "(09) (3182) MAY-AGO 18", "pepr970313hqrccd01",
-                "1997-03-13", "SANTA CECILIA", "CANCUN", "77500", "991564564", "9981158454", "rodrigoupech13@gmail.com",
-                "MANO AMIGA", "DIEGO LOVERA");
 
         TextView alumnName = v.findViewById(R.id.text_alumn_name);
-        alumnName.setText(mGeneralInfo.getName());
+        alumnName.setText(mSession.getSession().getName());
 
         TextView alumnLastName = v.findViewById(R.id.text_alumn_lastname);
-        alumnLastName.setText(mGeneralInfo.getLastName());
+        alumnLastName.setText(mSession.getSession().getLastName());
 
         TextView alumnCareer = v.findViewById(R.id.text_alumn_career);
-        alumnCareer.setText(mGeneralInfo.getCareer());
+        alumnCareer.setText(mSession.getSession().getCareer());
 
         TextView alumnPlanstudy = v.findViewById(R.id.text_alumn_studieplan);
-        alumnPlanstudy.setText(mGeneralInfo.getPlanStudy());
+        alumnPlanstudy.setText(mSession.getSession().getPlanStudy());
 
         TextView alumnModspecial = v.findViewById(R.id.text_alumn_speciality);
-        alumnModspecial.setText(mGeneralInfo.getModSpecial());
+        alumnModspecial.setText(mSession.getSession().getModSpecial());
 
         TextView alumnCredits = v.findViewById(R.id.text_alumn_credits);
-        alumnCredits.setText(mGeneralInfo.getCreditAcumm());
+        alumnCredits.setText(mSession.getSession().getCreditAcumm());
 
         TextView alumnValidity = v.findViewById(R.id.text_alumn_status);
-        alumnValidity.setText(mGeneralInfo.getValidity());
+        alumnValidity.setText(mSession.getSession().getValidity());
 
         TextView alumnEntryP = v.findViewById(R.id.text_alumn_starting_period);
-        alumnEntryP.setText(mGeneralInfo.getEntryPeriod());
+        alumnEntryP.setText(mSession.getSession().getEntryPeriod());
 
         TextView alumnValidp = v.findViewById(R.id.text_alumn_valid_periods);
-        alumnValidp.setText(mGeneralInfo.getValidPeriods());
+        alumnValidp.setText(mSession.getSession().getValidPeriods());
 
         TextView alumnCurrentp = v.findViewById(R.id.text_alumn_actual_period);
-        alumnCurrentp.setText(mGeneralInfo.getCreditAcumm());
+        alumnCurrentp.setText(mSession.getSession().getCreditAcumm());
 
         TextView alumnCurp = v.findViewById(R.id.text_alumn_curp);
-        alumnCurp.setText(mGeneralInfo.getCurp());
+        alumnCurp.setText(mSession.getSession().getCurp());
 
         TextView alumnBirth = v.findViewById(R.id.text_alumn_birth);
-        alumnBirth.setText(mGeneralInfo.getDob());
+        alumnBirth.setText(mSession.getSession().getDob());
 
         TextView alumnAddress = v.findViewById(R.id.text_alumn_address);
-        alumnAddress.setText(mGeneralInfo.getAddress());
+        alumnAddress.setText(mSession.getSession().getAddress());
 
         TextView alumnCity = v.findViewById(R.id.text_alumn_city);
-        alumnCity.setText(mGeneralInfo.getCity());
+        alumnCity.setText(mSession.getSession().getCity());
 
         TextView alumnCP = v.findViewById(R.id.text_alumn_postal_code);
-        alumnCP.setText(mGeneralInfo.getCp());
+        alumnCP.setText(mSession.getSession().getCp());
 
         TextView alumnTelDom = v.findViewById(R.id.text_alumn_local_phone);
-        alumnTelDom.setText(mGeneralInfo.getPhone());
+        alumnTelDom.setText(mSession.getSession().getPhone());
 
         TextView alumnTelCel = v.findViewById(R.id.text_alumn_mobile_phone);
-        alumnTelCel.setText(mGeneralInfo.getMobilePhone());
+        alumnTelCel.setText(mSession.getSession().getMobilePhone());
 
         TextView alumnEmail = v.findViewById(R.id.text_alumn_email);
-        alumnEmail.setText(mGeneralInfo.getEmail());
+        alumnEmail.setText(mSession.getSession().getEmail());
 
         TextView alumnSchool = v.findViewById(R.id.text_alumn_origin_school);
-        alumnSchool.setText(mGeneralInfo.getPreviousSchool());
+        alumnSchool.setText(mSession.getSession().getPreviousSchool());
 
         TextView alumnTutor = v.findViewById(R.id.text_alumn_tutor);
-        alumnTutor.setText(mGeneralInfo.getTutor());
+        alumnTutor.setText(mSession.getSession().getTutor());
         return v;
     }
 

@@ -14,9 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
+import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
 import mx.edu.upqroo.kristenandroid.fragments.GroupsFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
@@ -27,12 +29,16 @@ import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
 public class NewsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FragmentHelper mFragmentHelper;
-    Toolbar mToolbar;
+    private FragmentHelper mFragmentHelper;
+    private Toolbar mToolbar;
+    private SessionHelper mSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mSession = SessionHelper.getInstance();
+
         setContentView(R.layout.activity_news);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -69,6 +75,8 @@ public class NewsActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            mSession.logout();
+            startActivity(new Intent(this, MainActivity.class));
             //todo agregar dialogo que te pregunte si de verdad quieres salir de la aplicación
             //super.onBackPressed();
         }
@@ -78,6 +86,10 @@ public class NewsActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.news, menu);
+        TextView mNavHeaderProfileName = findViewById(R.id.text_nav_header_title);
+        mNavHeaderProfileName.setText(mSession.getSession().getName());
+        TextView mNavHeaderProfileEmail = findViewById(R.id.text_nav_header_subtitle);
+        mNavHeaderProfileEmail.setText(mSession.getSession().getEmail());
         return true;
     }
 
