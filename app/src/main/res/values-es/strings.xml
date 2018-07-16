@@ -8,4 +8,10 @@
     <string name="nav_menu_kardex">Kardex</string>
     <string name="nav_menu_group">Grupos</string>
     <string name="nav_menu_logout">Cerrar Sesión</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="button_login">Iniciar sesión</string>
+    <string name="field_hint_user_id">Matricula</string>
+    <string name="field_hint_password">Contraseña</string>
+    <string name="news_image_description">Imagen de la noticia</string>
+    <string name="login_result_failed">Usuario o contraseña incorrecto</string>
 </resources>

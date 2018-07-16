@@ -24,10 +24,6 @@
             android:id="@+id/nav_kardex"
             android:icon="@drawable/ic_kardex"
             android:title="@string/nav_menu_kardex" />
-        <item
-            android:id="@+id/nav_group"
-            android:icon="@drawable/ic_groups"
-            android:title="@string/nav_menu_group" />
     </group>
 
     <item android:title="">

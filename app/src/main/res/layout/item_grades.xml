@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +8,7 @@
     app:cardCornerRadius="2dp"
     app:contentPadding="16dp">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +20,8 @@
             android:text="UINGIX2ACC"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_item_subject" />
+            app:layout_constraintTop_toBottomOf="@+id/text_item_subject"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_item_subject"
@@ -30,7 +31,8 @@
             android:textSize="21sp"
             app:layout_constraintEnd_toStartOf="@+id/text_item_generalGrade"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_item_generalGrade"
@@ -39,7 +41,8 @@
             android:text="9.2"
             android:textSize="21sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_item_gradeOne"
@@ -51,7 +54,8 @@
             android:text="9"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_item_code" />
+            app:layout_constraintTop_toBottomOf="@+id/text_item_code"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_item_gradeTwo"
@@ -63,7 +67,8 @@
             android:text="8"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/text_item_code" />
+            app:layout_constraintTop_toBottomOf="@+id/text_item_code"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_item_gradeThree"
@@ -75,7 +80,8 @@
             android:text="9"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/text_item_code" />
+            app:layout_constraintTop_toBottomOf="@+id/text_item_code"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/text_item_gradeFour"
@@ -87,30 +93,31 @@
             android:text="8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/text_item_code" />
+            app:layout_constraintTop_toBottomOf="@+id/text_item_code"
+            tools:ignore="HardcodedText" />
 
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.25" />
 
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.50" />
 
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.75" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</android.support.v7.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 

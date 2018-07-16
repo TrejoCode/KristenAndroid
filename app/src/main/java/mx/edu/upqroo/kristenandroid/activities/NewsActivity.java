@@ -1,17 +1,20 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import androidx.annotation.NonNull;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import com.google.android.material.navigation.NavigationView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,7 +23,6 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
-import mx.edu.upqroo.kristenandroid.fragments.GroupsFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
 import mx.edu.upqroo.kristenandroid.fragments.NewsListFragment;
 import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
@@ -75,10 +77,7 @@ public class NewsActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            mSession.logout();
-            startActivity(new Intent(this, MainActivity.class));
-            //todo agregar dialogo que te pregunte si de verdad quieres salir de la aplicación
-            //super.onBackPressed();
+            showLogoutDialog();
         }
     }
 
@@ -95,9 +94,6 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -120,7 +116,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
-                mToolbar.setTitle("News");
+                mToolbar.setTitle(R.string.nav_menu_news);
             }
         } else if (id == R.id.nav_user) {
             if (mFragmentHelper != FragmentHelper.USER){
@@ -129,7 +125,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
-                mToolbar.setTitle("Student");
+                mToolbar.setTitle(R.string.nave_menu_user);
             }
         } else if (id == R.id.nav_schedule) {
             if (mFragmentHelper != FragmentHelper.SCHEDULE) {
@@ -138,7 +134,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
-                mToolbar.setTitle("Schedule");
+                mToolbar.setTitle(R.string.nav_menu_schedule);
             }
         } else if (id == R.id.nav_school) {
             if (mFragmentHelper != FragmentHelper.GRADES) {
@@ -147,7 +143,7 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
-                mToolbar.setTitle("Grades");
+                mToolbar.setTitle(R.string.nav_menu_school);
             }
         } else if (id == R.id.nav_kardex) {
             if (mFragmentHelper != FragmentHelper.KARDEX) {
@@ -156,25 +152,34 @@ public class NewsActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_main, fragment)
                         .commit();
-                mToolbar.setTitle("Kardex");
-            }
-        } else if (id == R.id.nav_group) {
-            if (mFragmentHelper != FragmentHelper.GROUPS) {
-                mFragmentHelper = FragmentHelper.GROUPS;
-                GroupsFragment fragment = new GroupsFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, fragment)
-                        .commit();
-                mToolbar.setTitle("Groups");
+                mToolbar.setTitle(R.string.nav_menu_kardex);
             }
         } else if (id == R.id.nav_logout) {
-            //todo agregar confirmación de cerrar sesión
-            startActivity(new Intent(this, MainActivity.class));
+            showLogoutDialog();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mSession.logout();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
 }
