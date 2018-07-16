@@ -26,6 +26,8 @@
             android:name=".activities.NewsActivity"
             android:label="News"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <service android:name=".common.NotificationsHelper" />
     </application>
 
 </manifest>

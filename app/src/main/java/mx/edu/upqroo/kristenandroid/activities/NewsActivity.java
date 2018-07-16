@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
+import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
@@ -40,6 +41,9 @@ public class NewsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         mSession = SessionHelper.getInstance();
+        NotificationsHelper
+                .SubscribeNotifications(mSession.getSession().getGeneralTopic(),
+                        mSession.getSession().getUserTopic());
 
         setContentView(R.layout.activity_news);
         mToolbar = findViewById(R.id.toolbar);

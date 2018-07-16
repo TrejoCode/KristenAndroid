@@ -22,6 +22,8 @@ public class GeneralInfo {
     private String email;
     private String previousSchool;
     private String tutor;
+    private String generalTopic;
+    private String userTopic;
 
 
     public GeneralInfo() {
@@ -30,7 +32,7 @@ public class GeneralInfo {
 
     public GeneralInfo(String name, String lastName, String career, String enrollment, String planStudy, String modSpecial, String creditAcumm, String validity, String entryPeriod,
                        String validPeriods, String currentPeriod, String curp, String dob, String address, String city, String cp, String phone, String mobilePhone, String email,
-                       String previousSchool, String tutor) {
+                       String previousSchool, String tutor, String generalTopic, String userTopic) {
         this.name = name;
         this.lastName = lastName;
         this.career = career;
@@ -52,6 +54,8 @@ public class GeneralInfo {
         this.email = email;
         this.previousSchool = previousSchool;
         this.tutor = tutor;
+        this.generalTopic = generalTopic;
+        this.userTopic = userTopic;
     }
 
     public String getName() {
@@ -212,6 +216,22 @@ public class GeneralInfo {
 
     public void setPreviousSchool(String previousSchool) {
         this.previousSchool = previousSchool;
+    }
+
+    public String getGeneralTopic() {
+        return generalTopic;
+    }
+
+    public void setGeneralTopic(String generalTopic) {
+        this.generalTopic = generalTopic;
+    }
+
+    public String getUserTopic() {
+        return userTopic;
+    }
+
+    public void setUserTopic(String userTopic) {
+        this.userTopic = userTopic;
     }
 
     public String getTutor() {

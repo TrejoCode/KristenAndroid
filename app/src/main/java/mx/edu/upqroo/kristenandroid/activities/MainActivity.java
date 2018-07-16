@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 
 public class MainActivity extends AppCompatActivity {

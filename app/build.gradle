@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -39,4 +40,7 @@ dependencies {
     implementation 'me.dkzwm.widget.srl:ext-horizontal:1.6.5-beta-1'
     implementation 'me.dkzwm.widget.srl:ext-classic:1.6.5-beta-1'
     implementation 'me.dkzwm.widget.srl:ext-two-level:1.6.5-beta-1'
+
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
 }

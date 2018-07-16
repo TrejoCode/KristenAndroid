@@ -27,7 +27,7 @@ public class SessionHelper {
                         "00", "(09) (3182) MAY-AGO 18", "pepr970313hqrccd01",
                         "1997-03-13", "SANTA CECILIA", "CANCUN", "77500",
                         "991564564", "9981158454", "rodrigoupech13@gmail.com",
-                        "MANO AMIGA", "DIEGO LOVERA");
+                        "MANO AMIGA", "DIEGO LOVERA", "GENERAL", "SOFTWARE");
             }
         }
         createNewSession(session);
