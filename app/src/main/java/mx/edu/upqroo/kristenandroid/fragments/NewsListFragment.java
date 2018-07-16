@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import me.dkzwm.widget.srl.RefreshingListenerAdapter;
+import me.dkzwm.widget.srl.SmoothRefreshLayout;
+import me.dkzwm.widget.srl.extra.header.ClassicHeader;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter;
@@ -29,6 +32,7 @@ public class NewsListFragment extends Fragment {
     private NewsItemAdapter mNewsAdapter;
     private ArrayList<News> mNewsList;
     private EndlessRecyclerViewScrollListener mScrollListener;
+    private SmoothRefreshLayout mRefreshLayout;
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -57,10 +61,21 @@ public class NewsListFragment extends Fragment {
             }
         };
 
+        mRefreshLayout = v.findViewById(R.id.refreshLayout_NewsList);
+
+        mRefreshLayout.setHeaderView(new ClassicHeader(getContext()));
+        mRefreshLayout.setOnRefreshListener(new RefreshingListenerAdapter() {
+            @Override
+            public void onRefreshBegin(boolean isRefresh) {
+                Toast.makeText(getContext(), "Refreshing", Toast.LENGTH_LONG).show();
+            }
+        });
+
         mNewsAdapter = new NewsItemAdapter(v.getContext(), mNewsList);
         mNewsAdapter.setClickListener(new NewsItemAdapter.ItemClickListener() {
             @Override
             public void onNewsItemClick(View view, int position) {
+                //mRefreshLayout.refreshComplete();
                 Intent intent = new Intent(view.getContext(), NewsDetailActivity.class);
                 intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
                         Serializer.Serialize(mNewsAdapter.getItem(position)));

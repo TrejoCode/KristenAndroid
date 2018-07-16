@@ -8,7 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import me.dkzwm.widget.srl.RefreshingListenerAdapter;
+import me.dkzwm.widget.srl.SmoothRefreshLayout;
+import me.dkzwm.widget.srl.extra.header.ClassicHeader;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
@@ -17,6 +21,7 @@ import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
  * A simple {@link Fragment} subclass.
  */
 public class UserFragment extends Fragment {
+    private SmoothRefreshLayout mRefreshLayout;
 
     public UserFragment() {
         // Required empty public constructor
@@ -29,6 +34,16 @@ public class UserFragment extends Fragment {
         SessionHelper mSession = SessionHelper.getInstance();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
+
+        mRefreshLayout = v.findViewById(R.id.refreshLayout_UserInfo);
+
+        mRefreshLayout.setHeaderView(new ClassicHeader(getContext()));
+        mRefreshLayout.setOnRefreshListener(new RefreshingListenerAdapter() {
+            @Override
+            public void onRefreshBegin(boolean isRefresh) {
+                Toast.makeText(getContext(), "Refreshing", Toast.LENGTH_LONG).show();
+            }
+        });
 
         TextView alumnName = v.findViewById(R.id.text_alumn_name);
         alumnName.setText(mSession.getSession().getName());
