@@ -1,10 +1,14 @@
 package mx.edu.upqroo.kristenandroid.common;
 
+import mx.edu.upqroo.kristenandroid.activities.MainActivity;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 
 public class SessionHelper {
     private static SessionHelper mInstance;
     private GeneralInfo mSession;
+    public static final String SESSION_KEY = "SESSION";
+    public static final String PASS_KEY = "PASS";
+    public static final String PREFERENCE_FILE = "PREFERENCE";
 
     private SessionHelper() {
     }
@@ -33,12 +37,15 @@ public class SessionHelper {
         createNewSession(session);
     }
 
-    private void createNewSession(GeneralInfo session){
+    private void createNewSession(GeneralInfo session) {
         mSession = session;
     }
 
     public void logout() {
+        NotificationsHelper
+                .UnsuscribeNotifications(mSession.getGeneralTopic(), mSession.getUserTopic());
         mSession = null;
+        MainActivity.clearSession();
     }
 
     public GeneralInfo getSession() {

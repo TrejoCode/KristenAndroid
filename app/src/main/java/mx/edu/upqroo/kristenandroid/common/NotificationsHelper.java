@@ -57,4 +57,10 @@ public class NotificationsHelper extends com.google.firebase.messaging.FirebaseM
         firebaseMessaging.subscribeToTopic(channel);
         firebaseMessaging.subscribeToTopic(userChannel);
     }
+
+    public static void UnsuscribeNotifications(String channel, String userChannel) {
+        FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
+        firebaseMessaging.unsubscribeFromTopic(channel);
+        firebaseMessaging.unsubscribeFromTopic(userChannel);
+    }
 }
