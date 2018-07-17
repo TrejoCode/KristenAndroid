@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Upqroo App</string>
     <string name="nav_menu_news">Noticias</string>
-    <string name="nave_menu_user">Usuarios</string>
+    <string name="nave_menu_user">Estudiante</string>
     <string name="nav_menu_schedule">Horario</string>
     <string name="nav_menu_school">Calificaciones</string>
     <string name="nav_menu_kardex">Kardex</string>

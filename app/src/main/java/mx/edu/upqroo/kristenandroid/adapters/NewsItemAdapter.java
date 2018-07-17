@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
+import mx.edu.upqroo.kristenandroid.common.ViewHelper;
 import mx.edu.upqroo.kristenandroid.models.News;
 
 public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHolder> {
@@ -51,15 +52,16 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         Picasso.get()
                 .load(actualNews.getCoverUrl())
                 .error(R.drawable.side_nav_bar)
+                .placeholder(R.drawable.side_nav_bar)
                 .into(holder.imageNews);
         holder.textTitle.setText(actualNews.getTitle());
         holder.textSubtitle.setText(actualNews.getSubtitle());
         holder.textBody.setText(actualNews.getDescription());
         if (position + 1 == getItemCount()) {
-            setBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
+            ViewHelper.SetBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
         } else {
             // reset bottom margin back to zero. (your value may be different)
-            setBottomMargin(holder.itemView, 0);
+            ViewHelper.SetBottomMargin(holder.itemView, 0);
         }
     }
     //endregion
@@ -85,15 +87,6 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         void onNewsItemClick(View view, int position);
     }
     //endregion
-    //region setBottomMargin
-    private static void setBottomMargin(View view, int bottomMargin) {
-        if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
-            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, bottomMargin);
-            view.requestLayout();
-        }
-    }
-    //endregion
     //region Class ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         //region Fields
@@ -109,23 +102,23 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         //region Constructor
         ViewHolder(View itemView) {
             super(itemView);
-            imageNews = itemView.findViewById(R.id.image_item_news);
-            textTitle = itemView.findViewById(R.id.text_item_title_news);
-            textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
-            textBody = itemView.findViewById(R.id.text_item_body_news);
-            buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
+        imageNews = itemView.findViewById(R.id.image_item_news);
+        textTitle = itemView.findViewById(R.id.text_item_title_news);
+        textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
+        textBody = itemView.findViewById(R.id.text_item_body_news);
+        buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
             buttonReadMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
-                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
-                            Serializer.Serialize(news));
-                    v.getContext().startActivity(intent);
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
+                intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
+                        Serializer.Serialize(news));
+                v.getContext().startActivity(intent);
+            }
+        });
             itemView.setOnClickListener(this);
-        }
-        //endregion
+    }
+    //endregion
         //region onClick
         @Override
         public void onClick(View view) {
