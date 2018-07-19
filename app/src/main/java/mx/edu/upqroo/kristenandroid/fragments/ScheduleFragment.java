@@ -2,20 +2,8 @@ package mx.edu.upqroo.kristenandroid.fragments;
 
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
-import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
-import mx.edu.upqroo.kristenandroid.models.News;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.

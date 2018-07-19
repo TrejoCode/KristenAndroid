@@ -1,42 +1,19 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
 import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 
 public class ScheduleActivity extends AppCompatActivity {
-
-    /*ArrayList<String> ListaDatos;
-    RecyclerView recycler;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        recycler = (RecyclerView) findViewById(R.id.recycler_schedule);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        ListaDatos = new ArrayList<String>();
-
-        for (int i = 0; i <= 5; i++){
-            ListaDatos.add("Dato # " +i+ "");
-        }
-        ScheduleItemAdapter adapter = new ScheduleItemAdapter(ListaDatos);
-        recycler.setAdapter(adapter);
-
-    }
-    */
-
     private RecyclerView recyclerViewSchedule;
     private ScheduleItemAdapter adaptadorSchedule;
 
@@ -45,7 +22,7 @@ public class ScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerViewSchedule = (RecyclerView)findViewById(R.id.recycler_schedule);
+        recyclerViewSchedule = findViewById(R.id.recycler_schedule);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(this));
 
         adaptadorSchedule = new ScheduleItemAdapter(obtenerDays());

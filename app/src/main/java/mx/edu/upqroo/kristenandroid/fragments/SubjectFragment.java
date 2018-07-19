@@ -2,22 +2,19 @@ package mx.edu.upqroo.kristenandroid.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
-import mx.edu.upqroo.kristenandroid.adapters.SubjectAdapter;
 import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.models.News;
 
 public class SubjectFragment extends Fragment {
     private RecyclerView mRecyclerNews;
-    private SubjectAdapter myAdapter;
     private ArrayList<News> mNewsList;
     private EndlessRecyclerViewScrollListener mScrollListener;
 
