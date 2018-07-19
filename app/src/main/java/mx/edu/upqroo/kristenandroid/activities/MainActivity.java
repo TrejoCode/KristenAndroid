@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private static WeakReference<Context> mContextWeakReference;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

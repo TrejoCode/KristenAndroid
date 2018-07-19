@@ -1,45 +1,62 @@
 package mx.edu.upqroo.kristenandroid.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import me.dkzwm.widget.srl.RefreshingListenerAdapter;
-import me.dkzwm.widget.srl.SmoothRefreshLayout;
-import me.dkzwm.widget.srl.extra.header.ClassicHeader;
+import java.util.ArrayList;
+
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
+import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
+import mx.edu.upqroo.kristenandroid.models.News;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment {
-    private SmoothRefreshLayout mRefreshLayout;
+
+    private String _dayOfWeek, _message;
+    private int _imgSchedule;
 
     public ScheduleFragment() {
-        // Required empty public constructor
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_schedule, container, false);
-
-        mRefreshLayout = v.findViewById(R.id.refreshLayout_ScheduleList);
-
-        mRefreshLayout.setHeaderView(new ClassicHeader(getContext()));
-        mRefreshLayout.setOnRefreshListener(new RefreshingListenerAdapter() {
-            @Override
-            public void onRefreshBegin(boolean isRefresh) {
-                Toast.makeText(getContext(), "Refreshing", Toast.LENGTH_LONG).show();
-            }
-        });
-        return v;
+    @SuppressLint("ValidFragment")
+    public ScheduleFragment(String _dayOfWeek, String _message, int _imgSchedule) {
+        this._dayOfWeek = _dayOfWeek;
+        this._message = _message;
+        this._imgSchedule = _imgSchedule;
     }
 
+    public String get_dayOfWeek() {
+        return _dayOfWeek;
+    }
+
+    public void set_dayOfWeek(String _dayOfWeek) {
+        this._dayOfWeek = _dayOfWeek;
+    }
+
+    public String get_message() {
+        return _message;
+    }
+
+    public void set_message(String _message) {
+        this._message = _message;
+    }
+
+    public int get_imgSchedule() {
+        return _imgSchedule;
+    }
+
+    public void set_imgSchedule(int _imgSchedule) {
+        this._imgSchedule = _imgSchedule;
+    }
 }
+
