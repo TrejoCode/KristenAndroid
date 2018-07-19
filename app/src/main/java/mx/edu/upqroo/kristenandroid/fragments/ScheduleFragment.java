@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,25 +21,42 @@ import mx.edu.upqroo.kristenandroid.models.News;
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment {
-    private RecyclerView mRecyclerNews;
-    private ScheduleItemAdapter myAdapter;
-    private ArrayList<News> mNewsList;
-    private EndlessRecyclerViewScrollListener mScrollListener;
 
+    private String _dayOfWeek, _message;
+    private int _imgSchedule;
 
     public ScheduleFragment() {
-        // Required empty public constructor
     }
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_schedule, container, false);
-
-
-        return v;
+    @SuppressLint("ValidFragment")
+    public ScheduleFragment(String _dayOfWeek, String _message, int _imgSchedule) {
+        this._dayOfWeek = _dayOfWeek;
+        this._message = _message;
+        this._imgSchedule = _imgSchedule;
     }
 
+    public String get_dayOfWeek() {
+        return _dayOfWeek;
+    }
+
+    public void set_dayOfWeek(String _dayOfWeek) {
+        this._dayOfWeek = _dayOfWeek;
+    }
+
+    public String get_message() {
+        return _message;
+    }
+
+    public void set_message(String _message) {
+        this._message = _message;
+    }
+
+    public int get_imgSchedule() {
+        return _imgSchedule;
+    }
+
+    public void set_imgSchedule(int _imgSchedule) {
+        this._imgSchedule = _imgSchedule;
+    }
 }
+
