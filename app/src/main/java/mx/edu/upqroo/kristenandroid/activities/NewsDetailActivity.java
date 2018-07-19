@@ -29,6 +29,7 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         Toolbar mToolbar = findViewById(R.id.toolbarNewsDetail);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (getIntent().hasExtra(EXTRA_NEWS)) {
             mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
@@ -46,9 +47,9 @@ public class NewsDetailActivity extends AppCompatActivity {
         TextView content = findViewById(R.id.text_detail_content);
         ImageView cover = findViewById(R.id.image_detail_cover);
 
-        subtitle.setText(mNews.getSubtitle());
+        subtitle.setText(mNews.getDescription());
         description.setText(mNews.getDescription());
-        content.setText(mNews.getContent());
+        content.setText(mNews.getDescription());
         category.setText(mNews.getCategory());
         Picasso.get()
                 .load(mNews.getCoverUrl())
@@ -56,6 +57,11 @@ public class NewsDetailActivity extends AppCompatActivity {
                 .error(R.drawable.side_nav_bar)
                 .into(cover);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override
@@ -72,6 +78,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
             return true;
+        } else if (id == android.R.id.home) {
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);

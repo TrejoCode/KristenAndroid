@@ -25,7 +25,7 @@ public class SessionHelper {
         if (studentId.equals("1234")) {
             if (password.equals("1234")) {
                 //todo here will go the petition to the web service to try to login
-                session = new GeneralInfo("Rodrigo", "Pech", "Ing. Software",
+                session = new GeneralInfo("Rodrigo", "Pech", "1",
                         "201500100", "ISOF-2013 DE 375 CREDITOS", "( )",
                         "295.0", "VIGENTE", "(3153) SEP DIC 1",
                         "00", "(09) (3182) MAY-AGO 18", "pepr970313hqrccd01",

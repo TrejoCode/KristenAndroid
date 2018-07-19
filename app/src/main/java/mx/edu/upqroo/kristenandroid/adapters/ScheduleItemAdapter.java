@@ -12,7 +12,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
+import mx.edu.upqroo.kristenandroid.models.Schedule;
 
 public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapter.ViewHolderDatos>{
 
@@ -23,24 +23,24 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
 
         public ViewHolderDatos(View itemView) {
             super(itemView);
-            _dayOfWeek = (TextView) itemView.findViewById(R.id.titSche);
-            _message = (TextView) itemView.findViewById(R.id.contSche);
-            _imgSchedule = (ImageView) itemView.findViewById(R.id.imgSubject);
+            _dayOfWeek = itemView.findViewById(R.id.titSche);
+            _message = itemView.findViewById(R.id.contSche);
+            _imgSchedule = itemView.findViewById(R.id.imgSubject);
 
         }
 
     }
 
-    public List<ScheduleFragment> DaysList;
+    public List<Schedule> DaysList;
 
-    public ScheduleItemAdapter(List<ScheduleFragment> daysList) {
+    public ScheduleItemAdapter(List<Schedule> daysList) {
         DaysList = daysList;
     }
 
     @NonNull
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_schedule,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule,parent,false);
         ViewHolderDatos viewHolder = new ViewHolderDatos(view);
         return viewHolder;
     }

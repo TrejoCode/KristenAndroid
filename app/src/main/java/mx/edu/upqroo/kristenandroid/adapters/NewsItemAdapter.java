@@ -55,8 +55,8 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
                 .placeholder(R.drawable.side_nav_bar)
                 .into(holder.imageNews);
         holder.textTitle.setText(actualNews.getTitle());
-        holder.textSubtitle.setText(actualNews.getSubtitle());
-        holder.textBody.setText(actualNews.getDescription());
+        holder.textSubtitle.setText(actualNews.getDescription());
+        holder.textDate.setText(actualNews.getDate());
         if (position + 1 == getItemCount()) {
             ViewHelper.SetBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
         } else {
@@ -94,7 +94,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         ImageView imageNews;
         TextView textTitle;
         TextView textSubtitle;
-        TextView textBody;
+        TextView textDate;
         Button buttonReadMore;
         //TextView mCategoryTittle;
         //endregion
@@ -105,7 +105,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         imageNews = itemView.findViewById(R.id.image_item_news);
         textTitle = itemView.findViewById(R.id.text_item_title_news);
         textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
-        textBody = itemView.findViewById(R.id.text_item_body_news);
+        textDate = itemView.findViewById(R.id.text_item_date_news);
         buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
             buttonReadMore.setOnClickListener(new View.OnClickListener() {
             @Override
