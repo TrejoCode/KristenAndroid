@@ -1,14 +1,13 @@
 package mx.edu.upqroo.kristenandroid.common;
 
-import mx.edu.upqroo.kristenandroid.activities.MainActivity;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 
 public class SessionHelper {
     private static SessionHelper mInstance;
     private GeneralInfo mSession;
-    public static final String SESSION_KEY = "SESSION";
-    public static final String PASS_KEY = "PASS";
-    public static final String PREFERENCE_FILE = "PREFERENCE";
+    static final String SESSION_KEY = "SESSION";
+    static final String PASS_KEY = "PASS";
+    static final String PREFERENCE_FILE = "PREFERENCE";
 
     private SessionHelper() {
     }
@@ -25,7 +24,7 @@ public class SessionHelper {
         if (studentId.equals("1234")) {
             if (password.equals("1234")) {
                 //todo here will go the petition to the web service to try to login
-                session = new GeneralInfo("Rodrigo", "Pech", "1",
+                session = new GeneralInfo("Rodrigo", "Pech", "2",
                         "201500100", "ISOF-2013 DE 375 CREDITOS", "( )",
                         "295.0", "VIGENTE", "(3153) SEP DIC 1",
                         "00", "(09) (3182) MAY-AGO 18", "pepr970313hqrccd01",
@@ -45,7 +44,7 @@ public class SessionHelper {
         NotificationsHelper
                 .UnsuscribeNotifications(mSession.getGeneralTopic(), mSession.getUserTopic());
         mSession = null;
-        MainActivity.clearSession();
+        PreferencesManager.getInstance().clearSession();
     }
 
     public GeneralInfo getSession() {

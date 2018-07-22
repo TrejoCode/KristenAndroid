@@ -87,7 +87,6 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.news, menu);
         TextView mNavHeaderProfileName = findViewById(R.id.text_nav_header_title);
         mNavHeaderProfileName.setText(mSession.getSession().getName());
@@ -100,9 +99,8 @@ public class NewsActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            startActivity(new Intent(this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -110,7 +108,6 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
@@ -158,6 +155,8 @@ public class NewsActivity extends AppCompatActivity
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_kardex);
             }
+        } else if (id == R.id.nav_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {
             showLogoutDialog();
         }

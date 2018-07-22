@@ -30,6 +30,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         Toolbar mToolbar = findViewById(R.id.toolbarNewsDetail);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.nav_menu_news));
 
         if (getIntent().hasExtra(EXTRA_NEWS)) {
             mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
@@ -39,7 +40,7 @@ public class NewsDetailActivity extends AppCompatActivity {
             startActivity(new Intent(this, NewsActivity.class));
         }
 
-        Objects.requireNonNull(getSupportActionBar()).setTitle(mNews.getTitle());
+        //Objects.requireNonNull(getSupportActionBar()).setTitle(mNews.getTitle());
 
         TextView subtitle = findViewById(R.id.text_detail_subtitle);
         TextView description = findViewById(R.id.text_detail_description);
@@ -47,7 +48,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         TextView content = findViewById(R.id.text_detail_content);
         ImageView cover = findViewById(R.id.image_detail_cover);
 
-        subtitle.setText(mNews.getDescription());
+        subtitle.setText(mNews.getTitle());
         description.setText(mNews.getDescription());
         content.setText(mNews.getDescription());
         category.setText(mNews.getCategory());
@@ -56,7 +57,6 @@ public class NewsDetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.side_nav_bar)
                 .error(R.drawable.side_nav_bar)
                 .into(cover);
-
     }
 
     @Override

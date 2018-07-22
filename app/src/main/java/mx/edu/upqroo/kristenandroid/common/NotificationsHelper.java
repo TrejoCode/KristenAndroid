@@ -16,6 +16,9 @@ import mx.edu.upqroo.kristenandroid.activities.MainActivity;
 
 public class NotificationsHelper extends com.google.firebase.messaging.FirebaseMessagingService {
 
+    public static String GENERAL_NOTIFICATION_KEY = "GEN";
+    public static String CAREER_NOTIFICATION_KEY = "CAR";
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         if(remoteMessage.getNotification() != null){
@@ -56,11 +59,23 @@ public class NotificationsHelper extends com.google.firebase.messaging.FirebaseM
         FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
         firebaseMessaging.subscribeToTopic(channel);
         firebaseMessaging.subscribeToTopic(userChannel);
+        PreferencesManager.getInstance().saveNotificationsPreference(true, true);
+    }
+
+    public static void SuscribeNotifications(String channel) {
+        FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
+        firebaseMessaging.subscribeToTopic(channel);
+    }
+
+    public static void UnsuscribeNotifications(String channel) {
+        FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
+        firebaseMessaging.unsubscribeFromTopic(channel);
     }
 
     public static void UnsuscribeNotifications(String channel, String userChannel) {
         FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
         firebaseMessaging.unsubscribeFromTopic(channel);
         firebaseMessaging.unsubscribeFromTopic(userChannel);
+        PreferencesManager.getInstance().saveNotificationsPreference(false, false);
     }
 }

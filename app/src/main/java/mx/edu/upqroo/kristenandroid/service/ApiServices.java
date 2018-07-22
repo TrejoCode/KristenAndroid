@@ -9,19 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import mx.edu.upqroo.kristenandroid.common.ApiHelper;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class ApiServices {
+    private static ApiInterface service;
+
+    private static void initializeRestClientAdministration() {
+        if (service == null)
+        service = ApiClient.createService(ApiInterface.class);
+    }
+
     public static void getPublicationsList(int career, int page) {
-        Retrofit retrofit = ApiHelper.getNewInstance();
-        ApiInterface service = retrofit.create(ApiInterface.class);
+        initializeRestClientAdministration();
         Call<List<Publicacion>> repos = service.listPublications(career, page);
         repos.enqueue(new Callback<List<Publicacion>>() {
             @Override
@@ -51,7 +55,7 @@ public class ApiServices {
     }
 
     private static News convertPublicationToNews(Publicacion publicacion) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE d MMM yy", Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
         return new News(publicacion.getTitulo(), publicacion.getDescripcion(),
                 publicacion.getCategorias(), publicacion.getPortada(), formatter.format(publicacion.getFecha()));
     }

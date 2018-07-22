@@ -28,14 +28,12 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     //endregion
-
     //region Constructors
     public NewsItemAdapter(Context context, ArrayList<News> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
     //endregion
-
     //region onCreateViewHolder
     @NonNull
     @Override
@@ -60,7 +58,6 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         if (position + 1 == getItemCount()) {
             ViewHelper.SetBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
         } else {
-            // reset bottom margin back to zero. (your value may be different)
             ViewHelper.SetBottomMargin(holder.itemView, 0);
         }
     }
@@ -81,7 +78,6 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         this.mClickListener = itemClickListener;
     }
     //endregion
-
     //region Interface ItemClickListener
     public interface ItemClickListener {
         void onNewsItemClick(View view, int position);
@@ -96,26 +92,25 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         TextView textSubtitle;
         TextView textDate;
         Button buttonReadMore;
-        //TextView mCategoryTittle;
         //endregion
 
         //region Constructor
         ViewHolder(View itemView) {
             super(itemView);
-        imageNews = itemView.findViewById(R.id.image_item_news);
-        textTitle = itemView.findViewById(R.id.text_item_title_news);
-        textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
-        textDate = itemView.findViewById(R.id.text_item_date_news);
-        buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
-            buttonReadMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
-                intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
-                        Serializer.Serialize(news));
-                v.getContext().startActivity(intent);
-            }
-        });
+            imageNews = itemView.findViewById(R.id.image_item_news);
+            textTitle = itemView.findViewById(R.id.text_item_title_news);
+            textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
+            textDate = itemView.findViewById(R.id.text_item_date_news);
+            buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
+                buttonReadMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
+                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
+                            Serializer.Serialize(news));
+                    v.getContext().startActivity(intent);
+                }
+            });
             itemView.setOnClickListener(this);
     }
     //endregion

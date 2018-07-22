@@ -61,8 +61,6 @@ public class NewsListFragment extends Fragment {
                                 .getSession()
                                 .getCareer()), page);
                 mNewsAdapter.notifyItemRangeInserted(totalItemsCount, 5);
-                Toast.makeText(view.getContext(), "Pagina actual: " + page +
-                        " Total items count: " + totalItemsCount, Toast.LENGTH_LONG).show();
             }
         };
 
@@ -92,11 +90,18 @@ public class NewsListFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         mRecyclerNews = v.findViewById(R.id.recycler_news);
         mRecyclerNews.setHasFixedSize(true);
         mRecyclerNews.setLayoutManager(lineaLayoutManager);
         mRecyclerNews.addOnScrollListener(mScrollListener);
         mRecyclerNews.setAdapter(mNewsAdapter);
+
+        ApiServices
+                .getPublicationsList(Integer.parseInt(SessionHelper
+                        .getInstance()
+                        .getSession()
+                        .getCareer()), 1);
         return v;
     }
 
@@ -104,11 +109,6 @@ public class NewsListFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        ApiServices
-                .getPublicationsList(Integer.parseInt(SessionHelper
-                        .getInstance()
-                        .getSession()
-                        .getCareer()), 1);
     }
 
     @Override
@@ -121,6 +121,9 @@ public class NewsListFragment extends Fragment {
     public void onMessageEvent(NewsListMessage event) {
         mNewsList.addAll(event.newsList);
         mNewsAdapter.notifyDataSetChanged();
-        mRefreshLayout.refreshComplete();
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.refreshComplete();
+            Toast.makeText(getContext(), "Actualizado", Toast.LENGTH_LONG).show();
+        }
     }
 }
