@@ -1,7 +1,5 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +7,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.models.Subject;
 
@@ -18,8 +18,8 @@ public class SubjectItemAdapter extends RecyclerView.Adapter<SubjectItemAdapter.
 
         public ViewHolder(View itemView) {
             super(itemView);
-            materia = (TextView)itemView.findViewById(R.id.subjecttit);
-            hora = (TextView)itemView.findViewById(R.id.horasubject);
+            materia = itemView.findViewById(R.id.subjecttit);
+            hora = itemView.findViewById(R.id.horasubject);
 
         }
     }
