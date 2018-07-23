@@ -46,15 +46,16 @@ public class ScheduleWidget extends AppWidgetProvider {
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
         views.setRemoteAdapter(R.id.list_widget, intent);
+        views.setEmptyView(R.id.list_widget, R.id.empty_view);
 
         Intent startActivityIntent = new Intent(context, MainActivity.class);
-
         PendingIntent startActivityPendingIntent
                 = PendingIntent.getActivity(context, 0,
                 startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setOnClickPendingIntent(R.id.appwidget_text, startActivityPendingIntent);
 
-        views.setPendingIntentTemplate(R.id.list_widget, startActivityPendingIntent);
-        views.setEmptyView(R.id.list_widget, R.id.empty_view);
+        views.setOnClickPendingIntent(R.id.button_refresh_widget, getPendingSelfIntent(context, UPDATE_MEETING_ACTION));
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -111,6 +112,12 @@ public class ScheduleWidget extends AppWidgetProvider {
         if (alarmManager != null) {
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, midnight.getTimeInMillis(), pendingIntent);
         }
+    }
+
+    protected static PendingIntent getPendingSelfIntent(Context context, String action) {
+        Intent intent = new Intent(context, ScheduleWidget.class);
+        intent.setAction(action);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 }
 
