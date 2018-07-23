@@ -1,27 +1,20 @@
 package mx.edu.upqroo.kristenandroid.models;
 
 public class GeneralInfo {
+    private String userId;
+    private String password;
     private String name;
-    private String lastName;
     private String career;
     private String enrollment;
-    private String planStudy;
-    private String modSpecial;
     private String creditAcumm;
     private String validity;
     private String entryPeriod;
-    private String validPeriods;
-    private String currentPeriod;
     private String curp;
     private String dob;
     private String address;
-    private String city;
-    private String cp;
     private String phone;
     private String mobilePhone;
     private String email;
-    private String previousSchool;
-    private String tutor;
     private String generalTopic;
     private String userTopic;
 
@@ -30,32 +23,26 @@ public class GeneralInfo {
 
     }
 
-    public GeneralInfo(String name, String lastName, String career, String enrollment, String planStudy, String modSpecial, String creditAcumm, String validity, String entryPeriod,
-                       String validPeriods, String currentPeriod, String curp, String dob, String address, String city, String cp, String phone, String mobilePhone, String email,
-                       String previousSchool, String tutor, String generalTopic, String userTopic) {
+    public GeneralInfo(String name, String career, String enrollment, String creditAcumm,
+                       String validity, String entryPeriod, String curp, String dob, String address,
+                       String phone, String mobilePhone, String email, String generalTopic,
+                       String userTopic, String userId, String password) {
         this.name = name;
-        this.lastName = lastName;
         this.career = career;
         this.enrollment = enrollment;
-        this.planStudy = planStudy;
-        this.modSpecial = modSpecial;
         this.creditAcumm = creditAcumm;
         this.validity = validity;
         this.entryPeriod = entryPeriod;
-        this.validPeriods = validPeriods;
-        this.currentPeriod = currentPeriod;
         this.curp = curp;
         this.dob = dob;
         this.address = address;
-        this.city = city;
-        this.cp = cp;
         this.phone = phone;
         this.mobilePhone = mobilePhone;
         this.email = email;
-        this.previousSchool = previousSchool;
-        this.tutor = tutor;
         this.generalTopic = generalTopic;
         this.userTopic = userTopic;
+        this.userId = userId;
+        this.password = password;
     }
 
     public String getName() {
@@ -64,14 +51,6 @@ public class GeneralInfo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getCareer() {
@@ -88,22 +67,6 @@ public class GeneralInfo {
 
     public void setEnrollment(String enrollment) {
         this.enrollment = enrollment;
-    }
-
-    public String getPlanStudy() {
-        return planStudy;
-    }
-
-    public void setPlanStudy(String planStudy) {
-        this.planStudy = planStudy;
-    }
-
-    public String getModSpecial() {
-        return modSpecial;
-    }
-
-    public void setModSpecial(String modSpecial) {
-        this.modSpecial = modSpecial;
     }
 
     public String getCreditAcumm() {
@@ -130,22 +93,6 @@ public class GeneralInfo {
         this.entryPeriod = entryPeriod;
     }
 
-    public String getValidPeriods() {
-        return validPeriods;
-    }
-
-    public void setValidPeriods(String validPeriods) {
-        this.validPeriods = validPeriods;
-    }
-
-    public String getCurrentPeriod() {
-        return currentPeriod;
-    }
-
-    public void setCurrentPeriod(String currentPeriod) {
-        this.currentPeriod = currentPeriod;
-    }
-
     public String getCurp() {
         return curp;
     }
@@ -168,22 +115,6 @@ public class GeneralInfo {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCp() {
-        return cp;
-    }
-
-    public void setCp(String cp) {
-        this.cp = cp;
     }
 
     public String getPhone() {
@@ -210,14 +141,6 @@ public class GeneralInfo {
         this.email = email;
     }
 
-    public String getPreviousSchool() {
-        return previousSchool;
-    }
-
-    public void setPreviousSchool(String previousSchool) {
-        this.previousSchool = previousSchool;
-    }
-
     public String getGeneralTopic() {
         return generalTopic;
     }
@@ -234,11 +157,19 @@ public class GeneralInfo {
         this.userTopic = userTopic;
     }
 
-    public String getTutor() {
-        return tutor;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setTutor(String tutor) {
-        this.tutor = tutor;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

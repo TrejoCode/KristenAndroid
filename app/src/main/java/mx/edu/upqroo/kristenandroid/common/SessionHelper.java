@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.common;
 
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
+import mx.edu.upqroo.kristenandroid.service.ApiServices;
 
 public class SessionHelper {
     private static SessionHelper mInstance;
@@ -20,23 +21,10 @@ public class SessionHelper {
     }
 
     public void login(String studentId, String password) {
-        GeneralInfo session = null;
-        if (studentId.equals("1234")) {
-            if (password.equals("1234")) {
-                //todo here will go the petition to the web service to try to login
-                session = new GeneralInfo("Rodrigo", "Pech", "2",
-                        "201500100", "ISOF-2013 DE 375 CREDITOS", "( )",
-                        "295.0", "VIGENTE", "(3153) SEP DIC 1",
-                        "00", "(09) (3182) MAY-AGO 18", "pepr970313hqrccd01",
-                        "1997-03-13", "SANTA CECILIA", "CANCUN", "77500",
-                        "991564564", "9981158454", "rodrigoupech13@gmail.com",
-                        "MANO AMIGA", "DIEGO LOVERA", "GENERAL", "SOFTWARE");
-            }
-        }
-        createNewSession(session);
+        ApiServices.login(studentId, password);
     }
 
-    private void createNewSession(GeneralInfo session) {
+    public void createNewSession(GeneralInfo session) {
         mSession = session;
     }
 

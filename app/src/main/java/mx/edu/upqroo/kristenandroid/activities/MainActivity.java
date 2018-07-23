@@ -12,8 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.ref.WeakReference;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import mx.edu.upqroo.kristenandroid.R;
@@ -23,12 +28,16 @@ import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
+import mx.edu.upqroo.kristenandroid.service.ApiServices;
+import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
 
 public class MainActivity extends AppCompatActivity {
     private SessionHelper mSessionHelper;
     private PreferencesManager mPrefManager;
     private TextView mUserId;
     private TextView mPassword;
+    private LinearLayoutCompat mLinearOverlay;
+    private Button mButtonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("UPQROO");
 
+        mLinearOverlay = findViewById(R.id.linear_overlay_login);
+        mLinearOverlay.setVisibility(View.VISIBLE);
+
         WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
 
         mSessionHelper = SessionHelper.getInstance();
@@ -47,57 +59,50 @@ public class MainActivity extends AppCompatActivity {
         SessionLoaded sessionLoaded = mPrefManager.loadSession();
         if (!TextUtils.isEmpty(sessionLoaded.getUser()) || !TextUtils.isEmpty(sessionLoaded.getPassword())) {
             mSessionHelper.login(sessionLoaded.getUser(), sessionLoaded.getPassword());
-            startActivity(new Intent(this, NewsActivity.class));
+        } else {
+            mLinearOverlay.setVisibility(View.INVISIBLE);
         }
 
         mUserId = findViewById(R.id.field_user_id);
         mPassword = findViewById(R.id.field_password);
 
-        Button buttonLogin = findViewById(R.id.button_login);
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+        mButtonLogin = findViewById(R.id.button_login);
+        mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mUserId.setEnabled(false);
+                mPassword.setEnabled(false);
+                mButtonLogin.setVisibility(View.INVISIBLE);
+                mLinearOverlay.setVisibility(View.VISIBLE);
                 mSessionHelper.login(mUserId.getText().toString(), mPassword.getText().toString());
-                if (mSessionHelper.getSession() != null) {
-                    mPrefManager.saveSession(mUserId.getText().toString(), mPassword.getText().toString());
-                    startActivity(new Intent(v.getContext(), NewsActivity.class));
-                } else {
-                    Toast.makeText(v.getContext(), R.string.login_result_failed,
-                            Toast.LENGTH_LONG).show();
-                }
             }
         });
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-    }/*
-
-    private void saveSession(String a, String b) {
-        SharedPreferences sharedPref = getSharedPreferences(SessionHelper.PREFERENCE_FILE, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(SessionHelper.SESSION_KEY, a);
-        editor.putString(SessionHelper.PASS_KEY, b);
-        editor.apply();
+        EventBus.getDefault().register(this);
     }
 
-    private void loadSession() {
-        SharedPreferences sharedPref = getSharedPreferences(SessionHelper.PREFERENCE_FILE, MODE_PRIVATE);
-        String session = sharedPref.getString(SessionHelper.SESSION_KEY, "");
-        String pass = sharedPref.getString(SessionHelper.PASS_KEY, "");
-        if (!session.equals("")) {
-            mSessionHelper.login(session, pass);
-            //todo aqui se tiene que evaluar si el login es exitoso antes de iniciar el siguiente activity
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageLogin(LoginMessage event) {
+        if (event.isResult()) {
+            mSessionHelper.createNewSession(event.getStudent());
+            mPrefManager.saveSession(event.getStudent().getUserId(), event.getStudent().getPassword());
             startActivity(new Intent(this, NewsActivity.class));
+        } else {
+            Toast.makeText(this, R.string.login_result_failed, Toast.LENGTH_LONG).show();
         }
+        mUserId.setEnabled(true);
+        mPassword.setEnabled(true);
+        mButtonLogin.setVisibility(View.VISIBLE);
+        mLinearOverlay.setVisibility(View.INVISIBLE);
     }
-
-    public static void clearSession() {
-        Context c = mContextWeakReference.get();
-        SharedPreferences sharedPref = c.getSharedPreferences(SessionHelper.PREFERENCE_FILE, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.clear();
-        editor.apply();
-    }*/
 }
