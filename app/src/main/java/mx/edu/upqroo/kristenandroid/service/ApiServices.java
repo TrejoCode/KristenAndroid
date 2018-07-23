@@ -12,6 +12,7 @@ import java.util.Locale;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
+import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,10 +40,11 @@ public class ApiServices {
                         }
                         break;
                     case 400:
-
+                        EventBus.getDefault().post(new NewsListMessageError(response.message()));
+                        break;
+                    case 404:
                         break;
                     default:
-
                         break;
                 }
             }

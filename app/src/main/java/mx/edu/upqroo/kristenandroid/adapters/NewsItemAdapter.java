@@ -47,11 +47,20 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         News actualNews = mData.get(position);
         holder.news = actualNews;
-        Picasso.get()
-                .load(actualNews.getCoverUrl())
-                .error(R.drawable.side_nav_bar)
-                .placeholder(R.drawable.side_nav_bar)
-                .into(holder.imageNews);
+        if (actualNews.getCategory().equals("COVER")) {
+            holder.imageNews.setVisibility(View.GONE);
+            holder.buttonReadMore.setVisibility(View.GONE);
+            holder.textDate.setVisibility(View.GONE);
+        } else {
+            holder.imageNews.setVisibility(View.VISIBLE);
+            holder.buttonReadMore.setVisibility(View.VISIBLE);
+            holder.textDate.setVisibility(View.VISIBLE);
+            Picasso.get()
+                    .load(actualNews.getCoverUrl())
+                    .error(R.drawable.side_nav_bar)
+                    .placeholder(R.drawable.side_nav_bar)
+                    .into(holder.imageNews);
+        }
         holder.textTitle.setText(actualNews.getTitle());
         holder.textSubtitle.setText(actualNews.getDescription());
         holder.textDate.setText(actualNews.getDate());
@@ -105,10 +114,12 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
                 buttonReadMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
-                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
-                            Serializer.Serialize(news));
-                    v.getContext().startActivity(intent);
+                    if (!news.getCategory().equals("COVER")) {
+                        Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
+                        intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
+                                Serializer.Serialize(news));
+                        v.getContext().startActivity(intent);
+                    }
                 }
             });
             itemView.setOnClickListener(this);
