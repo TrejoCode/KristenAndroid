@@ -1,5 +1,6 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
 import mx.edu.upqroo.kristenandroid.fragments.NewsListFragment;
 import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
+import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
 public class NewsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +46,8 @@ public class NewsActivity extends AppCompatActivity
         NotificationsHelper
                 .SubscribeNotifications(mSession.getSession().getGeneralTopic(),
                         mSession.getSession().getUserTopic());
+
+        onWidgetUpdateMessage(this);
 
         setContentView(R.layout.activity_news);
         mToolbar = findViewById(R.id.toolbar);
@@ -164,6 +168,12 @@ public class NewsActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    protected void onWidgetUpdateMessage(Context context) {
+        Intent intent_meeting_update = new Intent(context, ScheduleWidget.class);
+        intent_meeting_update.setAction(ScheduleWidget.UPDATE_MEETING_ACTION);
+        sendBroadcast(intent_meeting_update);
     }
 
     private void showLogoutDialog() {

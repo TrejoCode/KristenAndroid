@@ -20,4 +20,6 @@
     <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis sapien. Duis aliquam consectetur mauris, ut malesuada sapien pulvinar vitae. Vestibulum ut mauris in risus cursus pharetra. Pellentesque rutrum, odio ac vehicula rutrum, sapien dolor mattis urna, in ultricies dui ante ut quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam semper, orci in congue vehicula, odio nulla imperdiet lorem, nec vehicula ipsum erat vel lorem.</string>
     <string name="news_image_description">News image</string>
     <string name="login_result_failed">User or password incorrect</string>
+    <string name="appwidget_text" translatable="false">Friday</string>
+    <string name="add_widget" translatable="false">Add widget</string>
 </resources>
