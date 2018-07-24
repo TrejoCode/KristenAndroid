@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Locale;
 
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
+import mx.edu.upqroo.kristenandroid.models.Grades;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
+import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
+import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
@@ -147,5 +150,50 @@ public class ApiServices {
                 topic = "GENERAL";
         }
         return topic;
+    }
+
+    public static void getGradesList(String studentId) {
+        initializeRestClientAdministration();
+        Call<List<Calificacion>> call = service.listGardes(studentId);
+        call.enqueue(new Callback<List<Calificacion>>() {
+            @Override
+            public void onResponse(Call<List<Calificacion>> call, Response<List<Calificacion>> response) {
+                switch (response.code()) {
+                    case 200:
+                        List<Calificacion> data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new GradesListMessage(convertCalificacionListToGradeList(data)));
+                        }
+                        break;
+                    case 400:
+                        break;
+                    case 404:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Calificacion>> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+    }
+
+    private static Grades convertCalificacionToGrade(Calificacion calificacion) {
+        return new Grades(calificacion.getGrupo(), calificacion.getNombreMat(),
+                calificacion.getCalificacion(), calificacion.getParcial1(),
+                calificacion.getParcial2(), calificacion.getParcial3(),
+                calificacion.getParcial4(), calificacion.getParcial5());
+    }
+
+    private static List<Grades> convertCalificacionListToGradeList(List<Calificacion> calificacionList) {
+        List<Grades> gradesList = new ArrayList<>();
+        for (Calificacion c : calificacionList) {
+            gradesList.add(convertCalificacionToGrade(c));
+        }
+        return gradesList;
     }
 }

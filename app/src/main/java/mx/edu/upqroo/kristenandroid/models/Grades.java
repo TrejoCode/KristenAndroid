@@ -12,8 +12,9 @@ public class Grades {
     private String gradeTwo;
     private String gradeThree;
     private String gradeFour;
+    private String gradeFive;
 
-    public Grades(String code, String subject, String generalGrade, String gradeOne, String gradeTwo, String gradeThree, String gradeFour) {
+    public Grades(String code, String subject, String generalGrade, String gradeOne, String gradeTwo, String gradeThree, String gradeFour, String gradeFive) {
         this.code = code;
         this.subject = subject;
         this.generalGrade = generalGrade;
@@ -21,6 +22,7 @@ public class Grades {
         this.gradeTwo = gradeTwo;
         this.gradeThree = gradeThree;
         this.gradeFour = gradeFour;
+        this.gradeFive = gradeFive;
     }
 
     public String getCode() {
@@ -77,5 +79,13 @@ public class Grades {
 
     public void setGradeFour(String gradeFour) {
         this.gradeFour = gradeFour;
+    }
+
+    public String getGradeFive() {
+        return gradeFive;
+    }
+
+    public void setGradeFive(String gradeFive) {
+        this.gradeFive = gradeFive;
     }
 }

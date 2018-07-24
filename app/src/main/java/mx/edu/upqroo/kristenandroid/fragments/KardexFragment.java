@@ -64,19 +64,19 @@ public class KardexFragment extends Fragment {
     }
 
     private void fillGradeList(ArrayList<Grades> grade) {
-        grade.add(new Grades("ADTA","ADMON DE TIC","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("1234566788909","INGLES IX","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0"));
+        grade.add(new Grades("ADTA","ADMON DE TIC","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("1234566788909","INGLES IX","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0", "0"));
+        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0", "0"));
     }
 
 }

@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 
 import me.dkzwm.widget.srl.RefreshingListenerAdapter;
@@ -18,7 +22,10 @@ import me.dkzwm.widget.srl.extra.header.ClassicHeader;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
 import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter;
+import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Grades;
+import mx.edu.upqroo.kristenandroid.service.ApiServices;
+import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +34,6 @@ public class GradesFragment extends Fragment {
     private ArrayList<Grades> mGradeList;
     private RecyclerView mRecyclerGrade;
     private GradesItemAdapter mGradeAdapter;
-    private SmoothRefreshLayout mRefreshLayout;
 
     public GradesFragment() {
         // Required empty public constructor
@@ -39,18 +45,7 @@ public class GradesFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_grades, container, false);
 
-        mRefreshLayout = v.findViewById(R.id.refreshLayout_GradesList);
-
-        mRefreshLayout.setHeaderView(new ClassicHeader(getContext()));
-        mRefreshLayout.setOnRefreshListener(new RefreshingListenerAdapter() {
-            @Override
-            public void onRefreshBegin(boolean isRefresh) {
-                Toast.makeText(getContext(), "Refreshing", Toast.LENGTH_LONG).show();
-            }
-        });
-
         mGradeList = new ArrayList<>();
-        fillGradeList(mGradeList);
 
         mRecyclerGrade =  v.findViewById(R.id.recycler_grades);
         mRecyclerGrade.setHasFixedSize(true);
@@ -58,13 +53,25 @@ public class GradesFragment extends Fragment {
 
         mGradeAdapter = new GradesItemAdapter(v.getContext(),mGradeList);
         mRecyclerGrade.setAdapter(mGradeAdapter);
+        ApiServices.getGradesList(SessionHelper.getInstance().getSession().getUserId());
         return v;
     }
 
-    private void fillGradeList(ArrayList<Grades> grade){
-        grade.add(new Grades("ADTA","ADMON DE TIC","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("AOSA","ADMON PROY SOFT","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("DAMAA","DESARROLLO DE SISTEM","9.5","9.0","9.0","8.0","8.0"));
-        grade.add(new Grades("INGIX2A","INGLES IX","9.5","9.0","9.0","8.0","8.0"));
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(GradesListMessage event) {
+        mGradeList.addAll(event.getGradesList());
+        mGradeAdapter.notifyDataSetChanged();
     }
 }

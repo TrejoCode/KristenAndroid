@@ -45,6 +45,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         holder.gradeTwo.setText(gradeList.get(position).getGradeTwo());
         holder.gradeThree.setText(gradeList.get(position).getGradeThree());
         holder.gradeFour.setText(gradeList.get(position).getGradeFour());
+        holder.gradeFive.setText(gradeList.get(position).getGradeFive());
 
         if (position + 1 == getItemCount()) {
             ViewHelper.SetBottomMargin(holder.itemView, (int) (84 * Resources.getSystem().getDisplayMetrics().density));
@@ -68,6 +69,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         TextView gradeTwo;
         TextView gradeThree;
         TextView gradeFour;
+        TextView gradeFive;
 
         public GradeViewHolder(View itemView) {
             super(itemView);
@@ -79,7 +81,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
             gradeTwo = itemView.findViewById(R.id.text_item_gradeTwo);
             gradeThree = itemView.findViewById(R.id.text_item_gradeThree);
             gradeFour = itemView.findViewById(R.id.text_item_gradeFour);
-
+            gradeFive = itemView.findViewById(R.id.text_item_gradeFive);
         }
     }
 }

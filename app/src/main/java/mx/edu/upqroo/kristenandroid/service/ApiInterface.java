@@ -3,6 +3,7 @@ package mx.edu.upqroo.kristenandroid.service;
 import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
+import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,4 +19,7 @@ public interface ApiInterface {
     @POST("appMovil/alumnos/Login")
     @FormUrlEncoded
     Call<Alumno> login(@Field("matricula") String user, @Field("contrasena") String password);
+
+    @GET("appMovil/Calificaciones/{studentId}")
+    Call<List<Calificacion>> listGardes(@Path("studentId") String studentId);
 }

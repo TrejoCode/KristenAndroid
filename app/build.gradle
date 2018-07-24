@@ -33,8 +33,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     implementation 'androidx.cardview:cardview:1.0.0-beta01'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
     implementation 'me.dkzwm.widget.srl:core:1.6.5-beta-1'
     implementation 'me.dkzwm.widget.srl:ext-utils:1.6.5-beta-1'
