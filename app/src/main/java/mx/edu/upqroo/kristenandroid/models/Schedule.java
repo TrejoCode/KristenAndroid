@@ -4,10 +4,9 @@ public class Schedule {
     private String _dayOfWeek, _message;
     private int _imgSchedule;
 
-    public Schedule(String _dayOfWeek, String _message, int _imgSchedule) {
+    public Schedule(String _dayOfWeek, String _message) {
         this._dayOfWeek = _dayOfWeek;
         this._message = _message;
-        this._imgSchedule = _imgSchedule;
     }
 
     public String get_dayOfWeek() {
@@ -24,13 +23,5 @@ public class Schedule {
 
     public void set_message(String _message) {
         this._message = _message;
-    }
-
-    public int get_imgSchedule() {
-        return _imgSchedule;
-    }
-
-    public void set_imgSchedule(int _imgSchedule) {
-        this._imgSchedule = _imgSchedule;
     }
 }

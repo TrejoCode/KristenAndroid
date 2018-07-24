@@ -32,7 +32,7 @@ public class ScheduleFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         recyclerViewSchedule = v.findViewById(R.id.recycler_schedule);
-        recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.HORIZONTAL, false));
 
         adaptadorSchedule = new ScheduleItemAdapter(obtenerDays());
         recyclerViewSchedule.setAdapter(adaptadorSchedule);
@@ -41,11 +41,11 @@ public class ScheduleFragment extends Fragment {
 
     private List<Schedule> obtenerDays(){
         List<Schedule> _dayOfWeek = new ArrayList<>();
-        _dayOfWeek.add(new Schedule("Lunes","Entra a la tarjeta para ver tus materias", R.drawable.ic_schedule));
-        _dayOfWeek.add(new Schedule("Martes","Entra a la tarjeta para ver tus materias", R.drawable.ic_schedule));
-        _dayOfWeek.add(new Schedule("Miercoles","Entra a la tarjeta para ver tus materias", R.drawable.ic_schedule));
-        _dayOfWeek.add(new Schedule("Jueves","Entra a la tarjeta para ver tus materias", R.drawable.ic_schedule));
-        _dayOfWeek.add(new Schedule("Viernes","Entra a la tarjeta para ver tus materias", R.drawable.ic_schedule));
+        _dayOfWeek.add(new Schedule("Lunes","Entra a la tarjeta para ver tus materias"));
+        _dayOfWeek.add(new Schedule("Martes","Entra a la tarjeta para ver tus materias"));
+        _dayOfWeek.add(new Schedule("Miercoles","Entra a la tarjeta para ver tus materias"));
+        _dayOfWeek.add(new Schedule("Jueves","Entra a la tarjeta para ver tus materias"));
+        _dayOfWeek.add(new Schedule("Viernes","Entra a la tarjeta para ver tus materias"));
 
         return _dayOfWeek;
     }
