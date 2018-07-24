@@ -11,11 +11,14 @@ import java.util.Locale;
 
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 import mx.edu.upqroo.kristenandroid.models.Grades;
+import mx.edu.upqroo.kristenandroid.models.Kardex;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
+import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
+import mx.edu.upqroo.kristenandroid.service.messages.KardexListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
@@ -195,5 +198,47 @@ public class ApiServices {
             gradesList.add(convertCalificacionToGrade(c));
         }
         return gradesList;
+    }
+
+    public static void getKardexList(String studentId) {
+        initializeRestClientAdministration();
+        Call<List<Kardexs>> call = service.listKardex(studentId);
+        call.enqueue(new Callback<List<Kardexs>>() {
+            @Override
+            public void onResponse(Call<List<Kardexs>> call, Response<List<Kardexs>> response) {
+                switch (response.code()) {
+                    case 200:
+                        List<Kardexs> data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new KardexListMessage(convertKardexsListToKardexList(data)));
+                        }
+                        break;
+                    case 400:
+                        break;
+                    case 404:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Kardexs>> call, Throwable t) {
+                Log.d("Error",t.getMessage());
+            }
+        });
+    }
+
+    private static Kardex convertKardexsToKardex(Kardexs kardexs) {
+        return new Kardex(kardexs.getNombreMat(), kardexs.getCalificacion(), kardexs.getCuatrimestre());
+    }
+
+    private static List<Kardex> convertKardexsListToKardexList(List<Kardexs> kardexsList) {
+        List<Kardex> kardexList = new ArrayList<>();
+        for (Kardexs c : kardexsList) {
+            kardexList.add(convertKardexsToKardex(c));
+        }
+        return kardexList;
     }
 }

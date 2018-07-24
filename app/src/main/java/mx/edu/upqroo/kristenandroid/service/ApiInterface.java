@@ -4,6 +4,7 @@ import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
+import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -22,4 +23,7 @@ public interface ApiInterface {
 
     @GET("appMovil/Calificaciones/{studentId}")
     Call<List<Calificacion>> listGardes(@Path("studentId") String studentId);
+
+    @GET("appMovil/Kardexes/{studentId}")
+    Call<List<Kardexs>> listKardex(@Path("studentId") String studentId);
 }

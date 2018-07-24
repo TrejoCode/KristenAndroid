@@ -2,8 +2,6 @@ package mx.edu.upqroo.kristenandroid.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +9,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
-import mx.edu.upqroo.kristenandroid.models.Grades;
+import mx.edu.upqroo.kristenandroid.models.Kardex;
 
 public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.KardexViewHolder>{
 
-    private List<Grades> gradeList;
+    private List<Kardex> gradeList;
     private LayoutInflater mInflater;
 
-    public KardexItemAdapter(Context context, List<Grades> gradeList) {
+    public KardexItemAdapter(Context context, List<Kardex> gradeList) {
         this.mInflater = LayoutInflater.from(context);
         this.gradeList = gradeList;
     }
@@ -34,9 +34,9 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
 
     @Override
     public void onBindViewHolder(@NonNull KardexItemAdapter.KardexViewHolder holder, int position) {
-        holder.code.setText(gradeList.get(position).getCode());
+        holder.code.setText(gradeList.get(position).getCuarter());
         holder.subject.setText(gradeList.get(position).getSubject());
-        holder.generalGrade.setText(gradeList.get(position).getGeneralGrade());
+        holder.generalGrade.setText(gradeList.get(position).getGrade());
 
         if (position + 1 == getItemCount()) {
             ViewHelper.SetBottomMargin(holder.itemView, (int) (84 * Resources.getSystem().getDisplayMetrics().density));
