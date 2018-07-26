@@ -3,13 +3,24 @@ package mx.edu.upqroo.kristenandroid.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
+import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Subject;
+import mx.edu.upqroo.kristenandroid.service.ApiServices;
+import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
+import mx.edu.upqroo.kristenandroid.service.messages.ScheduleMessage;
 
 public class ListViewWidgetService extends RemoteViewsService {
 
@@ -68,8 +79,7 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
     }
 
     public void onDataSetChanged(){
-        records.clear();
-        generateDays(records);
+        generateDays();
     }
 
     public int getViewTypeCount(){
@@ -92,11 +102,38 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
         return null;
     }
 
-    private void generateDays(ArrayList<Subject> records) {
-        records.add(new Subject("Programación", "","07:00 - 09:30 AM"));
-        records.add(new Subject("Redes", "", "09:30 - 10:20 AM"));
-        records.add(new Subject("Sistemas de la información", "", "10:20 - 11:10 AM"));
-        records.add(new Subject("Ingles X", "", "11:10 - 12:00 PM"));
-        records.add(new Subject("Administración", "", "12:00 - 13:00 PM"));
+    private void generateDays() {
+        ApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ScheduleMessage event) {
+        records.clear();
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        try {
+            switch (day) {
+                case Calendar.MONDAY:
+                    records.addAll(event.getDays().get(0).getSubjects());
+                    break;
+                case Calendar.TUESDAY:
+                    records.addAll(event.getDays().get(1).getSubjects());
+                    break;
+                case Calendar.WEDNESDAY:
+                    records.addAll(event.getDays().get(2).getSubjects());
+                    break;
+                case Calendar.THURSDAY:
+                    records.addAll(event.getDays().get(3).getSubjects());
+                    break;
+                case Calendar.FRIDAY:
+                    records.addAll(event.getDays().get(4).getSubjects());
+                    break;
+            }
+            onDataSetChanged();
+        } catch (Exception ex) {
+            //
+        }
+        EventBus.getDefault().unregister(this);
     }
 }
