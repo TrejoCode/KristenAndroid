@@ -148,8 +148,8 @@ public class NewsListFragment extends Fragment {
     private void generateCover() {
         Date date = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM", Locale.US);
-        mNewsList.add(new News(0,"Universidad Politécnica de Quintana Roo",
-                "Bienvenido a la aplicación oficial",
+        mNewsList.add(new News(0, getString(R.string.news_header_title),
+                getString(R.string.news_header_desc),
                 "COVER",
                 "http://www.upqroo.edu.mx/wp-content/uploads/2018/01/bslider_b03.jpg",
                 formatter.format(date)));

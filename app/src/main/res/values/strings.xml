@@ -27,4 +27,21 @@
     <string name="wednesday">Wednesday</string>
     <string name="thursday">Thursday</string>
     <string name="friday">Friday</string>
+    <string name="notifications">Notifications</string>
+    <string name="settings_op_1">Show general notifications</string>
+    <string name="settings_op_desc_1">Turn on or off the notifications for general news</string>
+    <string name="settings_op_2">Show career notifications</string>
+    <string name="settings_op_desc_2">Turn on or off the notifications for my career</string>
+    <string name="news_header_title">Polytechnic University of Quintana Roo</string>
+    <string name="news_header_desc">Welcome to the official app</string>
+    <string name="user_name">Names and lastname</string>
+    <string name="user_career">Career</string>
+    <string name="user_credits">Accumulated credits</string>
+    <string name="user_status">Current status</string>
+    <string name="user_entry">Period of entry</string>
+    <string name="user_bod">Birthdate</string>
+    <string name="user_address">Address</string>
+    <string name="user_home_phone">Home phone</string>
+    <string name="user_mobile">Mobile phone</string>
+    <string name="user_email">Email address</string>
 </resources>

@@ -19,4 +19,21 @@
     <string name="wednesday">Miercoles</string>
     <string name="thursday">Jueves</string>
     <string name="friday">Viernes</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="settings_op_1">Mostrar notificaciones generales</string>
+    <string name="settings_op_desc_1">Activa o desactiva las notificaciones para noticias generales</string>
+    <string name="settings_op_2">Mostrar notificaciones de la carrera</string>
+    <string name="settings_op_desc_2">Activa o desactiva las notificaciones para noticias de la carrera</string>
+    <string name="news_header_title">Universidad Politécnica de Quintana Roo</string>
+    <string name="news_header_desc">Bienvenido a la aplicación oficial</string>
+    <string name="user_name">Nombres y apellidos</string>
+    <string name="user_career">Carrera</string>
+    <string name="user_credits">Créditos acumulados</string>
+    <string name="user_status">Situación de vigencia</string>
+    <string name="user_entry">Periodo de ingreso</string>
+    <string name="user_bod">Fecha de nacimiento</string>
+    <string name="user_address">Dirección</string>
+    <string name="user_home_phone">Teléfono de domicilio</string>
+    <string name="user_mobile">Teléfono móvil</string>
+    <string name="user_email">Correo electrónico</string>
 </resources>
