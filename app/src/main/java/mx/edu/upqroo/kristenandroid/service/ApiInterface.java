@@ -6,6 +6,7 @@ import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
+import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -16,6 +17,9 @@ import retrofit2.http.Path;
 public interface ApiInterface {
     @GET("WebSite/Publicacion/FeedApp/{career}/{page}")
     Call<List<Publicacion>> listPublications(@Path("career") int career, @Path("page") int page);
+
+    @GET("WebSite/Publicacion/{idPost}")
+    Call<PublicacionContenido> listContents(@Path("idPost") int idPost);
 
     @POST("appMovil/alumnos/Login")
     @FormUrlEncoded

@@ -17,11 +17,13 @@ import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
+import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
 import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.KardexListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
+import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,7 +69,7 @@ public class ApiServices {
 
     private static News convertPublicationToNews(Publicacion publicacion) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
-        return new News(publicacion.getTitulo(), publicacion.getDescripcion(),
+        return new News(publicacion.getIdPublicaciones(), publicacion.getTitulo(), publicacion.getDescripcion(),
                 publicacion.getCategorias(), publicacion.getPortada(), formatter.format(publicacion.getFecha()));
     }
 
@@ -240,5 +242,31 @@ public class ApiServices {
             kardexList.add(convertKardexsToKardex(c));
         }
         return kardexList;
+    }
+
+    public static void getPostContent(int postId) {
+        initializeRestClientAdministration();
+        Call<PublicacionContenido> call = service.listContents(postId);
+        call.enqueue(new Callback<PublicacionContenido>() {
+            @Override
+            public void onResponse(Call<PublicacionContenido> call, Response<PublicacionContenido> response) {
+                switch (response.code()) {
+                    case 200:
+                        PublicacionContenido data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new PostContentMessage(data));
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PublicacionContenido> call, Throwable t) {
+
+            }
+        });
     }
 }

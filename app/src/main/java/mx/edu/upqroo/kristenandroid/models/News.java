@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.models;
 
 public class News {
+    private int id;
     private String title;
     private String description;
     private String category;
@@ -11,12 +12,21 @@ public class News {
 
     }
 
-    public News(String title, String description, String category, String coverUrl, String date) {
+    public News(int id, String title, String description, String category, String coverUrl, String date) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.coverUrl = coverUrl;
         this.date = date;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
