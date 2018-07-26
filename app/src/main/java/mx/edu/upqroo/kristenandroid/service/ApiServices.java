@@ -123,38 +123,10 @@ public class ApiServices {
                 alumno.getTelMovil(),
                 alumno.getCorreo(),
                 "GENERAL",
-                getUserTopic(alumno.getCarrera()),
+                alumno.getTopic(),
                 alumno.getMatricula(),
                 alumno.getContrasena()
                 );
-    }
-
-    private static String getUserTopic(String career) {
-        int i = Integer.parseInt(career);
-        String topic;
-        switch(i){
-            case 1:
-                topic = "GENERAL";
-                break;
-            case 2:
-                topic = "INGENIERIAENSOFTWARE";
-                break;
-            case 3:
-                topic = "INGENIERIAFINANCIERA";
-                break;
-            case 4:
-                topic = "INGENIERIAENBIOMEDICA";
-                break;
-            case 5:
-                topic = "LICENCIATURAADMINISTRACIONYGESTIONDEPYMES";
-                break;
-            case 7:
-                topic = "LICENCIATURAENTERAPIAFISICA";
-                break;
-            default:
-                topic = "GENERAL";
-        }
-        return topic;
     }
 
     public static void getGradesList(String studentId) {

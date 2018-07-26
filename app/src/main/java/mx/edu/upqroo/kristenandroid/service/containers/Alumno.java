@@ -50,6 +50,9 @@ public class Alumno {
     @SerializedName("correo")
     @Expose
     private String correo;
+    @SerializedName("topic")
+    @Expose
+    private String topic;
 
     public String getMatricula() {
         return matricula;
@@ -171,4 +174,11 @@ public class Alumno {
         this.correo = correo;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
 }

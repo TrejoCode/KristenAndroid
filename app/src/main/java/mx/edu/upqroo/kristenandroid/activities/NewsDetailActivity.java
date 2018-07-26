@@ -26,7 +26,6 @@ import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
 import mx.edu.upqroo.kristenandroid.service.containers.Contenido;
-import mx.edu.upqroo.kristenandroid.service.containers.Contenido_;
 import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 
 public class NewsDetailActivity extends AppCompatActivity {
