@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -37,6 +38,7 @@ public class KardexFragment extends Fragment {
     private ArrayList<Kardex> mKardexList;
     private RecyclerView mRecyclerKardex;
     private KardexItemAdapter mKardexAdapter;
+    private ProgressBar mProgress;
 
     public KardexFragment() {
         // Required empty public constructor
@@ -54,6 +56,10 @@ public class KardexFragment extends Fragment {
         mRecyclerKardex =  v.findViewById(R.id.recycler_kardex);
         mRecyclerKardex.setHasFixedSize(true);
         mRecyclerKardex.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        mRecyclerKardex.setVisibility(View.GONE);
+
+        mProgress = v.findViewById(R.id.progress_kardex);
+        mProgress.setVisibility(View.VISIBLE);
 
         mKardexAdapter = new KardexItemAdapter(v.getContext(), mKardexList);
         mRecyclerKardex.setAdapter(mKardexAdapter);
@@ -75,6 +81,8 @@ public class KardexFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(KardexListMessage event) {
+        mRecyclerKardex.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.GONE);
         mKardexList.addAll(event.getKardexList());
         mKardexAdapter.notifyDataSetChanged();
     }

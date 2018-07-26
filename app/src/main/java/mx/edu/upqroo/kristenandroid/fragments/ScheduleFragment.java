@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -30,6 +31,7 @@ public class ScheduleFragment extends Fragment {
     private RecyclerView recyclerViewSchedule;
     private ScheduleItemAdapter adaptadorSchedule;
     private List<Day> mDaysList;
+    private ProgressBar mProgress;
 
     public ScheduleFragment() {
     }
@@ -40,10 +42,13 @@ public class ScheduleFragment extends Fragment {
 
         recyclerViewSchedule = v.findViewById(R.id.recycler_schedule);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        recyclerViewSchedule.setVisibility(View.VISIBLE);
 
         mDaysList = new ArrayList<>();
         adaptadorSchedule = new ScheduleItemAdapter(mDaysList);
         recyclerViewSchedule.setAdapter(adaptadorSchedule);
+        mProgress = v.findViewById(R.id.progress_schedule);
+        mProgress.setVisibility(View.VISIBLE);
         ApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
         return v;
     }
@@ -62,6 +67,8 @@ public class ScheduleFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ScheduleMessage event) {
+        mProgress.setVisibility(View.GONE);
+        recyclerViewSchedule.setVisibility(View.VISIBLE);
         mDaysList.addAll(event.getDays());
         adaptadorSchedule.notifyDataSetChanged();
     }

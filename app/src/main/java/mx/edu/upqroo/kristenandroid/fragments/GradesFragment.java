@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +35,7 @@ public class GradesFragment extends Fragment {
     private ArrayList<Grades> mGradeList;
     private RecyclerView mRecyclerGrade;
     private GradesItemAdapter mGradeAdapter;
+    private ProgressBar mProgress;
 
     public GradesFragment() {
         // Required empty public constructor
@@ -50,6 +52,9 @@ public class GradesFragment extends Fragment {
         mRecyclerGrade =  v.findViewById(R.id.recycler_grades);
         mRecyclerGrade.setHasFixedSize(true);
         mRecyclerGrade.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        mRecyclerGrade.setVisibility(View.GONE);
+        mProgress = v.findViewById(R.id.progress_grades);
+        mProgress.setVisibility(View.VISIBLE);
 
         mGradeAdapter = new GradesItemAdapter(v.getContext(),mGradeList);
         mRecyclerGrade.setAdapter(mGradeAdapter);
@@ -71,6 +76,8 @@ public class GradesFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(GradesListMessage event) {
+        mRecyclerGrade.setVisibility(View.VISIBLE);
+        mProgress.setVisibility(View.GONE);
         mGradeList.addAll(event.getGradesList());
         mGradeAdapter.notifyDataSetChanged();
     }

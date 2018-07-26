@@ -1,6 +1,5 @@
 package mx.edu.upqroo.kristenandroid.service;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
