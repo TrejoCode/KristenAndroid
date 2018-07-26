@@ -45,7 +45,7 @@ public class ApiServices {
 
     public static void getPublicationsList(int career, int page) {
         initializeRestClientAdministration();
-        Call<List<Publicacion>> repos = service.listPublications(career + 1, page);
+        Call<List<Publicacion>> repos = service.listPublications(career, page);
         repos.enqueue(new Callback<List<Publicacion>>() {
             @Override
             public void onResponse(Call<List<Publicacion>> call, Response<List<Publicacion>> response) {
