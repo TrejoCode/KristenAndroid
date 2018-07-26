@@ -9,7 +9,7 @@ import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.models.ScheduleDay;
+import mx.edu.upqroo.kristenandroid.models.Subject;
 
 public class ListViewWidgetService extends RemoteViewsService {
 
@@ -20,7 +20,7 @@ public class ListViewWidgetService extends RemoteViewsService {
 
 class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private Context mContext;
-    private ArrayList<ScheduleDay> records;
+    private ArrayList<Subject> records;
 
     public ListViewRemoteViewsFactory(Context context, Intent intent) {
         mContext = context;
@@ -92,11 +92,11 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
         return null;
     }
 
-    private void generateDays(ArrayList<ScheduleDay> records) {
-        records.add(new ScheduleDay("Programación", "07:00 - 09:30 AM"));
-        records.add(new ScheduleDay("Redes", "09:30 - 10:20 AM"));
-        records.add(new ScheduleDay("Sistemas de la información", "10:20 - 11:10 AM"));
-        records.add(new ScheduleDay("Ingles X", "11:10 - 12:00 PM"));
-        records.add(new ScheduleDay("Administración", "12:00 - 13:00 PM"));
+    private void generateDays(ArrayList<Subject> records) {
+        records.add(new Subject("Programación", "","07:00 - 09:30 AM"));
+        records.add(new Subject("Redes", "", "09:30 - 10:20 AM"));
+        records.add(new Subject("Sistemas de la información", "", "10:20 - 11:10 AM"));
+        records.add(new Subject("Ingles X", "", "11:10 - 12:00 PM"));
+        records.add(new Subject("Administración", "", "12:00 - 13:00 PM"));
     }
 }

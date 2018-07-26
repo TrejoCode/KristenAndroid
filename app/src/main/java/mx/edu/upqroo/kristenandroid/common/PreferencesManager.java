@@ -11,6 +11,7 @@ import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
 public class PreferencesManager {
     private static PreferencesManager mInstance;
     private SharedPreferences mSharedPref;
+    private WeakReference<Context> mContextWeakReference;
 
     private PreferencesManager() {
     }
@@ -23,8 +24,13 @@ public class PreferencesManager {
     }
 
     public void setContext(WeakReference<Context> contextWeakReference) {
+        this.mContextWeakReference = contextWeakReference;
         mSharedPref = contextWeakReference.get()
                 .getSharedPreferences(SessionHelper.PREFERENCE_FILE, Context.MODE_PRIVATE);
+    }
+
+    public Context getContext() {
+        return mContextWeakReference.get();
     }
 
     public void saveSession(String a, String b) {

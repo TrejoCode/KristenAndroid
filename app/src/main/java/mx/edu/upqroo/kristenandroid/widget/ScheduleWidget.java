@@ -100,7 +100,7 @@ public class ScheduleWidget extends AppWidgetProvider {
         Calendar midnight = Calendar.getInstance();
         midnight.set(Calendar.HOUR_OF_DAY, 0);
         midnight.set(Calendar.MINUTE, 0);
-        // Schedule one second after midnight, to be sure we are in the right day next time this
+        // Day one second after midnight, to be sure we are in the right day next time this
         // method is called.  Otherwise, we risk calling onUpdate multiple times within a few
         // milliseconds
         midnight.set(Calendar.SECOND, 1);

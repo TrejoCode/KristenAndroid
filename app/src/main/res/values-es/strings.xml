@@ -14,4 +14,9 @@
     <string name="field_hint_password">Contraseña</string>
     <string name="news_image_description">Imagen de la noticia</string>
     <string name="login_result_failed">Usuario o contraseña incorrecto</string>
+    <string name="monday">Lunes</string>
+    <string name="tuesday">Martes</string>
+    <string name="wednesday">Miercoles</string>
+    <string name="thursday">Jueves</string>
+    <string name="friday">Viernes</string>
 </resources>

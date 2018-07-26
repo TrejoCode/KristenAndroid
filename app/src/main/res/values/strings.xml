@@ -22,4 +22,9 @@
     <string name="login_result_failed">User or password incorrect</string>
     <string name="appwidget_text" translatable="false">Friday</string>
     <string name="add_widget" translatable="false">Add widget</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
 </resources>

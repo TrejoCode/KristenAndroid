@@ -7,6 +7,7 @@ import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
+import mx.edu.upqroo.kristenandroid.service.containers.Semana;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -30,4 +31,7 @@ public interface ApiInterface {
 
     @GET("appMovil/Kardexes/{studentId}")
     Call<List<Kardexs>> listKardex(@Path("studentId") String studentId);
+
+    @GET("appMovil/Horario/{studentId}")
+    Call<Semana> schedule(@Path("studentId") String studentId);
 }

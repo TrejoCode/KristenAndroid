@@ -1,29 +1,37 @@
 package mx.edu.upqroo.kristenandroid.models;
 
 public class Subject {
-    private String materia, hora;
+    private String name;
+    private String professor;
+    private String time;
 
-    public Subject() {
+    public Subject(String name,String professor, String time) {
+        this.name = name;
+        this.professor = professor;
+        this.time = time;
     }
 
-    public Subject(String materia, String hora) {
-        this.materia = materia;
-        this.hora = hora;
+    public String getName() {
+        return name;
     }
 
-    public String getMateria() {
-        return materia;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setMateria(String materia) {
-        this.materia = materia;
+    public String getProfessor() {
+        return professor;
     }
 
-    public String getHora() {
-        return hora;
+    public void setProfessor(String professor) {
+        this.professor = professor;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

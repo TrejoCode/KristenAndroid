@@ -1,5 +1,6 @@
 package mx.edu.upqroo.kristenandroid.service;
 
+import android.content.res.Resources;
 import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
@@ -9,21 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
+import mx.edu.upqroo.kristenandroid.models.Day;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 import mx.edu.upqroo.kristenandroid.models.Grades;
 import mx.edu.upqroo.kristenandroid.models.Kardex;
 import mx.edu.upqroo.kristenandroid.models.News;
+import mx.edu.upqroo.kristenandroid.models.Subject;
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
+import mx.edu.upqroo.kristenandroid.service.containers.Materia;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
+import mx.edu.upqroo.kristenandroid.service.containers.Semana;
 import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.KardexListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
 import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
+import mx.edu.upqroo.kristenandroid.service.messages.ScheduleMessage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -240,5 +248,70 @@ public class ApiServices {
 
             }
         });
+    }
+
+    public static void getSchedule(String studentId) {
+        initializeRestClientAdministration();
+        Call<Semana> call = service.schedule(studentId);
+        call.enqueue(new Callback<Semana>() {
+            @Override
+            public void onResponse(Call<Semana> call, Response<Semana> response) {
+                switch (response.code()) {
+                    case 200:
+                        Semana data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new ScheduleMessage(convertSemanaToSchedule(data)));
+                        }
+                        break;
+                    default:
+                        EventBus.getDefault()
+                                .post(new LoginMessage(false, null));
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Semana> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private static List<Day> convertSemanaToSchedule(Semana semana) {
+        List<Day> dayList = new ArrayList<>();
+        List<Subject> mondaySubjects = new ArrayList<>();
+        for (Materia m : semana.getLunes()) {
+            mondaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
+        }
+        List<Subject> tuesdaySubjects = new ArrayList<>();
+        for (Materia m : semana.getMartes()) {
+            tuesdaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
+        }
+        List<Subject> wednesdaySubjects = new ArrayList<>();
+        for (Materia m : semana.getMiercoles()) {
+            wednesdaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
+        }
+        List<Subject> thursdaySubjects = new ArrayList<>();
+        for (Materia m : semana.getJueves()) {
+            thursdaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
+        }
+        List<Subject> fridaySubjects = new ArrayList<>();
+        for (Materia m : semana.getViernes()) {
+            fridaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
+        }
+        Day lunes = new Day(PreferencesManager.getInstance().getContext().getString(R.string.monday), mondaySubjects);
+        Day martes = new Day(PreferencesManager.getInstance().getContext().getString(R.string.tuesday), tuesdaySubjects);
+        Day miercoles = new Day(PreferencesManager.getInstance().getContext().getString(R.string.wednesday), wednesdaySubjects);
+        Day jueves = new Day(PreferencesManager.getInstance().getContext().getString(R.string.thursday), thursdaySubjects);
+        Day viernes = new Day(PreferencesManager.getInstance().getContext().getString(R.string.friday), fridaySubjects);
+
+        dayList.add(lunes);
+        dayList.add(martes);
+        dayList.add(miercoles);
+        dayList.add(jueves);
+        dayList.add(viernes);
+
+        return dayList;
     }
 }
