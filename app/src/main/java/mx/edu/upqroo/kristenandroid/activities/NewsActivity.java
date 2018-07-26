@@ -24,12 +24,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
 import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
+import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
 import mx.edu.upqroo.kristenandroid.fragments.NewsListFragment;
 import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
+import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
 public class NewsActivity extends AppCompatActivity
@@ -44,10 +46,6 @@ public class NewsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         mSession = SessionHelper.getInstance();
-        NotificationsHelper
-                .SubscribeNotifications(mSession.getSession().getGeneralTopic(),
-                        mSession.getSession().getUserTopic());
-
         onWidgetUpdateMessage(this);
 
         setContentView(R.layout.activity_news);

@@ -27,6 +27,7 @@ import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
+import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
@@ -50,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         mLinearOverlay = findViewById(R.id.linear_overlay_login);
         mLinearOverlay.setVisibility(View.VISIBLE);
+        mUserId = findViewById(R.id.field_user_id);
+        mPassword = findViewById(R.id.field_password);
+        mButtonLogin = findViewById(R.id.button_login);
+        mButtonLogin.setVisibility(View.INVISIBLE);
 
         WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
 
@@ -61,12 +66,9 @@ public class MainActivity extends AppCompatActivity {
             mSessionHelper.login(sessionLoaded.getUser(), sessionLoaded.getPassword());
         } else {
             mLinearOverlay.setVisibility(View.INVISIBLE);
+            mButtonLogin.setVisibility(View.VISIBLE);
         }
 
-        mUserId = findViewById(R.id.field_user_id);
-        mPassword = findViewById(R.id.field_password);
-
-        mButtonLogin = findViewById(R.id.button_login);
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +103,16 @@ public class MainActivity extends AppCompatActivity {
         if (event.isResult()) {
             mSessionHelper.createNewSession(event.getStudent());
             mPrefManager.saveSession(event.getStudent().getUserId(), event.getStudent().getPassword());
+
+            NotificationLoaded notificationLoaded = PreferencesManager.getInstance().loadNotificationsPreference();
+            if (notificationLoaded.isGeneral()) {
+                NotificationsHelper
+                        .SubscribeNotifications(mSessionHelper.getSession().getGeneralTopic());
+            }
+            if (notificationLoaded.isCareer()) {
+                NotificationsHelper
+                        .SubscribeNotifications(mSessionHelper.getSession().getUserTopic());
+            }
             startActivity(new Intent(this, NewsActivity.class));
         } else {
             Toast.makeText(this, R.string.login_result_failed, Toast.LENGTH_LONG).show();

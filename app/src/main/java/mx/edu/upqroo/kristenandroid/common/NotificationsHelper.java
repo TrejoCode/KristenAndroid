@@ -62,7 +62,7 @@ public class NotificationsHelper extends com.google.firebase.messaging.FirebaseM
         PreferencesManager.getInstance().saveNotificationsPreference(true, true);
     }
 
-    public static void SuscribeNotifications(String channel) {
+    public static void SubscribeNotifications(String channel) {
         FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
         firebaseMessaging.subscribeToTopic(channel);
     }

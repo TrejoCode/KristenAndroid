@@ -64,7 +64,7 @@ public class PreferencesManager {
             editor.putBoolean(NotificationsHelper.GENERAL_NOTIFICATION_KEY, config);
             if (config) {
                 NotificationsHelper
-                        .SuscribeNotifications(SessionHelper
+                        .SubscribeNotifications(SessionHelper
                                 .getInstance().getSession().getGeneralTopic());
             } else {
                 NotificationsHelper
@@ -75,7 +75,7 @@ public class PreferencesManager {
             editor.putBoolean(NotificationsHelper.CAREER_NOTIFICATION_KEY, config);
             if (config) {
                 NotificationsHelper
-                        .SuscribeNotifications(SessionHelper
+                        .SubscribeNotifications(SessionHelper
                                 .getInstance().getSession().getUserTopic());
             } else {
                 NotificationsHelper
