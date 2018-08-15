@@ -119,7 +119,7 @@ public class ApiServices {
     private static GeneralInfo convertAlumnoToGeneralInfo(Alumno alumno) {
         return new GeneralInfo(alumno.getNombre(),
                 alumno.getCarrera(),
-                alumno.getCarrera(),
+                alumno.getNombreCarrera(),
                 alumno.getCreditos(),
                 alumno.getSituacion(),
                 alumno.getPdoIni(),

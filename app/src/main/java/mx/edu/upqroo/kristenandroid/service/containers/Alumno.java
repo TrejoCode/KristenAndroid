@@ -17,6 +17,9 @@ public class Alumno {
     @SerializedName("carrera")
     @Expose
     private String carrera;
+    @SerializedName("nombre_carrera")
+    @Expose
+    private String nombreCarrera;
     @SerializedName("creditos")
     @Expose
     private String creditos;
@@ -84,6 +87,14 @@ public class Alumno {
 
     public void setCarrera(String carrera) {
         this.carrera = carrera;
+    }
+
+    public String getNombreCarrera() {
+        return nombreCarrera;
+    }
+
+    public void setNombreCarrera(String nombreCarrera) {
+        this.nombreCarrera = nombreCarrera;
     }
 
     public String getCreditos() {

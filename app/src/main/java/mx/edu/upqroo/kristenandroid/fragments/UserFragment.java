@@ -37,7 +37,7 @@ public class UserFragment extends Fragment {
         alumnName.setText(mSession.getSession().getName());
 
         TextView alumnCareer = v.findViewById(R.id.text_alumn_career);
-        alumnCareer.setText(mSession.getSession().getCareer());
+        alumnCareer.setText(mSession.getSession().getEnrollment());
 
         TextView alumnCredits = v.findViewById(R.id.text_alumn_credits);
         alumnCredits.setText(mSession.getSession().getCreditAcumm());
