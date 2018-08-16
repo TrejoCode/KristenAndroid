@@ -2,6 +2,7 @@ package mx.edu.upqroo.kristenandroid.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -145,9 +146,17 @@ public class NewsDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
-            return true;
+            if (mNews.getPostType() == 1) {
+                startActivity(new Intent(Intent.ACTION_VIEW)
+                        .setData(Uri.parse("http://www.google.com")));
+            } else if (mNews.getPostType() == 2) {
+                startActivity(new Intent(Intent.ACTION_VIEW)
+                        .setData(Uri.parse("http://www.google.com")));
+            } else if (mNews.getPostType() == 3) {
+                startActivity(new Intent(Intent.ACTION_VIEW)
+                        .setData(Uri.parse("http://www.google.com")));
+            }
         } else if (id == android.R.id.home) {
             onBackPressed();
         }
@@ -158,6 +167,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(PostContentMessage event) {
         try {
+            mNews.setPostType(event.getPublicacionContenido().getIdTiposPublicacion());
             mSubtitle.setText(event.getPublicacionContenido().getTitulo());
             mDescription.setText(event.getPublicacionContenido().getDescripcion());
             StringBuilder content = new StringBuilder();

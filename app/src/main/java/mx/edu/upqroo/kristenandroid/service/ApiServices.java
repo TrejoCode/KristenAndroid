@@ -76,7 +76,7 @@ public class ApiServices {
 
     private static News convertPublicationToNews(Publicacion publicacion) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
-        return new News(publicacion.getIdPublicaciones(), publicacion.getTitulo(), publicacion.getDescripcion(),
+        return new News(publicacion.getIdPublicaciones(), publicacion.getIdTipos_Publicacion(), publicacion.getTitulo(), publicacion.getDescripcion(),
                 publicacion.getCategorias(), publicacion.getPortada(), formatter.format(publicacion.getFecha()));
     }
 

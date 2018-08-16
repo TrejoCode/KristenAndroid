@@ -9,7 +9,7 @@ public class Publicacion {
     private String categorias;
     private String portada;
     private Date fecha;
-    private int idTipos_Publicaciones;
+    private int idTipos_Publicacion;
 
     public int getIdPublicaciones() {
         return idPublicaciones;
@@ -59,11 +59,11 @@ public class Publicacion {
         this.fecha = fecha;
     }
 
-    public int getIdTipos_Publicaciones() {
-        return idTipos_Publicaciones;
+    public int getIdTipos_Publicacion() {
+        return idTipos_Publicacion;
     }
 
-    public void setIdTipos_Publicaciones(int idTipos_Publicaciones) {
-        this.idTipos_Publicaciones = idTipos_Publicaciones;
+    public void setIdTipos_Publicacion(int idTipos_Publicaciones) {
+        this.idTipos_Publicacion = idTipos_Publicaciones;
     }
 }
