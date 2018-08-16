@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,7 +33,6 @@ import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 public class NewsDetailActivity extends AppCompatActivity {
     public static final String EXTRA_NEWS = "KEY_NEWS";
     private News mNews;
-    private TextView mSubtitle;
     private TextView mDescription;
     private TextView mCategory;
     private TextView mContent;
@@ -56,16 +56,16 @@ public class NewsDetailActivity extends AppCompatActivity {
     private String imageUrl6;
 
     private ProgressBar mProgressBar;
+    private CollapsingToolbarLayout mCollapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-
         Toolbar mToolbar = findViewById(R.id.toolbarNewsDetail);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.nav_menu_news));
 
         if (getIntent().hasExtra(EXTRA_NEWS)) {
             mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
@@ -77,8 +77,8 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         mProgressBar = findViewById(R.id.progressBar_news_detail);
         mProgressBar.setVisibility(View.VISIBLE);
-
-        mSubtitle = findViewById(R.id.text_detail_subtitle);
+        mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
+        mCollapsingToolbar.setTitleEnabled(false);
         mDescription = findViewById(R.id.text_detail_description);
         mCategory = findViewById(R.id.text_detail_category);
         mContent = findViewById(R.id.text_detail_content);
@@ -93,7 +93,6 @@ public class NewsDetailActivity extends AppCompatActivity {
         mImage5 = findViewById(R.id.image_detail_5);
         mImage6 = findViewById(R.id.image_detail_6);
 
-        mSubtitle.setVisibility(View.GONE);
         mDescription.setVisibility(View.GONE);
         mCategory.setVisibility(View.GONE);
         mContent.setVisibility(View.GONE);
@@ -167,8 +166,10 @@ public class NewsDetailActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(PostContentMessage event) {
         try {
+            mCollapsingToolbar.setTitle(event.getPublicacionContenido().getTitulo());
+            mCollapsingToolbar.setTitleEnabled(true);
+            getSupportActionBar().setTitle(event.getPublicacionContenido().getTitulo());
             mNews.setPostType(event.getPublicacionContenido().getIdTiposPublicacion());
-            mSubtitle.setText(event.getPublicacionContenido().getTitulo());
             mDescription.setText(event.getPublicacionContenido().getDescripcion());
             StringBuilder content = new StringBuilder();
             ArrayList<String> sites = new ArrayList<>();
@@ -353,7 +354,6 @@ public class NewsDetailActivity extends AppCompatActivity {
             }
             mContent.setText(content);
             mCategory.setText(event.getPublicacionContenido().getCategorias());
-            mSubtitle.setVisibility(View.VISIBLE);
             mDescription.setVisibility(View.VISIBLE);
             mCategory.setVisibility(View.VISIBLE);
             mContent.setVisibility(View.VISIBLE);
