@@ -147,14 +147,23 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         if (id == R.id.action_share) {
             if (mNews.getPostType() == 1) {
-                startActivity(new Intent(Intent.ACTION_VIEW)
-                        .setData(Uri.parse("http://www.google.com")));
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Share"));
             } else if (mNews.getPostType() == 2) {
-                startActivity(new Intent(Intent.ACTION_VIEW)
-                        .setData(Uri.parse("http://www.google.com")));
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Share"));
             } else if (mNews.getPostType() == 3) {
-                startActivity(new Intent(Intent.ACTION_VIEW)
-                        .setData(Uri.parse("http://www.google.com")));
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, "Share"));
             }
         } else if (id == android.R.id.home) {
             onBackPressed();
