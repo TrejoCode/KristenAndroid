@@ -48,7 +48,8 @@ public class ApiServices {
         Call<List<Publicacion>> repos = service.listPublications(career, page);
         repos.enqueue(new Callback<List<Publicacion>>() {
             @Override
-            public void onResponse(Call<List<Publicacion>> call, Response<List<Publicacion>> response) {
+            public void onResponse(Call<List<Publicacion>> call,
+                                   Response<List<Publicacion>> response) {
                 switch (response.code()) {
                     case 200:
                         List<Publicacion> data = response.body();
@@ -76,8 +77,13 @@ public class ApiServices {
 
     private static News convertPublicationToNews(Publicacion publicacion) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
-        return new News(publicacion.getIdPublicaciones(), publicacion.getIdTipos_Publicacion(), publicacion.getTitulo(), publicacion.getDescripcion(),
-                publicacion.getCategorias(), publicacion.getPortada(), formatter.format(publicacion.getFecha()));
+        return new News(publicacion.getIdPublicaciones(),
+                publicacion.getIdTipos_Publicacion(),
+                publicacion.getTitulo(),
+                publicacion.getDescripcion(),
+                publicacion.getCategorias(),
+                publicacion.getPortada(),
+                formatter.format(publicacion.getFecha()));
     }
 
     private static List<News> convertPublicationListToNewsList(List<Publicacion> publicacionList) {
@@ -99,7 +105,8 @@ public class ApiServices {
                         Alumno data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new LoginMessage(true, convertAlumnoToGeneralInfo(data)));
+                                    .post(new LoginMessage(true,
+                                            convertAlumnoToGeneralInfo(data)));
                         }
                         break;
                     default:
@@ -173,7 +180,8 @@ public class ApiServices {
                 calificacion.getParcial4(), calificacion.getParcial5());
     }
 
-    private static List<Grades> convertCalificacionListToGradeList(List<Calificacion> calificacionList) {
+    private static List<Grades> convertCalificacionListToGradeList(
+            List<Calificacion> calificacionList) {
         List<Grades> gradesList = new ArrayList<>();
         for (Calificacion c : calificacionList) {
             gradesList.add(convertCalificacionToGrade(c));
@@ -228,7 +236,8 @@ public class ApiServices {
         Call<PublicacionContenido> call = service.listContents(postId);
         call.enqueue(new Callback<PublicacionContenido>() {
             @Override
-            public void onResponse(Call<PublicacionContenido> call, Response<PublicacionContenido> response) {
+            public void onResponse(Call<PublicacionContenido> call,
+                                   Response<PublicacionContenido> response) {
                 switch (response.code()) {
                     case 200:
                         PublicacionContenido data = response.body();
