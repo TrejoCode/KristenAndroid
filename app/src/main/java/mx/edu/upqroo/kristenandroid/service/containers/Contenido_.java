@@ -1,8 +1,9 @@
 package mx.edu.upqroo.kristenandroid.service.containers;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class Contenido_ {
 
@@ -15,6 +16,12 @@ public class Contenido_ {
     @SerializedName("cantidad")
     @Expose
     private Integer cantidad;
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("servidor")
+    @Expose
+    private String servidor;
     @SerializedName("imagenes")
     @Expose
     private List<String> imagenes = null;
@@ -51,4 +58,19 @@ public class Contenido_ {
         this.imagenes = imagenes;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getServidor() {
+        return servidor;
+    }
+
+    public void setServidor(String servidor) {
+        this.servidor = servidor;
+    }
 }

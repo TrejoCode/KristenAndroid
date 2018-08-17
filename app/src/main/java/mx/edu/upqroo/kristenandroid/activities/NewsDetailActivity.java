@@ -64,6 +64,7 @@ public class NewsDetailActivity extends AppCompatActivity
     private int mMaxScrollSize;
     private boolean mIsImageHidden;
     private static final int PERCENTAGE_TO_SHOW_IMAGE = 20;
+    private View mYoutubeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,29 +134,30 @@ public class NewsDetailActivity extends AppCompatActivity
                 if (mNews.getPostType() == 1) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,
+                            mNews.getTitle() + "\n" + "http://www.google.com");
                     sendIntent.setType("text/plain");
                     startActivity(Intent.createChooser(sendIntent, "Share"));
                 } else if (mNews.getPostType() == 2) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,
+                            mNews.getTitle() + "\n" + "http://www.google.com");
                     sendIntent.setType("text/plain");
                     startActivity(Intent.createChooser(sendIntent, "Share"));
                 } else if (mNews.getPostType() == 3) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,
+                            mNews.getTitle() + "\n" + "http://www.google.com");
                     sendIntent.setType("text/plain");
                     startActivity(Intent.createChooser(sendIntent, "Share"));
                 }
             }
         });
 
-        YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
-        fragmentTransaction.commit();
+        mYoutubeFragment = findViewById(R.id.youtube_fragment);
+        mYoutubeFragment.setVisibility(View.GONE);
 
         AppBarLayout appbar = findViewById(R.id.appBarLayout);
         appbar.addOnOffsetChangedListener(this);
@@ -215,12 +217,17 @@ public class NewsDetailActivity extends AppCompatActivity
             int i = 0;
             for (Contenido c : event.getPublicacionContenido().getContenidos()) {
                 if (c.getIdTipoContenidos() == 1) {
+                    //region text
                     content.append(c.getContenido().getTexto());
                     content.append("\n");
+                    //endregion
                 } else if (c.getIdTipoContenidos() == 2) {
+                    //region links
                     sites.add(c.getContenido().getTexto());
                     url.add(c.getContenido().getUrl());
+                    //endregion
                 } else if (c.getIdTipoContenidos() == 5) {
+                    //region gallery
                     for (String s : c.getContenido().getImagenes()) {
                         switch (i) {
                             case 0:
@@ -374,6 +381,19 @@ public class NewsDetailActivity extends AppCompatActivity
                                 break;
                         }
                     }
+                    //endregion
+                } else if (c.getIdTipoContenidos() == 7) {
+                    //region video
+                    mYoutubeFragment.setVisibility(View.VISIBLE);
+                    YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
+                    Bundle args = new Bundle();
+                    args.putString("videoId", c.getContenido().getId());
+                    youTubeNativeFragmentDemo.setArguments(args);
+                    FragmentTransaction fragmentTransaction =
+                            getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
+                    fragmentTransaction.commit();
+                    //endregion
                 }
             }
             if (!sites.isEmpty()) {
@@ -399,7 +419,8 @@ public class NewsDetailActivity extends AppCompatActivity
             mProgressBar.setVisibility(View.GONE);
         } catch (Exception ex) {
             mProgressBar.setVisibility(View.GONE);
-            Toast.makeText(this, "No se ha podido cargar la noticia", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,
+                    "No se ha podido cargar la noticia", Toast.LENGTH_LONG).show();
         }
     }
 }

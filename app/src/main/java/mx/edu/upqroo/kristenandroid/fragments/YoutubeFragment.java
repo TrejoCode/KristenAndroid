@@ -22,7 +22,6 @@ import mx.edu.upqroo.kristenandroid.R;
 public class YoutubeFragment extends Fragment {
 
     private static String API_KEY = "AIzaSyBVfk5yVrwNzDFPsLjKu_HF7DiG_fwd3HE";
-    public static final String VIDEO_ID = "1ce456Nnkt8";
     private ImageLoader imageLoader = new ImageLoader() {
         @Override
         public void loadImage(@NonNull ImageView imageView, @NonNull String url, int height, int width) {
@@ -34,7 +33,6 @@ public class YoutubeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,8 +40,14 @@ public class YoutubeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_youtube, container, false);
         YouTubePlayerView playerView;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            String videoId;
+            try {
+                videoId = getArguments().getString("videoId", "Bey4XXJAqS8");
+            } catch (Exception ex) {
+                videoId = "Bey4XXJAqS8";
+            }
             playerView = view.findViewById(R.id.youtube_player_view);
-            playerView.initPlayer(API_KEY, VIDEO_ID, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
+            playerView.initPlayer(API_KEY, videoId, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
                     YouTubePlayerType.STRICT_NATIVE, new YouTubeEventListener() {
                         @Override
                         public void onReady() {
