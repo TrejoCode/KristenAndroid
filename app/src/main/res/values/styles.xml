@@ -22,4 +22,8 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <style name="ToolBarWithNavigationBack">
+        <item name="navigationIcon">@drawable/ic_arrow_back_white</item>
+    </style>
+
 </resources>

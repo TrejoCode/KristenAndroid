@@ -3,14 +3,13 @@ package mx.edu.upqroo.kristenandroid.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.squareup.picasso.Picasso;
 
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentTransaction;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
@@ -31,10 +31,9 @@ import mx.edu.upqroo.kristenandroid.service.ApiServices;
 import mx.edu.upqroo.kristenandroid.service.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 
-public class NewsDetailActivity extends AppCompatActivity {
+public class NewsDetailActivity extends AppCompatActivity
+        implements AppBarLayout.OnOffsetChangedListener {
     public static final String EXTRA_NEWS = "KEY_NEWS";
-    private static String API_KEY = "AIzaSyBVfk5yVrwNzDFPsLjKu_HF7DiG_fwd3HE";
-    public static final String VIDEO_ID = "-m3V8w_7vhk";
     private News mNews;
     private TextView mDescription;
     private TextView mCategory;
@@ -58,17 +57,25 @@ public class NewsDetailActivity extends AppCompatActivity {
     private String imageUrl5;
     private String imageUrl6;
 
+    private Toolbar mToolbar;
     private ProgressBar mProgressBar;
     private CollapsingToolbarLayout mCollapsingToolbar;
+    private View mFab;
+    private int mMaxScrollSize;
+    private boolean mIsImageHidden;
+    private static final int PERCENTAGE_TO_SHOW_IMAGE = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-        Toolbar mToolbar = findViewById(R.id.toolbarNewsDetail);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar = findViewById(R.id.toolbarNewsDetail);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         if (getIntent().hasExtra(EXTRA_NEWS)) {
             mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
@@ -119,10 +126,39 @@ public class NewsDetailActivity extends AppCompatActivity {
 
         ApiServices.getPostContent(mNews.getId());
 
+        mFab = findViewById(R.id.flexible_news_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mNews.getPostType() == 1) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, "Share"));
+                } else if (mNews.getPostType() == 2) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, "Share"));
+                } else if (mNews.getPostType() == 3) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, "Share"));
+                }
+            }
+        });
+
         YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
         fragmentTransaction.commit();
+
+        AppBarLayout appbar = findViewById(R.id.appBarLayout);
+        appbar.addOnOffsetChangedListener(this);
     }
 
     @Override
@@ -143,41 +179,26 @@ public class NewsDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.news_detail, menu);
-        return true;
-    }
+    public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
+        if (mMaxScrollSize == 0)
+            mMaxScrollSize = appBarLayout.getTotalScrollRange();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        int currentScrollPercentage = (Math.abs(i)) * 100
+                / mMaxScrollSize;
 
-        if (id == R.id.action_share) {
-            if (mNews.getPostType() == 1) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, "Share"));
-            } else if (mNews.getPostType() == 2) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, "Share"));
-            } else if (mNews.getPostType() == 3) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, mNews.getTitle() + "\n" + "http://www.google.com");
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, "Share"));
+        if (currentScrollPercentage >= PERCENTAGE_TO_SHOW_IMAGE) {
+            if (!mIsImageHidden) {
+                mIsImageHidden = true;
+                ViewCompat.animate(mFab).scaleY(0).scaleX(0).start();
             }
-        } else if (id == android.R.id.home) {
-            onBackPressed();
         }
 
-        return super.onOptionsItemSelected(item);
+        if (currentScrollPercentage < PERCENTAGE_TO_SHOW_IMAGE) {
+            if (mIsImageHidden) {
+                mIsImageHidden = false;
+                ViewCompat.animate(mFab).scaleY(1).scaleX(1).start();
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -185,7 +206,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         try {
             mCollapsingToolbar.setTitle(event.getPublicacionContenido().getTitulo());
             mCollapsingToolbar.setTitleEnabled(true);
-            getSupportActionBar().setTitle(event.getPublicacionContenido().getTitulo());
+            mToolbar.setTitle(event.getPublicacionContenido().getTitulo());
             mNews.setPostType(event.getPublicacionContenido().getIdTiposPublicacion());
             mDescription.setText(event.getPublicacionContenido().getDescripcion());
             StringBuilder content = new StringBuilder();

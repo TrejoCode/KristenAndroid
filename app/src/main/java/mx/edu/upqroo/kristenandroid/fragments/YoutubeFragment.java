@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.flipkart.youtubeview.YouTubePlayerView;
 import com.flipkart.youtubeview.listener.YouTubeEventListener;
@@ -44,12 +43,11 @@ public class YoutubeFragment extends Fragment {
         YouTubePlayerView playerView;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             playerView = view.findViewById(R.id.youtube_player_view);
-            //playerView = new YouTubePlayerView(this.getContext());
             playerView.initPlayer(API_KEY, VIDEO_ID, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
                     YouTubePlayerType.STRICT_NATIVE, new YouTubeEventListener() {
                         @Override
                         public void onReady() {
-                            Toast.makeText(getContext(), "Video ready", Toast.LENGTH_LONG).show();
+
                         }
 
                         @Override

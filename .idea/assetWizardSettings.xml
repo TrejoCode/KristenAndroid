@@ -102,7 +102,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/DiegoLovera/Applications/Android/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_email_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/DiegoLovera/Applications/Android/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_arrow_back_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -113,7 +113,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_email_white" />
+                            <entry key="outputName" value="ic_arrow_back_white" />
                             <entry key="sourceFile" value="C:\Users\DiegoLovera" />
                           </map>
                         </option>
