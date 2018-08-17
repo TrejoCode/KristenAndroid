@@ -44,6 +44,7 @@ dependencies {
     implementation 'me.dkzwm.widget.srl:ext-classic:1.6.5-beta-1'
     implementation 'me.dkzwm.widget.srl:ext-two-level:1.6.5-beta-1'
 
+    implementation 'com.github.flipkart-incubator:android-inline-youtube-view:1.0.2'
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'

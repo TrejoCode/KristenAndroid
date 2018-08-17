@@ -22,8 +22,10 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
+import mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
 import mx.edu.upqroo.kristenandroid.service.containers.Contenido;
@@ -31,6 +33,8 @@ import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 
 public class NewsDetailActivity extends AppCompatActivity {
     public static final String EXTRA_NEWS = "KEY_NEWS";
+    private static String API_KEY = "AIzaSyBVfk5yVrwNzDFPsLjKu_HF7DiG_fwd3HE";
+    public static final String VIDEO_ID = "-m3V8w_7vhk";
     private News mNews;
     private TextView mDescription;
     private TextView mCategory;
@@ -114,6 +118,11 @@ public class NewsDetailActivity extends AppCompatActivity {
                 .into(mCover);
 
         ApiServices.getPostContent(mNews.getId());
+
+        YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
+        fragmentTransaction.commit();
     }
 
     @Override
