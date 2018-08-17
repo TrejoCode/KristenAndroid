@@ -15,7 +15,7 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
 import mx.edu.upqroo.kristenandroid.models.Kardex;
 
-public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.KardexViewHolder>{
+public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.KardexViewHolder> {
 
     private List<Kardex> gradeList;
     private LayoutInflater mInflater;
@@ -27,9 +27,10 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
 
     @NonNull
     @Override
-    public KardexItemAdapter.KardexViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = mInflater.inflate(R.layout.item_kardex, parent,false);
-        return new KardexItemAdapter.KardexViewHolder(vista);
+    public KardexItemAdapter.KardexViewHolder onCreateViewHolder(@NonNull ViewGroup parent,
+                                                                 int viewType) {
+        View view = mInflater.inflate(R.layout.item_kardex, parent,false);
+        return new KardexItemAdapter.KardexViewHolder(view);
     }
 
     @Override
@@ -39,7 +40,8 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
         holder.generalGrade.setText(gradeList.get(position).getGrade());
 
         if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView, (int) (84 * Resources.getSystem().getDisplayMetrics().density));
+            ViewHelper.SetBottomMargin(holder.itemView, (int) (84 *
+                    Resources.getSystem().getDisplayMetrics().density));
         } else {
             // reset bottom margin back to zero. (your value may be different)
             ViewHelper.SetBottomMargin(holder.itemView, 0);
@@ -59,11 +61,9 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
 
         public KardexViewHolder(View itemView) {
             super(itemView);
-
             code = itemView.findViewById(R.id.text_item_kardex_code);
             subject = itemView.findViewById(R.id.text_item_kardex_subject);
             generalGrade = itemView.findViewById(R.id.text_item_kardex_generalGrade);
-
         }
     }
 }
