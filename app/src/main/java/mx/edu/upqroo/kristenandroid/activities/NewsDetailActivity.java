@@ -2,7 +2,6 @@ package mx.edu.upqroo.kristenandroid.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,7 +71,7 @@ public class NewsDetailActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "La noticia que buscabas no se encuentra disponible",
                     Toast.LENGTH_LONG).show();
-            startActivity(new Intent(this, NewsActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
 
         mProgressBar = findViewById(R.id.progressBar_news_detail);

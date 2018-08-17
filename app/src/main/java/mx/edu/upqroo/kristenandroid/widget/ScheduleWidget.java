@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.widget.RemoteViews;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +17,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.activities.MainActivity;
+import mx.edu.upqroo.kristenandroid.activities.LoginActivity;
 
 /**
  * Implementation of App Widget functionality.
@@ -48,7 +47,7 @@ public class ScheduleWidget extends AppWidgetProvider {
         views.setRemoteAdapter(R.id.list_widget, intent);
         views.setEmptyView(R.id.list_widget, R.id.empty_view);
 
-        Intent startActivityIntent = new Intent(context, MainActivity.class);
+        Intent startActivityIntent = new Intent(context, LoginActivity.class);
         PendingIntent startActivityPendingIntent
                 = PendingIntent.getActivity(context, 0,
                 startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);

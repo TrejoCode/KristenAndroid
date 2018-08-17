@@ -1,125 +1,197 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
-import java.lang.ref.WeakReference;
-
-import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
-import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
-import mx.edu.upqroo.kristenandroid.common.Serializer;
+import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
-import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
-import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
+import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
+import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
+import mx.edu.upqroo.kristenandroid.fragments.NewsListFragment;
+import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
+import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
+import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
-public class MainActivity extends AppCompatActivity {
-    private SessionHelper mSessionHelper;
-    private PreferencesManager mPrefManager;
-    private TextView mUserId;
-    private TextView mPassword;
-    private LinearLayoutCompat mLinearOverlay;
-    private Button mButtonLogin;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FragmentHelper mFragmentHelper;
+    private Toolbar mToolbar;
+    private SessionHelper mSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        Toolbar mToolbar = findViewById(R.id.toolbarLogin);
+        mSession = SessionHelper.getInstance();
+        onWidgetUpdateMessage(this);
+
+        setContentView(R.layout.activity_news);
+        mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("UPQROO");
 
-        mLinearOverlay = findViewById(R.id.linear_overlay_login);
-        mLinearOverlay.setVisibility(View.VISIBLE);
-        mUserId = findViewById(R.id.field_user_id);
-        mPassword = findViewById(R.id.field_password);
-        mButtonLogin = findViewById(R.id.button_login);
-        mButtonLogin.setVisibility(View.INVISIBLE);
-
-        WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
-
-        mSessionHelper = SessionHelper.getInstance();
-        mPrefManager = PreferencesManager.getInstance();
-        mPrefManager.setContext(mContextWeakReference);
-        SessionLoaded sessionLoaded = mPrefManager.loadSession();
-        if (!TextUtils.isEmpty(sessionLoaded.getUser()) || !TextUtils.isEmpty(sessionLoaded.getPassword())) {
-            mSessionHelper.login(sessionLoaded.getUser(), sessionLoaded.getPassword());
-        } else {
-            mLinearOverlay.setVisibility(View.INVISIBLE);
-            mButtonLogin.setVisibility(View.VISIBLE);
-        }
-
-        mButtonLogin.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mUserId.setEnabled(false);
-                mPassword.setEnabled(false);
-                mButtonLogin.setVisibility(View.INVISIBLE);
-                mLinearOverlay.setVisibility(View.VISIBLE);
-                mSessionHelper.login(mUserId.getText().toString(), mPassword.getText().toString());
+            public void onClick(View view) {
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                emailIntent.setData(Uri.parse("mailto:info@upqroo.edu.mx"));
+                startActivity(emailIntent);
             }
         });
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_news);
+
+        mFragmentHelper = FragmentHelper.NEWS;
+        NewsListFragment initialFrag = new NewsListFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_main, initialFrag)
+                .commit();
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageLogin(LoginMessage event) {
-        if (event.isResult()) {
-            mSessionHelper.createNewSession(event.getStudent());
-            mPrefManager.saveSession(event.getStudent().getUserId(), event.getStudent().getPassword());
-
-            NotificationLoaded notificationLoaded = PreferencesManager.getInstance().loadNotificationsPreference();
-            if (notificationLoaded.isGeneral()) {
-                NotificationsHelper
-                        .SubscribeNotifications(mSessionHelper.getSession().getGeneralTopic());
-            }
-            if (notificationLoaded.isCareer()) {
-                NotificationsHelper
-                        .SubscribeNotifications(mSessionHelper.getSession().getUserTopic());
-            }
-            startActivity(new Intent(this, NewsActivity.class));
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
-            Toast.makeText(this, R.string.login_result_failed, Toast.LENGTH_LONG).show();
+            showLogoutDialog();
         }
-        mUserId.setEnabled(true);
-        mPassword.setEnabled(true);
-        mButtonLogin.setVisibility(View.VISIBLE);
-        mLinearOverlay.setVisibility(View.INVISIBLE);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.news, menu);
+        TextView mNavHeaderProfileName = findViewById(R.id.text_nav_header_title);
+        mNavHeaderProfileName.setText(mSession.getSession().getName());
+        TextView mNavHeaderProfileEmail = findViewById(R.id.text_nav_header_subtitle);
+        mNavHeaderProfileEmail.setText(mSession.getSession().getEmail());
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_news) {
+            if (mFragmentHelper != FragmentHelper.NEWS){
+                mFragmentHelper = FragmentHelper.NEWS;
+                NewsListFragment fragment = new NewsListFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_main, fragment)
+                        .commit();
+                mToolbar.setTitle(R.string.nav_menu_news);
+            }
+        } else if (id == R.id.nav_user) {
+            if (mFragmentHelper != FragmentHelper.USER){
+                mFragmentHelper = FragmentHelper.USER;
+                UserFragment fragment = new UserFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_main, fragment)
+                        .commit();
+                mToolbar.setTitle(R.string.nave_menu_user);
+            }
+        } else if (id == R.id.nav_schedule) {
+            if (mFragmentHelper != FragmentHelper.SCHEDULE) {
+                mFragmentHelper = FragmentHelper.SCHEDULE;
+                ScheduleFragment fragment = new ScheduleFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_main, fragment)
+                        .commit();
+                mToolbar.setTitle(R.string.nav_menu_schedule);
+            }
+        } else if (id == R.id.nav_school) {
+            if (mFragmentHelper != FragmentHelper.GRADES) {
+                mFragmentHelper = FragmentHelper.GRADES;
+                GradesFragment fragment = new GradesFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_main, fragment)
+                        .commit();
+                mToolbar.setTitle(R.string.nav_menu_school);
+            }
+        } else if (id == R.id.nav_kardex) {
+            if (mFragmentHelper != FragmentHelper.KARDEX) {
+                mFragmentHelper = FragmentHelper.KARDEX;
+                KardexFragment fragment = new KardexFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_main, fragment)
+                        .commit();
+                mToolbar.setTitle(R.string.nav_menu_kardex);
+            }
+        } else if (id == R.id.nav_calendar) {
+            startActivity(new Intent(Intent.ACTION_VIEW)
+                    .setData(Uri.parse("http://www.upqroo.edu.mx/wp-content/uploads/2017/12/calendario-2018-autorizado.pdf")));
+        }else if (id == R.id.nav_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+        } else if (id == R.id.nav_logout) {
+            showLogoutDialog();
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    protected void onWidgetUpdateMessage(Context context) {
+        Intent intent_meeting_update = new Intent(context, ScheduleWidget.class);
+        intent_meeting_update.setAction(ScheduleWidget.UPDATE_MEETING_ACTION);
+        sendBroadcast(intent_meeting_update);
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mSession.logout();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }

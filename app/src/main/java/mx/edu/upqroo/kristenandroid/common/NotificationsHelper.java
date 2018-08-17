@@ -12,7 +12,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import androidx.core.app.NotificationCompat;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.activities.MainActivity;
+import mx.edu.upqroo.kristenandroid.activities.LoginActivity;
 
 public class NotificationsHelper extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -33,7 +33,7 @@ public class NotificationsHelper extends com.google.firebase.messaging.FirebaseM
     public void onDeletedMessages() { }
 
     private void createNotification(String title, String messageBody) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_ONE_SHOT);
