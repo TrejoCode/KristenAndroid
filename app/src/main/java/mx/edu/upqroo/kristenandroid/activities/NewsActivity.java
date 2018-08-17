@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -23,15 +22,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
-import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
-import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
 import mx.edu.upqroo.kristenandroid.fragments.NewsListFragment;
 import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
-import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
 public class NewsActivity extends AppCompatActivity
@@ -159,7 +155,10 @@ public class NewsActivity extends AppCompatActivity
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_kardex);
             }
-        } else if (id == R.id.nav_settings) {
+        } else if (id == R.id.nav_calendar) {
+            startActivity(new Intent(Intent.ACTION_VIEW)
+                    .setData(Uri.parse("http://www.upqroo.edu.mx/wp-content/uploads/2017/12/calendario-2018-autorizado.pdf")));
+        }else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {
             showLogoutDialog();

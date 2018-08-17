@@ -36,4 +36,5 @@
     <string name="user_home_phone">Teléfono de domicilio</string>
     <string name="user_mobile">Teléfono móvil</string>
     <string name="user_email">Correo electrónico</string>
+    <string name="nav_menu_calendar">Calendario</string>
 </resources>

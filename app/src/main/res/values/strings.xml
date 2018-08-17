@@ -44,4 +44,5 @@
     <string name="user_home_phone">Home phone</string>
     <string name="user_mobile">Mobile phone</string>
     <string name="user_email">Email address</string>
+    <string name="nav_menu_calendar">Calendar</string>
 </resources>
