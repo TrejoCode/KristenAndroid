@@ -42,9 +42,9 @@ public class YoutubeFragment extends Fragment {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             String videoId;
             try {
-                videoId = getArguments().getString("videoId", "Bey4XXJAqS8");
+                videoId = getArguments().getString("videoId", "bOwsLtwa2Ts");
             } catch (Exception ex) {
-                videoId = "Bey4XXJAqS8";
+                videoId = "bOwsLtwa2Ts";
             }
             playerView = view.findViewById(R.id.youtube_player_view);
             playerView.initPlayer(API_KEY, videoId, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
