@@ -67,10 +67,14 @@ public class ScheduleFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ScheduleMessage event) {
+        if (event.isSuccessful()) {
+            recyclerViewSchedule.setVisibility(View.VISIBLE);
+            mDaysList.addAll(event.getDays());
+            adaptadorSchedule.notifyDataSetChanged();
+        } else {
+            //todo set visible a text view saying that there was an error
+        }
         mProgress.setVisibility(View.GONE);
-        recyclerViewSchedule.setVisibility(View.VISIBLE);
-        mDaysList.addAll(event.getDays());
-        adaptadorSchedule.notifyDataSetChanged();
     }
 }
 

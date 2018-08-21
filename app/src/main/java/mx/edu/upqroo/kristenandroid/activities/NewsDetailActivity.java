@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
@@ -57,6 +58,8 @@ public class NewsDetailActivity extends AppCompatActivity
     private String imageUrl5;
     private String imageUrl6;
 
+    private MaterialCardView mCard;
+
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
     private CollapsingToolbarLayout mCollapsingToolbar;
@@ -86,6 +89,8 @@ public class NewsDetailActivity extends AppCompatActivity
             startActivity(new Intent(this, MainActivity.class));
         }
 
+        mCard = findViewById(R.id.flexible_cardview);
+        mCard.setVisibility(View.GONE);
         mProgressBar = findViewById(R.id.progressBar_news_detail);
         mProgressBar.setVisibility(View.VISIBLE);
         mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
@@ -155,6 +160,7 @@ public class NewsDetailActivity extends AppCompatActivity
                 }
             }
         });
+        mFab.setVisibility(View.GONE);
 
         mYoutubeFragment = findViewById(R.id.youtube_fragment);
         mYoutubeFragment.setVisibility(View.GONE);
@@ -205,222 +211,227 @@ public class NewsDetailActivity extends AppCompatActivity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(PostContentMessage event) {
-        try {
-            mCollapsingToolbar.setTitle(event.getPublicacionContenido().getTitulo());
-            mCollapsingToolbar.setTitleEnabled(true);
-            mToolbar.setTitle(event.getPublicacionContenido().getTitulo());
-            mNews.setPostType(event.getPublicacionContenido().getIdTiposPublicacion());
-            mDescription.setText(event.getPublicacionContenido().getDescripcion());
-            StringBuilder content = new StringBuilder();
-            ArrayList<String> sites = new ArrayList<>();
-            ArrayList<String> url = new ArrayList<>();
-            int i = 0;
-            for (Contenido c : event.getPublicacionContenido().getContenidos()) {
-                if (c.getIdTipoContenidos() == 1) {
-                    //region text
-                    content.append(c.getContenido().getTexto());
-                    content.append("\n");
-                    //endregion
-                } else if (c.getIdTipoContenidos() == 2) {
-                    //region links
-                    sites.add(c.getContenido().getTexto());
-                    url.add(c.getContenido().getUrl());
-                    //endregion
-                } else if (c.getIdTipoContenidos() == 5) {
-                    //region gallery
-                    for (String s : c.getContenido().getImagenes()) {
-                        switch (i) {
-                            case 0:
-                                imageUrl1 = c.getContenido().getImagenes().get(i);
-                                Picasso.get()
-                                        .load(imageUrl1)
-                                        .placeholder(R.drawable.side_nav_bar)
-                                        .error(R.drawable.side_nav_bar)
-                                        .into(mImage1);
-                                mImage1.setVisibility(View.VISIBLE);
-                                mImage1.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Dialog dialog = new Dialog(NewsDetailActivity.this);
-                                        dialog.setContentView(R.layout.image_dialog_layout);
-                                        dialog.setTitle("Image");
-                                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                                        Picasso.get()
-                                                .load(imageUrl1)
-                                                .placeholder(R.drawable.side_nav_bar)
-                                                .error(R.drawable.side_nav_bar)
-                                                .into(myImage);
-                                        dialog.show();
-                                    }
-                                });
-                                i++;
-                                break;
-                            case 1:
-                                imageUrl2 = c.getContenido().getImagenes().get(i);
-                                Picasso.get()
-                                        .load(imageUrl2)
-                                        .placeholder(R.drawable.side_nav_bar)
-                                        .error(R.drawable.side_nav_bar)
-                                        .into(mImage2);
-                                mImage2.setVisibility(View.VISIBLE);
-                                mImage2.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Dialog dialog = new Dialog(NewsDetailActivity.this);
-                                        dialog.setContentView(R.layout.image_dialog_layout);
-                                        dialog.setTitle("Image");
-                                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                                        Picasso.get()
-                                                .load(imageUrl2)
-                                                .placeholder(R.drawable.side_nav_bar)
-                                                .error(R.drawable.side_nav_bar)
-                                                .into(myImage);
-                                        dialog.show();
-                                    }
-                                });
-                                i++;
-                                break;
-                            case 2:
-                                imageUrl3 = c.getContenido().getImagenes().get(i);
-                                Picasso.get()
-                                        .load(imageUrl3)
-                                        .placeholder(R.drawable.side_nav_bar)
-                                        .error(R.drawable.side_nav_bar)
-                                        .into(mImage3);
-                                mImage3.setVisibility(View.VISIBLE);
-                                mImage3.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Dialog dialog = new Dialog(NewsDetailActivity.this);
-                                        dialog.setContentView(R.layout.image_dialog_layout);
-                                        dialog.setTitle("Image");
-                                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                                        Picasso.get()
-                                                .load(imageUrl3)
-                                                .placeholder(R.drawable.side_nav_bar)
-                                                .error(R.drawable.side_nav_bar)
-                                                .into(myImage);
-                                        dialog.show();
-                                    }
-                                });
-                                i++;
-                                break;
-                            case 3:
-                                imageUrl4 = c.getContenido().getImagenes().get(i);
-                                Picasso.get()
-                                        .load(imageUrl4)
-                                        .placeholder(R.drawable.side_nav_bar)
-                                        .error(R.drawable.side_nav_bar)
-                                        .into(mImage4);
-                                mImage4.setVisibility(View.VISIBLE);
-                                mImage4.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Dialog dialog = new Dialog(NewsDetailActivity.this);
-                                        dialog.setContentView(R.layout.image_dialog_layout);
-                                        dialog.setTitle("Image");
-                                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                                        Picasso.get()
-                                                .load(imageUrl4)
-                                                .placeholder(R.drawable.side_nav_bar)
-                                                .error(R.drawable.side_nav_bar)
-                                                .into(myImage);
-                                        dialog.show();
-                                    }
-                                });
-                                i++;
-                                break;
-                            case 4:
-                                imageUrl5 = c.getContenido().getImagenes().get(i);
-                                Picasso.get()
-                                        .load(imageUrl5)
-                                        .placeholder(R.drawable.side_nav_bar)
-                                        .error(R.drawable.side_nav_bar)
-                                        .into(mImage5);
-                                mImage5.setVisibility(View.VISIBLE);
-                                mImage5.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Dialog dialog = new Dialog(NewsDetailActivity.this);
-                                        dialog.setContentView(R.layout.image_dialog_layout);
-                                        dialog.setTitle("Image");
-                                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                                        Picasso.get()
-                                                .load(imageUrl5)
-                                                .placeholder(R.drawable.side_nav_bar)
-                                                .error(R.drawable.side_nav_bar)
-                                                .into(myImage);
-                                        dialog.show();
-                                    }
-                                });
-                                i++;
-                                break;
-                            case 5:
-                                imageUrl6 = c.getContenido().getImagenes().get(i);
-                                Picasso.get()
-                                        .load(imageUrl6)
-                                        .placeholder(R.drawable.side_nav_bar)
-                                        .error(R.drawable.side_nav_bar)
-                                        .into(mImage6);
-                                mImage6.setVisibility(View.VISIBLE);
-                                mImage6.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Dialog dialog = new Dialog(NewsDetailActivity.this);
-                                        dialog.setContentView(R.layout.image_dialog_layout);
-                                        dialog.setTitle("Image");
-                                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                                        Picasso.get()
-                                                .load(imageUrl6)
-                                                .placeholder(R.drawable.side_nav_bar)
-                                                .error(R.drawable.side_nav_bar)
-                                                .into(myImage);
-                                        dialog.show();
-                                    }
-                                });
-                                break;
+        if (event.isSuccessful()) {
+            try {
+                mCollapsingToolbar.setTitle(event.getPublicacionContenido().getTitulo());
+                mCollapsingToolbar.setTitleEnabled(true);
+                mToolbar.setTitle(event.getPublicacionContenido().getTitulo());
+                mNews.setPostType(event.getPublicacionContenido().getIdTiposPublicacion());
+                mDescription.setText(event.getPublicacionContenido().getDescripcion());
+                StringBuilder content = new StringBuilder();
+                ArrayList<String> sites = new ArrayList<>();
+                ArrayList<String> url = new ArrayList<>();
+                int i = 0;
+                for (Contenido c : event.getPublicacionContenido().getContenidos()) {
+                    if (c.getIdTipoContenidos() == 1) {
+                        //region text
+                        content.append(c.getContenido().getTexto());
+                        content.append("\n");
+                        //endregion
+                    } else if (c.getIdTipoContenidos() == 2) {
+                        //region links
+                        sites.add(c.getContenido().getTexto());
+                        url.add(c.getContenido().getUrl());
+                        //endregion
+                    } else if (c.getIdTipoContenidos() == 5) {
+                        //region gallery
+                        for (String s : c.getContenido().getImagenes()) {
+                            switch (i) {
+                                case 0:
+                                    imageUrl1 = c.getContenido().getImagenes().get(i);
+                                    Picasso.get()
+                                            .load(imageUrl1)
+                                            .placeholder(R.drawable.side_nav_bar)
+                                            .error(R.drawable.side_nav_bar)
+                                            .into(mImage1);
+                                    mImage1.setVisibility(View.VISIBLE);
+                                    mImage1.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Dialog dialog = new Dialog(NewsDetailActivity.this);
+                                            dialog.setContentView(R.layout.image_dialog_layout);
+                                            dialog.setTitle("Image");
+                                            ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                                            Picasso.get()
+                                                    .load(imageUrl1)
+                                                    .placeholder(R.drawable.side_nav_bar)
+                                                    .error(R.drawable.side_nav_bar)
+                                                    .into(myImage);
+                                            dialog.show();
+                                        }
+                                    });
+                                    i++;
+                                    break;
+                                case 1:
+                                    imageUrl2 = c.getContenido().getImagenes().get(i);
+                                    Picasso.get()
+                                            .load(imageUrl2)
+                                            .placeholder(R.drawable.side_nav_bar)
+                                            .error(R.drawable.side_nav_bar)
+                                            .into(mImage2);
+                                    mImage2.setVisibility(View.VISIBLE);
+                                    mImage2.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Dialog dialog = new Dialog(NewsDetailActivity.this);
+                                            dialog.setContentView(R.layout.image_dialog_layout);
+                                            dialog.setTitle("Image");
+                                            ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                                            Picasso.get()
+                                                    .load(imageUrl2)
+                                                    .placeholder(R.drawable.side_nav_bar)
+                                                    .error(R.drawable.side_nav_bar)
+                                                    .into(myImage);
+                                            dialog.show();
+                                        }
+                                    });
+                                    i++;
+                                    break;
+                                case 2:
+                                    imageUrl3 = c.getContenido().getImagenes().get(i);
+                                    Picasso.get()
+                                            .load(imageUrl3)
+                                            .placeholder(R.drawable.side_nav_bar)
+                                            .error(R.drawable.side_nav_bar)
+                                            .into(mImage3);
+                                    mImage3.setVisibility(View.VISIBLE);
+                                    mImage3.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Dialog dialog = new Dialog(NewsDetailActivity.this);
+                                            dialog.setContentView(R.layout.image_dialog_layout);
+                                            dialog.setTitle("Image");
+                                            ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                                            Picasso.get()
+                                                    .load(imageUrl3)
+                                                    .placeholder(R.drawable.side_nav_bar)
+                                                    .error(R.drawable.side_nav_bar)
+                                                    .into(myImage);
+                                            dialog.show();
+                                        }
+                                    });
+                                    i++;
+                                    break;
+                                case 3:
+                                    imageUrl4 = c.getContenido().getImagenes().get(i);
+                                    Picasso.get()
+                                            .load(imageUrl4)
+                                            .placeholder(R.drawable.side_nav_bar)
+                                            .error(R.drawable.side_nav_bar)
+                                            .into(mImage4);
+                                    mImage4.setVisibility(View.VISIBLE);
+                                    mImage4.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Dialog dialog = new Dialog(NewsDetailActivity.this);
+                                            dialog.setContentView(R.layout.image_dialog_layout);
+                                            dialog.setTitle("Image");
+                                            ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                                            Picasso.get()
+                                                    .load(imageUrl4)
+                                                    .placeholder(R.drawable.side_nav_bar)
+                                                    .error(R.drawable.side_nav_bar)
+                                                    .into(myImage);
+                                            dialog.show();
+                                        }
+                                    });
+                                    i++;
+                                    break;
+                                case 4:
+                                    imageUrl5 = c.getContenido().getImagenes().get(i);
+                                    Picasso.get()
+                                            .load(imageUrl5)
+                                            .placeholder(R.drawable.side_nav_bar)
+                                            .error(R.drawable.side_nav_bar)
+                                            .into(mImage5);
+                                    mImage5.setVisibility(View.VISIBLE);
+                                    mImage5.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Dialog dialog = new Dialog(NewsDetailActivity.this);
+                                            dialog.setContentView(R.layout.image_dialog_layout);
+                                            dialog.setTitle("Image");
+                                            ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                                            Picasso.get()
+                                                    .load(imageUrl5)
+                                                    .placeholder(R.drawable.side_nav_bar)
+                                                    .error(R.drawable.side_nav_bar)
+                                                    .into(myImage);
+                                            dialog.show();
+                                        }
+                                    });
+                                    i++;
+                                    break;
+                                case 5:
+                                    imageUrl6 = c.getContenido().getImagenes().get(i);
+                                    Picasso.get()
+                                            .load(imageUrl6)
+                                            .placeholder(R.drawable.side_nav_bar)
+                                            .error(R.drawable.side_nav_bar)
+                                            .into(mImage6);
+                                    mImage6.setVisibility(View.VISIBLE);
+                                    mImage6.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Dialog dialog = new Dialog(NewsDetailActivity.this);
+                                            dialog.setContentView(R.layout.image_dialog_layout);
+                                            dialog.setTitle("Image");
+                                            ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                                            Picasso.get()
+                                                    .load(imageUrl6)
+                                                    .placeholder(R.drawable.side_nav_bar)
+                                                    .error(R.drawable.side_nav_bar)
+                                                    .into(myImage);
+                                            dialog.show();
+                                        }
+                                    });
+                                    break;
+                            }
                         }
-                    }
-                    //endregion
-                } else if (c.getIdTipoContenidos() == 7) {
-                    //region video
-                    mYoutubeFragment.setVisibility(View.VISIBLE);
-                    YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
-                    Bundle args = new Bundle();
-                    args.putString("videoId", c.getContenido().getId());
-                    youTubeNativeFragmentDemo.setArguments(args);
-                    FragmentTransaction fragmentTransaction =
-                            getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
-                    fragmentTransaction.commit();
-                    //endregion
-                }
-            }
-            if (!sites.isEmpty()) {
-                if (!sites.get(0).equals("")) {
-                    mUrlOne.setText(url.get(0));
-                    mUrlOne.setVisibility(View.VISIBLE);
-                    if (!sites.get(1).equals("")) {
-                        mUrlTwo.setText(url.get(1));
-                        mUrlTwo.setVisibility(View.VISIBLE);
-                        if (!sites.get(2).equals("")) {
-                            mUrlThree.setText(url.get(2));
-                            mUrlThree.setVisibility(View.VISIBLE);
-                        }
+                        //endregion
+                    } else if (c.getIdTipoContenidos() == 7) {
+                        //region video
+                        mYoutubeFragment.setVisibility(View.VISIBLE);
+                        YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
+                        Bundle args = new Bundle();
+                        args.putString("videoId", c.getContenido().getId());
+                        youTubeNativeFragmentDemo.setArguments(args);
+                        FragmentTransaction fragmentTransaction =
+                                getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
+                        fragmentTransaction.commit();
+                        //endregion
                     }
                 }
+                if (!sites.isEmpty()) {
+                    if (!sites.get(0).equals("")) {
+                        mUrlOne.setText(url.get(0));
+                        mUrlOne.setVisibility(View.VISIBLE);
+                        if (!sites.get(1).equals("")) {
+                            mUrlTwo.setText(url.get(1));
+                            mUrlTwo.setVisibility(View.VISIBLE);
+                            if (!sites.get(2).equals("")) {
+                                mUrlThree.setText(url.get(2));
+                                mUrlThree.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                }
+                mContent.setText(content);
+                mCategory.setText(event.getPublicacionContenido().getCategorias());
+                mDescription.setVisibility(View.VISIBLE);
+                mCategory.setVisibility(View.VISIBLE);
+                mContent.setVisibility(View.VISIBLE);
+                mCover.setVisibility(View.VISIBLE);
+                mCard.setVisibility(View.VISIBLE);
+                mFab.setVisibility(View.VISIBLE);
+            } catch (Exception ex) {
+                Toast.makeText(this,
+                        "No se ha podido cargar la noticia", Toast.LENGTH_LONG).show();
             }
-            mContent.setText(content);
-            mCategory.setText(event.getPublicacionContenido().getCategorias());
-            mDescription.setVisibility(View.VISIBLE);
-            mCategory.setVisibility(View.VISIBLE);
-            mContent.setVisibility(View.VISIBLE);
-            mCover.setVisibility(View.VISIBLE);
-            mProgressBar.setVisibility(View.GONE);
-        } catch (Exception ex) {
-            mProgressBar.setVisibility(View.GONE);
-            Toast.makeText(this,
-                    "No se ha podido cargar la noticia", Toast.LENGTH_LONG).show();
+        } else {
+            //todo set visible a text view saying that there was an error
         }
+        mProgressBar.setVisibility(View.GONE);
     }
 }

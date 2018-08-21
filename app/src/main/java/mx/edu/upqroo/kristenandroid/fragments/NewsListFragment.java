@@ -143,6 +143,10 @@ public class NewsListFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
         mTextErrorMessage.setText(event.getError());
         mTextErrorMessage.setVisibility(View.VISIBLE);
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.refreshComplete();
+            Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void generateCover() {

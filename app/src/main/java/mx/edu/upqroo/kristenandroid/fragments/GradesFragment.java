@@ -2,14 +2,10 @@ package mx.edu.upqroo.kristenandroid.fragments;
 
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -17,12 +13,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-import me.dkzwm.widget.srl.RefreshingListenerAdapter;
-import me.dkzwm.widget.srl.SmoothRefreshLayout;
-import me.dkzwm.widget.srl.extra.header.ClassicHeader;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
-import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Grades;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
@@ -76,9 +71,13 @@ public class GradesFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(GradesListMessage event) {
-        mRecyclerGrade.setVisibility(View.VISIBLE);
+        if (event.isSuccessful()) {
+            mGradeList.addAll(event.getGradesList());
+            mGradeAdapter.notifyDataSetChanged();
+            mRecyclerGrade.setVisibility(View.VISIBLE);
+        } else {
+            //todo set visible a text view saying that there was an error
+        }
         mProgress.setVisibility(View.GONE);
-        mGradeList.addAll(event.getGradesList());
-        mGradeAdapter.notifyDataSetChanged();
     }
 }

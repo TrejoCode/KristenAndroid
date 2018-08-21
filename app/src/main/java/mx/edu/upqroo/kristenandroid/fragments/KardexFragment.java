@@ -2,14 +2,10 @@ package mx.edu.upqroo.kristenandroid.fragments;
 
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -17,17 +13,14 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-import me.dkzwm.widget.srl.RefreshingListenerAdapter;
-import me.dkzwm.widget.srl.SmoothRefreshLayout;
-import me.dkzwm.widget.srl.extra.header.ClassicHeader;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
 import mx.edu.upqroo.kristenandroid.adapters.KardexItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.models.Grades;
 import mx.edu.upqroo.kristenandroid.models.Kardex;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.KardexListMessage;
 
 /**
@@ -81,9 +74,13 @@ public class KardexFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(KardexListMessage event) {
-        mRecyclerKardex.setVisibility(View.VISIBLE);
+        if (event.isSuccessful()) {
+            mRecyclerKardex.setVisibility(View.VISIBLE);
+            mKardexList.addAll(event.getKardexList());
+            mKardexAdapter.notifyDataSetChanged();
+        } else {
+            //todo set visible a text view saying that there was an error
+        }
         mProgress.setVisibility(View.GONE);
-        mKardexList.addAll(event.getKardexList());
-        mKardexAdapter.notifyDataSetChanged();
     }
 }

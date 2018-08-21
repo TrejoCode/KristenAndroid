@@ -3,7 +3,6 @@ package mx.edu.upqroo.kristenandroid.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -15,11 +14,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Subject;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.ScheduleMessage;
 
 public class ListViewWidgetService extends RemoteViewsService {
@@ -109,31 +106,36 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ScheduleMessage event) {
-        records.clear();
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
-        try {
-            switch (day) {
-                case Calendar.MONDAY:
-                    records.addAll(event.getDays().get(0).getSubjects());
-                    break;
-                case Calendar.TUESDAY:
-                    records.addAll(event.getDays().get(1).getSubjects());
-                    break;
-                case Calendar.WEDNESDAY:
-                    records.addAll(event.getDays().get(2).getSubjects());
-                    break;
-                case Calendar.THURSDAY:
-                    records.addAll(event.getDays().get(3).getSubjects());
-                    break;
-                case Calendar.FRIDAY:
-                    records.addAll(event.getDays().get(4).getSubjects());
-                    break;
+        if (event.isSuccessful()) {
+            records.clear();
+            Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_WEEK);
+            try {
+                switch (day) {
+                    case Calendar.MONDAY:
+                        records.addAll(event.getDays().get(0).getSubjects());
+                        break;
+                    case Calendar.TUESDAY:
+                        records.addAll(event.getDays().get(1).getSubjects());
+                        break;
+                    case Calendar.WEDNESDAY:
+                        records.addAll(event.getDays().get(2).getSubjects());
+                        break;
+                    case Calendar.THURSDAY:
+                        records.addAll(event.getDays().get(3).getSubjects());
+                        break;
+                    case Calendar.FRIDAY:
+                        records.addAll(event.getDays().get(4).getSubjects());
+                        break;
+                }
+                onDataSetChanged();
+            } catch (Exception ex) {
+                //
             }
-            onDataSetChanged();
-        } catch (Exception ex) {
-            //
+        } else {
+            //todo set visible a text view saying that there was an error
         }
+
         EventBus.getDefault().unregister(this);
     }
 }

@@ -55,7 +55,8 @@ public class ApiServices {
 
             @Override
             public void onFailure(Call<Alumno> call, Throwable t) {
-
+                EventBus.getDefault()
+                        .post(new LoginMessage(false, null));
             }
         });
     }
@@ -76,12 +77,8 @@ public class ApiServices {
                                             .PublicationListToNewsList(data)));
                         }
                         break;
-                    case 400:
-                        EventBus.getDefault().post(new NewsListMessageError(response.message()));
-                        break;
-                    case 404:
-                        break;
                     default:
+                        EventBus.getDefault().post(new NewsListMessageError(response.message()));
                         break;
                 }
             }
@@ -89,6 +86,7 @@ public class ApiServices {
             @Override
             public void onFailure(Call<List<Publicacion>> call, Throwable t) {
                 Log.d("Error",t.getMessage());
+                EventBus.getDefault().post(new NewsListMessageError(t.getMessage()));
             }
         });
     }
@@ -105,15 +103,13 @@ public class ApiServices {
                         List<Calificacion> data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new GradesListMessage(Converter
+                                    .post(new GradesListMessage(true, Converter
                                             .CalificacionListToGradeList(data)));
                         }
                         break;
-                    case 400:
-                        break;
-                    case 404:
-                        break;
                     default:
+                        EventBus.getDefault()
+                                .post(new GradesListMessage(false, null));
                         break;
                 }
             }
@@ -121,6 +117,8 @@ public class ApiServices {
             @Override
             public void onFailure(Call<List<Calificacion>> call, Throwable t) {
                 Log.d("Error",t.getMessage());
+                EventBus.getDefault()
+                        .post(new GradesListMessage(false, null));
             }
         });
     }
@@ -136,15 +134,13 @@ public class ApiServices {
                         List<Kardexs> data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new KardexListMessage(
+                                    .post(new KardexListMessage(true,
                                             Converter.KardexListToKardexList(data)));
                         }
                         break;
-                    case 400:
-                        break;
-                    case 404:
-                        break;
                     default:
+                        EventBus.getDefault()
+                                .post(new KardexListMessage(false, null));
                         break;
                 }
             }
@@ -152,6 +148,8 @@ public class ApiServices {
             @Override
             public void onFailure(Call<List<Kardexs>> call, Throwable t) {
                 Log.d("Error",t.getMessage());
+                EventBus.getDefault()
+                        .post(new KardexListMessage(false, null));
             }
         });
     }
@@ -168,17 +166,22 @@ public class ApiServices {
                         PublicacionContenido data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new PostContentMessage(data));
+                                    .post(new PostContentMessage(true, data));
                         }
                         break;
                     default:
+                        EventBus.getDefault()
+                                .post(new PostContentMessage(false,
+                                        null));
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<PublicacionContenido> call, Throwable t) {
-
+                EventBus.getDefault()
+                        .post(new PostContentMessage(false,
+                                null));
             }
         });
     }
@@ -194,19 +197,21 @@ public class ApiServices {
                         Semana data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new ScheduleMessage(Converter.SemanaToSchedule(data)));
+                                    .post(new ScheduleMessage(true,
+                                            Converter.SemanaToSchedule(data)));
                         }
                         break;
                     default:
                         EventBus.getDefault()
-                                .post(new LoginMessage(false, null));
+                                .post(new ScheduleMessage(false,null));
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<Semana> call, Throwable t) {
-
+                EventBus.getDefault()
+                        .post(new ScheduleMessage(false,null));
             }
         });
     }
