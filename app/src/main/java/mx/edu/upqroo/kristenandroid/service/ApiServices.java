@@ -4,23 +4,11 @@ import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
-import mx.edu.upqroo.kristenandroid.models.Day;
-import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
-import mx.edu.upqroo.kristenandroid.models.Grades;
-import mx.edu.upqroo.kristenandroid.models.Kardex;
-import mx.edu.upqroo.kristenandroid.models.News;
-import mx.edu.upqroo.kristenandroid.models.Subject;
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
-import mx.edu.upqroo.kristenandroid.service.containers.Materia;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
 import mx.edu.upqroo.kristenandroid.service.containers.Semana;
@@ -43,6 +31,35 @@ public class ApiServices {
         service = ApiClient.createService(ApiInterface.class);
     }
 
+    public static void login(String user, String password) {
+        initializeRestClientAdministration();
+        Call<Alumno> call = service.login(user, password);
+        call.enqueue(new Callback<Alumno>() {
+            @Override
+            public void onResponse(Call<Alumno> call, Response<Alumno> response) {
+                switch (response.code()) {
+                    case 200:
+                        Alumno data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new LoginMessage(true,
+                                            Converter.AlumnoToGeneralInfo(data)));
+                        }
+                        break;
+                    default:
+                        EventBus.getDefault()
+                                .post(new LoginMessage(false, null));
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Alumno> call, Throwable t) {
+
+            }
+        });
+    }
+
     public static void getPublicationsList(int career, int page) {
         initializeRestClientAdministration();
         Call<List<Publicacion>> repos = service.listPublications(career, page);
@@ -55,7 +72,7 @@ public class ApiServices {
                         List<Publicacion> data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new NewsListMessage(convertPublicationListToNewsList(data)));
+                                    .post(new NewsListMessage(Converter.PublicationListToNewsList(data)));
                         }
                         break;
                     case 400:
@@ -75,86 +92,20 @@ public class ApiServices {
         });
     }
 
-    private static News convertPublicationToNews(Publicacion publicacion) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
-        return new News(publicacion.getIdPublicaciones(),
-                publicacion.getIdTipos_Publicacion(),
-                publicacion.getTitulo(),
-                publicacion.getDescripcion(),
-                publicacion.getCategorias(),
-                publicacion.getPortada(),
-                formatter.format(publicacion.getFecha()));
-    }
-
-    private static List<News> convertPublicationListToNewsList(List<Publicacion> publicacionList) {
-        List<News> newsList = new ArrayList<>();
-        for (Publicacion p : publicacionList) {
-            newsList.add(convertPublicationToNews(p));
-        }
-        return newsList;
-    }
-
-    public static void login(String user, String password) {
-        initializeRestClientAdministration();
-        Call<Alumno> call = service.login(user, password);
-        call.enqueue(new Callback<Alumno>() {
-            @Override
-            public void onResponse(Call<Alumno> call, Response<Alumno> response) {
-                switch (response.code()) {
-                    case 200:
-                        Alumno data = response.body();
-                        if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new LoginMessage(true,
-                                            convertAlumnoToGeneralInfo(data)));
-                        }
-                        break;
-                    default:
-                        EventBus.getDefault()
-                                .post(new LoginMessage(false, null));
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Alumno> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private static GeneralInfo convertAlumnoToGeneralInfo(Alumno alumno) {
-        return new GeneralInfo(alumno.getNombre(),
-                alumno.getCarrera(),
-                alumno.getNombreCarrera(),
-                alumno.getCreditos(),
-                alumno.getSituacion(),
-                alumno.getPdoIni(),
-                alumno.getCurp(),
-                alumno.getNacimiento(),
-                alumno.getDireccion(),
-                alumno.getTelDomicilio(),
-                alumno.getTelMovil(),
-                alumno.getCorreo(),
-                "GENERAL",
-                alumno.getTopic(),
-                alumno.getMatricula(),
-                alumno.getContrasena()
-                );
-    }
-
     public static void getGradesList(String studentId) {
         initializeRestClientAdministration();
         Call<List<Calificacion>> call = service.listGardes(studentId);
         call.enqueue(new Callback<List<Calificacion>>() {
             @Override
-            public void onResponse(Call<List<Calificacion>> call, Response<List<Calificacion>> response) {
+            public void onResponse(Call<List<Calificacion>> call,
+                                   Response<List<Calificacion>> response) {
                 switch (response.code()) {
                     case 200:
                         List<Calificacion> data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new GradesListMessage(convertCalificacionListToGradeList(data)));
+                                    .post(new GradesListMessage(Converter
+                                            .CalificacionListToGradeList(data)));
                         }
                         break;
                     case 400:
@@ -173,22 +124,6 @@ public class ApiServices {
         });
     }
 
-    private static Grades convertCalificacionToGrade(Calificacion calificacion) {
-        return new Grades(calificacion.getGrupo(), calificacion.getNombreMat(),
-                calificacion.getCalificacion(), calificacion.getParcial1(),
-                calificacion.getParcial2(), calificacion.getParcial3(),
-                calificacion.getParcial4(), calificacion.getParcial5());
-    }
-
-    private static List<Grades> convertCalificacionListToGradeList(
-            List<Calificacion> calificacionList) {
-        List<Grades> gradesList = new ArrayList<>();
-        for (Calificacion c : calificacionList) {
-            gradesList.add(convertCalificacionToGrade(c));
-        }
-        return gradesList;
-    }
-
     public static void getKardexList(String studentId) {
         initializeRestClientAdministration();
         Call<List<Kardexs>> call = service.listKardex(studentId);
@@ -200,7 +135,8 @@ public class ApiServices {
                         List<Kardexs> data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new KardexListMessage(convertKardexsListToKardexList(data)));
+                                    .post(new KardexListMessage(
+                                            Converter.KardexListToKardexList(data)));
                         }
                         break;
                     case 400:
@@ -217,18 +153,6 @@ public class ApiServices {
                 Log.d("Error",t.getMessage());
             }
         });
-    }
-
-    private static Kardex convertKardexsToKardex(Kardexs kardexs) {
-        return new Kardex(kardexs.getNombreMat(), kardexs.getCalificacion(), kardexs.getCuatrimestre());
-    }
-
-    private static List<Kardex> convertKardexsListToKardexList(List<Kardexs> kardexsList) {
-        List<Kardex> kardexList = new ArrayList<>();
-        for (Kardexs c : kardexsList) {
-            kardexList.add(convertKardexsToKardex(c));
-        }
-        return kardexList;
     }
 
     public static void getPostContent(int postId) {
@@ -269,7 +193,7 @@ public class ApiServices {
                         Semana data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new ScheduleMessage(convertSemanaToSchedule(data)));
+                                    .post(new ScheduleMessage(Converter.SemanaToSchedule(data)));
                         }
                         break;
                     default:
@@ -284,42 +208,5 @@ public class ApiServices {
 
             }
         });
-    }
-
-    private static List<Day> convertSemanaToSchedule(Semana semana) {
-        List<Day> dayList = new ArrayList<>();
-        List<Subject> mondaySubjects = new ArrayList<>();
-        for (Materia m : semana.getLunes()) {
-            mondaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
-        }
-        List<Subject> tuesdaySubjects = new ArrayList<>();
-        for (Materia m : semana.getMartes()) {
-            tuesdaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
-        }
-        List<Subject> wednesdaySubjects = new ArrayList<>();
-        for (Materia m : semana.getMiercoles()) {
-            wednesdaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
-        }
-        List<Subject> thursdaySubjects = new ArrayList<>();
-        for (Materia m : semana.getJueves()) {
-            thursdaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
-        }
-        List<Subject> fridaySubjects = new ArrayList<>();
-        for (Materia m : semana.getViernes()) {
-            fridaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
-        }
-        Day lunes = new Day(PreferencesManager.getInstance().getContext().getString(R.string.monday), mondaySubjects);
-        Day martes = new Day(PreferencesManager.getInstance().getContext().getString(R.string.tuesday), tuesdaySubjects);
-        Day miercoles = new Day(PreferencesManager.getInstance().getContext().getString(R.string.wednesday), wednesdaySubjects);
-        Day jueves = new Day(PreferencesManager.getInstance().getContext().getString(R.string.thursday), thursdaySubjects);
-        Day viernes = new Day(PreferencesManager.getInstance().getContext().getString(R.string.friday), fridaySubjects);
-
-        dayList.add(lunes);
-        dayList.add(martes);
-        dayList.add(miercoles);
-        dayList.add(jueves);
-        dayList.add(viernes);
-
-        return dayList;
     }
 }
