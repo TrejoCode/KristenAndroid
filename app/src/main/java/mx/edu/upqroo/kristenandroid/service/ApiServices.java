@@ -72,7 +72,8 @@ public class ApiServices {
                         List<Publicacion> data = response.body();
                         if (data != null) {
                             EventBus.getDefault()
-                                    .post(new NewsListMessage(Converter.PublicationListToNewsList(data)));
+                                    .post(new NewsListMessage(Converter
+                                            .PublicationListToNewsList(data)));
                         }
                         break;
                     case 400:
