@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.card.MaterialCardView;
@@ -84,8 +85,7 @@ public class NewsDetailActivity extends AppCompatActivity
         if (getIntent().hasExtra(EXTRA_NEWS)) {
             mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
         } else {
-            Toast.makeText(this, "La noticia que buscabas no se encuentra disponible",
-                    Toast.LENGTH_LONG).show();
+            Crashlytics.log("Noticia no existente");
             startActivity(new Intent(this, MainActivity.class));
         }
 

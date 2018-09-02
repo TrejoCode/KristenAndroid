@@ -1,14 +1,13 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import mx.edu.upqroo.kristenandroid.R;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
@@ -40,14 +39,16 @@ public class SettingsActivity extends AppCompatActivity {
         mCheckBoxGeneral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mPrefManager.saveNotificationPreference(NotificationsHelper.GENERAL_NOTIFICATION_KEY, b);
+                mPrefManager.saveNotificationPreference(
+                        NotificationsHelper.GENERAL_NOTIFICATION_KEY, b);
             }
         });
 
         mCheckBoxCareer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                mPrefManager.saveNotificationPreference(NotificationsHelper.CAREER_NOTIFICATION_KEY, b);
+                mPrefManager.saveNotificationPreference(
+                        NotificationsHelper.CAREER_NOTIFICATION_KEY, b);
             }
         });
     }

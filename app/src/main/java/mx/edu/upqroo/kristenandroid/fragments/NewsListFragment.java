@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -140,6 +142,7 @@ public class NewsListFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageErrorEvent(NewsListMessageError event) {
+        Crashlytics.log("Error en la carga de las noticias");
         mProgressBar.setVisibility(View.GONE);
         mTextErrorMessage.setText(event.getError());
         mTextErrorMessage.setVisibility(View.VISIBLE);

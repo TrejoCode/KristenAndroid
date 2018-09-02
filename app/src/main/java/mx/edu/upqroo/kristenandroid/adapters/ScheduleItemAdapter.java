@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
 import mx.edu.upqroo.kristenandroid.models.Day;
-import mx.edu.upqroo.kristenandroid.models.Subject;
 
 public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapter.ViewHolderDatos>{
     private List<Day> mDaysList;
@@ -28,7 +26,8 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
     @NonNull
     @Override
     public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_schedule,parent,false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_schedule,parent,false);
         return new ViewHolderDatos(view);
     }
 
@@ -39,7 +38,8 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
         holder.mRecycler.setAdapter(adapter);
 
         if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView, (int) (84 * Resources.getSystem().getDisplayMetrics().density));
+            ViewHelper.SetBottomMargin(holder.itemView,
+                    (int) (84 * Resources.getSystem().getDisplayMetrics().density));
         } else {
             // reset bottom margin back to zero. (your value may be different)
             ViewHelper.SetBottomMargin(holder.itemView, 0);
@@ -51,12 +51,12 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
         return mDaysList.size();
     }
 
-    public class ViewHolderDatos extends RecyclerView.ViewHolder {
+    class ViewHolderDatos extends RecyclerView.ViewHolder {
 
         private TextView _dayOfWeek;
         private RecyclerView mRecycler;
 
-        public ViewHolderDatos(View itemView) {
+        ViewHolderDatos(View itemView) {
             super(itemView);
             _dayOfWeek = itemView.findViewById(R.id.titSche);
             mRecycler = itemView.findViewById(R.id.recycler_subject);

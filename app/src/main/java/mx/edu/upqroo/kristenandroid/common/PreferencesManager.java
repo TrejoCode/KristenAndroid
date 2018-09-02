@@ -94,8 +94,10 @@ public class PreferencesManager {
 
     public NotificationLoaded loadNotificationsPreference() {
         NotificationLoaded result = new NotificationLoaded();
-        result.setGeneral(mSharedPref.getBoolean(NotificationsHelper.GENERAL_NOTIFICATION_KEY, true));
-        result.setCareer(mSharedPref.getBoolean(NotificationsHelper.CAREER_NOTIFICATION_KEY, true));
+        result.setGeneral(mSharedPref.getBoolean(
+                NotificationsHelper.GENERAL_NOTIFICATION_KEY, true));
+        result.setCareer(mSharedPref.getBoolean(
+                NotificationsHelper.CAREER_NOTIFICATION_KEY, true));
         return result;
     }
 }

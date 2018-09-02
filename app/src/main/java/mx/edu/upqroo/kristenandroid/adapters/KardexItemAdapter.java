@@ -53,13 +53,13 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
         return gradeList.size();
     }
 
-    public class KardexViewHolder extends RecyclerView.ViewHolder {
+    class KardexViewHolder extends RecyclerView.ViewHolder {
 
         TextView code;
         TextView subject;
         TextView generalGrade;
 
-        public KardexViewHolder(View itemView) {
+        KardexViewHolder(View itemView) {
             super(itemView);
             code = itemView.findViewById(R.id.text_item_kardex_code);
             subject = itemView.findViewById(R.id.text_item_kardex_subject);

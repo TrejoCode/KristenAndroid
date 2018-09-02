@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -72,6 +74,7 @@ public class ScheduleFragment extends Fragment {
             mDaysList.addAll(event.getDays());
             adaptadorSchedule.notifyDataSetChanged();
         } else {
+            Crashlytics.log("Llamada de horario fallida");
             //todo set visible a text view saying that there was an error
         }
         mProgress.setVisibility(View.GONE);

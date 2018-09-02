@@ -63,7 +63,8 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         }
 
         if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView, (int) (84 * Resources.getSystem().getDisplayMetrics().density));
+            ViewHelper.SetBottomMargin(holder.itemView,
+                    (int) (84 * Resources.getSystem().getDisplayMetrics().density));
         } else {
             // reset bottom margin back to zero. (your value may be different)
             ViewHelper.SetBottomMargin(holder.itemView, 0);
@@ -75,7 +76,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         return gradeList.size();
     }
 
-    public class GradeViewHolder extends RecyclerView.ViewHolder {
+    class GradeViewHolder extends RecyclerView.ViewHolder {
 
         TextView code;
         TextView subject;
@@ -86,7 +87,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         TextView gradeFour;
         TextView gradeFive;
 
-        public GradeViewHolder(View itemView) {
+        GradeViewHolder(View itemView) {
             super(itemView);
 
             code = itemView.findViewById(R.id.text_item_code);

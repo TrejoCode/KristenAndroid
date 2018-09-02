@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -79,6 +81,7 @@ public class KardexFragment extends Fragment {
             mKardexList.addAll(event.getKardexList());
             mKardexAdapter.notifyDataSetChanged();
         } else {
+            Crashlytics.log("Llamada de kardex fallida");
             //todo set visible a text view saying that there was an error
         }
         mProgress.setVisibility(View.GONE);

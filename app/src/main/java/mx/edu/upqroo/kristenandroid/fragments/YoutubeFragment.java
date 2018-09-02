@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.flipkart.youtubeview.YouTubePlayerView;
-import com.flipkart.youtubeview.listener.YouTubeEventListener;
 import com.flipkart.youtubeview.models.ImageLoader;
 import com.flipkart.youtubeview.models.YouTubePlayerType;
 import com.squareup.picasso.Picasso;
@@ -39,62 +38,15 @@ public class YoutubeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_youtube, container, false);
         YouTubePlayerView playerView;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            String videoId;
-            try {
-                videoId = getArguments().getString("videoId", "bOwsLtwa2Ts");
-            } catch (Exception ex) {
-                videoId = "bOwsLtwa2Ts";
-            }
-            playerView = view.findViewById(R.id.youtube_player_view);
-            playerView.initPlayer(API_KEY, videoId, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
-                    YouTubePlayerType.STRICT_NATIVE, new YouTubeEventListener() {
-                        @Override
-                        public void onReady() {
-
-                        }
-
-                        @Override
-                        public void onPlay(int i) {
-
-                        }
-
-                        @Override
-                        public void onPause(int i) {
-
-                        }
-
-                        @Override
-                        public void onStop(int i, int i1) {
-
-                        }
-
-                        @Override
-                        public void onBuffering(int i, boolean b) {
-
-                        }
-
-                        @Override
-                        public void onSeekTo(int i, int i1) {
-
-                        }
-
-                        @Override
-                        public void onInitializationFailure(String s) {
-
-                        }
-
-                        @Override
-                        public void onNativeNotSupported() {
-
-                        }
-
-                        @Override
-                        public void onCued() {
-
-                        }
-                    }, this, imageLoader);
+        String videoId;
+        try {
+            videoId = getArguments().getString("videoId", "bOwsLtwa2Ts");
+        } catch (Exception ex) {
+            videoId = "bOwsLtwa2Ts";
         }
+        playerView = view.findViewById(R.id.youtube_player_view);
+        playerView.initPlayer(API_KEY, videoId, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
+                YouTubePlayerType.STRICT_NATIVE, null, this, imageLoader);
         return view;
     }
 

@@ -3,8 +3,6 @@ package mx.edu.upqroo.kristenandroid.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +14,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
@@ -65,7 +65,8 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
         holder.textSubtitle.setText(actualNews.getDescription());
         holder.textDate.setText(actualNews.getDate());
         if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView, (int) (72 * Resources.getSystem().getDisplayMetrics().density));
+            ViewHelper.SetBottomMargin(holder.itemView,
+                    (int) (72 * Resources.getSystem().getDisplayMetrics().density));
         } else {
             ViewHelper.SetBottomMargin(holder.itemView, 0);
         }
@@ -123,8 +124,8 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
                 }
             });
             itemView.setOnClickListener(this);
-    }
-    //endregion
+        }
+        //endregion
         //region onClick
         @Override
         public void onClick(View view) {
