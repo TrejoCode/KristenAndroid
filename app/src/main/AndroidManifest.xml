@@ -24,27 +24,40 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="www.upqroo.edu.mx"
+                    android:pathPattern="/upqroo" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name=".activities.NewsDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:configChanges="orientation|keyboardHidden" />
         <activity
             android:name=".activities.MainActivity"
             android:label="News"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:configChanges="orientation|keyboardHidden" />
 
         <service android:name=".common.NotificationsHelper" />
 
         <activity
             android:name=".activities.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
 
-        <service android:name=".widget.ListViewWidgetService"
+        <service
+            android:name=".widget.ListViewWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".widget.ScheduleWidget">

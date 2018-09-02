@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -18,6 +20,7 @@ import java.lang.ref.WeakReference;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
+import io.fabric.sdk.android.Fabric;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
@@ -38,17 +41,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
+        //Fabric.with(this, new Crashlytics());
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)           // Enables Crashlytics debugger
+                .build();
+        Fabric.with(fabric);
         setContentView(R.layout.activity_login);
-
-        Thread.setDefaultUncaughtExceptionHandler (new Thread.UncaughtExceptionHandler()
-        {
-            @Override
-            public void uncaughtException (Thread thread, Throwable e)
-            {
-                e.toString();
-                System.exit(1);
-            }
-        });
 
         Toolbar mToolbar = findViewById(R.id.toolbarLogin);
         setSupportActionBar(mToolbar);
@@ -67,7 +66,8 @@ public class LoginActivity extends AppCompatActivity {
         mPrefManager = PreferencesManager.getInstance();
         mPrefManager.setContext(mContextWeakReference);
         SessionLoaded sessionLoaded = mPrefManager.loadSession();
-        if (!TextUtils.isEmpty(sessionLoaded.getUser()) || !TextUtils.isEmpty(sessionLoaded.getPassword())) {
+        if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||
+                !TextUtils.isEmpty(sessionLoaded.getPassword())) {
             mSessionHelper.login(sessionLoaded.getUser(), sessionLoaded.getPassword());
         } else {
             mLinearOverlay.setVisibility(View.INVISIBLE);
@@ -107,9 +107,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onMessageLogin(LoginMessage event) {
         if (event.isResult()) {
             mSessionHelper.createNewSession(event.getStudent());
-            mPrefManager.saveSession(event.getStudent().getUserId(), event.getStudent().getPassword());
+            mPrefManager.saveSession(event.getStudent().getUserId(),
+                    event.getStudent().getPassword());
 
-            NotificationLoaded notificationLoaded = PreferencesManager.getInstance().loadNotificationsPreference();
+            NotificationLoaded notificationLoaded =
+                    PreferencesManager.getInstance().loadNotificationsPreference();
             if (notificationLoaded.isGeneral()) {
                 NotificationsHelper
                         .SubscribeNotifications(mSessionHelper.getSession().getGeneralTopic());
