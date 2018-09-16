@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity
     private FragmentHelper mFragmentHelper;
     private Toolbar mToolbar;
     private SessionHelper mSession;
+    private NavigationView mNavigationView;
+    private ArrayList<FragmentHelper> mHistoryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +68,11 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_news);
+        mHistoryList = new ArrayList<>();
+
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
+        mNavigationView.setCheckedItem(R.id.nav_news);
 
         mFragmentHelper = FragmentHelper.NEWS;
         NewsListFragment initialFrag = new NewsListFragment();
@@ -81,7 +87,53 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            showLogoutDialog();
+            if (mHistoryList.size() > 0) {
+                FragmentHelper mLastFragment = mHistoryList.get(mHistoryList.size() - 1);
+                if (mLastFragment == FragmentHelper.NEWS) {
+                    mNavigationView.setCheckedItem(R.id.nav_news);
+                    mFragmentHelper = FragmentHelper.NEWS;
+                    NewsListFragment fragment = new NewsListFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, fragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_news);
+                } else if (mLastFragment == FragmentHelper.USER) {
+                    mNavigationView.setCheckedItem(R.id.nav_user);
+                    mFragmentHelper = FragmentHelper.USER;
+                    UserFragment fragment = new UserFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, fragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nave_menu_user);
+                } else if (mLastFragment == FragmentHelper.SCHEDULE) {
+                    mNavigationView.setCheckedItem(R.id.nav_schedule);
+                    mFragmentHelper = FragmentHelper.SCHEDULE;
+                    ScheduleFragment fragment = new ScheduleFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, fragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_schedule);
+                } else if (mLastFragment == FragmentHelper.GRADES) {
+                    mNavigationView.setCheckedItem(R.id.nav_school);
+                    mFragmentHelper = FragmentHelper.GRADES;
+                    GradesFragment fragment = new GradesFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, fragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_school);
+                } else if (mLastFragment == FragmentHelper.KARDEX) {
+                    mNavigationView.setCheckedItem(R.id.nav_kardex);
+                    mFragmentHelper = FragmentHelper.KARDEX;
+                    KardexFragment fragment = new KardexFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, fragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_kardex);
+                }
+                mHistoryList.remove(mHistoryList.size() - 1);
+            } else {
+                showLogoutDialog();
+            }
         }
     }
 
@@ -111,7 +163,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_news) {
-            if (mFragmentHelper != FragmentHelper.NEWS){
+            if (mFragmentHelper != FragmentHelper.NEWS) {
+                mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.NEWS;
                 NewsListFragment fragment = new NewsListFragment();
                 getSupportFragmentManager().beginTransaction()
@@ -120,7 +173,8 @@ public class MainActivity extends AppCompatActivity
                 mToolbar.setTitle(R.string.nav_menu_news);
             }
         } else if (id == R.id.nav_user) {
-            if (mFragmentHelper != FragmentHelper.USER){
+            if (mFragmentHelper != FragmentHelper.USER) {
+                mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.USER;
                 UserFragment fragment = new UserFragment();
                 getSupportFragmentManager().beginTransaction()
@@ -130,6 +184,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_schedule) {
             if (mFragmentHelper != FragmentHelper.SCHEDULE) {
+                mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.SCHEDULE;
                 ScheduleFragment fragment = new ScheduleFragment();
                 getSupportFragmentManager().beginTransaction()
@@ -139,6 +194,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_school) {
             if (mFragmentHelper != FragmentHelper.GRADES) {
+                mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.GRADES;
                 GradesFragment fragment = new GradesFragment();
                 getSupportFragmentManager().beginTransaction()
@@ -148,6 +204,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_kardex) {
             if (mFragmentHelper != FragmentHelper.KARDEX) {
+                mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.KARDEX;
                 KardexFragment fragment = new KardexFragment();
                 getSupportFragmentManager().beginTransaction()
