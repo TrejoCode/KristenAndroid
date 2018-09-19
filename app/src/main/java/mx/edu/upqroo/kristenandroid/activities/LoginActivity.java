@@ -39,7 +39,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_NoActionBar);
+        //applyTheme();
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         //Fabric.with(this, new Crashlytics());
         final Fabric fabric = new Fabric.Builder(this)
@@ -128,5 +129,14 @@ public class LoginActivity extends AppCompatActivity {
         mPassword.setEnabled(true);
         mButtonLogin.setVisibility(View.VISIBLE);
         mLinearOverlay.setVisibility(View.INVISIBLE);
+    }
+
+    public void applyTheme() {
+        // Considerar hacer una extension del appcompat activity para poner este metodo ahi
+        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
+        } else {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
+        }
     }
 }

@@ -100,4 +100,14 @@ public class PreferencesManager {
                 NotificationsHelper.CAREER_NOTIFICATION_KEY, true));
         return result;
     }
+
+    public void saveDarkThemeConfig(boolean pref) {
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.putBoolean("DARK_THEME", pref);
+        editor.apply();
+    }
+
+    public boolean loadDarkThemeConfig() {
+        return mSharedPref.getBoolean("DARK_THEME", false);
+    }
 }

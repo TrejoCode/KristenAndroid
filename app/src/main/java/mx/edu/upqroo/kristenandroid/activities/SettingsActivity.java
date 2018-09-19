@@ -1,9 +1,11 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyTheme();
         setContentView(R.layout.activity_settings);
 
         Toolbar mToolbar = findViewById(R.id.toolbarSettings);
@@ -29,12 +32,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         CheckBox mCheckBoxGeneral = findViewById(R.id.check_general_notification);
         CheckBox mCheckBoxCareer = findViewById(R.id.check_career_notifications);
+        Switch mSwitchDarkTheme = findViewById(R.id.switch_dark_theme);
 
         mPrefManager = PreferencesManager.getInstance();
 
         NotificationLoaded notificationLoaded = mPrefManager.loadNotificationsPreference();
         mCheckBoxGeneral.setChecked(notificationLoaded.isGeneral());
         mCheckBoxCareer.setChecked(notificationLoaded.isCareer());
+        mSwitchDarkTheme.setChecked(mPrefManager.loadDarkThemeConfig());
 
         mCheckBoxGeneral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -51,6 +56,17 @@ public class SettingsActivity extends AppCompatActivity {
                         NotificationsHelper.CAREER_NOTIFICATION_KEY, b);
             }
         });
+
+        mSwitchDarkTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mPrefManager.saveDarkThemeConfig(isChecked);
+                applyTheme();
+                MainActivity.HAS_THEME_CHANGED = true;
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
@@ -62,5 +78,22 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (MainActivity.HAS_THEME_CHANGED) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void applyTheme() {
+        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
+        } else {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
+        }
     }
 }

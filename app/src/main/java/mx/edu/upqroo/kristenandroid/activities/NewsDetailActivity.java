@@ -26,6 +26,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentTransaction;
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment;
 import mx.edu.upqroo.kristenandroid.models.News;
@@ -73,6 +74,7 @@ public class NewsDetailActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        applyTheme();
         setContentView(R.layout.activity_news_detail);
         mToolbar = findViewById(R.id.toolbarNewsDetail);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -433,5 +435,13 @@ public class NewsDetailActivity extends AppCompatActivity
             //todo set visible a text view saying that there was an error
         }
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    public void applyTheme() {
+        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
+        } else {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
+        }
     }
 }

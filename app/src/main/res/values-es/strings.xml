@@ -37,4 +37,6 @@
     <string name="user_mobile">Teléfono móvil</string>
     <string name="user_email">Correo electrónico</string>
     <string name="nav_menu_calendar">Calendario</string>
+    <string name="settings_op_3">Tema obscuro</string>
+    <string name="settings_op_desc_3">Habilitar el tema obscuro en la aplicación</string>
 </resources>

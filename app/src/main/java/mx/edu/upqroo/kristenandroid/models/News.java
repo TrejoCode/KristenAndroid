@@ -15,6 +15,7 @@ public class News {
 
     public News(int id,int postType, String title, String description, String category, String coverUrl, String date) {
         this.id = id;
+        this.postType = postType;
         this.title = title;
         this.description = description;
         this.category = category;

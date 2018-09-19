@@ -36,7 +36,14 @@ class Converter {
     static List<News> PublicationListToNewsList(List<Publicacion> publicacionList) {
         List<News> newsList = new ArrayList<>();
         for (Publicacion p : publicacionList) {
-            newsList.add(PublicationToNews(p));
+            if (p.getCategorias() != null &&
+                    p.getDescripcion() != null &&
+                    p.getFecha() != null &&
+                    p.getPortada() != null &&
+                    p.getTitulo() != null) {
+                newsList.add(PublicationToNews(p));
+            }
+
         }
         return newsList;
     }

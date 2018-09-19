@@ -39,13 +39,13 @@
 
         <activity
             android:name=".activities.NewsDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden" />
         <activity
             android:name=".activities.MainActivity"
             android:label="News"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden" />
 
@@ -53,7 +53,7 @@
 
         <activity
             android:name=".activities.SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
 
         <service

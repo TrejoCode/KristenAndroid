@@ -24,6 +24,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
+import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private SessionHelper mSession;
     private NavigationView mNavigationView;
     private ArrayList<FragmentHelper> mHistoryList;
+    public static boolean HAS_THEME_CHANGED = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 
         mSession = SessionHelper.getInstance();
         onWidgetUpdateMessage(this);
-
+        applyTheme();
         setContentView(R.layout.activity_main);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -249,6 +251,14 @@ public class MainActivity extends AppCompatActivity
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void applyTheme() {
+        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
+        } else {
+            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
+        }
     }
 
 }
