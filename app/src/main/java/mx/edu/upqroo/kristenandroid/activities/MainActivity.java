@@ -33,7 +33,7 @@ import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends UpqrooActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentHelper mFragmentHelper;
@@ -251,14 +251,6 @@ public class MainActivity extends AppCompatActivity
                 });
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    public void applyTheme() {
-        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
-        } else {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
-        }
     }
 
 }

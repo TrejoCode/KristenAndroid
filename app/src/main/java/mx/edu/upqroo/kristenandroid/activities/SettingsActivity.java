@@ -14,7 +14,7 @@ import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends UpqrooActivity {
 
     private PreferencesManager mPrefManager;
 
@@ -86,14 +86,6 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(new Intent(this, MainActivity.class));
         } else {
             super.onBackPressed();
-        }
-    }
-
-    public void applyTheme() {
-        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
-        } else {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
         }
     }
 }

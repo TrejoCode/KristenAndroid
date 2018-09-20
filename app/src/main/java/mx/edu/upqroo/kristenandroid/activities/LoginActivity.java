@@ -29,7 +29,7 @@ import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends UpqrooActivity {
     private SessionHelper mSessionHelper;
     private PreferencesManager mPrefManager;
     private TextView mUserId;
@@ -39,8 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //applyTheme();
-        setTheme(R.style.AppTheme);
+        //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         //Fabric.with(this, new Crashlytics());
         final Fabric fabric = new Fabric.Builder(this)
@@ -48,6 +47,10 @@ public class LoginActivity extends AppCompatActivity {
                 .debuggable(true)           // Enables Crashlytics debugger
                 .build();
         Fabric.with(fabric);
+        WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
+        mPrefManager = PreferencesManager.getInstance();
+        mPrefManager.setContext(mContextWeakReference);
+        applyTheme();
         setContentView(R.layout.activity_login);
 
         Toolbar mToolbar = findViewById(R.id.toolbarLogin);
@@ -61,11 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin = findViewById(R.id.button_login);
         mButtonLogin.setVisibility(View.INVISIBLE);
 
-        WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
-
         mSessionHelper = SessionHelper.getInstance();
-        mPrefManager = PreferencesManager.getInstance();
-        mPrefManager.setContext(mContextWeakReference);
         SessionLoaded sessionLoaded = mPrefManager.loadSession();
         if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||
                 !TextUtils.isEmpty(sessionLoaded.getPassword())) {
@@ -88,11 +87,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        //super.onBackPressed();
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
@@ -102,6 +96,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -129,14 +128,5 @@ public class LoginActivity extends AppCompatActivity {
         mPassword.setEnabled(true);
         mButtonLogin.setVisibility(View.VISIBLE);
         mLinearOverlay.setVisibility(View.INVISIBLE);
-    }
-
-    public void applyTheme() {
-        // Considerar hacer una extension del appcompat activity para poner este metodo ahi
-        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
-        } else {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
-        }
     }
 }

@@ -34,7 +34,7 @@ import mx.edu.upqroo.kristenandroid.service.ApiServices;
 import mx.edu.upqroo.kristenandroid.service.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 
-public class NewsDetailActivity extends AppCompatActivity
+public class NewsDetailActivity extends UpqrooActivity
         implements AppBarLayout.OnOffsetChangedListener {
     public static final String EXTRA_NEWS = "KEY_NEWS";
     private News mNews;
