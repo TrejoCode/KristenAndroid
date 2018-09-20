@@ -48,7 +48,7 @@ public class ApiServices {
                         break;
                     default:
                         EventBus.getDefault()
-                                .post(new LoginMessage(false, null));
+                                .post(new LoginMessage(false, response.message()));
                         break;
                 }
             }
@@ -56,7 +56,7 @@ public class ApiServices {
             @Override
             public void onFailure(Call<Alumno> call, Throwable t) {
                 EventBus.getDefault()
-                        .post(new LoginMessage(false, null));
+                        .post(new LoginMessage(false, t.getMessage()));
             }
         });
     }

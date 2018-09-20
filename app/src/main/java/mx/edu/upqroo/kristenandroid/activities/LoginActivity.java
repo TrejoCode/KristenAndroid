@@ -17,7 +17,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import io.fabric.sdk.android.Fabric;
@@ -39,12 +38,10 @@ public class LoginActivity extends UpqrooActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
-                .debuggable(true)           // Enables Crashlytics debugger
+                .debuggable(true)
                 .build();
         Fabric.with(fabric);
         WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
@@ -122,7 +119,8 @@ public class LoginActivity extends UpqrooActivity {
             }
             startActivity(new Intent(this, MainActivity.class));
         } else {
-            Toast.makeText(this, R.string.login_result_failed, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, R.string.login_result_failed, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, event.getMessage(), Toast.LENGTH_LONG).show();
         }
         mUserId.setEnabled(true);
         mPassword.setEnabled(true);
