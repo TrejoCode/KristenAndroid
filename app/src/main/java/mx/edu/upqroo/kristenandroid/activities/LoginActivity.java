@@ -38,16 +38,15 @@ public class LoginActivity extends UpqrooActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
+        mPrefManager = PreferencesManager.getInstance();
+        mPrefManager.setContext(mContextWeakReference);
         super.onCreate(savedInstanceState);
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
                 .debuggable(true)
                 .build();
         Fabric.with(fabric);
-        WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
-        mPrefManager = PreferencesManager.getInstance();
-        mPrefManager.setContext(mContextWeakReference);
-        applyTheme();
         setContentView(R.layout.activity_login);
 
         Toolbar mToolbar = findViewById(R.id.toolbarLogin);

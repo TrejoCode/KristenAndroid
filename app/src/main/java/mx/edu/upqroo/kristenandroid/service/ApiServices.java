@@ -15,6 +15,7 @@ import mx.edu.upqroo.kristenandroid.service.containers.Semana;
 import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.KardexListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
+import mx.edu.upqroo.kristenandroid.service.messages.NewsDetailMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
 import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
@@ -165,14 +166,19 @@ public class ApiServices {
                     case 200:
                         PublicacionContenido data = response.body();
                         if (data != null) {
+                            //EventBus.getDefault()
+                              //      .post(new PostContentMessage(true, data));
                             EventBus.getDefault()
-                                    .post(new PostContentMessage(true, data));
+                                    .post(new NewsDetailMessage(true, Converter
+                                            .PublicacionToNewsDetail(data)));
                         }
                         break;
                     default:
+                        //EventBus.getDefault()
+                          //      .post(new PostContentMessage(false,
+                            //            null));
                         EventBus.getDefault()
-                                .post(new PostContentMessage(false,
-                                        null));
+                                .post(new NewsDetailMessage(false, null));
                         break;
                 }
             }

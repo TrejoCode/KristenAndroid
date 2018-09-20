@@ -1,16 +1,17 @@
 package mx.edu.upqroo.kristenandroid.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ContentGallery extends Content{
+public class ContentGallery extends Content {
     private int quantity;
-    private ArrayList<String> images;
+    private List<String> images;
 
     public ContentGallery() {
         super();
     }
 
-    public ContentGallery(int quantity, ArrayList<String> images) {
+    public ContentGallery(int quantity, List<String> images) {
         this.quantity = quantity;
         this.images = images;
     }
@@ -29,7 +30,7 @@ public class ContentGallery extends Content{
         this.quantity = quantity;
     }
 
-    public ArrayList<String> getImages() {
+    public List<String> getImages() {
         return images;
     }
 

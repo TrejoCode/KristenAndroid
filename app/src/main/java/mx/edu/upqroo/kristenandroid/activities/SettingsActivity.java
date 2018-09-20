@@ -21,7 +21,6 @@ public class SettingsActivity extends UpqrooActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        applyTheme();
         setContentView(R.layout.activity_settings);
 
         Toolbar mToolbar = findViewById(R.id.toolbarSettings);

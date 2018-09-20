@@ -16,9 +16,9 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.Launcher"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden">
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,30 +31,32 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
                     android:host="www.upqroo.edu.mx"
-                    android:pathPattern="/upqroo" />
+                    android:pathPattern="/upqroo"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.NewsDetailActivity"
-            android:theme="@style/AppTheme"
+            android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="News"
-            android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden" />
+            android:theme="@style/AppTheme" />
 
         <service android:name=".common.NotificationsHelper" />
 
         <activity
             android:name=".activities.SettingsActivity"
             android:theme="@style/AppTheme" />
-        <meta-data android:name="firebase_crashlytics_collection_enabled" android:value="false" />
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
 
         <service
             android:name=".widget.ListViewWidgetService"
@@ -69,6 +71,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/schedule_widget_info" />
         </receiver>
+
+        <activity android:name=".activities.NewsDetailActivity2"></activity>
     </application>
 
 </manifest>

@@ -46,10 +46,8 @@ public class MainActivity extends UpqrooActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mSession = SessionHelper.getInstance();
         onWidgetUpdateMessage(this);
-        applyTheme();
         setContentView(R.layout.activity_main);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

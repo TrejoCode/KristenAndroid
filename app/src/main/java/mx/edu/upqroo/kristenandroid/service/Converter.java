@@ -7,17 +7,28 @@ import java.util.Locale;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
+import mx.edu.upqroo.kristenandroid.models.Content;
+import mx.edu.upqroo.kristenandroid.models.ContentGallery;
+import mx.edu.upqroo.kristenandroid.models.ContentImage;
+import mx.edu.upqroo.kristenandroid.models.ContentLink;
+import mx.edu.upqroo.kristenandroid.models.ContentList;
+import mx.edu.upqroo.kristenandroid.models.ContentTitle;
+import mx.edu.upqroo.kristenandroid.models.ContentVideo;
 import mx.edu.upqroo.kristenandroid.models.Day;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 import mx.edu.upqroo.kristenandroid.models.Grades;
 import mx.edu.upqroo.kristenandroid.models.Kardex;
 import mx.edu.upqroo.kristenandroid.models.News;
+import mx.edu.upqroo.kristenandroid.models.NewsDetail;
 import mx.edu.upqroo.kristenandroid.models.Subject;
 import mx.edu.upqroo.kristenandroid.service.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.service.containers.Calificacion;
+import mx.edu.upqroo.kristenandroid.service.containers.Contenido;
+import mx.edu.upqroo.kristenandroid.service.containers.Contenido_;
 import mx.edu.upqroo.kristenandroid.service.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.service.containers.Materia;
 import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
+import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
 import mx.edu.upqroo.kristenandroid.service.containers.Semana;
 
 class Converter {
@@ -138,5 +149,43 @@ class Converter {
         dayList.add(viernes);
 
         return dayList;
+    }
+
+    static NewsDetail PublicacionToNewsDetail(PublicacionContenido post) {
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
+        return new NewsDetail(post.getIdPublicaciones(),
+                post.getTitulo(),
+                post.getDescripcion(),
+                post.getPortada(),
+                post.getCategorias(),
+                post.getFecha(),
+                post.getIdTiposPublicacion(),
+                post.getAutor(),
+                publicationContentToNewsContent(post.getContenidos()));
+    }
+
+    private static List<Content> publicationContentToNewsContent(List<Contenido> contenidos) {
+        List<Content> contents = new ArrayList<>();
+        for (Contenido c : contenidos) {
+            Contenido_ contenido = c.getContenido();
+            if (c.getIdTipoContenidos().equals(1)) {
+                contents.add(new Content(contenido.getTexto()));
+            } else if (c.getIdTipoContenidos().equals(2)) {
+                contents.add(new ContentImage(contenido.getAlt(),
+                        contenido.getSrc()));
+            } else if (c.getIdTipoContenidos().equals(4)) {
+                contents.add(new ContentLink(contenido.getTexto(), contenido.getUrl()));
+            } else if (c.getIdTipoContenidos().equals(5)) {
+                contents.add(new ContentGallery(contenido.getCantidad(), contenido.getImagenes()));
+            } else if (c.getIdTipoContenidos().equals(7)) {
+                contents.add(new ContentVideo(contenido.getId(), contenido.getServidor()));
+            } else if (c.getIdTipoContenidos().equals(8)) {
+                contents.add(new ContentList(contenido.getTitulo(), contenido.getCantidad(),
+                        contenido.getOrdenada(), contenido.getElementos()));
+            } else if (c.getIdTipoContenidos().equals(9)) {
+                contents.add(new ContentTitle(contenido.getTexto()));
+            }
+        }
+        return contents;
     }
 }

@@ -21,17 +21,16 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentTransaction;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.service.ApiServices;
 import mx.edu.upqroo.kristenandroid.service.containers.Contenido;
+import mx.edu.upqroo.kristenandroid.service.messages.NewsDetailMessage;
 import mx.edu.upqroo.kristenandroid.service.messages.PostContentMessage;
 
 public class NewsDetailActivity extends UpqrooActivity
@@ -74,7 +73,6 @@ public class NewsDetailActivity extends UpqrooActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        applyTheme();
         setContentView(R.layout.activity_news_detail);
         mToolbar = findViewById(R.id.toolbarNewsDetail);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -164,7 +162,7 @@ public class NewsDetailActivity extends UpqrooActivity
         });
         mFab.setVisibility(View.GONE);
 
-        mYoutubeFragment = findViewById(R.id.youtube_fragment);
+        mYoutubeFragment = findViewById(R.id.youtube_fragment_content);
         mYoutubeFragment.setVisibility(View.GONE);
 
         AppBarLayout appbar = findViewById(R.id.appBarLayout);
@@ -400,7 +398,7 @@ public class NewsDetailActivity extends UpqrooActivity
                         youTubeNativeFragmentDemo.setArguments(args);
                         FragmentTransaction fragmentTransaction =
                                 getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.youtube_fragment, youTubeNativeFragmentDemo);
+                        fragmentTransaction.replace(R.id.youtube_fragment_content, youTubeNativeFragmentDemo);
                         fragmentTransaction.commit();
                         //endregion
                     }
@@ -437,11 +435,8 @@ public class NewsDetailActivity extends UpqrooActivity
         mProgressBar.setVisibility(View.GONE);
     }
 
-    public void applyTheme() {
-        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Dark);
-        } else {
-            setTheme(R.style.ThemeOverlay_MaterialComponents_Light);
-        }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessage(NewsDetailMessage event) {
+
     }
 }

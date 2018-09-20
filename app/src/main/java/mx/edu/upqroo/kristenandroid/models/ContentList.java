@@ -1,18 +1,22 @@
 package mx.edu.upqroo.kristenandroid.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContentList extends Content {
+    private String title;
     private boolean ordered;
     private int quantity;
-    private ArrayList<String> elements;
+    private List<String> elements;
 
     public ContentList() {
         super();
     }
 
-    public ContentList(int quantity, ArrayList<String> element) {
+    public ContentList(String title, int quantity, boolean ordered, List<String> element) {
+        this.title = title;
         this.quantity = quantity;
+        this.ordered = ordered;
         this.elements = element;
     }
 
@@ -20,6 +24,14 @@ public class ContentList extends Content {
         this.quantity = quantity;
         this.elements = new ArrayList<>();
         this.elements.add(element);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getQuantity() {
@@ -30,11 +42,11 @@ public class ContentList extends Content {
         this.quantity = quantity;
     }
 
-    public ArrayList<String> getElements() {
+    public List<String> getElements() {
         return elements;
     }
 
-    public void setElement(ArrayList<String> element) {
+    public void setElement(List<String> element) {
         this.elements = element;
     }
 

@@ -100,7 +100,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <fragment
-                    android:id="@+id/youtube_fragment"
+                    android:id="@+id/youtube_fragment_content"
                     android:name="mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/youtube_fragment" />
+                    app:layout_constraintTop_toBottomOf="@+id/youtube_fragment_content" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline5"

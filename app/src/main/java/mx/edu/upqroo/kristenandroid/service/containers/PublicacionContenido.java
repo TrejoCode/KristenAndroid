@@ -30,6 +30,9 @@ public class PublicacionContenido {
     @SerializedName("idUsuarios")
     @Expose
     private Integer idUsuarios;
+    @SerializedName("idCarrera")
+    @Expose
+    private Integer idCarrera;
     @SerializedName("autor")
     @Expose
     private String autor;
@@ -101,6 +104,14 @@ public class PublicacionContenido {
         this.idUsuarios = idUsuarios;
     }
 
+    public Integer getIdCarrera() {
+        return idCarrera;
+    }
+
+    public void setIdCarrera(Integer idCarrera) {
+        this.idCarrera = idCarrera;
+    }
+
     public String getAutor() {
         return autor;
     }
@@ -116,5 +127,6 @@ public class PublicacionContenido {
     public void setContenidos(List<Contenido> contenidos) {
         this.contenidos = contenidos;
     }
+
 
 }
