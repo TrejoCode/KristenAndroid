@@ -19,7 +19,7 @@ import mx.edu.upqroo.kristenandroid.models.Grades;
  * Created by RafaelKoh on 08/07/2018.
  */
 
-public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.GradeViewHolder>{
+public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.GradeViewHolder> {
 
     private List<Grades> gradeList;
     private LayoutInflater mInflater;

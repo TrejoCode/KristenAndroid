@@ -14,6 +14,7 @@ import java.util.List;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment;
@@ -28,10 +29,12 @@ import mx.edu.upqroo.kristenandroid.models.ContentVideo;
 public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Content> mContentList;
     private LayoutInflater mInflater;
+    private Context mContext;
     private FragmentManager mFragmentManager;
 
     public NewsDetailContentAdapter(Context context, List<Content> contents,
                                     FragmentManager fragmentManager) {
+        this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mContentList = contents;
         this.mFragmentManager = fragmentManager;
@@ -102,7 +105,10 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
             case 0:
                 GalleryViewHolder galleryHolder = (GalleryViewHolder) holder;
                 ContentGallery contentGallery = (ContentGallery) mContentList.get(position);
-                //galleryHolder.mRecycler.setAdapter();
+                galleryHolder.mRecycler.setLayoutManager(new LinearLayoutManager(mContext,
+                        LinearLayoutManager.HORIZONTAL, false));
+                galleryHolder.mRecycler
+                        .setAdapter(new ImageItemAdapter(contentGallery.getImages(), mContext));
                 break;
             case 1:
                 HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
@@ -127,6 +133,12 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 break;
             case 4:
                 ListViewHolder listHolder = (ListViewHolder) holder;
+                ContentList contentList = (ContentList) mContentList.get(position);
+                listHolder.mTextView.setText(contentList.getTitle());
+                listHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+                listHolder.mRecyclerView
+                        .setAdapter(new ListElementItemAdapter(contentList.getElements(),
+                                mContext));
                 break;
             case 5:
                 TextViewHolder textHolder = (TextViewHolder) holder;
