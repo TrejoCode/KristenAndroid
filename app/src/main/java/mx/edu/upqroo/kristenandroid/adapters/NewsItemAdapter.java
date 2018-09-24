@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
-import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity2;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
 import mx.edu.upqroo.kristenandroid.models.News;
@@ -117,8 +116,8 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     if (!news.getCategory().equals("COVER")) {
-                        Intent intent = new Intent(v.getContext(), NewsDetailActivity2.class);
-                        intent.putExtra(NewsDetailActivity2.EXTRA_NEWS,
+                        Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
+                        intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
                                 Serializer.Serialize(news));
                         v.getContext().startActivity(intent);
                     }

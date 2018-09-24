@@ -30,7 +30,6 @@ import me.dkzwm.widget.srl.SmoothRefreshLayout;
 import me.dkzwm.widget.srl.extra.header.ClassicHeader;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
-import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity2;
 import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
@@ -100,8 +99,8 @@ public class NewsListFragment extends Fragment {
             @Override
             public void onNewsItemClick(View view, int position) {
                 if (!mNewsAdapter.getItem(position).getCategory().equals("COVER")){
-                    Intent intent = new Intent(view.getContext(), NewsDetailActivity2.class);
-                    intent.putExtra(NewsDetailActivity2.EXTRA_NEWS,
+                    Intent intent = new Intent(view.getContext(), NewsDetailActivity.class);
+                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
                             Serializer.Serialize(mNewsAdapter.getItem(position)));
                     startActivity(intent);
                 }

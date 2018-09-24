@@ -20,7 +20,7 @@ import mx.edu.upqroo.kristenandroid.R;
  */
 public class YoutubeFragment extends Fragment {
 
-    private static String API_KEY = "AIzaSyBVfk5yVrwNzDFPsLjKu_HF7DiG_fwd3HE";
+    public static String API_KEY = "AIzaSyBVfk5yVrwNzDFPsLjKu_HF7DiG_fwd3HE";
     private ImageLoader imageLoader = new ImageLoader() {
         @Override
         public void loadImage(@NonNull ImageView imageView, @NonNull String url, int height, int width) {

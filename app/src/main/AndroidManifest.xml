@@ -37,11 +37,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.NewsDetailActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".activities.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="News"
@@ -72,7 +67,7 @@
                 android:resource="@xml/schedule_widget_info" />
         </receiver>
 
-        <activity android:name=".activities.NewsDetailActivity2"></activity>
+        <activity android:name=".activities.NewsDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,19 +1,21 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flipkart.youtubeview.YouTubePlayerView;
+import com.flipkart.youtubeview.models.ImageLoader;
+import com.flipkart.youtubeview.models.YouTubePlayerType;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
@@ -30,14 +32,26 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
     private List<Content> mContentList;
     private LayoutInflater mInflater;
     private Context mContext;
-    private FragmentManager mFragmentManager;
+    private Fragment mFragment;
+
+    private ImageLoader imageLoader = new ImageLoader() {
+        @Override
+        public void loadImage(@NonNull ImageView imageView, @NonNull String url,
+                              int height, int width) {
+            Picasso.get()
+                    .load(url)
+                    .resize(width + 1, height + 1)
+                    .centerCrop()
+                    .into(imageView);
+        }
+    };
 
     public NewsDetailContentAdapter(Context context, List<Content> contents,
-                                    FragmentManager fragmentManager) {
+                                    Fragment fragment) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.mContentList = contents;
-        this.mFragmentManager = fragmentManager;
+        this.mFragment = fragment;
     }
 
     @Override
@@ -53,10 +67,10 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
             id = 3;
         } else if (mContentList.get(position) instanceof ContentList) {
             id = 4;
-        } else if (mContentList.get(position) != null) {
-            id = 5;
         } else if (mContentList.get(position) instanceof ContentVideo) {
             id = 6;
+        } else if (mContentList.get(position) != null) {
+            id = 5;
         } else {
             id = 5;
         }
@@ -146,15 +160,15 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 break;
             case 6:
                 VideoViewHolder videoHolder = (VideoViewHolder) holder;
+                ContentVideo contentVideo = (ContentVideo) mContentList.get(position);
 
-                Bundle args = new Bundle();
-                args.putString("videoId", mContentList.get(position).getText());
-                videoHolder.youTubeNativeFragmentDemo.setArguments(args);
-                FragmentTransaction fragmentTransaction =
-                        mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.youtube_fragment_content,
-                        videoHolder.youTubeNativeFragmentDemo);
-                fragmentTransaction.commit();
+                String videoId = contentVideo.getId();
+
+                videoHolder.mPlayerView.initPlayer(YoutubeFragment.API_KEY, videoId,
+                        "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/" +
+                                "60bae1a1/youtube-android/youtube_iframe_player.html",
+                        YouTubePlayerType.STRICT_NATIVE,
+                        null, mFragment, imageLoader);
                 break;
         }
     }
@@ -213,9 +227,10 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     class VideoViewHolder extends RecyclerView.ViewHolder {
-        YoutubeFragment youTubeNativeFragmentDemo = new YoutubeFragment();
+        YouTubePlayerView mPlayerView;
         VideoViewHolder(View itemView) {
             super(itemView);
+            mPlayerView = itemView.findViewById(R.id.youtube_player_view_content);
         }
     }
 }
