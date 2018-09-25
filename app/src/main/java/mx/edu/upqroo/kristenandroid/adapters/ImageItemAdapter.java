@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
@@ -40,11 +41,12 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
                                  final int position) {
         Picasso.get()
                 .load(mImagesList.get(position))
-                .fit()
                 .placeholder(R.drawable.side_nav_bar)
                 .error(R.drawable.side_nav_bar)
                 .into(holder.mImageView);
-
+        String text = (position + 1) + " : " + mImagesList.size();
+        holder.mCountText.setText(text);
+        holder.mCountText.setVisibility(View.VISIBLE);
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,10 +70,12 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
     }
 
     class ImageViewHolder extends RecyclerView.ViewHolder {
-        ImageView mImageView;
+        PhotoView mImageView;
+        TextView mCountText;
         ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_item_content);
+            mCountText = itemView.findViewById(R.id.text_image_number);
         }
     }
 }
