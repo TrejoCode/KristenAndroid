@@ -27,7 +27,8 @@ public class NewsDetailFragment extends Fragment {
         RecyclerView mRecycler = view.findViewById(R.id.recycler_news_detail);
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         List<Content> mContentList = NewsDetailActivity.NEWS_CONTENT;
-        NewsDetailContentAdapter mAdapter = new NewsDetailContentAdapter(getContext(), mContentList, this);
+        NewsDetailContentAdapter mAdapter =
+                new NewsDetailContentAdapter(getContext(), mContentList, this);
         mRecycler.setAdapter(mAdapter);
         return view;
     }
