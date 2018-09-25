@@ -21,6 +21,7 @@ import java.util.List;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.common.PostTypeHelper;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.models.Content;
@@ -94,25 +95,28 @@ public class NewsDetailActivity extends UpqrooActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_share) {
-            if (mNews.getPostType() == 1) {
+            if (mNews.getPostType() == PostTypeHelper.EVENT.getId()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        mNews.getTitle() + "\n" + "http://www.google.com");
+                        mNews.getTitle() + "\n" + "www.upqroo.edu.mx/evento/"
+                                + mNews.getId());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
-            } else if (mNews.getPostType() == 2) {
+            } else if (mNews.getPostType() == PostTypeHelper.NEWS.getId()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        mNews.getTitle() + "\n" + "http://www.google.com");
+                        mNews.getTitle() + "\n" + "www.upqroo.edu.mx/noticia/"
+                                + mNews.getId());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
-            } else if (mNews.getPostType() == 3) {
+            } else if (mNews.getPostType() == PostTypeHelper.WORK.getId()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        mNews.getTitle() + "\n" + "http://www.google.com");
+                        mNews.getTitle() + "\n" + "www.upqroo.edu.mx/trabajo/"
+                                + mNews.getId());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             }
