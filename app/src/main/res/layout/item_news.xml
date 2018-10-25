@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -29,13 +30,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Lorem Ipsum"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorTitle"
                 android:textSize="21sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_item_date_news" />
+                app:layout_constraintTop_toBottomOf="@+id/text_item_date_news"
+                tools:text="Lorem Ipsum" />
 
             <ImageView
                 android:id="@+id/image_item_news"
@@ -46,7 +47,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/side_nav_bar" />
+                app:srcCompat="@drawable/side_nav_bar"
+                android:contentDescription="@string/news_image_description" />
 
             <TextView
                 android:id="@+id/text_item_subtitle_news"
@@ -55,12 +57,12 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_item_title_news" />
+                app:layout_constraintTop_toBottomOf="@+id/text_item_title_news"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_item_readmore"
@@ -69,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Read more"
+                android:text="@string/read_more"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_item_subtitle_news"
@@ -82,11 +84,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_item_news" />
+                app:layout_constraintTop_toBottomOf="@+id/image_item_news"
+                tools:text="2018-01-01" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
