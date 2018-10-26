@@ -43,7 +43,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <service android:name=".common.NotificationsHelper" />
+        <service android:name=".common.FirebaseNotificationsHelper" />
 
         <activity
             android:name=".activities.SettingsActivity"

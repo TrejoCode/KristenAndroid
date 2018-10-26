@@ -51,4 +51,6 @@
     <string name="settings_op_3">Dark theme</string>
     <string name="settings_op_desc_3">Enable dark theme throughout the app</string>
     <string name="read_more">Read more</string>
+    <string name="channel_name">upqroo_notifications_channel</string>
+    <string name="channel_description">A channel for all notifications from Upqroo</string>
 </resources>

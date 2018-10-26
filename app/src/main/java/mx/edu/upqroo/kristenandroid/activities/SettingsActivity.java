@@ -7,10 +7,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
+import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 
@@ -44,7 +43,7 @@ public class SettingsActivity extends UpqrooActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mPrefManager.saveNotificationPreference(
-                        NotificationsHelper.GENERAL_NOTIFICATION_KEY, b);
+                        FirebaseNotificationsHelper.GENERAL_NOTIFICATION_KEY, b);
             }
         });
 
@@ -52,7 +51,7 @@ public class SettingsActivity extends UpqrooActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mPrefManager.saveNotificationPreference(
-                        NotificationsHelper.CAREER_NOTIFICATION_KEY, b);
+                        FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY, b);
             }
         });
 

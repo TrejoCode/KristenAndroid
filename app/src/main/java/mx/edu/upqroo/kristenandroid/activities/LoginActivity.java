@@ -21,7 +21,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import io.fabric.sdk.android.Fabric;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.NotificationsHelper;
+import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
@@ -109,16 +109,15 @@ public class LoginActivity extends UpqrooActivity {
             NotificationLoaded notificationLoaded =
                     PreferencesManager.getInstance().loadNotificationsPreference();
             if (notificationLoaded.isGeneral()) {
-                NotificationsHelper
+                FirebaseNotificationsHelper
                         .SubscribeNotifications(mSessionHelper.getSession().getGeneralTopic());
             }
             if (notificationLoaded.isCareer()) {
-                NotificationsHelper
+                FirebaseNotificationsHelper
                         .SubscribeNotifications(mSessionHelper.getSession().getUserTopic());
             }
             startActivity(new Intent(this, MainActivity.class));
         } else {
-            //Toast.makeText(this, R.string.login_result_failed, Toast.LENGTH_LONG).show();
             Toast.makeText(this, event.getMessage(), Toast.LENGTH_LONG).show();
         }
         mUserId.setEnabled(true);

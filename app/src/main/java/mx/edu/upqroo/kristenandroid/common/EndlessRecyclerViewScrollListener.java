@@ -31,20 +31,37 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
 
     private RecyclerView.LayoutManager mLayoutManager;
 
+    /**
+     * Constructor for LinearLayoutManager
+     * @param layoutManager layout manager for the recycler view
+     */
     protected EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager) {
         this.mLayoutManager = layoutManager;
     }
 
+    /**
+     * Constructor for GridLayoutManager
+     * @param layoutManager layout manager for the recycler view
+     */
     public EndlessRecyclerViewScrollListener(GridLayoutManager layoutManager) {
         this.mLayoutManager = layoutManager;
         visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
     }
 
+    /**
+     * Constructor for StaggeredGridLayoutManager
+     * @param layoutManager layout manager for the recycler view
+     */
     public EndlessRecyclerViewScrollListener(StaggeredGridLayoutManager layoutManager) {
         this.mLayoutManager = layoutManager;
         visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
     }
 
+    /**
+     * Gets the last visible item
+     * @param lastVisibleItemPositions array
+     * @return the id of the item
+     */
     private int getLastVisibleItem(int[] lastVisibleItemPositions) {
         int maxSize = 0;
         for (int i = 0; i < lastVisibleItemPositions.length; i++) {
@@ -58,9 +75,14 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         return maxSize;
     }
 
-    // This happens many times a second during a scroll, so be wary of the code you place here.
-    // We are given a few useful parameters to help us work out if we need to load some more data,
-    // but first we check if we are waiting for the previous load to finish.
+    /**
+     * This happens many times a second during a scroll, so be wary of the code you place here.
+     * We are given a few useful parameters to help us work out if we need to load some more data,
+     * but first we check if we are waiting for the previous load to finish.
+     * @param view Recycler
+     * @param dx x
+     * @param dy y
+     */
     @Override
     public void onScrolled(RecyclerView view, int dx, int dy) {
         int lastVisibleItemPosition = 0;
@@ -108,14 +130,21 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         }
     }
 
-    // Call this method whenever performing new searches
+    /**
+     * Call this method whenever performing new searches
+     */
     public void resetState() {
         this.currentPage = this.startingPageIndex;
         this.previousTotalItemCount = 0;
         this.loading = true;
     }
 
-    // Defines the process for actually loading more data based on page
+    /**
+     * Defines the process for actually loading more data based on page
+     * @param page page to load
+     * @param totalItemsCount total items
+     * @param view recycler view
+     */
     public abstract void onLoadMore(int page, int totalItemsCount, RecyclerView view);
 
 }
