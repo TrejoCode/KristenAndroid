@@ -6,6 +6,10 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * <h1>ApiClient</h1>
+ * Class that contains all the main logic for the consume of the API.
+ */
 class ApiClient {
     private static final String BASE_URL = "http://kristen.glitch.me/api/";
 
@@ -22,6 +26,12 @@ class ApiClient {
     private static Retrofit retrofit = builder.build();
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
+    /**
+     * Creates a service using the retrofit builder.
+     * @param serviceClass Class
+     * @param <S> S
+     * @return Returns the service
+     */
     static <S> S createService(Class<S> serviceClass) {
         return retrofit.create(serviceClass);
     }

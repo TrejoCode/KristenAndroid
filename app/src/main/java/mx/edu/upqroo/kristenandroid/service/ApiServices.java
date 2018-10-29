@@ -24,14 +24,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * <h1>ApiServices</h1>
+ * Class that encapsulates the call to the API defined in the Interface.
+ * Every method response is notify by a EventBus post.
+ */
 public class ApiServices {
     private static ApiInterface service;
 
+    /**
+     * Initialize the rest client if needed.
+     */
     private static void initializeRestClientAdministration() {
         if (service == null)
         service = ApiClient.createService(ApiInterface.class);
     }
 
+    /**
+     * Login the user by calling the API.
+     * When the login is finished, weather is successful or not, it posts a message using EventBus
+     * to notify the caller the finish of the task, so the caller must be registered to the event,
+     * otherwise it will not be able to listen to the response.
+     * @param user User's identifier
+     * @param password User's password
+     */
     public static void login(String user, String password) {
         initializeRestClientAdministration();
         Call<Alumno> call = service.login(user, password);
@@ -62,6 +78,13 @@ public class ApiServices {
         });
     }
 
+    /**
+     * Gets a publication list page by calling the API.
+     * When the method finish a message is posted by EventBus, so the caller must be subscribe
+     * to it.
+     * @param career User's career identifier
+     * @param page Page number to be retrieved
+     */
     public static void getPublicationsList(int career, int page) {
         initializeRestClientAdministration();
         Call<List<Publicacion>> repos = service.listPublications(career, page);
@@ -92,6 +115,12 @@ public class ApiServices {
         });
     }
 
+    /**
+     * Gets the actual grade´s list of a user by calling the API.
+     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
+     * to it.
+     * @param studentId User's identifier
+     */
     public static void getGradesList(String studentId) {
         initializeRestClientAdministration();
         Call<List<Calificacion>> call = service.listGardes(studentId);
@@ -124,6 +153,12 @@ public class ApiServices {
         });
     }
 
+    /**
+     * Gets the user's kardex by calling the API.
+     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
+     * to it.
+     * @param studentId
+     */
     public static void getKardexList(String studentId) {
         initializeRestClientAdministration();
         Call<List<Kardexs>> call = service.listKardex(studentId);
@@ -155,6 +190,12 @@ public class ApiServices {
         });
     }
 
+    /**
+     * Gets the content of a post by calling the API.
+     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
+     * to it.
+     * @param postId Post's identifier
+     */
     public static void getPostContent(int postId) {
         initializeRestClientAdministration();
         Call<PublicacionContenido> call = service.listContents(postId);
@@ -166,17 +207,12 @@ public class ApiServices {
                     case 200:
                         PublicacionContenido data = response.body();
                         if (data != null) {
-                            //EventBus.getDefault()
-                              //      .post(new PostContentMessage(true, data));
                             EventBus.getDefault()
                                     .post(new NewsDetailMessage(true, Converter
                                             .PublicacionToNewsDetail(data)));
                         }
                         break;
                     default:
-                        //EventBus.getDefault()
-                          //      .post(new PostContentMessage(false,
-                            //            null));
                         EventBus.getDefault()
                                 .post(new NewsDetailMessage(false, null));
                         break;
@@ -192,6 +228,12 @@ public class ApiServices {
         });
     }
 
+    /**
+     * Get's the user's weekly schedule by calling the API.
+     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
+     * to it.
+     * @param studentId User's identifier
+     */
     public static void getSchedule(String studentId) {
         initializeRestClientAdministration();
         Call<Semana> call = service.schedule(studentId);

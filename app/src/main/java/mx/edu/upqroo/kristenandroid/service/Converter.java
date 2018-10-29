@@ -31,8 +31,18 @@ import mx.edu.upqroo.kristenandroid.service.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.service.containers.PublicacionContenido;
 import mx.edu.upqroo.kristenandroid.service.containers.Semana;
 
+/**
+ * <h1>Converter</h1>
+ * Class that converts the entities of the service into entities that are the views in the
+ * application.
+ */
 class Converter {
 
+    /**
+     * Converts a publication
+     * @param publicacion a publication
+     * @return a new
+     */
     private static News PublicationToNews(Publicacion publicacion) {
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
         return new News(publicacion.getIdPublicaciones(),
@@ -44,6 +54,11 @@ class Converter {
                 formatter.format(publicacion.getFecha()));
     }
 
+    /**
+     * Convert a list of publications into a list of news
+     * @param publicacionList a publications list
+     * @return a news list
+     */
     static List<News> PublicationListToNewsList(List<Publicacion> publicacionList) {
         List<News> newsList = new ArrayList<>();
         for (Publicacion p : publicacionList) {
@@ -59,6 +74,11 @@ class Converter {
         return newsList;
     }
 
+    /**
+     * Convert an user into a general info entity
+     * @param alumno student
+     * @return General information
+     */
     static GeneralInfo AlumnoToGeneralInfo(Alumno alumno) {
         return new GeneralInfo(alumno.getNombre(),
                 alumno.getCarrera(),
