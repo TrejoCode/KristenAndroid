@@ -31,13 +31,15 @@ import retrofit2.Response;
  */
 public class ApiServices {
     private static ApiInterface service;
+    private static final String authorizationToken = "Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZG" +
+            "Ugb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=";
 
     /**
      * Initialize the rest client if needed.
      */
     private static void initializeRestClientAdministration() {
         if (service == null)
-        service = ApiClient.createService(ApiInterface.class);
+        service = ApiClient.createService(ApiInterface.class, authorizationToken);
     }
 
     /**

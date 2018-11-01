@@ -26,7 +26,7 @@ public interface ApiInterface {
      * @param page page that is desired
      * @return a list of publications
      */
-    @GET("WebSite/Publicacion/FeedApp/{career}/{page}")
+    @GET("WebSite/Publicacion/FeedApp/{career}/{page}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
     Call<List<Publicacion>> listPublications(@Path("career") int career, @Path("page") int page);
 
     /**
@@ -34,7 +34,7 @@ public interface ApiInterface {
      * @param idPost unique identifier of the post
      * @return a list with the contents of the post
      */
-    @GET("WebSite/Publicacion/{idPost}")
+    @GET("WebSite/Publicacion/{idPost}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
     Call<PublicacionContenido> listContents(@Path("idPost") int idPost);
 
     /**
@@ -43,7 +43,7 @@ public interface ApiInterface {
      * @param password User's password
      * @return the user's information
      */
-    @POST("appMovil/alumnos/Login")
+    @POST("appMovil/alumnos/Login?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
     @FormUrlEncoded
     Call<Alumno> login(@Field("matricula") String user, @Field("contrasena") String password);
 
@@ -52,7 +52,7 @@ public interface ApiInterface {
      * @param studentId user's identifier
      * @return a list with all the grades
      */
-    @GET("appMovil/Calificaciones/{studentId}")
+    @GET("appMovil/Calificaciones/{studentId}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
     Call<List<Calificacion>> listGardes(@Path("studentId") String studentId);
 
     /**
@@ -60,7 +60,7 @@ public interface ApiInterface {
      * @param studentId user's identifier
      * @return a list with all the historic grades
      */
-    @GET("appMovil/Kardexes/{studentId}")
+    @GET("appMovil/Kardexes/{studentId}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
     Call<List<Kardexs>> listKardex(@Path("studentId") String studentId);
 
     /**
@@ -68,6 +68,6 @@ public interface ApiInterface {
      * @param studentId user's identifier
      * @return returns all the week schedule
      */
-    @GET("appMovil/Horario/{studentId}")
+    @GET("appMovil/Horario/{studentId}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
     Call<Semana> schedule(@Path("studentId") String studentId);
 }

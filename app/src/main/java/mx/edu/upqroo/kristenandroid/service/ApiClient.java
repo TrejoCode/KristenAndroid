@@ -1,5 +1,7 @@
 package mx.edu.upqroo.kristenandroid.service;
 
+import android.text.TextUtils;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -36,8 +38,7 @@ class ApiClient {
         return retrofit.create(serviceClass);
     }
 
-    /*public static <S> S createService(
-            Class<S> serviceClass, final String authToken) {
+    static <S> S createService(Class<S> serviceClass, final String authToken) {
         if (!TextUtils.isEmpty(authToken)) {
             AuthenticationInterceptor interceptor =
                     new AuthenticationInterceptor(authToken);
@@ -51,5 +52,5 @@ class ApiClient {
         }
 
         return retrofit.create(serviceClass);
-    }*/
+    }
 }
