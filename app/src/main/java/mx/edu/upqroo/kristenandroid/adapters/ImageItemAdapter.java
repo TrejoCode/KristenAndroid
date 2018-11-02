@@ -53,7 +53,7 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
                 Dialog dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.image_dialog_layout);
                 dialog.setTitle("Image");
-                PhotoView myImage = dialog.findViewById(R.id.image_dialog);
+                ImageView myImage = dialog.findViewById(R.id.image_dialog);
                 Picasso.get()
                         .load(mImagesList.get(position))
                         .placeholder(R.drawable.side_nav_bar)
@@ -70,7 +70,7 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
     }
 
     class ImageViewHolder extends RecyclerView.ViewHolder {
-        PhotoView mImageView;
+        ImageView mImageView;
         TextView mCountText;
         ImageViewHolder(@NonNull View itemView) {
             super(itemView);

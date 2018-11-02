@@ -14,6 +14,7 @@ import com.flipkart.youtubeview.models.YouTubePlayerType;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -125,6 +126,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                         LinearLayoutManager.HORIZONTAL, false));
                 galleryHolder.mRecycler
                         .setAdapter(new ImageItemAdapter(contentGallery.getImages(), mContext));
+                //Set on click listener to the recyler
                 break;
             case 1:
                 HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
