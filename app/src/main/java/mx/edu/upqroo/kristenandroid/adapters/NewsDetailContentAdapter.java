@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.flipkart.youtubeview.YouTubePlayerView;
 import com.flipkart.youtubeview.models.ImageLoader;
 import com.flipkart.youtubeview.models.YouTubePlayerType;
-import com.github.chrisbanes.photoview.PhotoView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -148,7 +147,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                         Dialog dialog = new Dialog(mContext);
                         dialog.setContentView(R.layout.image_dialog_layout);
                         dialog.setTitle("Image");
-                        PhotoView myImage = dialog.findViewById(R.id.image_dialog);
+                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
                         Picasso.get()
                                 .load(contentImage.getSource())
                                 .placeholder(R.drawable.side_nav_bar)
@@ -210,7 +209,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     class ImageViewHolder extends RecyclerView.ViewHolder {
-        PhotoView mImageView;
+        ImageView mImageView;
         ImageViewHolder(View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_item_content);
