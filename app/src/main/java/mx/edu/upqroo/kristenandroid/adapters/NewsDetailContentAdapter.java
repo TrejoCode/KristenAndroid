@@ -1,16 +1,20 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flipkart.youtubeview.YouTubePlayerView;
 import com.flipkart.youtubeview.models.ImageLoader;
 import com.flipkart.youtubeview.models.YouTubePlayerType;
+import com.mzelzoghbi.zgallery.ZGallery;
+import com.mzelzoghbi.zgallery.entities.ZColor;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,6 +22,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
@@ -121,11 +126,11 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
             case 0:
                 GalleryViewHolder galleryHolder = (GalleryViewHolder) holder;
                 ContentGallery contentGallery = (ContentGallery) mContentList.get(position);
-                galleryHolder.mRecycler.setLayoutManager(new LinearLayoutManager(mContext,
-                        LinearLayoutManager.HORIZONTAL, false));
+                int abs = Math.abs(contentGallery.getQuantity() / 2);
+                galleryHolder.mRecycler.setLayoutManager(new GridLayoutManager(mContext, abs));
                 galleryHolder.mRecycler
-                        .setAdapter(new ImageItemAdapter(contentGallery.getImages(), mContext));
-                //Set on click listener to the recyler
+                        .setAdapter(new ImageItemAdapter(contentGallery.getImages(), mContext,
+                                mFragment));
                 break;
             case 1:
                 HeaderViewHolder headerHolder = (HeaderViewHolder) holder;

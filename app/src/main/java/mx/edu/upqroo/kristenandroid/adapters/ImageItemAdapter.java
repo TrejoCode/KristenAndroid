@@ -1,30 +1,35 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.mzelzoghbi.zgallery.ZGallery;
+import com.mzelzoghbi.zgallery.entities.ZColor;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 
 public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.ImageViewHolder> {
     private final LayoutInflater mInflater;
-    private List<String> mImagesList;
+    private ArrayList<String> mImagesList;
     private Context mContext;
+    private Fragment mFragment;
 
-    ImageItemAdapter(List<String> images, Context context) {
-        this.mImagesList = images;
+    ImageItemAdapter(List<String> images, Context context, Fragment fragment) {
+        this.mImagesList = new ArrayList<>(images);
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
+        this.mFragment = fragment;
+
     }
 
     @NonNull
@@ -43,22 +48,18 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
                 .placeholder(R.drawable.side_nav_bar)
                 .error(R.drawable.side_nav_bar)
                 .into(holder.mImageView);
-        String text = (position + 1) + " : " + mImagesList.size();
-        holder.mCountText.setText(text);
-        holder.mCountText.setVisibility(View.VISIBLE);
+        int abs = Math.abs(mImagesList.size() / 2);
+        holder.mImageView.requestLayout();
+        holder.mImageView.getLayoutParams().height = Math.abs(600 / abs);
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(mContext);
-                dialog.setContentView(R.layout.image_dialog_layout);
-                dialog.setTitle("Image");
-                ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                Picasso.get()
-                        .load(mImagesList.get(position))
-                        .placeholder(R.drawable.side_nav_bar)
-                        .error(R.drawable.side_nav_bar)
-                        .into(myImage);
-                dialog.show();
+                ZGallery.with(mFragment.getActivity(), mImagesList)
+                        .setToolbarTitleColor(ZColor.WHITE)
+                        .setGalleryBackgroundColor(ZColor.BLACK)
+                        .setToolbarColorResId(R.color.colorPrimary)
+                        .setTitle("Gallery")
+                        .show();
             }
         });
     }
@@ -70,11 +71,9 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
 
     class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView mImageView;
-        TextView mCountText;
         ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.image_item_content);
-            mCountText = itemView.findViewById(R.id.text_image_number);
         }
     }
 }
