@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
+import mx.edu.upqroo.kristenandroid.models.Config;
 import mx.edu.upqroo.kristenandroid.models.Content;
 import mx.edu.upqroo.kristenandroid.models.ContentGallery;
 import mx.edu.upqroo.kristenandroid.models.ContentImage;
@@ -92,10 +93,12 @@ class Converter {
                 alumno.getTelDomicilio(),
                 alumno.getTelMovil(),
                 alumno.getCorreo(),
-                "GENERAL",
-                alumno.getTopic(),
                 alumno.getMatricula(),
-                alumno.getContrasena()
+                alumno.getContrasena(),
+                new Config(alumno.getConfig().getGeneralTopic(),
+                        alumno.getConfig().getTopic(),
+                        alumno.getConfig().getUrlCalendario(),
+                        alumno.getConfig().getUrlBase())
         );
     }
 

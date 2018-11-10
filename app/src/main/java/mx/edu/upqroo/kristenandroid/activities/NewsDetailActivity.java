@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PostTypeHelper;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
+import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.models.Content;
 import mx.edu.upqroo.kristenandroid.models.News;
@@ -99,24 +100,24 @@ public class NewsDetailActivity extends UpqrooActivity {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        mNews.getTitle() + "\n" + "www.upqroo.edu.mx/evento/"
-                                + mNews.getId());
+                        mNews.getTitle() + "\n" + SessionHelper.getInstance().getSession()
+                                .getConfig().getBaseAddress() + "evento/" + mNews.getId());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             } else if (mNews.getPostType() == PostTypeHelper.NEWS.getId()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        mNews.getTitle() + "\n" + "www.upqroo.edu.mx/noticia/"
-                                + mNews.getId());
+                        mNews.getTitle() + "\n" + SessionHelper.getInstance().getSession()
+                                .getConfig().getBaseAddress() + "noticia/" + mNews.getId());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             } else if (mNews.getPostType() == PostTypeHelper.WORK.getId()) {
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
-                        mNews.getTitle() + "\n" + "www.upqroo.edu.mx/trabajo/"
-                                + mNews.getId());
+                        mNews.getTitle() + "\n" + SessionHelper.getInstance().getSession()
+                                .getConfig().getBaseAddress() + "trabajo/" + mNews.getId());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             }

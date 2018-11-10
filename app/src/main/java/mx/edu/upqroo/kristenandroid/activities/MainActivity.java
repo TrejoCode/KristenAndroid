@@ -214,7 +214,7 @@ public class MainActivity extends UpqrooActivity
             }
         } else if (id == R.id.nav_calendar) {
             startActivity(new Intent(Intent.ACTION_VIEW)
-                    .setData(Uri.parse("http://www.upqroo.edu.mx/wp-content/uploads/2017/12/calendario-2018-autorizado.pdf")));
+                    .setData(Uri.parse(mSession.getSession().getConfig().getCalendarAddress())));
         }else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {

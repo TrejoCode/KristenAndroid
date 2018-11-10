@@ -15,9 +15,7 @@ public class GeneralInfo {
     private String phone;
     private String mobilePhone;
     private String email;
-    private String generalTopic;
-    private String userTopic;
-
+    private Config config;
 
     public GeneralInfo() {
 
@@ -25,8 +23,8 @@ public class GeneralInfo {
 
     public GeneralInfo(String name, String career, String enrollment, String creditAcumm,
                        String validity, String entryPeriod, String curp, String dob, String address,
-                       String phone, String mobilePhone, String email, String generalTopic,
-                       String userTopic, String userId, String password) {
+                       String phone, String mobilePhone, String email, String userId,
+                       String password, Config config) {
         this.name = name;
         this.career = career;
         this.enrollment = enrollment;
@@ -39,10 +37,9 @@ public class GeneralInfo {
         this.phone = phone;
         this.mobilePhone = mobilePhone;
         this.email = email;
-        this.generalTopic = generalTopic;
-        this.userTopic = userTopic;
         this.userId = userId;
         this.password = password;
+        this.config = config;
     }
 
     public String getName() {
@@ -141,22 +138,6 @@ public class GeneralInfo {
         this.email = email;
     }
 
-    public String getGeneralTopic() {
-        return generalTopic;
-    }
-
-    public void setGeneralTopic(String generalTopic) {
-        this.generalTopic = generalTopic;
-    }
-
-    public String getUserTopic() {
-        return userTopic;
-    }
-
-    public void setUserTopic(String userTopic) {
-        this.userTopic = userTopic;
-    }
-
     public String getUserId() {
         return userId;
     }
@@ -171,5 +152,13 @@ public class GeneralInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Config getConfig() {
+        return config;
+    }
+
+    public void setConfig(Config config) {
+        this.config = config;
     }
 }

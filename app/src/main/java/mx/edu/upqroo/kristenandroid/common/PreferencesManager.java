@@ -115,22 +115,22 @@ public class PreferencesManager {
             if (config) {
                 FirebaseNotificationsHelper
                         .SubscribeNotifications(SessionHelper
-                                .getInstance().getSession().getGeneralTopic());
+                                .getInstance().getSession().getConfig().getGeneralTopic());
             } else {
                 FirebaseNotificationsHelper
                         .UnsubscribeNotifications(SessionHelper
-                                .getInstance().getSession().getGeneralTopic());
+                                .getInstance().getSession().getConfig().getGeneralTopic());
             }
         } else if (channel.equals(FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY)) {
             editor.putBoolean(FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY, config);
             if (config) {
                 FirebaseNotificationsHelper
                         .SubscribeNotifications(SessionHelper
-                                .getInstance().getSession().getUserTopic());
+                                .getInstance().getSession().getConfig().getUserTopic());
             } else {
                 FirebaseNotificationsHelper
                         .UnsubscribeNotifications(SessionHelper
-                                .getInstance().getSession().getGeneralTopic());
+                                .getInstance().getSession().getConfig().getGeneralTopic());
             }
         }
         editor.apply();

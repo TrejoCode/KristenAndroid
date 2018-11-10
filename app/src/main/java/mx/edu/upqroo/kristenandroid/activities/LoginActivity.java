@@ -110,11 +110,13 @@ public class LoginActivity extends UpqrooActivity {
                     PreferencesManager.getInstance().loadNotificationsPreference();
             if (notificationLoaded.isGeneral()) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(mSessionHelper.getSession().getGeneralTopic());
+                        .SubscribeNotifications(mSessionHelper.getSession()
+                                .getConfig().getGeneralTopic());
             }
             if (notificationLoaded.isCareer()) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(mSessionHelper.getSession().getUserTopic());
+                        .SubscribeNotifications(mSessionHelper.getSession()
+                                .getConfig().getUserTopic());
             }
             startActivity(new Intent(this, MainActivity.class));
         } else {

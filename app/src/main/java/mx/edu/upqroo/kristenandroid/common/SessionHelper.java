@@ -54,7 +54,8 @@ public class SessionHelper {
      */
     public void logout() {
         FirebaseNotificationsHelper
-                .UnsubscribeNotifications(mSession.getGeneralTopic(), mSession.getUserTopic());
+                .UnsubscribeNotifications(mSession.getConfig()
+                        .getGeneralTopic(), mSession.getConfig().getUserTopic());
         mSession = null;
         PreferencesManager.getInstance().clearSession();
     }

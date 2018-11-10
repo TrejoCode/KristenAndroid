@@ -53,9 +53,9 @@ public class Alumno {
     @SerializedName("correo")
     @Expose
     private String correo;
-    @SerializedName("topic")
+    @SerializedName("config")
     @Expose
-    private String topic;
+    private Config config;
 
     public String getMatricula() {
         return matricula;
@@ -185,11 +185,11 @@ public class Alumno {
         this.correo = correo;
     }
 
-    public String getTopic() {
-        return topic;
+    public Config getConfig() {
+        return config;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setConfig(Config config) {
+        this.config = config;
     }
 }

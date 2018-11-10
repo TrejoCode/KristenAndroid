@@ -1,7 +1,5 @@
 package mx.edu.upqroo.kristenandroid.service;
 
-import android.util.Log;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
@@ -111,7 +109,6 @@ public class ApiServices {
 
             @Override
             public void onFailure(Call<List<Publicacion>> call, Throwable t) {
-                Log.d("Error",t.getMessage());
                 EventBus.getDefault().post(new NewsListMessageError(t.getMessage()));
             }
         });
@@ -148,7 +145,6 @@ public class ApiServices {
 
             @Override
             public void onFailure(Call<List<Calificacion>> call, Throwable t) {
-                Log.d("Error",t.getMessage());
                 EventBus.getDefault()
                         .post(new GradesListMessage(false, null));
             }
@@ -185,7 +181,6 @@ public class ApiServices {
 
             @Override
             public void onFailure(Call<List<Kardexs>> call, Throwable t) {
-                Log.d("Error",t.getMessage());
                 EventBus.getDefault()
                         .post(new KardexListMessage(false, null));
             }

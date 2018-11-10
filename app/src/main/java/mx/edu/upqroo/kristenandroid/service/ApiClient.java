@@ -13,7 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Class that contains all the main logic for the consume of the API.
  */
 class ApiClient {
-    private static final String BASE_URL = "http://kristen.glitch.me/api/";
+    private static final String BASE_URL = "http://api.upqroo.edu.mx/kristen/";
+    //private static final String BASE_URL = "http://kristen.glitch.me/";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
