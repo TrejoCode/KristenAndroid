@@ -101,7 +101,7 @@ public class NewsDetailActivity extends UpqrooActivity {
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
                         mNews.getTitle() + "\n" + SessionHelper.getInstance().getSession()
-                                .getConfig().getBaseAddress() + "evento/" + mNews.getId());
+                                .getConfig().getBaseAddress() + "evento/" + mNews.getUrl());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             } else if (mNews.getPostType() == PostTypeHelper.NEWS.getId()) {
@@ -109,7 +109,7 @@ public class NewsDetailActivity extends UpqrooActivity {
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
                         mNews.getTitle() + "\n" + SessionHelper.getInstance().getSession()
-                                .getConfig().getBaseAddress() + "noticia/" + mNews.getId());
+                                .getConfig().getBaseAddress() + "noticia/" + mNews.getUrl());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             } else if (mNews.getPostType() == PostTypeHelper.WORK.getId()) {
@@ -117,7 +117,7 @@ public class NewsDetailActivity extends UpqrooActivity {
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT,
                         mNews.getTitle() + "\n" + SessionHelper.getInstance().getSession()
-                                .getConfig().getBaseAddress() + "trabajo/" + mNews.getId());
+                                .getConfig().getBaseAddress() + "trabajo/" + mNews.getUrl());
                 sendIntent.setType("text/plain");
                 startActivity(Intent.createChooser(sendIntent, "Share"));
             }

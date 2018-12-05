@@ -101,6 +101,8 @@ public class ApiServices {
                                             .PublicationListToNewsList(data)));
                         }
                         break;
+                    case 404:
+                        break;
                     default:
                         EventBus.getDefault().post(new NewsListMessageError(response.message()));
                         break;

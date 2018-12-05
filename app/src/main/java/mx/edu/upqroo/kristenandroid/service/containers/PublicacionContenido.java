@@ -9,6 +9,9 @@ public class PublicacionContenido {
     @SerializedName("idPublicaciones")
     @Expose
     private Integer idPublicaciones;
+    @SerializedName("url")
+    @Expose
+    private String url;
     @SerializedName("titulo")
     @Expose
     private String titulo;
@@ -46,6 +49,14 @@ public class PublicacionContenido {
 
     public void setIdPublicaciones(Integer idPublicaciones) {
         this.idPublicaciones = idPublicaciones;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getTitulo() {

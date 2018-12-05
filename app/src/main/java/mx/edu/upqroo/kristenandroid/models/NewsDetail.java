@@ -4,6 +4,7 @@ import java.util.List;
 
 public class NewsDetail {
     private int newsId;
+    private String url;
     private String title;
     private String description;
     private String imageCover;
@@ -13,10 +14,11 @@ public class NewsDetail {
     private String author;
     private List<Content> contentList;
 
-    public NewsDetail(int newsId, String title, String description, String imageCover,
+    public NewsDetail(int newsId, String url,String title, String description, String imageCover,
                       String categories, String date, int newsTypeId, String author,
                       List<Content> contentList) {
         this.newsId = newsId;
+        this.url = url;
         this.title = title;
         this.description = description;
         this.imageCover = imageCover;
@@ -33,6 +35,14 @@ public class NewsDetail {
 
     public void setNewsId(int newsId) {
         this.newsId = newsId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getTitle() {

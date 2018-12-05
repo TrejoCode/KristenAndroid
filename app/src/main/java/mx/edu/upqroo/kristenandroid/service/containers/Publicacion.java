@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Publicacion {
     private int idPublicaciones;
+    private String url;
     private String descripcion;
     private String titulo;
     private String categorias;
@@ -17,6 +18,14 @@ public class Publicacion {
 
     public void setIdPublicaciones(int idPublicaciones) {
         this.idPublicaciones = idPublicaciones;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getDescripcion() {

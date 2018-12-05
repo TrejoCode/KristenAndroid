@@ -66,7 +66,7 @@ public class NewsListFragment extends Fragment {
         mProgressBar.setVisibility(View.VISIBLE);
 
         mTextErrorMessage = v.findViewById(R.id.text_error_message);
-        mTextErrorMessage.setVisibility(View.GONE);
+        mTextErrorMessage.setVisibility(View.INVISIBLE);
 
         LinearLayoutManager lineaLayoutManager = new LinearLayoutManager(v.getContext());
         mScrollListener = new EndlessRecyclerViewScrollListener(lineaLayoutManager) {
@@ -88,6 +88,7 @@ public class NewsListFragment extends Fragment {
             @Override
             public void onRefreshBegin(boolean isRefresh) {
                 mNewsList.clear();
+                mTextErrorMessage.setVisibility(View.INVISIBLE);
                 mScrollListener.resetState();
                 generateCover();
                 mNewsAdapter.notifyDataSetChanged();
@@ -131,7 +132,7 @@ public class NewsListFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(NewsListMessage event) {
         mProgressBar.setVisibility(View.GONE);
-        mTextErrorMessage.setVisibility(View.GONE);
+        mTextErrorMessage.setVisibility(View.INVISIBLE);
         mNewsList.addAll(event.newsList);
         mNewsAdapter.notifyDataSetChanged();
         if (mRefreshLayout.isRefreshing()) {
@@ -155,7 +156,7 @@ public class NewsListFragment extends Fragment {
     private void generateCover() {
         Date date = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM", Locale.US);
-        mNewsList.add(new News(0,0, getString(R.string.news_header_title),
+        mNewsList.add(new News(0, "", 0, getString(R.string.news_header_title),
                 getString(R.string.news_header_desc),
                 "COVER",
                 "http://www.upqroo.edu.mx/wp-content/uploads/2018/01/bslider_b03.jpg",
