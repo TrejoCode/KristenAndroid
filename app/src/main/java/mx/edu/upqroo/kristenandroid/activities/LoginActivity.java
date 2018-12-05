@@ -96,7 +96,7 @@ public class LoginActivity extends UpqrooActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        finishAffinity();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
