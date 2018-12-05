@@ -40,7 +40,7 @@ public class NotificationHelper {
      * @param context context needed when creating notifications.
      * @return Returns this instance.
      */
-    static NotificationHelper GetInstance(WeakReference<Context> context) {
+    public static NotificationHelper GetInstance(WeakReference<Context> context) {
         mContext = context;
         if (mInstance == null) {
             mInstance = new NotificationHelper();
@@ -116,7 +116,7 @@ public class NotificationHelper {
      * @param title Title to display in the notification
      * @param messageBody Message to display in the notification
      */
-    void createNotification(String title, String messageBody) {
+    public void createNotification(String title, String messageBody) {
         Intent intent = new Intent(mContext.get(), LoginActivity.class);
         long[] vibrate = { 0, 100, 200, 300 };
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -126,13 +126,18 @@ public class NotificationHelper {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder
                 = new NotificationCompat.Builder(mContext.get(), CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setVibrate(vibrate);
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            notificationBuilder.setSmallIcon(R.drawable.ic_school_white_24dp);
+        } else {
+            notificationBuilder.setSmallIcon(R.drawable.launch_icon);
+        }
 
         NotificationManager notificationManager =
                 (NotificationManager) mContext.get().getSystemService(Context.NOTIFICATION_SERVICE);

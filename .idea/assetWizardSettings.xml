@@ -102,7 +102,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/DiegoLovera/Applications/Android/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_brightness_1_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/DiegoLovera/Applications/Android/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_school_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -112,7 +112,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_circle_black_24dp" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_school_white_24dp" />
                             <entry key="sourceFile" value="C:\Users\DiegoLovera" />
                           </map>
                         </option>

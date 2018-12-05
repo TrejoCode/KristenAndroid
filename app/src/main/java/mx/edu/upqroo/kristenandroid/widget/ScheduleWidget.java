@@ -31,7 +31,8 @@ public class ScheduleWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         Date date = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM",
+                Locale.getDefault());
         CharSequence widgetText = formatter.format(date);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.schedule_widget);

@@ -45,6 +45,12 @@
 
         <service android:name=".common.FirebaseNotificationsHelper" />
 
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_school_white_24dp" />
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/white" />
+
         <activity
             android:name=".activities.SettingsActivity"
             android:screenOrientation="portrait"
