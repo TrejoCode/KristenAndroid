@@ -40,4 +40,7 @@
     <string name="settings_op_3">Tema obscuro</string>
     <string name="settings_op_desc_3">Habilitar el tema obscuro en la aplicación</string>
     <string name="read_more">Leer más</string>
+    <string name="exit_confirmation_message">¿Estas seguro de querer salir?</string>
+    <string name="yes_option">Si</string>
+    <string name="no_option">No</string>
 </resources>

@@ -53,4 +53,7 @@
     <string name="read_more">Read more</string>
     <string name="channel_name">upqroo_notifications_channel</string>
     <string name="channel_description">A channel for all notifications from Upqroo</string>
+    <string name="exit_confirmation_message">Are you sure you want to exit?</string>
+    <string name="yes_option">Yes</string>
+    <string name="no_option">No</string>
 </resources>
