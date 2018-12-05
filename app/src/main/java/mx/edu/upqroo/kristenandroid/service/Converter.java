@@ -45,7 +45,8 @@ class Converter {
      * @return a new
      */
     private static News PublicationToNews(Publicacion publicacion) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy", Locale.US);
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy",
+                Locale.getDefault());
         return new News(publicacion.getIdPublicaciones(),
                 publicacion.getUrl(),
                 publicacion.getIdTipos_Publicacion(),
