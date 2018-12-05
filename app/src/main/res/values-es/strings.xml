@@ -43,4 +43,5 @@
     <string name="exit_confirmation_message">¿Estas seguro de querer salir?</string>
     <string name="yes_option">Si</string>
     <string name="no_option">No</string>
+    <string name="gallery_title">Galería</string>
 </resources>

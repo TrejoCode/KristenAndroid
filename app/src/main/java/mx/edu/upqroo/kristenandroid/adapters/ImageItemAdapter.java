@@ -58,7 +58,7 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
                         .setToolbarTitleColor(ZColor.WHITE)
                         .setGalleryBackgroundColor(ZColor.BLACK)
                         .setToolbarColorResId(R.color.colorPrimary)
-                        .setTitle("Gallery")
+                        .setTitle(mContext.getString(R.string.gallery_title))
                         .show();
             }
         });
