@@ -1,3 +1,60 @@
 <resources>
     <string name="app_name">Upqroo App</string>
+    <string name="title_activity_news" translatable="false">NewsActivity</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Android Studio</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="nav_menu_news">News</string>
+    <string name="nave_menu_user">Student</string>
+    <string name="nav_menu_schedule">Schedule</string>
+    <string name="nav_menu_school">Grades</string>
+    <string name="nav_menu_kardex">Kardex</string>
+    <string name="nav_menu_group">Groups</string>
+    <string name="nav_menu_logout">Logout</string>
+    <string name="button_login">Login</string>
+    <string name="field_hint_user_id">User id</string>
+    <string name="field_hint_password">Password</string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis felis sapien. Duis aliquam consectetur mauris, ut malesuada sapien pulvinar vitae. Vestibulum ut mauris in risus cursus pharetra. Pellentesque rutrum, odio ac vehicula rutrum, sapien dolor mattis urna, in ultricies dui ante ut quam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam semper, orci in congue vehicula, odio nulla imperdiet lorem, nec vehicula ipsum erat vel lorem.</string>
+    <string name="news_image_description">News image</string>
+    <string name="login_result_failed">User or password incorrect</string>
+    <string name="appwidget_text" translatable="false">Friday</string>
+    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="notifications">Notifications</string>
+    <string name="settings_op_1">Show general notifications</string>
+    <string name="settings_op_desc_1">Turn on or off the notifications for general news</string>
+    <string name="settings_op_2">Show career notifications</string>
+    <string name="settings_op_desc_2">Turn on or off the notifications for my career</string>
+    <string name="news_header_title">Polytechnic University of Quintana Roo</string>
+    <string name="news_header_desc">Welcome to the official app</string>
+    <string name="user_name">Names and lastname</string>
+    <string name="user_career">Career</string>
+    <string name="user_credits">Accumulated credits</string>
+    <string name="user_status">Current status</string>
+    <string name="user_entry">Period of entry</string>
+    <string name="user_bod">Birthdate</string>
+    <string name="user_address">Address</string>
+    <string name="user_home_phone">Home phone</string>
+    <string name="user_mobile">Mobile phone</string>
+    <string name="user_email">Email address</string>
+    <string name="nav_menu_calendar">Calendar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_op_3">Dark theme</string>
+    <string name="settings_op_desc_3">Enable dark theme throughout the app</string>
+    <string name="read_more">Read more</string>
+    <string name="channel_name">upqroo_notifications_channel</string>
+    <string name="channel_description">A channel for all notifications from Upqroo</string>
+    <string name="exit_confirmation_message">Are you sure you want to exit?</string>
+    <string name="yes_option">Yes</string>
+    <string name="no_option">No</string>
+    <string name="gallery_title">Gallery</string>
 </resources>
