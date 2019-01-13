@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -34,13 +35,15 @@ import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
 public class MainActivity extends UpqrooActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        BottomNavigationView.OnNavigationItemSelectedListener {
 
     private FragmentHelper mFragmentHelper;
     private Toolbar mToolbar;
     private SessionHelper mSession;
     private NavigationView mNavigationView;
     private ArrayList<FragmentHelper> mHistoryList;
+    private BottomNavigationView mButtonNavigationView;
     public static boolean HAS_THEME_CHANGED = false;
 
     @Override
@@ -52,16 +55,8 @@ public class MainActivity extends UpqrooActivity
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:info@upqroo.edu.mx"));
-                startActivity(emailIntent);*/
-                NotificationHelper.GetInstance(new WeakReference<>(getApplicationContext())).createNotification("Titulo", "Body");
-            }
-        });
+        //NotificationHelper.GetInstance(new WeakReference<>(getApplicationContext()))
+        //        .createNotification("Titulo", "Body");
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -70,6 +65,9 @@ public class MainActivity extends UpqrooActivity
         toggle.syncState();
 
         mHistoryList = new ArrayList<>();
+
+        mButtonNavigationView = findViewById(R.id.bottom_navigation);
+        mButtonNavigationView.setOnNavigationItemSelectedListener(this);
 
         mNavigationView = findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
@@ -98,6 +96,10 @@ public class MainActivity extends UpqrooActivity
                             .replace(R.id.fragment_main, fragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_news);
+                    mButtonNavigationView.setSelectedItemId(R.id.news_menu_item);
+                    if (mButtonNavigationView.getVisibility() == View.GONE) {
+                        mButtonNavigationView.setVisibility(View.VISIBLE);
+                    }
                 } else if (mLastFragment == FragmentHelper.USER) {
                     mNavigationView.setCheckedItem(R.id.nav_user);
                     mFragmentHelper = FragmentHelper.USER;
@@ -106,6 +108,7 @@ public class MainActivity extends UpqrooActivity
                             .replace(R.id.fragment_main, fragment)
                             .commit();
                     mToolbar.setTitle(R.string.nave_menu_user);
+                    mButtonNavigationView.setVisibility(View.GONE);
                 } else if (mLastFragment == FragmentHelper.SCHEDULE) {
                     mNavigationView.setCheckedItem(R.id.nav_schedule);
                     mFragmentHelper = FragmentHelper.SCHEDULE;
@@ -114,6 +117,10 @@ public class MainActivity extends UpqrooActivity
                             .replace(R.id.fragment_main, fragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_schedule);
+                    mButtonNavigationView.setSelectedItemId(R.id.schedule_menu_item);
+                    if (mButtonNavigationView.getVisibility() == View.GONE) {
+                        mButtonNavigationView.setVisibility(View.VISIBLE);
+                    }
                 } else if (mLastFragment == FragmentHelper.GRADES) {
                     mNavigationView.setCheckedItem(R.id.nav_school);
                     mFragmentHelper = FragmentHelper.GRADES;
@@ -122,6 +129,10 @@ public class MainActivity extends UpqrooActivity
                             .replace(R.id.fragment_main, fragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_school);
+                    mButtonNavigationView.setSelectedItemId(R.id.grades_menu_item);
+                    if (mButtonNavigationView.getVisibility() == View.GONE) {
+                        mButtonNavigationView.setVisibility(View.VISIBLE);
+                    }
                 } else if (mLastFragment == FragmentHelper.KARDEX) {
                     mNavigationView.setCheckedItem(R.id.nav_kardex);
                     mFragmentHelper = FragmentHelper.KARDEX;
@@ -130,6 +141,7 @@ public class MainActivity extends UpqrooActivity
                             .replace(R.id.fragment_main, fragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_kardex);
+                    mButtonNavigationView.setVisibility(View.GONE);
                 }
                 mHistoryList.remove(mHistoryList.size() - 1);
             } else {
@@ -163,7 +175,7 @@ public class MainActivity extends UpqrooActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_news) {
+        if (id == R.id.nav_news || id == R.id.news_menu_item) {
             if (mFragmentHelper != FragmentHelper.NEWS) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.NEWS;
@@ -172,6 +184,11 @@ public class MainActivity extends UpqrooActivity
                         .replace(R.id.fragment_main, fragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_news);
+                mButtonNavigationView.setSelectedItemId(R.id.news_menu_item);
+                mNavigationView.setCheckedItem(R.id.nav_news);
+                if (mButtonNavigationView.getVisibility() == View.GONE) {
+                    mButtonNavigationView.setVisibility(View.VISIBLE);
+                }
             }
         } else if (id == R.id.nav_user) {
             if (mFragmentHelper != FragmentHelper.USER) {
@@ -182,8 +199,9 @@ public class MainActivity extends UpqrooActivity
                         .replace(R.id.fragment_main, fragment)
                         .commit();
                 mToolbar.setTitle(R.string.nave_menu_user);
+                mButtonNavigationView.setVisibility(View.GONE);
             }
-        } else if (id == R.id.nav_schedule) {
+        } else if (id == R.id.nav_schedule || id == R.id.schedule_menu_item) {
             if (mFragmentHelper != FragmentHelper.SCHEDULE) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.SCHEDULE;
@@ -192,8 +210,13 @@ public class MainActivity extends UpqrooActivity
                         .replace(R.id.fragment_main, fragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_schedule);
+                mNavigationView.setCheckedItem(R.id.nav_schedule);
+                mButtonNavigationView.setSelectedItemId(R.id.schedule_menu_item);
+                if (mButtonNavigationView.getVisibility() == View.GONE) {
+                    mButtonNavigationView.setVisibility(View.VISIBLE);
+                }
             }
-        } else if (id == R.id.nav_school) {
+        } else if (id == R.id.nav_school || id == R.id.grades_menu_item) {
             if (mFragmentHelper != FragmentHelper.GRADES) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.GRADES;
@@ -202,6 +225,11 @@ public class MainActivity extends UpqrooActivity
                         .replace(R.id.fragment_main, fragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_school);
+                mNavigationView.setCheckedItem(R.id.nav_school);
+                mButtonNavigationView.setSelectedItemId(R.id.grades_menu_item);
+                if (mButtonNavigationView.getVisibility() == View.GONE) {
+                    mButtonNavigationView.setVisibility(View.VISIBLE);
+                }
             }
         } else if (id == R.id.nav_kardex) {
             if (mFragmentHelper != FragmentHelper.KARDEX) {
@@ -212,8 +240,9 @@ public class MainActivity extends UpqrooActivity
                         .replace(R.id.fragment_main, fragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_kardex);
+                mButtonNavigationView.setVisibility(View.GONE);
             }
-        } else if (id == R.id.nav_calendar) {
+        } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
             startActivity(new Intent(Intent.ACTION_VIEW)
                     .setData(Uri.parse(mSession.getSession().getConfig().getCalendarAddress())));
         }else if (id == R.id.nav_settings) {

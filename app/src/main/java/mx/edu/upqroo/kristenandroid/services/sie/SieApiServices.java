@@ -51,6 +51,9 @@ public class SieApiServices {
                                             SieApiConverter.AlumnoToGeneralInfo(data)));
                         }
                         break;
+                    case 403:
+                        //todo: agregar logica para actualizar el token de auth.
+                        break;
                     default:
                         EventBus.getDefault()
                                 .post(new LoginMessage(false, response.message()));
