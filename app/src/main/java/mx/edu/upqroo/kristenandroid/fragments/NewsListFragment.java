@@ -89,9 +89,14 @@ public class NewsListFragment extends Fragment {
             public void onRefreshBegin(boolean isRefresh) {
                 mNewsList.clear();
                 mTextErrorMessage.setVisibility(View.INVISIBLE);
-                mScrollListener.resetState();
                 generateCover();
                 mNewsAdapter.notifyDataSetChanged();
+                mScrollListener.resetState();
+                KristenApiServices
+                        .getPublicationsList(Integer.parseInt(SessionHelper
+                                .getInstance()
+                                .getSession()
+                                .getCareer()), 1);
             }
         });
 
@@ -147,10 +152,8 @@ public class NewsListFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
         mTextErrorMessage.setText(event.getError());
         mTextErrorMessage.setVisibility(View.VISIBLE);
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.refreshComplete();
-            Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_LONG).show();
-        }
+        mRefreshLayout.refreshComplete();
+        Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_LONG).show();
     }
 
     private void generateCover() {

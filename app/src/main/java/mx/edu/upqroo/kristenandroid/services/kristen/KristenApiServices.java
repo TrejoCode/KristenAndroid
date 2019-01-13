@@ -2,6 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.kristen;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.IOException;
 import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
@@ -21,8 +22,7 @@ import retrofit2.Response;
  */
 public class KristenApiServices {
     private static KristenApiInterface service;
-    private static final String authorizationToken = "Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZG" +
-            "Ugb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=";
+    private static final String authorizationToken = "Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=";
 
     /**
      * Initialize the rest client if needed.
@@ -56,6 +56,14 @@ public class KristenApiServices {
                         }
                         break;
                     case 404:
+                        if (response.errorBody() != null) {
+                            try {
+                                EventBus.getDefault().post(
+                                        new NewsListMessageError(response.errorBody().string()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         break;
                     default:
                         EventBus.getDefault().post(new NewsListMessageError(response.message()));
