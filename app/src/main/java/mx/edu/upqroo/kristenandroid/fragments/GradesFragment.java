@@ -22,8 +22,9 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Grades;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.GradesListMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.messages.GradesListMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,7 +56,7 @@ public class GradesFragment extends Fragment {
 
         mGradeAdapter = new GradesItemAdapter(v.getContext(),mGradeList);
         mRecyclerGrade.setAdapter(mGradeAdapter);
-        ApiServices.getGradesList(SessionHelper.getInstance().getSession().getUserId());
+        SieApiServices.getGradesList(SessionHelper.getInstance().getSession().getUserId());
         return v;
     }
 

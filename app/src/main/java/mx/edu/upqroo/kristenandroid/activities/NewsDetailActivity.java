@@ -27,8 +27,8 @@ import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.models.Content;
 import mx.edu.upqroo.kristenandroid.models.News;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.NewsDetailMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
 
 public class NewsDetailActivity extends UpqrooActivity {
     public static final String EXTRA_NEWS = "KEY_NEWS";
@@ -70,7 +70,7 @@ public class NewsDetailActivity extends UpqrooActivity {
         mTextTitle.setText(mNews.getTitle());
         mTextSubTitle.setText(mNews.getDescription());
 
-        ApiServices.getPostContent(mNews.getId());
+        KristenApiServices.getPostContent(mNews.getId());
     }
 
     @Override

@@ -1,7 +1,8 @@
 package mx.edu.upqroo.kristenandroid.common;
 
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 
 /**
  * <h1>SessionHelper</h1>
@@ -37,7 +38,7 @@ public class SessionHelper {
      * @param password Student password
      */
     public void login(String studentId, String password) {
-        ApiServices.login(studentId, password);
+        SieApiServices.login(studentId, password);
     }
 
     /**

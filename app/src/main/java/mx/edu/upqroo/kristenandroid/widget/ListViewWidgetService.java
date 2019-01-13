@@ -16,8 +16,9 @@ import java.util.Calendar;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Subject;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.ScheduleMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.messages.ScheduleMessage;
 
 public class ListViewWidgetService extends RemoteViewsService {
 
@@ -100,7 +101,7 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
     }
 
     private void generateDays() {
-        ApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
+        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
         EventBus.getDefault().register(this);
     }
 

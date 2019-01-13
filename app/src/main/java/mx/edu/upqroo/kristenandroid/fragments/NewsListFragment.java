@@ -35,9 +35,9 @@ import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.News;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
-import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessageError;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,7 +72,7 @@ public class NewsListFragment extends Fragment {
         mScrollListener = new EndlessRecyclerViewScrollListener(lineaLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                ApiServices
+                KristenApiServices
                         .getPublicationsList(Integer.parseInt(SessionHelper
                                 .getInstance()
                                 .getSession()

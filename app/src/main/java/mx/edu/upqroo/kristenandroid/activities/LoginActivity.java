@@ -26,7 +26,7 @@ import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
-import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
+import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 
 public class LoginActivity extends UpqrooActivity {
     private SessionHelper mSessionHelper;
