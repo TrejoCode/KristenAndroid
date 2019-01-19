@@ -7,18 +7,6 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_link_item_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/link_item_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,10 +14,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:autoLink="web"
-        android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_link_item_content" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Google" />
 </androidx.constraintlayout.widget.ConstraintLayout>

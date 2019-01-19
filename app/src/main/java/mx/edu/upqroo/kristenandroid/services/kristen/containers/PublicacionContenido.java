@@ -8,7 +8,7 @@ public class PublicacionContenido {
 
     @SerializedName("idPublicaciones")
     @Expose
-    private Integer idPublicaciones;
+    private String idPublicaciones;
     @SerializedName("url")
     @Expose
     private String url;
@@ -32,7 +32,7 @@ public class PublicacionContenido {
     private Integer idTiposPublicacion;
     @SerializedName("idUsuarios")
     @Expose
-    private Integer idUsuarios;
+    private String idUsuarios;
     @SerializedName("idCarrera")
     @Expose
     private Integer idCarrera;
@@ -43,11 +43,11 @@ public class PublicacionContenido {
     @Expose
     private List<Contenido> contenidos = null;
 
-    public Integer getIdPublicaciones() {
+    public String getIdPublicaciones() {
         return idPublicaciones;
     }
 
-    public void setIdPublicaciones(Integer idPublicaciones) {
+    public void setIdPublicaciones(String idPublicaciones) {
         this.idPublicaciones = idPublicaciones;
     }
 
@@ -107,11 +107,11 @@ public class PublicacionContenido {
         this.idTiposPublicacion = idTiposPublicacion;
     }
 
-    public Integer getIdUsuarios() {
+    public String getIdUsuarios() {
         return idUsuarios;
     }
 
-    public void setIdUsuarios(Integer idUsuarios) {
+    public void setIdUsuarios(String idUsuarios) {
         this.idUsuarios = idUsuarios;
     }
 

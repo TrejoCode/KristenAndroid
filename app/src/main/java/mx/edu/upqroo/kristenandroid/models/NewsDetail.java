@@ -3,7 +3,7 @@ package mx.edu.upqroo.kristenandroid.models;
 import java.util.List;
 
 public class NewsDetail {
-    private int newsId;
+    private String newsId;
     private String url;
     private String title;
     private String description;
@@ -14,7 +14,7 @@ public class NewsDetail {
     private String author;
     private List<Content> contentList;
 
-    public NewsDetail(int newsId, String url,String title, String description, String imageCover,
+    public NewsDetail(String newsId, String url,String title, String description, String imageCover,
                       String categories, String date, int newsTypeId, String author,
                       List<Content> contentList) {
         this.newsId = newsId;
@@ -29,11 +29,11 @@ public class NewsDetail {
         this.contentList = contentList;
     }
 
-    public int getNewsId() {
+    public String getNewsId() {
         return newsId;
     }
 
-    public void setNewsId(int newsId) {
+    public void setNewsId(String newsId) {
         this.newsId = newsId;
     }
 

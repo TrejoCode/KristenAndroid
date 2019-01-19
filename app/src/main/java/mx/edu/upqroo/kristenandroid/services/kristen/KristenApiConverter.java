@@ -89,12 +89,12 @@ class KristenApiConverter {
             } else if (c.getIdTipoContenidos().equals(4)) {
                 contents.add(new ContentLink(contenido.getTexto(), contenido.getUrl()));
             } else if (c.getIdTipoContenidos().equals(5)) {
-                contents.add(new ContentGallery(contenido.getCantidad(), contenido.getImagenes()));
+                contents.add(new ContentGallery(contenido.getImagenes()));
             } else if (c.getIdTipoContenidos().equals(7)) {
                 contents.add(new ContentVideo(contenido.getId(), contenido.getServidor()));
             } else if (c.getIdTipoContenidos().equals(8)) {
-                contents.add(new ContentList(contenido.getTitulo(), contenido.getCantidad(),
-                        contenido.getOrdenada(), contenido.getElementos()));
+                contents.add(new ContentList(contenido.getTitulo(), contenido.getOrdenada(),
+                        contenido.getElementos()));
             } else if (c.getIdTipoContenidos().equals(9)) {
                 contents.add(new ContentTitle(contenido.getTexto()));
             }

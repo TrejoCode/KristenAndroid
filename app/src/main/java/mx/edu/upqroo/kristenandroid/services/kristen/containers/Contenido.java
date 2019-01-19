@@ -4,24 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Contenido {
-
-    @SerializedName("idContenidos")
-    @Expose
-    private Integer idContenidos;
     @SerializedName("idTipoContenidos")
     @Expose
     private Integer idTipoContenidos;
     @SerializedName("contenido")
     @Expose
     private Contenido_ contenido;
-
-    public Integer getIdContenidos() {
-        return idContenidos;
-    }
-
-    public void setIdContenidos(Integer idContenidos) {
-        this.idContenidos = idContenidos;
-    }
 
     public Integer getIdTipoContenidos() {
         return idTipoContenidos;
