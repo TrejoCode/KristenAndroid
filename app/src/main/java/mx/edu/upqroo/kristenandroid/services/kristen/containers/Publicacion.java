@@ -3,7 +3,7 @@ package mx.edu.upqroo.kristenandroid.services.kristen.containers;
 import java.util.Date;
 
 public class Publicacion {
-    private int idPublicaciones;
+    private String idPublicaciones;
     private String url;
     private String descripcion;
     private String titulo;
@@ -12,11 +12,11 @@ public class Publicacion {
     private Date fecha;
     private int idTipos_Publicacion;
 
-    public int getIdPublicaciones() {
+    public String getIdPublicaciones() {
         return idPublicaciones;
     }
 
-    public void setIdPublicaciones(int idPublicaciones) {
+    public void setIdPublicaciones(String idPublicaciones) {
         this.idPublicaciones = idPublicaciones;
     }
 

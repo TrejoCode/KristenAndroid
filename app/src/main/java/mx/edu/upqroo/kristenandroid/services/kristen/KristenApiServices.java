@@ -55,6 +55,9 @@ public class KristenApiServices {
                         }
                         break;
                     case 404:
+
+                        break;
+                    case 400:
                         if (response.errorBody() != null) {
                             try {
                                 EventBus.getDefault().post(
@@ -63,7 +66,6 @@ public class KristenApiServices {
                                 e.printStackTrace();
                             }
                         }
-                        break;
                     default:
                         EventBus.getDefault().post(new NewsListMessageError(response.message()));
                         break;
@@ -85,7 +87,7 @@ public class KristenApiServices {
      * to it.
      * @param postId Post's identifier
      */
-    public static void getPostContent(int postId) {
+    public static void getPostContent(String postId) {
         initializeRestClientAdministration();
         Call<PublicacionContenido> call = service.listContents(postId);
         call.enqueue(new Callback<PublicacionContenido>() {

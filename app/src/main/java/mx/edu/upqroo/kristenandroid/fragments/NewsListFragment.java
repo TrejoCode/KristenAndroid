@@ -77,7 +77,6 @@ public class NewsListFragment extends Fragment {
                                 .getInstance()
                                 .getSession()
                                 .getCareer()), page);
-                mNewsAdapter.notifyItemRangeInserted(totalItemsCount, 5);
             }
         };
 
@@ -90,7 +89,6 @@ public class NewsListFragment extends Fragment {
                 mNewsList.clear();
                 mTextErrorMessage.setVisibility(View.INVISIBLE);
                 generateCover();
-                mNewsAdapter.notifyDataSetChanged();
                 mScrollListener.resetState();
                 KristenApiServices
                         .getPublicationsList(Integer.parseInt(SessionHelper
@@ -140,6 +138,7 @@ public class NewsListFragment extends Fragment {
         mTextErrorMessage.setVisibility(View.INVISIBLE);
         mNewsList.addAll(event.newsList);
         mNewsAdapter.notifyDataSetChanged();
+        //mNewsAdapter.notifyItemRangeInserted(mNewsList.size(), 5);
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.refreshComplete();
             Toast.makeText(getContext(), "Actualizado", Toast.LENGTH_LONG).show();
@@ -159,7 +158,7 @@ public class NewsListFragment extends Fragment {
     private void generateCover() {
         Date date = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM", Locale.US);
-        mNewsList.add(new News(0, "", 0, getString(R.string.news_header_title),
+        mNewsList.add(new News("0", "", 0, getString(R.string.news_header_title),
                 getString(R.string.news_header_desc),
                 "COVER",
                 "http://www.upqroo.edu.mx/wp-content/uploads/2018/01/bslider_b03.jpg",

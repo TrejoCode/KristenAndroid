@@ -28,7 +28,7 @@ public interface KristenApiInterface {
      * @return a list with the contents of the post
      */
     @GET("Publicacion/{idPost}")
-    Call<PublicacionContenido> listContents(@Path("idPost") int idPost);
+    Call<PublicacionContenido> listContents(@Path("idPost") String idPost);
 
 
 }
