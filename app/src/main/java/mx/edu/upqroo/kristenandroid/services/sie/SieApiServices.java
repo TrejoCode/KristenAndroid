@@ -75,9 +75,9 @@ public class SieApiServices {
      * to it.
      * @param studentId User's identifier
      */
-    public static void getGradesList(String studentId) {
+    public static void getGradesList(String studentId, String token) {
         initializeRestClientAdministration();
-        Call<List<Calificacion>> call = service.listGardes(studentId);
+        Call<List<Calificacion>> call = service.listGardes(studentId, token);
         call.enqueue(new Callback<List<Calificacion>>() {
             @Override
             public void onResponse(Call<List<Calificacion>> call,
@@ -112,9 +112,9 @@ public class SieApiServices {
      * to it.
      * @param studentId s
      */
-    public static void getKardexList(String studentId) {
+    public static void getKardexList(String studentId, String token) {
         initializeRestClientAdministration();
-        Call<List<Kardexs>> call = service.listKardex(studentId);
+        Call<List<Kardexs>> call = service.listKardex(studentId, token);
         call.enqueue(new Callback<List<Kardexs>>() {
             @Override
             public void onResponse(Call<List<Kardexs>> call, Response<List<Kardexs>> response) {
@@ -149,9 +149,9 @@ public class SieApiServices {
      * to it.
      * @param studentId User's identifier
      */
-    public static void getSchedule(String studentId) {
+    public static void getSchedule(String studentId, String token) {
         initializeRestClientAdministration();
-        Call<Semana> call = service.schedule(studentId);
+        Call<Semana> call = service.schedule(studentId, token);
         call.enqueue(new Callback<Semana>() {
             @Override
             public void onResponse(Call<Semana> call, Response<Semana> response) {

@@ -19,7 +19,7 @@ public interface KristenApiInterface {
      * @param page page that is desired
      * @return a list of publications
      */
-    @GET("Publicacion/FeedApp/{career}/{page}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
+    @GET("Publicacion/FeedApp/{career}/{page}")
     Call<List<Publicacion>> listPublications(@Path("career") int career, @Path("page") int page);
 
     /**
@@ -27,7 +27,7 @@ public interface KristenApiInterface {
      * @param idPost unique identifier of the post
      * @return a list with the contents of the post
      */
-    @GET("Publicacion/{idPost}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
+    @GET("Publicacion/{idPost}")
     Call<PublicacionContenido> listContents(@Path("idPost") int idPost);
 
 

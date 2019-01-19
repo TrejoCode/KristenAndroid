@@ -41,8 +41,8 @@ class SieApiConverter {
                 alumno.getContrasena(),
                 new Config(alumno.getConfig().getGeneralTopic(),
                         alumno.getConfig().getTopic(),
-                        alumno.getConfig().getUrlCalendario(),
-                        alumno.getConfig().getUrlBase())
+                        alumno.getConfig().getUrlBase(),
+                        alumno.getConfig().getToken())
         );
     }
 

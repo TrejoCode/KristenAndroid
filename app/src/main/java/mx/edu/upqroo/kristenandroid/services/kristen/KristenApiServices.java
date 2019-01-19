@@ -22,14 +22,13 @@ import retrofit2.Response;
  */
 public class KristenApiServices {
     private static KristenApiInterface service;
-    private static final String authorizationToken = "Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=";
 
     /**
      * Initialize the rest client if needed.
      */
     private static void initializeRestClientAdministration() {
         if (service == null)
-            service = KristenApiClient.createService(KristenApiInterface.class, authorizationToken);
+            service = KristenApiClient.createService(KristenApiInterface.class);
     }
 
     /**

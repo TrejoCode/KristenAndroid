@@ -101,7 +101,8 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
     }
 
     private void generateDays() {
-        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
+        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId(),
+                SessionHelper.getInstance().getSession().getConfig().getUserToken());
         EventBus.getDefault().register(this);
     }
 

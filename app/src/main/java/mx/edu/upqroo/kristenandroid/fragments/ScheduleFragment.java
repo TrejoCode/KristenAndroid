@@ -52,7 +52,8 @@ public class ScheduleFragment extends Fragment {
         recyclerViewSchedule.setAdapter(adaptadorSchedule);
         mProgress = v.findViewById(R.id.progress_schedule);
         mProgress.setVisibility(View.VISIBLE);
-        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
+        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId(),
+                SessionHelper.getInstance().getSession().getConfig().getUserToken());
         return v;
     }
 

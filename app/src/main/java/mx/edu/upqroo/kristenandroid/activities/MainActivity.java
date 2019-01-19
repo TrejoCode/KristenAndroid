@@ -11,10 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -25,7 +23,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FragmentHelper;
-import mx.edu.upqroo.kristenandroid.common.NotificationHelper;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.GradesFragment;
 import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
@@ -45,6 +42,11 @@ public class MainActivity extends UpqrooActivity
     private ArrayList<FragmentHelper> mHistoryList;
     private BottomNavigationView mButtonNavigationView;
     public static boolean HAS_THEME_CHANGED = false;
+    private NewsListFragment mNewsListFragment;
+    private UserFragment mUserFragment;
+    private ScheduleFragment mScheduleFragment;
+    private GradesFragment mGradesFragment;
+    private KardexFragment mKardexFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +56,6 @@ public class MainActivity extends UpqrooActivity
         setContentView(R.layout.activity_main);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
-        //NotificationHelper.GetInstance(new WeakReference<>(getApplicationContext()))
-        //        .createNotification("Titulo", "Body");
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,10 +72,15 @@ public class MainActivity extends UpqrooActivity
         mNavigationView.setNavigationItemSelectedListener(this);
         mNavigationView.setCheckedItem(R.id.nav_news);
 
+        mNewsListFragment = new NewsListFragment();
+        mUserFragment = new UserFragment();
+        mGradesFragment = new GradesFragment();
+        mKardexFragment = new KardexFragment();
+        mScheduleFragment = new ScheduleFragment();
+
         mFragmentHelper = FragmentHelper.NEWS;
-        NewsListFragment initialFrag = new NewsListFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_main, initialFrag)
+                .replace(R.id.fragment_main, mNewsListFragment)
                 .commit();
     }
 
@@ -91,9 +95,8 @@ public class MainActivity extends UpqrooActivity
                 if (mLastFragment == FragmentHelper.NEWS) {
                     mNavigationView.setCheckedItem(R.id.nav_news);
                     mFragmentHelper = FragmentHelper.NEWS;
-                    NewsListFragment fragment = new NewsListFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_main, fragment)
+                            .replace(R.id.fragment_main, mNewsListFragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_news);
                     mButtonNavigationView.setSelectedItemId(R.id.news_menu_item);
@@ -103,18 +106,16 @@ public class MainActivity extends UpqrooActivity
                 } else if (mLastFragment == FragmentHelper.USER) {
                     mNavigationView.setCheckedItem(R.id.nav_user);
                     mFragmentHelper = FragmentHelper.USER;
-                    UserFragment fragment = new UserFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_main, fragment)
+                            .replace(R.id.fragment_main, mUserFragment)
                             .commit();
                     mToolbar.setTitle(R.string.nave_menu_user);
                     mButtonNavigationView.setVisibility(View.GONE);
                 } else if (mLastFragment == FragmentHelper.SCHEDULE) {
                     mNavigationView.setCheckedItem(R.id.nav_schedule);
                     mFragmentHelper = FragmentHelper.SCHEDULE;
-                    ScheduleFragment fragment = new ScheduleFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_main, fragment)
+                            .replace(R.id.fragment_main, mScheduleFragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_schedule);
                     mButtonNavigationView.setSelectedItemId(R.id.schedule_menu_item);
@@ -124,9 +125,8 @@ public class MainActivity extends UpqrooActivity
                 } else if (mLastFragment == FragmentHelper.GRADES) {
                     mNavigationView.setCheckedItem(R.id.nav_school);
                     mFragmentHelper = FragmentHelper.GRADES;
-                    GradesFragment fragment = new GradesFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_main, fragment)
+                            .replace(R.id.fragment_main, mGradesFragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_school);
                     mButtonNavigationView.setSelectedItemId(R.id.grades_menu_item);
@@ -136,9 +136,8 @@ public class MainActivity extends UpqrooActivity
                 } else if (mLastFragment == FragmentHelper.KARDEX) {
                     mNavigationView.setCheckedItem(R.id.nav_kardex);
                     mFragmentHelper = FragmentHelper.KARDEX;
-                    KardexFragment fragment = new KardexFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_main, fragment)
+                            .replace(R.id.fragment_main, mKardexFragment)
                             .commit();
                     mToolbar.setTitle(R.string.nav_menu_kardex);
                     mButtonNavigationView.setVisibility(View.GONE);
@@ -179,9 +178,8 @@ public class MainActivity extends UpqrooActivity
             if (mFragmentHelper != FragmentHelper.NEWS) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.NEWS;
-                NewsListFragment fragment = new NewsListFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, fragment)
+                        .replace(R.id.fragment_main, mNewsListFragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_news);
                 mButtonNavigationView.setSelectedItemId(R.id.news_menu_item);
@@ -194,9 +192,8 @@ public class MainActivity extends UpqrooActivity
             if (mFragmentHelper != FragmentHelper.USER) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.USER;
-                UserFragment fragment = new UserFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, fragment)
+                        .replace(R.id.fragment_main, mUserFragment)
                         .commit();
                 mToolbar.setTitle(R.string.nave_menu_user);
                 mButtonNavigationView.setVisibility(View.GONE);
@@ -205,9 +202,8 @@ public class MainActivity extends UpqrooActivity
             if (mFragmentHelper != FragmentHelper.SCHEDULE) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.SCHEDULE;
-                ScheduleFragment fragment = new ScheduleFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, fragment)
+                        .replace(R.id.fragment_main, mScheduleFragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_schedule);
                 mNavigationView.setCheckedItem(R.id.nav_schedule);
@@ -220,9 +216,8 @@ public class MainActivity extends UpqrooActivity
             if (mFragmentHelper != FragmentHelper.GRADES) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.GRADES;
-                GradesFragment fragment = new GradesFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, fragment)
+                        .replace(R.id.fragment_main, mGradesFragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_school);
                 mNavigationView.setCheckedItem(R.id.nav_school);
@@ -235,16 +230,15 @@ public class MainActivity extends UpqrooActivity
             if (mFragmentHelper != FragmentHelper.KARDEX) {
                 mHistoryList.add(mFragmentHelper);
                 mFragmentHelper = FragmentHelper.KARDEX;
-                KardexFragment fragment = new KardexFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, fragment)
+                        .replace(R.id.fragment_main, mKardexFragment)
                         .commit();
                 mToolbar.setTitle(R.string.nav_menu_kardex);
                 mButtonNavigationView.setVisibility(View.GONE);
             }
         } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
-            startActivity(new Intent(Intent.ACTION_VIEW)
-                    .setData(Uri.parse(mSession.getSession().getConfig().getCalendarAddress())));
+            /*startActivity(new Intent(Intent.ACTION_VIEW)
+                    .setData(Uri.parse(mSession.getSession().getConfig().getCalendarAddress())));*/
         }else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {

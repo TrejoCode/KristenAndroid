@@ -12,6 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Api services that feed the personal information of an user to the app.
@@ -23,7 +24,7 @@ public interface SieApiInterface {
      * @param password User's password
      * @return the user's information
      */
-    @POST("Alumnos/Login?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
+    @POST("Alumnos/Login")
     @FormUrlEncoded
     Call<Alumno> login(@Field("matricula") String user, @Field("contrasena") String password);
 
@@ -32,22 +33,25 @@ public interface SieApiInterface {
      * @param studentId user's identifier
      * @return a list with all the grades
      */
-    @GET("Calificaciones/{studentId}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
-    Call<List<Calificacion>> listGardes(@Path("studentId") String studentId);
+    @GET("Calificaciones/{studentId}")
+    Call<List<Calificacion>> listGardes(@Path("studentId") String studentId,
+                                        @Query("access_token") String token);
 
     /**
      * Method to get all the historic grades of a user.
      * @param studentId user's identifier
      * @return a list with all the historic grades
      */
-    @GET("Kardexes/{studentId}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
-    Call<List<Kardexs>> listKardex(@Path("studentId") String studentId);
+    @GET("Kardexes/{studentId}")
+    Call<List<Kardexs>> listKardex(@Path("studentId") String studentId,
+                                   @Query("access_token") String token);
 
     /**
      * Method to get the schedule of a user.
      * @param studentId user's identifier
      * @return returns all the week schedule
      */
-    @GET("Horario/{studentId}?access_token=Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=")
-    Call<Semana> schedule(@Path("studentId") String studentId);
+    @GET("Horario/{studentId}")
+    Call<Semana> schedule(@Path("studentId") String studentId,
+                          @Query("access_token") String token);
 }

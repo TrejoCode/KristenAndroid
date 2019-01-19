@@ -7,15 +7,15 @@ public class Config {
     @SerializedName("topic")
     @Expose
     private String topic;
-    @SerializedName("url_calendario")
-    @Expose
-    private String urlCalendario;
     @SerializedName("topic_general")
     @Expose
     private String generalTopic;
     @SerializedName("url_base")
     @Expose
     private String urlBase;
+    @SerializedName("token")
+    @Expose
+    private String token;
 
     public String getTopic() {
         return topic;
@@ -23,14 +23,6 @@ public class Config {
 
     public void setTopic(String topic) {
         this.topic = topic;
-    }
-
-    public String getUrlCalendario() {
-        return urlCalendario;
-    }
-
-    public void setUrlCalendario(String urlCalendario) {
-        this.urlCalendario = urlCalendario;
     }
 
     public String getGeneralTopic() {
@@ -47,5 +39,13 @@ public class Config {
 
     public void setUrlBase(String urlBase) {
         this.urlBase = urlBase;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

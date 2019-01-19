@@ -22,7 +22,6 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.KardexItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Kardex;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.KardexListMessage;
 
@@ -59,7 +58,8 @@ public class KardexFragment extends Fragment {
 
         mKardexAdapter = new KardexItemAdapter(v.getContext(), mKardexList);
         mRecyclerKardex.setAdapter(mKardexAdapter);
-        SieApiServices.getKardexList(SessionHelper.getInstance().getSession().getUserId());
+        SieApiServices.getKardexList(SessionHelper.getInstance().getSession().getUserId(),
+                SessionHelper.getInstance().getSession().getConfig().getUserToken());
         return v;
     }
 
