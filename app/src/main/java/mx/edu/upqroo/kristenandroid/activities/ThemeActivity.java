@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 
-abstract class UpqrooActivity extends AppCompatActivity {
+abstract class ThemeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +40,6 @@ abstract class UpqrooActivity extends AppCompatActivity {
     }
 
     public void applyTheme() {
-        // Considerar hacer una extension del appcompat activity para poner este metodo ahi
         if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
             setTheme(R.style.AppThemeDark);
         } else {

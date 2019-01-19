@@ -30,7 +30,7 @@ import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
-public class MainActivity extends UpqrooActivity
+public class MainActivity extends ThemeActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
 

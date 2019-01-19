@@ -30,7 +30,7 @@ import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
 
-public class NewsDetailActivity extends UpqrooActivity {
+public class NewsDetailActivity extends ThemeActivity {
     public static final String EXTRA_NEWS = "KEY_NEWS";
     private News mNews;
     private ProgressBar mProgressBar;
