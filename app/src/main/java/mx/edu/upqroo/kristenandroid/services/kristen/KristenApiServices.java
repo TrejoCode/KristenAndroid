@@ -5,8 +5,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.IOException;
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.PublicacionContenido;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessageError;
@@ -52,6 +54,8 @@ public class KristenApiServices {
                             EventBus.getDefault()
                                     .post(new NewsListMessage(KristenApiConverter
                                             .PublicationListToNewsList(data)));
+                        } else {
+                            EventBus.getDefault().post(new NewsListMessageError("Data was null"));
                         }
                         break;
                     case 404:
@@ -101,6 +105,9 @@ public class KristenApiServices {
                             EventBus.getDefault()
                                     .post(new NewsDetailMessage(true, KristenApiConverter
                                             .PublicacionToNewsDetail(data)));
+                        } else {
+                            EventBus.getDefault()
+                                    .post(new NewsDetailMessage(false, null));
                         }
                         break;
                     default:
@@ -115,6 +122,41 @@ public class KristenApiServices {
                 EventBus.getDefault()
                         .post(new PostContentMessage(false,
                                 null));
+            }
+        });
+    }
+
+    public static void getCalendarUrl() {
+        initializeRestClientAdministration();
+        Call<PublicacionContenido> call = service.getCalendarUrl();
+        call.enqueue(new Callback<PublicacionContenido>() {
+            @Override
+            public void onResponse(Call<PublicacionContenido> call,
+                                   Response<PublicacionContenido> response) {
+                switch (response.code()) {
+                    case 200:
+                        PublicacionContenido data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new CalendarUrlMessage(
+                                            data.getContenidos().get(0).getContenido().getTexto(),
+                                            data.getContenidos().get(0).getContenido().getUrl()));
+                        } else {
+                            EventBus.getDefault()
+                                    .post(new CalendarUrlMessage("", ""));
+                        }
+                        break;
+                    default:
+                        EventBus.getDefault()
+                                .post(new CalendarUrlMessage("", ""));
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PublicacionContenido> call, Throwable t) {
+                EventBus.getDefault()
+                        .post(new CalendarUrlMessage("", ""));
             }
         });
     }

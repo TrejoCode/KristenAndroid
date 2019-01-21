@@ -3,6 +3,7 @@ package mx.edu.upqroo.kristenandroid.activities;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +12,10 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -28,6 +33,8 @@ import mx.edu.upqroo.kristenandroid.fragments.KardexFragment;
 import mx.edu.upqroo.kristenandroid.fragments.NewsListFragment;
 import mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment;
 import mx.edu.upqroo.kristenandroid.fragments.UserFragment;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
 public class MainActivity extends ThemeActivity
@@ -81,6 +88,16 @@ public class MainActivity extends ThemeActivity
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_main, mNewsListFragment)
                 .commit();
+    }
+
+    @Override
+    protected void onResume() {
+        if (mHistoryList.size() > 0) {
+            if (mFragmentHelper.equals(FragmentHelper.CALENDAR)) {
+                onBackPressed();
+            }
+        }
+        super.onResume();
     }
 
     @Override
@@ -236,8 +253,12 @@ public class MainActivity extends ThemeActivity
                 mButtonNavigationView.setVisibility(View.GONE);
             }
         } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
-            /*startActivity(new Intent(Intent.ACTION_VIEW)
-                    .setData(Uri.parse(mSession.getSession().getConfig().getCalendarAddress())));*/
+            if (!EventBus.getDefault().isRegistered(this)) {
+                mHistoryList.add(mFragmentHelper);
+                mFragmentHelper = FragmentHelper.CALENDAR;
+                EventBus.getDefault().register(this);
+                KristenApiServices.getCalendarUrl();
+            }
         }else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {
@@ -272,6 +293,16 @@ public class MainActivity extends ThemeActivity
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void calendarServiceResponse(CalendarUrlMessage message) {
+        if (!message.getCalendarUrl().isEmpty()) {
+            startActivity(new Intent(Intent.ACTION_VIEW).setData(
+                    Uri.parse(message.getCalendarUrl())));
+
+        }
+        EventBus.getDefault().unregister(this);
     }
 
 }
