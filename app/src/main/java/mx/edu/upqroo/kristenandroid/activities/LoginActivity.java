@@ -50,8 +50,10 @@ public class LoginActivity extends ThemeActivity {
         setContentView(R.layout.activity_login);
 
         Toolbar mToolbar = findViewById(R.id.toolbarLogin);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("UPQROO");
+        if (getSupportActionBar() != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setTitle("UPQROO");
+        }
 
         mLinearOverlay = findViewById(R.id.linear_overlay_login);
         mLinearOverlay.setVisibility(View.VISIBLE);
