@@ -11,7 +11,7 @@
         android:id="@+id/ioexample.appbar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/ioexample.collapsing"
@@ -38,13 +38,13 @@
         android:id="@+id/ioexample.toolbar"
         android:layout_width="match_parent"
         android:layout_height="112dp"
-        android:background="@color/colorPrimary"
+        android:background="?attr/colorPrimary"
         android:elevation="4dp"
         app:layout_collapseMode="pin"
         app:layout_anchor="@id/ioexample.appbar"
         app:layout_anchorGravity="bottom"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"
-        style="@style/ToolBarWithNavigationBack">
+        style="@style/ToolBarWithNavigationBack"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -60,8 +60,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:singleLine="true"
-                android:text="Title Example"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+                android:textColor="@color/white"
+                tools:text="Title Example" />
 
             <TextView
                 android:id="@+id/subtitle_news_detail"
@@ -70,8 +71,9 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
                 android:singleLine="true"
-                android:text="Larger subtitle example"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Inverse"
+                android:textColor="@color/white"
+                tools:text="Larger subtitle example" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
