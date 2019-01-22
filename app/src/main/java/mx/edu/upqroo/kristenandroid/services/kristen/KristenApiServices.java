@@ -3,12 +3,15 @@ package mx.edu.upqroo.kristenandroid.services.kristen;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contacto;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.PublicacionContenido;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.ContactListMessage;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessageError;
@@ -157,6 +160,39 @@ public class KristenApiServices {
             public void onFailure(Call<PublicacionContenido> call, Throwable t) {
                 EventBus.getDefault()
                         .post(new CalendarUrlMessage("", ""));
+            }
+        });
+    }
+
+    public static void getContacts() {
+        initializeRestClientAdministration();
+        Call<List<Contacto>> call = service.getContacts();
+        call.enqueue(new Callback<List<Contacto>>() {
+            @Override
+            public void onResponse(Call<List<Contacto>> call,
+                                   Response<List<Contacto>> response) {
+                switch (response.code()) {
+                    case 200:
+                        List<Contacto> data = response.body();
+                        if (data != null) {
+                            EventBus.getDefault()
+                                    .post(new ContactListMessage(true, data));
+                        } else {
+                            EventBus.getDefault()
+                                    .post(new ContactListMessage(false, new ArrayList()));
+                        }
+                        break;
+                    default:
+                        EventBus.getDefault()
+                                .post(new ContactListMessage(false, new ArrayList()));
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Contacto>> call, Throwable t) {
+                EventBus.getDefault()
+                        .post(new ContactListMessage(false, new ArrayList()));
             }
         });
     }

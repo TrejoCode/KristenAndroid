@@ -2,6 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.kristen;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contacto;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.PublicacionContenido;
@@ -38,5 +39,10 @@ public interface KristenApiInterface {
     @GET("InfoInstitucional/findOne?filter=%7B%22where%22%3A%7B%22idTipos_Informacion%22%3A10%7D%2C%22fields%22%3A%7B%22contenidos%22%3Atrue%7D%7D")
     Call<PublicacionContenido> getCalendarUrl();
 
-
+    /**
+     * Get all the university contacts
+     * @return a list with all the contacts
+     */
+    @GET("Contactos")
+    Call<List<Contacto>> getContacts();
 }
