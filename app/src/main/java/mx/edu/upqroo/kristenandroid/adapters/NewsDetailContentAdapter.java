@@ -3,6 +3,11 @@ package mx.edu.upqroo.kristenandroid.adapters;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,7 +131,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
             case 0:
                 GalleryViewHolder galleryHolder = (GalleryViewHolder) holder;
                 ContentGallery contentGallery = (ContentGallery) mContentList.get(position);
-                int abs = Math.abs(contentGallery.getQuantity() / 2);
+                int abs = Math.abs(contentGallery.getImages().size() / 2);
                 galleryHolder.mRecycler.setLayoutManager(new GridLayoutManager(mContext, abs));
                 galleryHolder.mRecycler
                         .setAdapter(new ImageItemAdapter(contentGallery.getImages(), mContext,
@@ -164,9 +169,22 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 break;
             case 3:
                 LinkViewHolder linkHolder = (LinkViewHolder) holder;
-                ContentLink contentLink = (ContentLink) mContentList.get(position);
-                linkHolder.mTextView.setText(contentLink.getText());
-                linkHolder.mLinkTextView.setText(contentLink.getUrl());
+                final ContentLink contentLink = (ContentLink) mContentList.get(position);
+                SpannableString clickableText = new SpannableString(contentLink.getUrl());
+                clickableText.setSpan(new ClickableSpan() {
+                                   @Override
+                                   public void onClick(@NonNull View widget) {
+                                   }
+                               }, 0, contentLink.getUrl().length(),
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                linkHolder.mTextView.setText(clickableText);
+                linkHolder.mTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mContext.startActivity(new Intent(
+                                Intent.ACTION_VIEW).setData(Uri.parse(contentLink.getText())));
+                    }
+                });
                 break;
             case 4:
                 ListViewHolder listHolder = (ListViewHolder) holder;
@@ -223,11 +241,9 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
 
     class LinkViewHolder extends RecyclerView.ViewHolder {
         TextView mTextView;
-        TextView mLinkTextView;
         LinkViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.text_link_item_content);
-            mLinkTextView = itemView.findViewById(R.id.link_item_content);
+            mTextView = itemView.findViewById(R.id.link_item_content);
         }
     }
 

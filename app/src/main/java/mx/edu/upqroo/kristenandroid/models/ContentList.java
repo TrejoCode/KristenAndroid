@@ -6,22 +6,19 @@ import java.util.List;
 public class ContentList extends Content {
     private String title;
     private boolean ordered;
-    private int quantity;
     private List<String> elements;
 
     public ContentList() {
         super();
     }
 
-    public ContentList(String title, int quantity, boolean ordered, List<String> element) {
+    public ContentList(String title, boolean ordered, List<String> element) {
         this.title = title;
-        this.quantity = quantity;
         this.ordered = ordered;
         this.elements = element;
     }
 
-    public ContentList(int quantity, String element) {
-        this.quantity = quantity;
+    public ContentList(String element) {
         this.elements = new ArrayList<>();
         this.elements.add(element);
     }
@@ -32,14 +29,6 @@ public class ContentList extends Content {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public List<String> getElements() {
@@ -55,5 +44,13 @@ public class ContentList extends Content {
             elements = new ArrayList<>();
         }
         elements.add(element);
+    }
+
+    public boolean isOrdered() {
+        return ordered;
+    }
+
+    public void setOrdered(boolean ordered) {
+        this.ordered = ordered;
     }
 }

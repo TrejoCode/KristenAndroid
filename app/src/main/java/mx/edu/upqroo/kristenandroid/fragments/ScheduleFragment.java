@@ -23,8 +23,9 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Day;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.ScheduleMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.services.sie.messages.ScheduleMessage;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +52,8 @@ public class ScheduleFragment extends Fragment {
         recyclerViewSchedule.setAdapter(adaptadorSchedule);
         mProgress = v.findViewById(R.id.progress_schedule);
         mProgress.setVisibility(View.VISIBLE);
-        ApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId());
+        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId(),
+                SessionHelper.getInstance().getSession().getConfig().getUserToken());
         return v;
     }
 

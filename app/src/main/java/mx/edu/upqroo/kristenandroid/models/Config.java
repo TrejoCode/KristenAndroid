@@ -3,19 +3,18 @@ package mx.edu.upqroo.kristenandroid.models;
 public class Config {
     private String generalTopic;
     private String userTopic;
-    private String calendarAddress;
     private String baseAddress;
+    private String userToken;
 
     public Config(){
 
     }
 
-    public Config(String generalTopic, String userTopic,
-                  String calendarAddress, String baseAddress){
+    public Config(String generalTopic, String userTopic, String baseAddress, String userToken){
         this.generalTopic = generalTopic;
         this.userTopic = userTopic;
-        this.calendarAddress = calendarAddress;
         this.baseAddress = baseAddress;
+        this.userToken = userToken;
     }
 
     public String getGeneralTopic() {
@@ -34,19 +33,19 @@ public class Config {
         this.userTopic = userTopic;
     }
 
-    public String getCalendarAddress() {
-        return calendarAddress;
-    }
-
-    public void setCalendarAddress(String calendarAddress) {
-        this.calendarAddress = calendarAddress;
-    }
-
     public String getBaseAddress() {
         return baseAddress;
     }
 
     public void setBaseAddress(String baseAddress) {
         this.baseAddress = baseAddress;
+    }
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/news_menu_item"
+        android:icon="@drawable/ic_web_black"
+        android:title="@string/nav_menu_news" />
+    <item
+        android:id="@+id/schedule_menu_item"
+        android:icon="@drawable/ic_schedule_black"
+        android:title="@string/nav_menu_schedule" />
+    <item
+        android:id="@+id/grades_menu_item"
+        android:icon="@drawable/ic_school_black"
+        android:title="@string/nav_menu_school" />
+    <item
+        android:id="@+id/calendar_menu_item"
+        android:icon="@drawable/ic_event_black"
+        android:title="@string/nav_menu_calendar" />
+</menu>

@@ -35,9 +35,9 @@ import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.News;
-import mx.edu.upqroo.kristenandroid.service.ApiServices;
-import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessage;
-import mx.edu.upqroo.kristenandroid.service.messages.NewsListMessageError;
+import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
+import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessageError;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,12 +72,11 @@ public class NewsListFragment extends Fragment {
         mScrollListener = new EndlessRecyclerViewScrollListener(lineaLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                ApiServices
+                KristenApiServices
                         .getPublicationsList(Integer.parseInt(SessionHelper
                                 .getInstance()
                                 .getSession()
                                 .getCareer()), page);
-                mNewsAdapter.notifyItemRangeInserted(totalItemsCount, 5);
             }
         };
 
@@ -89,9 +88,13 @@ public class NewsListFragment extends Fragment {
             public void onRefreshBegin(boolean isRefresh) {
                 mNewsList.clear();
                 mTextErrorMessage.setVisibility(View.INVISIBLE);
-                mScrollListener.resetState();
                 generateCover();
-                mNewsAdapter.notifyDataSetChanged();
+                mScrollListener.resetState();
+                KristenApiServices
+                        .getPublicationsList(Integer.parseInt(SessionHelper
+                                .getInstance()
+                                .getSession()
+                                .getCareer()), 1);
             }
         });
 
@@ -135,6 +138,7 @@ public class NewsListFragment extends Fragment {
         mTextErrorMessage.setVisibility(View.INVISIBLE);
         mNewsList.addAll(event.newsList);
         mNewsAdapter.notifyDataSetChanged();
+        //mNewsAdapter.notifyItemRangeInserted(mNewsList.size(), 5);
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.refreshComplete();
             Toast.makeText(getContext(), "Actualizado", Toast.LENGTH_LONG).show();
@@ -147,16 +151,14 @@ public class NewsListFragment extends Fragment {
         mProgressBar.setVisibility(View.GONE);
         mTextErrorMessage.setText(event.getError());
         mTextErrorMessage.setVisibility(View.VISIBLE);
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.refreshComplete();
-            Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_LONG).show();
-        }
+        mRefreshLayout.refreshComplete();
+        Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_LONG).show();
     }
 
     private void generateCover() {
         Date date = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM", Locale.US);
-        mNewsList.add(new News(0, "", 0, getString(R.string.news_header_title),
+        mNewsList.add(new News("0", "", 0, getString(R.string.news_header_title),
                 getString(R.string.news_header_desc),
                 "COVER",
                 "http://www.upqroo.edu.mx/wp-content/uploads/2018/01/bslider_b03.jpg",

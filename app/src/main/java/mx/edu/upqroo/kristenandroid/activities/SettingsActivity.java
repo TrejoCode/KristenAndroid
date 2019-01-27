@@ -13,7 +13,7 @@ import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 
-public class SettingsActivity extends UpqrooActivity {
+public class SettingsActivity extends ThemeActivity {
 
     private PreferencesManager mPrefManager;
 

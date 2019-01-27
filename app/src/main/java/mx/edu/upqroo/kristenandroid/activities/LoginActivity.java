@@ -26,9 +26,9 @@ import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
-import mx.edu.upqroo.kristenandroid.service.messages.LoginMessage;
+import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 
-public class LoginActivity extends UpqrooActivity {
+public class LoginActivity extends ThemeActivity {
     private SessionHelper mSessionHelper;
     private PreferencesManager mPrefManager;
     private TextView mUserId;
@@ -50,8 +50,10 @@ public class LoginActivity extends UpqrooActivity {
         setContentView(R.layout.activity_login);
 
         Toolbar mToolbar = findViewById(R.id.toolbarLogin);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("UPQROO");
+        if (getSupportActionBar() != null) {
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setTitle("UPQROO");
+        }
 
         mLinearOverlay = findViewById(R.id.linear_overlay_login);
         mLinearOverlay.setVisibility(View.VISIBLE);
