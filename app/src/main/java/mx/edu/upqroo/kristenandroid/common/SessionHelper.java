@@ -1,5 +1,6 @@
 package mx.edu.upqroo.kristenandroid.common;
 
+import mx.edu.upqroo.kristenandroid.models.Config;
 import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
@@ -50,6 +51,28 @@ public class SessionHelper {
         mSession = session;
     }
 
+    public void createDefaultSession() {
+        createNewSession(
+                new GeneralInfo("Usuario",
+                        "1",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        new Config("GENERAL",
+                                "TODAS",
+                                "BASEADDRESS",
+                                "")));
+    }
+
     /**
      * Destroy the session and unsubscribe the application from the firebase notifications.
      */
@@ -67,5 +90,9 @@ public class SessionHelper {
      */
     public GeneralInfo getSession() {
         return mSession;
+    }
+
+    public boolean sessionAlive() {
+        return !mSession.getConfig().getUserToken().equals("");
     }
 }

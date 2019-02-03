@@ -1,9 +1,7 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,8 +13,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.ref.WeakReference;
-
 import androidx.appcompat.widget.LinearLayoutCompat;
 import io.fabric.sdk.android.Fabric;
 import mx.edu.upqroo.kristenandroid.R;
@@ -24,12 +20,9 @@ import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
-import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 
 public class LoginActivity extends ThemeActivity {
-    private SessionHelper mSessionHelper;
-    private PreferencesManager mPrefManager;
     private TextView mUserId;
     private TextView mPassword;
     private LinearLayoutCompat mLinearOverlay;
@@ -37,15 +30,7 @@ public class LoginActivity extends ThemeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        WeakReference<Context> mContextWeakReference = new WeakReference<>(getApplicationContext());
-        mPrefManager = PreferencesManager.getInstance();
-        mPrefManager.setContext(mContextWeakReference);
         super.onCreate(savedInstanceState);
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)
-                .build();
-        Fabric.with(fabric);
         setContentView(R.layout.activity_login);
 
         mLinearOverlay = findViewById(R.id.linear_overlay_login);
@@ -54,24 +39,15 @@ public class LoginActivity extends ThemeActivity {
         mPassword = findViewById(R.id.field_password);
         mButtonLogin = findViewById(R.id.button_login);
 
-        mSessionHelper = SessionHelper.getInstance();
-        SessionLoaded sessionLoaded = mPrefManager.loadSession();
-        mButtonLogin.setClickable(false);
-        if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||
-                !TextUtils.isEmpty(sessionLoaded.getPassword())) {
-            mSessionHelper.login(sessionLoaded.getUser(), sessionLoaded.getPassword());
-        } else {
-            mLinearOverlay.setVisibility(View.GONE);
-            mButtonLogin.setClickable(true);
-        }
-
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mUserId.setEnabled(false);
                 mPassword.setEnabled(false);
                 mLinearOverlay.setVisibility(View.VISIBLE);
-                mSessionHelper.login(mUserId.getText().toString(), mPassword.getText().toString());
+                SessionHelper.getInstance().login(
+                        mUserId.getText().toString(),
+                        mPassword.getText().toString());
                 mButtonLogin.setClickable(false);
             }
         });
@@ -97,8 +73,8 @@ public class LoginActivity extends ThemeActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageLogin(LoginMessage event) {
         if (event.isResult()) {
-            mSessionHelper.createNewSession(event.getStudent());
-            mPrefManager.saveSession(event.getStudent().getUserId(),
+            SessionHelper.getInstance().createNewSession(event.getStudent());
+            PreferencesManager.getInstance().saveSession(event.getStudent().getUserId(),
                     event.getStudent().getPassword());
 
             NotificationLoaded notificationLoaded = PreferencesManager
@@ -106,13 +82,13 @@ public class LoginActivity extends ThemeActivity {
                     .loadNotificationsPreference();
             if (notificationLoaded.isGeneral()) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(mSessionHelper.getSession()
+                        .SubscribeNotifications(SessionHelper.getInstance().getSession()
                                 .getConfig()
                                 .getGeneralTopic());
             }
             if (notificationLoaded.isCareer()) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(mSessionHelper.getSession()
+                        .SubscribeNotifications(SessionHelper.getInstance().getSession()
                                 .getConfig()
                                 .getUserTopic());
             }

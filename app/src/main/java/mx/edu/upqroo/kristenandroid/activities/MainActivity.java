@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -160,7 +162,11 @@ public class MainActivity extends ThemeActivity
                 }
                 mHistoryList.remove(mHistoryList.size() - 1);
             } else {
-                showLogoutDialog();
+                if (TextUtils.isEmpty(mSession.getSession().getConfig().getUserToken())) {
+                    super.onBackPressed();
+                } else {
+                    showLogoutDialog();
+                }
             }
         }
     }
@@ -189,80 +195,92 @@ public class MainActivity extends ThemeActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.nav_news || id == R.id.news_menu_item) {
-            if (mFragmentHelper != FragmentHelper.NEWS) {
-                mHistoryList.add(mFragmentHelper);
-                mFragmentHelper = FragmentHelper.NEWS;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, mNewsListFragment)
-                        .commit();
-                mToolbar.setTitle(R.string.nav_menu_news);
-                mButtonNavigationView.setSelectedItemId(R.id.news_menu_item);
-                mNavigationView.setCheckedItem(R.id.nav_news);
-                if (mButtonNavigationView.getVisibility() == View.GONE) {
-                    mButtonNavigationView.setVisibility(View.VISIBLE);
+        if (!mSession.sessionAlive()) {
+            Snackbar.make(findViewById(R.id.bottom_navigation),
+                    "Debes iniciar sesión para acceder a esta información",
+                    Snackbar.LENGTH_LONG)
+                    .setAction("Iniciar sesión", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            showLoginDialog();
+                        }
+                    })
+                    .show();
+        } else {
+            if (id == R.id.nav_news || id == R.id.news_menu_item) {
+                if (mFragmentHelper != FragmentHelper.NEWS) {
+                    mHistoryList.add(mFragmentHelper);
+                    mFragmentHelper = FragmentHelper.NEWS;
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, mNewsListFragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_news);
+                    mButtonNavigationView.setSelectedItemId(R.id.news_menu_item);
+                    mNavigationView.setCheckedItem(R.id.nav_news);
+                    if (mButtonNavigationView.getVisibility() == View.GONE) {
+                        mButtonNavigationView.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
-        } else if (id == R.id.nav_user) {
-            if (mFragmentHelper != FragmentHelper.USER) {
-                mHistoryList.add(mFragmentHelper);
-                mFragmentHelper = FragmentHelper.USER;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, mUserFragment)
-                        .commit();
-                mToolbar.setTitle(R.string.nave_menu_user);
-                mButtonNavigationView.setVisibility(View.GONE);
-            }
-        } else if (id == R.id.nav_schedule || id == R.id.schedule_menu_item) {
-            if (mFragmentHelper != FragmentHelper.SCHEDULE) {
-                mHistoryList.add(mFragmentHelper);
-                mFragmentHelper = FragmentHelper.SCHEDULE;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, mScheduleFragment)
-                        .commit();
-                mToolbar.setTitle(R.string.nav_menu_schedule);
-                mNavigationView.setCheckedItem(R.id.nav_schedule);
-                mButtonNavigationView.setSelectedItemId(R.id.schedule_menu_item);
-                if (mButtonNavigationView.getVisibility() == View.GONE) {
-                    mButtonNavigationView.setVisibility(View.VISIBLE);
+            } else if (id == R.id.nav_user) {
+                if (mFragmentHelper != FragmentHelper.USER) {
+                    mHistoryList.add(mFragmentHelper);
+                    mFragmentHelper = FragmentHelper.USER;
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, mUserFragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nave_menu_user);
+                    mButtonNavigationView.setVisibility(View.GONE);
                 }
-            }
-        } else if (id == R.id.nav_school || id == R.id.grades_menu_item) {
-            if (mFragmentHelper != FragmentHelper.GRADES) {
-                mHistoryList.add(mFragmentHelper);
-                mFragmentHelper = FragmentHelper.GRADES;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, mGradesFragment)
-                        .commit();
-                mToolbar.setTitle(R.string.nav_menu_school);
-                mNavigationView.setCheckedItem(R.id.nav_school);
-                mButtonNavigationView.setSelectedItemId(R.id.grades_menu_item);
-                if (mButtonNavigationView.getVisibility() == View.GONE) {
-                    mButtonNavigationView.setVisibility(View.VISIBLE);
+            } else if (id == R.id.nav_schedule || id == R.id.schedule_menu_item) {
+                if (mFragmentHelper != FragmentHelper.SCHEDULE) {
+                    mHistoryList.add(mFragmentHelper);
+                    mFragmentHelper = FragmentHelper.SCHEDULE;
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, mScheduleFragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_schedule);
+                    mNavigationView.setCheckedItem(R.id.nav_schedule);
+                    mButtonNavigationView.setSelectedItemId(R.id.schedule_menu_item);
+                    if (mButtonNavigationView.getVisibility() == View.GONE) {
+                        mButtonNavigationView.setVisibility(View.VISIBLE);
+                    }
                 }
+            } else if (id == R.id.nav_school || id == R.id.grades_menu_item) {
+                if (mFragmentHelper != FragmentHelper.GRADES) {
+                    mHistoryList.add(mFragmentHelper);
+                    mFragmentHelper = FragmentHelper.GRADES;
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, mGradesFragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_school);
+                    mNavigationView.setCheckedItem(R.id.nav_school);
+                    mButtonNavigationView.setSelectedItemId(R.id.grades_menu_item);
+                    if (mButtonNavigationView.getVisibility() == View.GONE) {
+                        mButtonNavigationView.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else if (id == R.id.nav_kardex) {
+                if (mFragmentHelper != FragmentHelper.KARDEX) {
+                    mHistoryList.add(mFragmentHelper);
+                    mFragmentHelper = FragmentHelper.KARDEX;
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_main, mKardexFragment)
+                            .commit();
+                    mToolbar.setTitle(R.string.nav_menu_kardex);
+                    mButtonNavigationView.setVisibility(View.GONE);
+                }
+            } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
+                if (!EventBus.getDefault().isRegistered(this)) {
+                    mHistoryList.add(mFragmentHelper);
+                    mFragmentHelper = FragmentHelper.CALENDAR;
+                    EventBus.getDefault().register(this);
+                    KristenApiServices.getCalendarUrl();
+                }
+            } else if (id == R.id.nav_settings) {
+                startActivity(new Intent(this, SettingsActivity.class));
+            } else if (id == R.id.nav_logout) {
+                showLogoutDialog();
             }
-        } else if (id == R.id.nav_kardex) {
-            if (mFragmentHelper != FragmentHelper.KARDEX) {
-                mHistoryList.add(mFragmentHelper);
-                mFragmentHelper = FragmentHelper.KARDEX;
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_main, mKardexFragment)
-                        .commit();
-                mToolbar.setTitle(R.string.nav_menu_kardex);
-                mButtonNavigationView.setVisibility(View.GONE);
-            }
-        } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
-            if (!EventBus.getDefault().isRegistered(this)) {
-                mHistoryList.add(mFragmentHelper);
-                mFragmentHelper = FragmentHelper.CALENDAR;
-                EventBus.getDefault().register(this);
-                KristenApiServices.getCalendarUrl();
-            }
-        }else if (id == R.id.nav_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-        } else if (id == R.id.nav_logout) {
-            showLogoutDialog();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -277,6 +295,25 @@ public class MainActivity extends ThemeActivity
     }
 
     private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.exit_confirmation_message))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.yes_option), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mSession.logout();
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    }
+                })
+                .setNegativeButton(getString(R.string.no_option), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void showLoginDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.exit_confirmation_message))
                 .setCancelable(false)
