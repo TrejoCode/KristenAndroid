@@ -51,6 +51,10 @@ public class SieApiServices {
                                             SieApiConverter.AlumnoToGeneralInfo(data)));
                         }
                         break;
+                    case 404:
+                        EventBus.getDefault()
+                                .post(new LoginMessage(false, "El usuario no existe"));
+                        break;
                     case 403:
                         //todo: agregar logica para actualizar el token de auth.
                         break;

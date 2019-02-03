@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.ref.WeakReference;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.appcompat.widget.Toolbar;
 import io.fabric.sdk.android.Fabric;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
@@ -49,27 +48,21 @@ public class LoginActivity extends ThemeActivity {
         Fabric.with(fabric);
         setContentView(R.layout.activity_login);
 
-        Toolbar mToolbar = findViewById(R.id.toolbarLogin);
-        if (getSupportActionBar() != null) {
-            setSupportActionBar(mToolbar);
-            getSupportActionBar().setTitle("UPQROO");
-        }
-
         mLinearOverlay = findViewById(R.id.linear_overlay_login);
         mLinearOverlay.setVisibility(View.VISIBLE);
         mUserId = findViewById(R.id.field_user_id);
         mPassword = findViewById(R.id.field_password);
         mButtonLogin = findViewById(R.id.button_login);
-        mButtonLogin.setVisibility(View.INVISIBLE);
 
         mSessionHelper = SessionHelper.getInstance();
         SessionLoaded sessionLoaded = mPrefManager.loadSession();
+        mButtonLogin.setClickable(false);
         if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||
                 !TextUtils.isEmpty(sessionLoaded.getPassword())) {
             mSessionHelper.login(sessionLoaded.getUser(), sessionLoaded.getPassword());
         } else {
-            mLinearOverlay.setVisibility(View.INVISIBLE);
-            mButtonLogin.setVisibility(View.VISIBLE);
+            mLinearOverlay.setVisibility(View.GONE);
+            mButtonLogin.setClickable(true);
         }
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
@@ -77,9 +70,9 @@ public class LoginActivity extends ThemeActivity {
             public void onClick(View v) {
                 mUserId.setEnabled(false);
                 mPassword.setEnabled(false);
-                mButtonLogin.setVisibility(View.INVISIBLE);
                 mLinearOverlay.setVisibility(View.VISIBLE);
                 mSessionHelper.login(mUserId.getText().toString(), mPassword.getText().toString());
+                mButtonLogin.setClickable(false);
             }
         });
     }
@@ -108,17 +101,20 @@ public class LoginActivity extends ThemeActivity {
             mPrefManager.saveSession(event.getStudent().getUserId(),
                     event.getStudent().getPassword());
 
-            NotificationLoaded notificationLoaded =
-                    PreferencesManager.getInstance().loadNotificationsPreference();
+            NotificationLoaded notificationLoaded = PreferencesManager
+                    .getInstance()
+                    .loadNotificationsPreference();
             if (notificationLoaded.isGeneral()) {
                 FirebaseNotificationsHelper
                         .SubscribeNotifications(mSessionHelper.getSession()
-                                .getConfig().getGeneralTopic());
+                                .getConfig()
+                                .getGeneralTopic());
             }
             if (notificationLoaded.isCareer()) {
                 FirebaseNotificationsHelper
                         .SubscribeNotifications(mSessionHelper.getSession()
-                                .getConfig().getUserTopic());
+                                .getConfig()
+                                .getUserTopic());
             }
             startActivity(new Intent(this, MainActivity.class));
         } else {
@@ -126,7 +122,7 @@ public class LoginActivity extends ThemeActivity {
         }
         mUserId.setEnabled(true);
         mPassword.setEnabled(true);
-        mButtonLogin.setVisibility(View.VISIBLE);
-        mLinearOverlay.setVisibility(View.INVISIBLE);
+        mButtonLogin.setClickable(true);
+        mLinearOverlay.setVisibility(View.GONE);
     }
 }
