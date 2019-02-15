@@ -27,6 +27,7 @@ public class LoginActivity extends ThemeActivity {
     private TextView mPassword;
     private LinearLayoutCompat mLinearOverlay;
     private Button mButtonLogin;
+    private Button mButtonLoginNoSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,8 @@ public class LoginActivity extends ThemeActivity {
         mUserId = findViewById(R.id.field_user_id);
         mPassword = findViewById(R.id.field_password);
         mButtonLogin = findViewById(R.id.button_login);
+        mButtonLoginNoSession = findViewById(R.id.button_login_no_session);
+        mLinearOverlay.setVisibility(View.GONE);
 
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +52,14 @@ public class LoginActivity extends ThemeActivity {
                         mUserId.getText().toString(),
                         mPassword.getText().toString());
                 mButtonLogin.setClickable(false);
+            }
+        });
+
+        mButtonLoginNoSession.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionHelper.getInstance().createDefaultSession();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }

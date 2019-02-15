@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
@@ -13,7 +12,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.lang.ref.WeakReference;
 
 import io.fabric.sdk.android.Fabric;
-import mx.edu.upqroo.kristenandroid.activities.MainActivity;
 import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;

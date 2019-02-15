@@ -54,7 +54,7 @@ public class SessionHelper {
     public void createDefaultSession() {
         createNewSession(
                 new GeneralInfo("Usuario",
-                        "1",
+                        "99",
                         "",
                         "",
                         "",

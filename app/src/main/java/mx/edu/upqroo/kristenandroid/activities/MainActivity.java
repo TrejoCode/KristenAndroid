@@ -63,8 +63,8 @@ public class MainActivity extends ThemeActivity
         onWidgetUpdateMessage(this);
         setContentView(R.layout.activity_main);
         mToolbar = findViewById(R.id.toolbar);
+        mToolbar.setTitle(R.string.nav_menu_news);
         setSupportActionBar(mToolbar);
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -197,12 +197,12 @@ public class MainActivity extends ThemeActivity
         int id = item.getItemId();
         if (!mSession.sessionAlive()) {
             Snackbar.make(findViewById(R.id.bottom_navigation),
-                    "Debes iniciar sesión para acceder a esta información",
+                    "Inicia sesión para ver a esta información",
                     Snackbar.LENGTH_LONG)
-                    .setAction("Iniciar sesión", new View.OnClickListener() {
+                    .setAction("Login", new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            showLoginDialog();
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
                     })
                     .show();

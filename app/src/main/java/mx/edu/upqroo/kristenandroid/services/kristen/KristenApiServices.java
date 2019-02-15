@@ -62,7 +62,7 @@ public class KristenApiServices {
                         }
                         break;
                     case 404:
-
+                        EventBus.getDefault().post(new NewsListMessageError("No hay publicaciones"));
                         break;
                     case 400:
                         if (response.errorBody() != null) {
