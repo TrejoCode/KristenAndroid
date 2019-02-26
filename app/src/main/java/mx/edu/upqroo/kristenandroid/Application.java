@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -22,6 +23,8 @@ import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 public class Application extends android.app.Application {
     /* CONSTANTS */
     private static final String TAG = Application.class.getSimpleName();
+    private static FirebaseAnalytics mFirebaseAnalytics;
+
 
     /* VARIABLES */
     private static WeakReference<Context> mContext;
@@ -35,9 +38,11 @@ public class Application extends android.app.Application {
 
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
-                .debuggable(true)
+                .debuggable(false)
                 .build();
         Fabric.with(fabric);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         SessionLoaded sessionLoaded = mPrefManager.loadSession();
         if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||
@@ -51,6 +56,10 @@ public class Application extends android.app.Application {
 
     public static WeakReference<Context> getAppContext() {
         return mContext;
+    }
+
+    public static FirebaseAnalytics getFirebaseAnalytics() {
+        return mFirebaseAnalytics;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

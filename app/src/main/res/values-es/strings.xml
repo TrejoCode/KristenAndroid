@@ -44,4 +44,5 @@
     <string name="yes_option">Si</string>
     <string name="no_option">No</string>
     <string name="gallery_title">Galería</string>
+    <string name="generic_error_news_list">Error al cargar las noticias</string>
 </resources>

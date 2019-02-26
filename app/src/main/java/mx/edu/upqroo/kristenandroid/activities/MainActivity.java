@@ -11,9 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,14 +44,12 @@ import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 public class MainActivity extends ThemeActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
-
     private FragmentHelper mFragmentHelper;
     private Toolbar mToolbar;
     private SessionHelper mSession;
     private NavigationView mNavigationView;
     private ArrayList<FragmentHelper> mHistoryList;
     private BottomNavigationView mButtonNavigationView;
-    public static boolean HAS_THEME_CHANGED = false;
     private NewsListFragment mNewsListFragment;
     private UserFragment mUserFragment;
     private ScheduleFragment mScheduleFragment;

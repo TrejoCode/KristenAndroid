@@ -8,9 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.crashlytics.android.Crashlytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -37,7 +34,6 @@ import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
-import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessageError;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -134,25 +130,18 @@ public class NewsListFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(NewsListMessage event) {
+        if (event.isSuccessful()) {
+            mNewsList.addAll(event.getNewsList());
+            mNewsAdapter.notifyDataSetChanged();
+            mTextErrorMessage.setVisibility(View.INVISIBLE);
+        } else {
+            mTextErrorMessage.setText(R.string.generic_error_news_list);
+            mTextErrorMessage.setVisibility(View.VISIBLE);
+        }
         mProgressBar.setVisibility(View.GONE);
-        mTextErrorMessage.setVisibility(View.INVISIBLE);
-        mNewsList.addAll(event.newsList);
-        mNewsAdapter.notifyDataSetChanged();
-        //mNewsAdapter.notifyItemRangeInserted(mNewsList.size(), 5);
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.refreshComplete();
-            Toast.makeText(getContext(), "Actualizado", Toast.LENGTH_LONG).show();
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageErrorEvent(NewsListMessageError event) {
-        Crashlytics.log("Error en la carga de las noticias");
-        mProgressBar.setVisibility(View.GONE);
-        mTextErrorMessage.setText(event.getError());
-        mTextErrorMessage.setVisibility(View.VISIBLE);
-        mRefreshLayout.refreshComplete();
-        Toast.makeText(getContext(), "Error al actualizar", Toast.LENGTH_LONG).show();
     }
 
     private void generateCover() {

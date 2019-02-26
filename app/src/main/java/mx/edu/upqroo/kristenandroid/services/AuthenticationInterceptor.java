@@ -1,5 +1,7 @@
 package mx.edu.upqroo.kristenandroid.services;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -14,8 +16,9 @@ public class AuthenticationInterceptor implements Interceptor {
         this.authToken = token;
     }
 
+    @NotNull
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(@NotNull Chain chain) throws IOException {
         Request original = chain.request();
 
         Request.Builder builder = original.newBuilder()
