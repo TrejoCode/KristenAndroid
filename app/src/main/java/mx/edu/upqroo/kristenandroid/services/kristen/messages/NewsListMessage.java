@@ -5,9 +5,19 @@ import java.util.List;
 import mx.edu.upqroo.kristenandroid.models.News;
 
 public class NewsListMessage {
-    public final List<News> newsList;
+    private boolean successful;
+    private final List<News> newsList;
 
-    public NewsListMessage(List<News> newsList) {
+    public NewsListMessage(boolean successful, List<News> newsList) {
+        this.successful = successful;
         this.newsList = newsList;
+    }
+
+    public boolean isSuccessful() {
+        return successful;
+    }
+
+    public List<News> getNewsList() {
+        return newsList;
     }
 }

@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.crashlytics.android.Crashlytics;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,6 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.Day;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.ScheduleMessage;
 
@@ -40,7 +38,7 @@ public class ScheduleFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         recyclerViewSchedule = v.findViewById(R.id.recycler_schedule);
@@ -75,9 +73,6 @@ public class ScheduleFragment extends Fragment {
             recyclerViewSchedule.setVisibility(View.VISIBLE);
             mDaysList.addAll(event.getDays());
             adaptadorSchedule.notifyDataSetChanged();
-        } else {
-            Crashlytics.log("Llamada de horario fallida");
-            //todo set visible a text view saying that there was an error
         }
         mProgress.setVisibility(View.GONE);
     }

@@ -7,11 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.crashlytics.android.Crashlytics;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -39,7 +38,7 @@ public class GradesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_grades, container, false);
@@ -78,9 +77,6 @@ public class GradesFragment extends Fragment {
             mGradeList.addAll(event.getGradesList());
             mGradeAdapter.notifyDataSetChanged();
             mRecyclerGrade.setVisibility(View.VISIBLE);
-        } else {
-            Crashlytics.log("Llamada de calificaciones fallida");
-            //todo set visible a text view saying that there was an error
         }
         mProgress.setVisibility(View.GONE);
     }

@@ -6,6 +6,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.lang.ref.WeakReference;
+import java.util.Map;
 
 /**
  * <h1>FirebaseNotificationsHelper</h1>
@@ -22,13 +23,12 @@ public class FirebaseNotificationsHelper extends com.google.firebase.messaging.F
      */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if(remoteMessage.getNotification() != null){
-            String title = remoteMessage.getNotification().getTitle();
-            String message = remoteMessage.getNotification().getBody();
+        Map<String, String> data = remoteMessage.getData();
+        String title = data.get("title");
+        String body = data.get("body");
 
-            NotificationHelper.GetInstance(new WeakReference<Context>(this))
-                    .createNotification(title, message);
-        }
+        NotificationHelper.GetInstance(new WeakReference<Context>(this))
+                .createNotification(title, body);
     }
 
     @Override

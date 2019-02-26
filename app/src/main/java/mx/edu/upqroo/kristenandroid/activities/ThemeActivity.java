@@ -2,12 +2,16 @@ package mx.edu.upqroo.kristenandroid.activities;
 
 import android.os.Bundle;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 
 abstract class ThemeActivity extends AppCompatActivity {
+    public static boolean HAS_THEME_CHANGED = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

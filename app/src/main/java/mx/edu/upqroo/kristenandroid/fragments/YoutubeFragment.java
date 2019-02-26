@@ -11,6 +11,8 @@ import com.flipkart.youtubeview.models.ImageLoader;
 import com.flipkart.youtubeview.models.YouTubePlayerType;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import mx.edu.upqroo.kristenandroid.R;
@@ -33,7 +35,7 @@ public class YoutubeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_youtube, container, false);
@@ -41,7 +43,7 @@ public class YoutubeFragment extends Fragment {
         String videoId;
         try {
             videoId = getArguments().getString("videoId", "bOwsLtwa2Ts");
-        } catch (Exception ex) {
+        } catch (NullPointerException ex) {
             videoId = "bOwsLtwa2Ts";
         }
         playerView = view.findViewById(R.id.youtube_player_view);

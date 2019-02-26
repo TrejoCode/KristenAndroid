@@ -1,6 +1,9 @@
 package mx.edu.upqroo.kristenandroid.services.sie;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -41,7 +44,7 @@ public class SieApiServices {
         Call<Alumno> call = service.login(user, password);
         call.enqueue(new Callback<Alumno>() {
             @Override
-            public void onResponse(Call<Alumno> call, Response<Alumno> response) {
+            public void onResponse(@NotNull Call<Alumno> call, @NotNull Response<Alumno> response) {
                 switch (response.code()) {
                     case 200:
                         Alumno data = response.body();
@@ -49,7 +52,13 @@ public class SieApiServices {
                             EventBus.getDefault()
                                     .post(new LoginMessage(true,
                                             SieApiConverter.AlumnoToGeneralInfo(data)));
+                        } else {
+                            Crashlytics.log("200 Error data null while login");
                         }
+                        break;
+                    case 404:
+                        EventBus.getDefault()
+                                .post(new LoginMessage(false, "El usuario no existe"));
                         break;
                     case 403:
                         //todo: agregar logica para actualizar el token de auth.
@@ -57,14 +66,16 @@ public class SieApiServices {
                     default:
                         EventBus.getDefault()
                                 .post(new LoginMessage(false, response.message()));
+                        Crashlytics.log(response.code() + "Error code while getting login");
                         break;
                 }
             }
 
             @Override
-            public void onFailure(Call<Alumno> call, Throwable t) {
+            public void onFailure(@NotNull Call<Alumno> call, @NotNull Throwable t) {
                 EventBus.getDefault()
                         .post(new LoginMessage(false, t.getMessage()));
+                Crashlytics.log(t.getMessage() + " - Error code while getting login");
             }
         });
     }
@@ -80,8 +91,8 @@ public class SieApiServices {
         Call<List<Calificacion>> call = service.listGardes(studentId, token);
         call.enqueue(new Callback<List<Calificacion>>() {
             @Override
-            public void onResponse(Call<List<Calificacion>> call,
-                                   Response<List<Calificacion>> response) {
+            public void onResponse(@NotNull Call<List<Calificacion>> call,
+                                   @NotNull Response<List<Calificacion>> response) {
                 switch (response.code()) {
                     case 200:
                         List<Calificacion> data = response.body();
@@ -89,19 +100,23 @@ public class SieApiServices {
                             EventBus.getDefault()
                                     .post(new GradesListMessage(true, SieApiConverter
                                             .CalificacionListToGradeList(data)));
+                        } else {
+                            Crashlytics.log("200 Error data null while getting grades list");
                         }
                         break;
                     default:
                         EventBus.getDefault()
                                 .post(new GradesListMessage(false, null));
+                        Crashlytics.log(response.code() + "Error code while getting grades");
                         break;
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Calificacion>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Calificacion>> call, @NotNull Throwable t) {
                 EventBus.getDefault()
                         .post(new GradesListMessage(false, null));
+                Crashlytics.log(t.getMessage() + " - Error code while getting grades");
             }
         });
     }
@@ -117,7 +132,8 @@ public class SieApiServices {
         Call<List<Kardexs>> call = service.listKardex(studentId, token);
         call.enqueue(new Callback<List<Kardexs>>() {
             @Override
-            public void onResponse(Call<List<Kardexs>> call, Response<List<Kardexs>> response) {
+            public void onResponse(@NotNull Call<List<Kardexs>> call,
+                                   @NotNull Response<List<Kardexs>> response) {
                 switch (response.code()) {
                     case 200:
                         List<Kardexs> data = response.body();
@@ -125,19 +141,23 @@ public class SieApiServices {
                             EventBus.getDefault()
                                     .post(new KardexListMessage(true,
                                             SieApiConverter.KardexListToKardexList(data)));
+                        } else {
+                            Crashlytics.log("200 Error data null while getting kardex");
                         }
                         break;
                     default:
                         EventBus.getDefault()
                                 .post(new KardexListMessage(false, null));
+                        Crashlytics.log(response.code() + "Error code while getting kardex");
                         break;
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Kardexs>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<Kardexs>> call, @NotNull Throwable t) {
                 EventBus.getDefault()
                         .post(new KardexListMessage(false, null));
+                Crashlytics.log(t.getMessage() + " - Error code while getting kardex");
             }
         });
     }
@@ -154,7 +174,7 @@ public class SieApiServices {
         Call<Semana> call = service.schedule(studentId, token);
         call.enqueue(new Callback<Semana>() {
             @Override
-            public void onResponse(Call<Semana> call, Response<Semana> response) {
+            public void onResponse(@NotNull Call<Semana> call, @NotNull Response<Semana> response) {
                 switch (response.code()) {
                     case 200:
                         Semana data = response.body();
@@ -162,19 +182,23 @@ public class SieApiServices {
                             EventBus.getDefault()
                                     .post(new ScheduleMessage(true,
                                             SieApiConverter.SemanaToSchedule(data)));
+                        } else {
+                            Crashlytics.log("200 Error data null while getting the schedule");
                         }
                         break;
                     default:
                         EventBus.getDefault()
                                 .post(new ScheduleMessage(false,null));
+                        Crashlytics.log(response.code() + "Error code while getting schedule");
                         break;
                 }
             }
 
             @Override
-            public void onFailure(Call<Semana> call, Throwable t) {
+            public void onFailure(@NotNull Call<Semana> call, @NotNull Throwable t) {
                 EventBus.getDefault()
                         .post(new ScheduleMessage(false,null));
+                Crashlytics.log(t.getMessage() + " - Error code while getting schedule");
             }
         });
     }

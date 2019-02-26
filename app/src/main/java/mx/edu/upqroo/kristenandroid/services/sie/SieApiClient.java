@@ -9,7 +9,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SieApiClient {
+class SieApiClient {
     private static final String BASE_URL = "http://api.upqroo.edu.mx/kristensie/";
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

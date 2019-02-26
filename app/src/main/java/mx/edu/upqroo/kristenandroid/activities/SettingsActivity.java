@@ -60,7 +60,7 @@ public class SettingsActivity extends ThemeActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mPrefManager.saveDarkThemeConfig(isChecked);
                 applyTheme();
-                MainActivity.HAS_THEME_CHANGED = true;
+                ThemeActivity.HAS_THEME_CHANGED = true;
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 finish();
             }
@@ -80,7 +80,7 @@ public class SettingsActivity extends ThemeActivity {
 
     @Override
     public void onBackPressed() {
-        if (MainActivity.HAS_THEME_CHANGED) {
+        if (ThemeActivity.HAS_THEME_CHANGED) {
             startActivity(new Intent(this, MainActivity.class));
         } else {
             super.onBackPressed();
