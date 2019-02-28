@@ -13,7 +13,8 @@ import java.util.Map;
  * This class receives the notifications send from Firebase and also has the methods to subscribe
  * and unsubscribe from the firebase notifications channels.
  */
-public class FirebaseNotificationsHelper extends com.google.firebase.messaging.FirebaseMessagingService {
+public class FirebaseNotificationsHelper extends
+        com.google.firebase.messaging.FirebaseMessagingService {
     public static String GENERAL_NOTIFICATION_KEY = "GEN";
     public static String CAREER_NOTIFICATION_KEY = "CAR";
 
@@ -27,8 +28,7 @@ public class FirebaseNotificationsHelper extends com.google.firebase.messaging.F
         String title = data.get("title");
         String body = data.get("body");
 
-        NotificationHelper.GetInstance(new WeakReference<Context>(this))
-                .createNotification(title, body);
+        NotificationHelper.GetInstance().createNotification(title, body);
     }
 
     @Override

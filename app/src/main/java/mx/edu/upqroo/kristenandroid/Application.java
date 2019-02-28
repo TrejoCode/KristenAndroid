@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 
 import io.fabric.sdk.android.Fabric;
 import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
+import mx.edu.upqroo.kristenandroid.common.NotificationHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
@@ -43,6 +44,7 @@ public class Application extends android.app.Application {
         Fabric.with(fabric);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        NotificationHelper.GetInstance();
 
         SessionLoaded sessionLoaded = mPrefManager.loadSession();
         if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||

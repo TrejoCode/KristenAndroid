@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import mx.edu.upqroo.kristenandroid.Application;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.LoginActivity;
 import mx.edu.upqroo.kristenandroid.activities.MainActivity;
@@ -25,7 +26,7 @@ import mx.edu.upqroo.kristenandroid.activities.MainActivity;
  */
 public class NotificationHelper {
     private static NotificationHelper mInstance;
-    private static String CHANNEL_ID = "UPQROO_NOTIFICATIONS_CHANNEL";
+    private static String CHANNEL_ID = "upqroo_notifications_channel";
     private static WeakReference<Context> mContext;
 
     /**
@@ -37,12 +38,11 @@ public class NotificationHelper {
 
     /**
      * Get the instance of this class, if it doesn't exists it creates it.
-     * @param context context needed when creating notifications.
      * @return Returns this instance.
      */
-    public static NotificationHelper GetInstance(WeakReference<Context> context) {
-        mContext = context;
+    public static NotificationHelper GetInstance() {
         if (mInstance == null) {
+            mContext = Application.getAppContext();
             mInstance = new NotificationHelper();
         }
         return mInstance;
@@ -57,8 +57,8 @@ public class NotificationHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_UNKNOWN)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION_COMMUNICATION_INSTANT)
                     .build();
 
             CharSequence name = mContext.get().getString(R.string.channel_name);
