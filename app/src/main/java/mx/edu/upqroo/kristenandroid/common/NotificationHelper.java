@@ -16,7 +16,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import mx.edu.upqroo.kristenandroid.Application;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.activities.LoginActivity;
 import mx.edu.upqroo.kristenandroid.activities.MainActivity;
 
 /**
@@ -117,7 +116,7 @@ public class NotificationHelper {
      * @param messageBody Message to display in the notification
      */
     public void createNotification(String title, String messageBody) {
-        Intent intent = new Intent(mContext.get(), LoginActivity.class);
+        Intent intent = new Intent(mContext.get(), MainActivity.class);
         long[] vibrate = { 0, 100, 200, 300 };
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(mContext.get(), 0,

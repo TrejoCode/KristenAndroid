@@ -1,11 +1,8 @@
 package mx.edu.upqroo.kristenandroid.common;
 
-import android.content.Context;
-
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.lang.ref.WeakReference;
 import java.util.Map;
 
 /**

@@ -22,12 +22,8 @@ import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 
 public class Application extends android.app.Application {
-    /* CONSTANTS */
     private static final String TAG = Application.class.getSimpleName();
     private static FirebaseAnalytics mFirebaseAnalytics;
-
-
-    /* VARIABLES */
     private static WeakReference<Context> mContext;
     private PreferencesManager mPrefManager;
 
