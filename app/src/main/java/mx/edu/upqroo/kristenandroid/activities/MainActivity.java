@@ -127,7 +127,9 @@ public class MainActivity extends ThemeActivity
             } else {
                 startActivity(new Intent(this, LoginActivity.class));
             }
-        } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
+        } else if (id == R.id.nav_news || id == R.id.news_menu_item) {
+            mNavController.navigate(R.id.newsListFragment);
+        }  else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
             }
@@ -147,9 +149,7 @@ public class MainActivity extends ThemeActivity
                         })
                         .show();
             } else {
-                if (id == R.id.nav_news || id == R.id.news_menu_item) {
-                    mNavController.navigate(R.id.newsListFragment);
-                } else if (id == R.id.nav_user) {
+                if (id == R.id.nav_user) {
                     mNavController.navigate(R.id.userFragment);
                 } else if (id == R.id.nav_schedule || id == R.id.schedule_menu_item) {
                     mNavController.navigate(R.id.scheduleFragment);
