@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/newsListFragment">
+
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.NewsListFragment"
+        android:label="@string/nav_menu_news"
+        tools:layout="@layout/fragment_news_list">
+        <action
+            android:id="@+id/action_newsListFragment_to_newsDetailActivity"
+            app:destination="@id/newsDetailActivity" />
+        <action
+            android:id="@+id/action_newsListFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/newsDetailActivity"
+        android:name="mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity"
+        android:label="activity_news_detail"
+        tools:layout="@layout/activity_news_detail" />
+    <fragment
+        android:id="@+id/gradesFragment"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.GradesFragment"
+        android:label="@string/nav_menu_school"
+        tools:layout="@layout/fragment_grades">
+        <action
+            android:id="@+id/action_gradesFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_gradesFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_gradesFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_gradesFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_gradesFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/kardexFragment"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.KardexFragment"
+        android:label="@string/nav_menu_kardex"
+        tools:layout="@layout/fragment_kardex">
+        <action
+            android:id="@+id/action_kardexFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_kardexFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_kardexFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_kardexFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_kardexFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.ScheduleFragment"
+        android:label="@string/nav_menu_schedule"
+        tools:layout="@layout/fragment_schedule">
+        <action
+            android:id="@+id/action_scheduleFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.UserFragment"
+        android:label="@string/nave_menu_user"
+        tools:layout="@layout/fragment_user">
+        <action
+            android:id="@+id/action_userFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="mx.edu.upqroo.kristenandroid.activities.SettingsActivity"
+        android:label="activity_settings"
+        tools:layout="@layout/activity_settings" />
+</navigation>
