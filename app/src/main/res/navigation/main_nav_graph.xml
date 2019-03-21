@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_newsListFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_newsListFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <activity
         android:id="@+id/newsDetailActivity"
@@ -54,6 +57,9 @@
         <action
             android:id="@+id/action_gradesFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_gradesFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/kardexFragment"
@@ -75,6 +81,9 @@
         <action
             android:id="@+id/action_kardexFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_kardexFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -96,6 +105,9 @@
         <action
             android:id="@+id/action_scheduleFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -117,6 +129,36 @@
         <action
             android:id="@+id/action_userFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_userFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="mx.edu.upqroo.kristenandroid.fragments.CalendarFragment"
+        android:label="Calendars"
+        tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/action_calendarFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <argument
+            android:name="urlPdf"
+            app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"

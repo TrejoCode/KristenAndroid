@@ -28,8 +28,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
+import mx.edu.upqroo.kristenandroid.fragments.CalendarFragment;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
@@ -77,7 +79,6 @@ public class MainActivity extends ThemeActivity
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -127,6 +128,9 @@ public class MainActivity extends ThemeActivity
                 startActivity(new Intent(this, LoginActivity.class));
             }
         } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
+            if (!EventBus.getDefault().isRegistered(this)) {
+                EventBus.getDefault().register(this);
+            }
             KristenApiServices.getCalendarUrl();
         } else if (id == R.id.nav_settings) {
             mNavController.navigate(R.id.settingsActivity);
@@ -193,6 +197,11 @@ public class MainActivity extends ThemeActivity
                 mNavigationView.setCheckedItem(R.id.nav_kardex);
                 mBottomNavigationView.setVisibility(View.GONE);
                 break;
+            case R.id.calendarFragment:
+                mNavigationView.setCheckedItem(R.id.nav_calendar);
+                mBottomNavigationView.getMenu().getItem(3).setChecked(true);
+                mBottomNavigationView.setVisibility(View.VISIBLE);
+                break;
         }
     }
 
@@ -223,9 +232,13 @@ public class MainActivity extends ThemeActivity
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void calendarServiceResponse(CalendarUrlMessage message) {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         if (!message.getCalendarUrl().isEmpty()) {
-            startActivity(new Intent(Intent.ACTION_VIEW).setData(
-                    Uri.parse(message.getCalendarUrl())));
+            Bundle bundle = new Bundle();
+            bundle.putString(CalendarFragment.URL_KEY, message.getCalendarUrl());
+            mNavController.navigate(R.id.calendarFragment, bundle);
         }
     }
 }

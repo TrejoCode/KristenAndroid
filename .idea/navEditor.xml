@@ -8,6 +8,47 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="calendarFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-236" />
+                            <option name="y" value="-28" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_calendarFragment_to_gradesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_calendarFragment_to_kardexFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_calendarFragment_to_newsListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_calendarFragment_to_scheduleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_calendarFragment_to_userFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="gradesFragment">
                     <value>
                       <LayoutPositions>
@@ -19,6 +60,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_gradesFragment_to_calendarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_gradesFragment_to_kardexFragment">
                               <value>
                                 <LayoutPositions />
@@ -30,6 +76,11 @@
                               </value>
                             </entry>
                             <entry key="action_gradesFragment_to_scheduleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_gradesFragment_to_settingsActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -70,6 +121,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_kardexFragment_to_settingsActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_kardexFragment_to_userFragment">
                               <value>
                                 <LayoutPositions />
@@ -85,8 +141,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="184" />
+                            <option name="y" value="-230" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -103,6 +159,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_newsListFragment_to_calendarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_newsListFragment_to_gradesFragment">
                               <value>
                                 <LayoutPositions />
@@ -119,6 +180,11 @@
                               </value>
                             </entry>
                             <entry key="action_newsListFragment_to_scheduleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_newsListFragment_to_settingsActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -144,6 +210,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_scheduleFragment_to_calendarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_scheduleFragment_to_gradesFragment">
                               <value>
                                 <LayoutPositions />
@@ -155,6 +226,11 @@
                               </value>
                             </entry>
                             <entry key="action_scheduleFragment_to_newsListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_scheduleFragment_to_settingsActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -208,6 +284,11 @@
                               </value>
                             </entry>
                             <entry key="action_userFragment_to_scheduleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userFragment_to_settingsActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
