@@ -66,7 +66,7 @@ public class MainActivity extends ThemeActivity
         mNavigationView.setNavigationItemSelectedListener(this);
 
         if (!mSession.sessionAlive()) {
-            mNavigationView.getMenu().getItem(7).setTitle("Login");
+            mNavigationView.getMenu().getItem(7).setTitle(R.string.button_login);
         }
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -137,9 +137,9 @@ public class MainActivity extends ThemeActivity
         } else {
             if (!mSession.sessionAlive()) {
                 Snackbar.make(findViewById(R.id.bottom_navigation),
-                        "Inicia sesión para ver a esta información",
+                        R.string.login_message,
                         Snackbar.LENGTH_LONG)
-                        .setAction("Login", new View.OnClickListener() {
+                        .setAction(R.string.button_login, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));

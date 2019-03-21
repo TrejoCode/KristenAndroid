@@ -57,5 +57,6 @@
     <string name="generic_error_news_list">Error while loading the posts</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="login_message">You must be log in to watch this</string>
 </resources>

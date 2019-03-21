@@ -45,4 +45,5 @@
     <string name="no_option">No</string>
     <string name="gallery_title">Galería</string>
     <string name="generic_error_news_list">Error al cargar las noticias</string>
+    <string name="login_message">Inicia sesión para ver esto</string>
 </resources>
