@@ -39,6 +39,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_calendarFragment_to_settingsActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_calendarFragment_to_userFragment">
                               <value>
                                 <LayoutPositions />
@@ -106,6 +111,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_kardexFragment_to_calendarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_kardexFragment_to_gradesFragment">
                               <value>
                                 <LayoutPositions />
@@ -268,6 +278,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_userFragment_to_calendarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_userFragment_to_gradesFragment">
                               <value>
                                 <LayoutPositions />

@@ -147,7 +147,6 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 final ContentImage contentImage = (ContentImage) mContentList.get(position);
                 Picasso.get()
                         .load(contentImage.getSource())
-                        .fit()
                         .placeholder(R.drawable.side_nav_bar)
                         .error(R.drawable.side_nav_bar)
                         .into(imageHolder.mImageView);

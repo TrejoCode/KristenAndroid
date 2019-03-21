@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +27,8 @@ import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.models.Content;
+import mx.edu.upqroo.kristenandroid.models.ContentImage;
+import mx.edu.upqroo.kristenandroid.models.ContentTitle;
 import mx.edu.upqroo.kristenandroid.models.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
@@ -55,20 +58,7 @@ public class NewsDetailActivity extends ThemeActivity {
             Crashlytics.log("Noticia no existente");
             startActivity(new Intent(this, MainActivity.class));
         }
-
-        ImageView mCoverImage = findViewById(R.id.cover_news_detail);
-        TextView mTextTitle = findViewById(R.id.title_news_detail);
-        TextView mTextSubTitle = findViewById(R.id.subtitle_news_detail);
         mProgressBar = findViewById(R.id.progress_news_detail);
-
-        Picasso.get()
-                .load(mNews.getCoverUrl())
-                .placeholder(R.drawable.side_nav_bar)
-                .error(R.drawable.side_nav_bar)
-                .into(mCoverImage);
-
-        mTextTitle.setText(mNews.getTitle());
-        mTextSubTitle.setText(mNews.getDescription());
 
         KristenApiServices.getPostContent(mNews.getId());
     }
@@ -127,11 +117,16 @@ public class NewsDetailActivity extends ThemeActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(NewsDetailMessage event) {
-        NEWS_CONTENT = event.getNewsDetail().getContentList();
-        NewsDetailFragment newsFragment = new NewsDetailFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_detail, newsFragment);
-        fragmentTransaction.commit();
+        if (event.isSuccessful()) {
+            NEWS_CONTENT = new ArrayList<>();
+            NEWS_CONTENT.add(new ContentImage(mNews.getTitle(), mNews.getCoverUrl()));
+            NEWS_CONTENT.add(new ContentTitle(mNews.getTitle() + " - " + mNews.getDescription()));
+            NEWS_CONTENT.addAll(event.getNewsDetail().getContentList());
+            NewsDetailFragment newsFragment = new NewsDetailFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_detail, newsFragment);
+            fragmentTransaction.commit();
+        }
         mProgressBar.setVisibility(View.GONE);
     }
 }
