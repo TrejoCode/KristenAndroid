@@ -28,32 +28,18 @@ public class UserInformationRepository {
         return mUserInformationDao.getUserInformation(id);
     }
 
+    public UserInformation getUserInformationNotLive(String id) {
+        return mUserInformationDao.getUserInformationNotLive(id);
+    }
+
     public void insert(UserInformation userInformation) {
-        new insertAsyncTask(mUserInformationDao).execute(userInformation);
+        AsyncTask.execute(() -> {
+            mUserInformationDao.deleteAll();
+            mUserInformationDao.insert(userInformation);
+        });
     }
 
     public void deleteAll() {
-        Runnable deleteRunnable = () -> mUserInformationDao.deleteAll();
-        deleteRunnable.run();
-    }
-
-    private static class insertAsyncTask extends AsyncTask<UserInformation, Void, Void> {
-
-        private UserInformationDao mAsyncTaskDao;
-
-        insertAsyncTask(UserInformationDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
-        protected Void doInBackground(final UserInformation... params) {
-            mAsyncTaskDao.deleteAll();
-            mAsyncTaskDao.insert(params[0]);
-            return null;
-        }
+        AsyncTask.execute(() -> mUserInformationDao.deleteAll());
     }
 }

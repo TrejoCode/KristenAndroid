@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -24,12 +25,37 @@ public class LoadActivity extends ThemeActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
 
-        // i should change this to load the session from the database, and maybe think about a way to kill a session if x time has passed
+        // think about a way to kill a session if x time has passed
         SessionLoaded sessionLoaded = PreferencesManager.getInstance().loadSession();
         if (!TextUtils.isEmpty(sessionLoaded.getUser()) ||
                 !TextUtils.isEmpty(sessionLoaded.getPassword())) {
-            EventBus.getDefault().register(this);
-            SessionHelper.getInstance().login(sessionLoaded.getUser(), sessionLoaded.getPassword());
+            Runnable loadSession = () -> {
+                SessionHelper.getInstance().createNewSession(
+                        UserInformationRepository.getInstance(getApplication())
+                                .getUserInformationNotLive(sessionLoaded.getUser()));
+
+                NotificationLoaded notificationLoaded = PreferencesManager
+                        .getInstance()
+                        .loadNotificationsPreference();
+
+                // Load of the notification preferences
+                if (notificationLoaded.isGeneral()) {
+                    FirebaseNotificationsHelper
+                            .SubscribeNotifications(SessionHelper.getInstance().getSession()
+                                    .getConfig()
+                                    .getGeneralTopic());
+                }
+                if (notificationLoaded.isCareer()) {
+                    FirebaseNotificationsHelper
+                            .SubscribeNotifications(SessionHelper.getInstance().getSession()
+                                    .getConfig()
+                                    .getUserTopic());
+                }
+
+                Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(mainIntent);
+            };
+            AsyncTask.execute(loadSession);
         } else {
             SessionHelper.getInstance().createDefaultSession();
             startActivity(new Intent(this, MainActivity.class));
@@ -73,7 +99,6 @@ public class LoadActivity extends ThemeActivity {
         }
         // Then i start the main activity
         Intent mainIntent = new Intent(this, MainActivity.class);
-        //+mainIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(mainIntent);
         EventBus.getDefault().unregister(this);
     }

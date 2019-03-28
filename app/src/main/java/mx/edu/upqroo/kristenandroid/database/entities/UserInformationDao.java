@@ -16,4 +16,7 @@ public interface UserInformationDao {
 
     @Query("SELECT * FROM user_information WHERE userId = :id")
     LiveData<UserInformation> getUserInformation(@NonNull String id);
+
+    @Query("SELECT * FROM user_information WHERE userId = :id")
+    UserInformation getUserInformationNotLive(@NonNull String id);
 }
