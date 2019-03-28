@@ -1,13 +1,22 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -18,6 +27,7 @@ import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.palette.graphics.Palette;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PostTypeHelper;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
@@ -34,13 +44,15 @@ public class NewsDetailActivity extends ThemeActivity {
     public static final String EXTRA_NEWS = "KEY_NEWS";
     private News mNews;
     private ProgressBar mProgressBar;
+    private CollapsingToolbarLayout mCollapsingToolbar;
+    private ImageView mCoverImageView;
     public static List<Content> NEWS_CONTENT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-        Toolbar mToolbar = findViewById(R.id.ioexample_toolbar);
+        Toolbar mToolbar = findViewById(R.id.toolbar_news_detail);
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
@@ -51,6 +63,8 @@ public class NewsDetailActivity extends ThemeActivity {
             startActivity(new Intent(this, MainActivity.class));
         }
         mProgressBar = findViewById(R.id.progress_news_detail);
+        mCoverImageView = findViewById(R.id.image_cover_news_detail);
+        mCollapsingToolbar = findViewById(R.id.collapsing_news_detail);
 
         KristenApiServices.getPostContent(mNews.getId());
     }
@@ -110,14 +124,66 @@ public class NewsDetailActivity extends ThemeActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessage(NewsDetailMessage event) {
         if (event.isSuccessful()) {
+            setUpToolbar(mNews.getCoverUrl(), mNews.getTitle());
             NEWS_CONTENT = new ArrayList<>();
-            NEWS_CONTENT.add(new ContentImage(mNews.getTitle(), mNews.getCoverUrl()));
-            NEWS_CONTENT.add(new ContentTitle(mNews.getTitle() + " - " + mNews.getDescription()));
+            NEWS_CONTENT.add(new Content(mNews.getDescription()));
             NEWS_CONTENT.addAll(event.getNewsDetail().getContentList());
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_detail, NewsDetailFragment.newInstance());
             fragmentTransaction.commit();
         }
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    private void setUpToolbar(String coverUrl, String title) {
+        mCollapsingToolbar.setTitle(title);
+        //region collapsing toolbar color setup
+        Picasso.get()
+                .load(coverUrl)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                        assert mCoverImageView != null;
+                        mCoverImageView.setImageBitmap(bitmap);
+                        Palette.from(bitmap)
+                                .generate(palette -> {
+                                    assert palette != null;
+                                    if (palette.getDarkMutedSwatch() != null) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                            getWindow().setStatusBarColor(
+                                                    palette.getDarkMutedSwatch().getRgb());
+                                            mCollapsingToolbar.setContentScrimColor(
+                                                    palette.getDarkMutedSwatch().getRgb());
+                                        }
+                                    } else if (palette.getVibrantSwatch() != null) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                            getWindow().setStatusBarColor(
+                                                    palette.getVibrantColor(0));
+                                            mCollapsingToolbar.setContentScrimColor(
+                                                    palette.getVibrantSwatch().getRgb());
+                                        }
+                                    } else if (palette.getDominantSwatch() != null) {
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                            getWindow().setStatusBarColor(
+                                                    palette.getDominantSwatch().getRgb());
+                                            mCollapsingToolbar.setContentScrimColor(
+                                                    palette.getDominantSwatch().getRgb());
+                                        }
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                    }
+                });
+        //endregion
     }
 }

@@ -18,6 +18,8 @@ import com.flipkart.youtubeview.models.ImageLoader;
 import com.flipkart.youtubeview.models.YouTubePlayerType;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -41,17 +43,11 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
     private Context mContext;
     private Fragment mFragment;
 
-    private ImageLoader imageLoader = new ImageLoader() {
-        @Override
-        public void loadImage(@NonNull ImageView imageView, @NonNull String url,
-                              int height, int width) {
-            Picasso.get()
-                    .load(url)
-                    .resize(width + 1, height + 1)
-                    .centerCrop()
-                    .into(imageView);
-        }
-    };
+    private ImageLoader imageLoader = (imageView, url, height, width) -> Picasso.get()
+            .load(url)
+            .resize(width + 1, height + 1)
+            .centerCrop()
+            .into(imageView);
 
     public NewsDetailContentAdapter(Context context, List<Content> contents,
                                     Fragment fragment) {
@@ -89,8 +85,9 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
         return mContentList.size();
     }
 
+    @NotNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
             case 0:
@@ -121,7 +118,8 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NotNull final RecyclerView.ViewHolder holder,
+                                 final int position) {
         switch (holder.getItemViewType()) {
             case 0:
                 GalleryViewHolder galleryHolder = (GalleryViewHolder) holder;
@@ -145,20 +143,17 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                         .placeholder(R.drawable.side_nav_bar)
                         .error(R.drawable.side_nav_bar)
                         .into(imageHolder.mImageView);
-                imageHolder.mImageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Dialog dialog = new Dialog(mContext);
-                        dialog.setContentView(R.layout.image_dialog_layout);
-                        dialog.setTitle("Image");
-                        ImageView myImage = dialog.findViewById(R.id.image_dialog);
-                        Picasso.get()
-                                .load(contentImage.getSource())
-                                .placeholder(R.drawable.side_nav_bar)
-                                .error(R.drawable.side_nav_bar)
-                                .into(myImage);
-                        dialog.show();
-                    }
+                imageHolder.mImageView.setOnClickListener(v -> {
+                    Dialog dialog = new Dialog(mContext);
+                    dialog.setContentView(R.layout.image_dialog_layout);
+                    dialog.setTitle("Image");
+                    ImageView myImage = dialog.findViewById(R.id.image_dialog);
+                    Picasso.get()
+                            .load(contentImage.getSource())
+                            .placeholder(R.drawable.side_nav_bar)
+                            .error(R.drawable.side_nav_bar)
+                            .into(myImage);
+                    dialog.show();
                 });
                 break;
             case 3:
@@ -172,13 +167,8 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                                }, 0, contentLink.getUrl().length(),
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 linkHolder.mTextView.setText(clickableText);
-                linkHolder.mTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mContext.startActivity(new Intent(
-                                Intent.ACTION_VIEW).setData(Uri.parse(contentLink.getText())));
-                    }
-                });
+                linkHolder.mTextView.setOnClickListener(v -> mContext.startActivity(new Intent(
+                        Intent.ACTION_VIEW).setData(Uri.parse(contentLink.getText()))));
                 break;
             case 4:
                 ListViewHolder listHolder = (ListViewHolder) holder;
