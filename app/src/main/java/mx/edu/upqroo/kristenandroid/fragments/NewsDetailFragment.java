@@ -19,6 +19,10 @@ import mx.edu.upqroo.kristenandroid.database.entities.Content;
 
 public class NewsDetailFragment extends Fragment {
 
+    public static NewsDetailFragment newInstance() {
+        return new NewsDetailFragment();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,

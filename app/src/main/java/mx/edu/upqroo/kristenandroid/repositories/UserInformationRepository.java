@@ -33,7 +33,8 @@ public class UserInformationRepository {
     }
 
     public void deleteAll() {
-        mUserInformationDao.deleteAll();
+        Runnable deleteRunnable = () -> mUserInformationDao.deleteAll();
+        deleteRunnable.run();
     }
 
     private static class insertAsyncTask extends AsyncTask<UserInformation, Void, Void> {

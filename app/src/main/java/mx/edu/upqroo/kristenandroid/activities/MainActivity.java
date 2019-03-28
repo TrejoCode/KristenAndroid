@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -159,8 +158,6 @@ public class MainActivity extends ThemeActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 
     @Override
     public void onDestinationChanged(@NonNull NavController controller,

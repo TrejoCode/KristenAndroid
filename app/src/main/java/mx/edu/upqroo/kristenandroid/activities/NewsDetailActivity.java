@@ -22,11 +22,11 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PostTypeHelper;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.database.entities.Content;
 import mx.edu.upqroo.kristenandroid.database.entities.ContentImage;
 import mx.edu.upqroo.kristenandroid.database.entities.ContentTitle;
 import mx.edu.upqroo.kristenandroid.database.entities.News;
+import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
 
@@ -42,12 +42,7 @@ public class NewsDetailActivity extends ThemeActivity {
         setContentView(R.layout.activity_news_detail);
         Toolbar mToolbar = findViewById(R.id.ioexample_toolbar);
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        mToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         if (getIntent().hasExtra(EXTRA_NEWS)) {
             mNews = Serializer.Deserialize(getIntent().getStringExtra(EXTRA_NEWS), News.class);
@@ -119,9 +114,8 @@ public class NewsDetailActivity extends ThemeActivity {
             NEWS_CONTENT.add(new ContentImage(mNews.getTitle(), mNews.getCoverUrl()));
             NEWS_CONTENT.add(new ContentTitle(mNews.getTitle() + " - " + mNews.getDescription()));
             NEWS_CONTENT.addAll(event.getNewsDetail().getContentList());
-            NewsDetailFragment newsFragment = new NewsDetailFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_detail, newsFragment);
+            fragmentTransaction.replace(R.id.fragment_detail, NewsDetailFragment.newInstance());
             fragmentTransaction.commit();
         }
         mProgressBar.setVisibility(View.GONE);
