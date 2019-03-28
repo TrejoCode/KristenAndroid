@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid.activities;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -26,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.ColorUtils;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.palette.graphics.Palette;
 import mx.edu.upqroo.kristenandroid.R;
@@ -33,8 +33,6 @@ import mx.edu.upqroo.kristenandroid.common.PostTypeHelper;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.database.entities.Content;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentImage;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentTitle;
 import mx.edu.upqroo.kristenandroid.database.entities.News;
 import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
@@ -139,7 +137,8 @@ public class NewsDetailActivity extends ThemeActivity {
         mCollapsingToolbar.setTitle(title);
         //region collapsing toolbar color setup
         Picasso.get()
-                .load(coverUrl)
+                .load("https://picsum.photos/500/500/?random")
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(new Target() {
                     @Override
@@ -148,29 +147,21 @@ public class NewsDetailActivity extends ThemeActivity {
                         mCoverImageView.setImageBitmap(bitmap);
                         Palette.from(bitmap)
                                 .generate(palette -> {
+                                    int finalColor = 0;
                                     assert palette != null;
                                     if (palette.getDarkMutedSwatch() != null) {
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                            getWindow().setStatusBarColor(
-                                                    palette.getDarkMutedSwatch().getRgb());
-                                            mCollapsingToolbar.setContentScrimColor(
-                                                    palette.getDarkMutedSwatch().getRgb());
-                                        }
+                                        finalColor = palette.getDarkMutedSwatch().getRgb();
                                     } else if (palette.getVibrantSwatch() != null) {
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                            getWindow().setStatusBarColor(
-                                                    palette.getVibrantColor(0));
-                                            mCollapsingToolbar.setContentScrimColor(
-                                                    palette.getVibrantSwatch().getRgb());
-                                        }
+                                        finalColor = palette.getVibrantSwatch().getRgb();
                                     } else if (palette.getDominantSwatch() != null) {
-                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                            getWindow().setStatusBarColor(
-                                                    palette.getDominantSwatch().getRgb());
-                                            mCollapsingToolbar.setContentScrimColor(
-                                                    palette.getDominantSwatch().getRgb());
-                                        }
+                                        finalColor = palette.getDominantSwatch().getRgb();
                                     }
+
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        getWindow().setStatusBarColor(finalColor);
+                                    }
+                                    mCollapsingToolbar.setContentScrimColor(ColorUtils
+                                            .setAlphaComponent(finalColor, 122));
                                 });
                     }
 

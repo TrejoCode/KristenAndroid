@@ -71,7 +71,6 @@ public class SettingsActivity extends ThemeActivity {
     public void onBackPressed() {
         if (ThemeActivity.HAS_THEME_CHANGED) {
             Intent mainIntent = new Intent(this, MainActivity.class);
-            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
         } else {
