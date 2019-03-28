@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
-import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
+import mx.edu.upqroo.kristenandroid.database.entities.NotificationLoaded;
 
 public class SettingsActivity extends ThemeActivity {
 
@@ -39,31 +39,20 @@ public class SettingsActivity extends ThemeActivity {
         mCheckBoxCareer.setChecked(notificationLoaded.isCareer());
         mSwitchDarkTheme.setChecked(mPrefManager.loadDarkThemeConfig());
 
-        mCheckBoxGeneral.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mCheckBoxGeneral.setOnCheckedChangeListener((compoundButton, b) ->
                 mPrefManager.saveNotificationPreference(
-                        FirebaseNotificationsHelper.GENERAL_NOTIFICATION_KEY, b);
-            }
-        });
+                        FirebaseNotificationsHelper.GENERAL_NOTIFICATION_KEY, b));
 
-        mCheckBoxCareer.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        mCheckBoxCareer.setOnCheckedChangeListener((compoundButton, b) ->
                 mPrefManager.saveNotificationPreference(
-                        FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY, b);
-            }
-        });
+                        FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY, b));
 
-        mSwitchDarkTheme.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mPrefManager.saveDarkThemeConfig(isChecked);
-                applyTheme();
-                ThemeActivity.HAS_THEME_CHANGED = true;
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                finish();
-            }
+        mSwitchDarkTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mPrefManager.saveDarkThemeConfig(isChecked);
+            applyTheme();
+            ThemeActivity.HAS_THEME_CHANGED = true;
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+            finish();
         });
     }
 
@@ -81,7 +70,10 @@ public class SettingsActivity extends ThemeActivity {
     @Override
     public void onBackPressed() {
         if (ThemeActivity.HAS_THEME_CHANGED) {
-            startActivity(new Intent(this, MainActivity.class));
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
         } else {
             super.onBackPressed();
         }

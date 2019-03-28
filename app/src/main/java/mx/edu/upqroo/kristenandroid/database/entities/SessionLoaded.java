@@ -1,4 +1,4 @@
-package mx.edu.upqroo.kristenandroid.models;
+package mx.edu.upqroo.kristenandroid.database.entities;
 
 public class SessionLoaded {
     private String user;

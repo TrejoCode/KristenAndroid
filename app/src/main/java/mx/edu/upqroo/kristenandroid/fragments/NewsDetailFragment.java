@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.adapters.NewsDetailContentAdapter;
-import mx.edu.upqroo.kristenandroid.models.Content;
+import mx.edu.upqroo.kristenandroid.database.entities.Content;
 
 public class NewsDetailFragment extends Fragment {
 

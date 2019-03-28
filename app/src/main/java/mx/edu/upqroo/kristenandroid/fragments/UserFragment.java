@@ -8,59 +8,78 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
+import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
+import mx.edu.upqroo.kristenandroid.viewModels.UserViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class UserFragment extends Fragment {
-    public UserFragment() {
-        // Required empty public constructor
+
+    private UserViewModel mUserViewModel;
+    private Observer<UserInformation> userObserver;
+
+    private TextView mUserNameText;
+    private TextView mUserCareerText;
+    private TextView mUserCreditsText;
+    private TextView mUserValidityText;
+    private TextView mUserEntryPText;
+    private TextView mUserCurp;
+    private TextView mUserDoBText;
+    private TextView mUserAddressText;
+    private TextView mUserLocalPhoneText;
+    private TextView mUserMobilePhoneText;
+    private TextView mUserEmailText;
+
+    public static UserFragment newInstance() {
+        return new UserFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // View model instance
+        mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        // Observer declaration
+        userObserver = userInformation -> {
+            mUserNameText.setText(userInformation.getName());
+            mUserCareerText.setText(userInformation.getEnrollment());
+            mUserCreditsText.setText(userInformation.getCreditsAccumulated());
+            mUserValidityText.setText(userInformation.getValidity());
+            mUserEntryPText.setText(userInformation.getEntryPeriod());
+            mUserCurp.setText(userInformation.getCurp());
+            mUserDoBText.setText(userInformation.getDob());
+            mUserAddressText.setText(userInformation.getAddress());
+            mUserLocalPhoneText.setText(userInformation.getPhone());
+            mUserMobilePhoneText.setText(userInformation.getMobilePhone());
+            mUserEmailText.setText(userInformation.getEmail());
+        };
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        SessionHelper mSession = SessionHelper.getInstance();
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
+        mUserNameText = v.findViewById(R.id.text_alumn_name);
+        mUserCareerText = v.findViewById(R.id.text_alumn_career);
+        mUserCreditsText = v.findViewById(R.id.text_alumn_credits);
+        mUserValidityText = v.findViewById(R.id.text_alumn_status);
+        mUserEntryPText = v.findViewById(R.id.text_alumn_starting_period);
+        mUserCurp = v.findViewById(R.id.text_alumn_curp);
+        mUserDoBText = v.findViewById(R.id.text_alumn_birth);
+        mUserAddressText = v.findViewById(R.id.text_alumn_address);
+        mUserLocalPhoneText = v.findViewById(R.id.text_alumn_local_phone);
+        mUserMobilePhoneText = v.findViewById(R.id.text_alumn_mobile_phone);
+        mUserEmailText = v.findViewById(R.id.text_alumn_email);
 
-        TextView alumnName = v.findViewById(R.id.text_alumn_name);
-        alumnName.setText(mSession.getSession().getName());
-
-        TextView alumnCareer = v.findViewById(R.id.text_alumn_career);
-        alumnCareer.setText(mSession.getSession().getEnrollment());
-
-        TextView alumnCredits = v.findViewById(R.id.text_alumn_credits);
-        alumnCredits.setText(mSession.getSession().getCreditAcumm());
-
-        TextView alumnValidity = v.findViewById(R.id.text_alumn_status);
-        alumnValidity.setText(mSession.getSession().getValidity());
-
-        TextView alumnEntryP = v.findViewById(R.id.text_alumn_starting_period);
-        alumnEntryP.setText(mSession.getSession().getEntryPeriod());
-
-        TextView alumnCurp = v.findViewById(R.id.text_alumn_curp);
-        alumnCurp.setText(mSession.getSession().getCurp());
-
-        TextView alumnBirth = v.findViewById(R.id.text_alumn_birth);
-        alumnBirth.setText(mSession.getSession().getDob());
-
-        TextView alumnAddress = v.findViewById(R.id.text_alumn_address);
-        alumnAddress.setText(mSession.getSession().getAddress());
-
-        TextView alumnTelDom = v.findViewById(R.id.text_alumn_local_phone);
-        alumnTelDom.setText(mSession.getSession().getPhone());
-
-        TextView alumnTelCel = v.findViewById(R.id.text_alumn_mobile_phone);
-        alumnTelCel.setText(mSession.getSession().getMobilePhone());
-
-        TextView alumnEmail = v.findViewById(R.id.text_alumn_email);
-        alumnEmail.setText(mSession.getSession().getEmail());
+        mUserViewModel.getUser(SessionHelper.getInstance().getSession().getUserId())
+                .observe(this, userObserver);
         return v;
     }
-
 }

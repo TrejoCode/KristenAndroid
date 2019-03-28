@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
-import mx.edu.upqroo.kristenandroid.models.Kardex;
+import mx.edu.upqroo.kristenandroid.database.entities.Kardex;
 
 public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.KardexViewHolder> {
 

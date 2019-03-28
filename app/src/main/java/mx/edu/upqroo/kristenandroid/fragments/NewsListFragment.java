@@ -31,7 +31,7 @@ import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.EndlessRecyclerViewScrollListener;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.models.News;
+import mx.edu.upqroo.kristenandroid.database.entities.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
 

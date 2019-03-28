@@ -15,8 +15,7 @@ import java.util.Calendar;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.models.Subject;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.ScheduleMessage;
 

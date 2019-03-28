@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
-import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -26,10 +23,10 @@ import mx.edu.upqroo.kristenandroid.common.PostTypeHelper;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.NewsDetailFragment;
-import mx.edu.upqroo.kristenandroid.models.Content;
-import mx.edu.upqroo.kristenandroid.models.ContentImage;
-import mx.edu.upqroo.kristenandroid.models.ContentTitle;
-import mx.edu.upqroo.kristenandroid.models.News;
+import mx.edu.upqroo.kristenandroid.database.entities.Content;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentImage;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentTitle;
+import mx.edu.upqroo.kristenandroid.database.entities.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
 

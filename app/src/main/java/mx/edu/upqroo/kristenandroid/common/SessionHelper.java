@@ -1,8 +1,7 @@
 package mx.edu.upqroo.kristenandroid.common;
 
-import mx.edu.upqroo.kristenandroid.models.Config;
-import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.database.entities.Config;
+import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 
 /**
@@ -11,7 +10,7 @@ import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
  */
 public class SessionHelper {
     private static SessionHelper mInstance;
-    private GeneralInfo mSession;
+    private UserInformation mSession;
     static final String SESSION_KEY = "SESSION";
     static final String PASS_KEY = "PASS";
     static final String PREFERENCE_FILE = "PREFERENCE";
@@ -47,13 +46,13 @@ public class SessionHelper {
      * This should only be called when a login has been made successfully.
      * @param session Session to be created, this has all the information retrieve from the login
      */
-    public void createNewSession(GeneralInfo session) {
+    public void createNewSession(UserInformation session) {
         mSession = session;
     }
 
     public void createDefaultSession() {
         createNewSession(
-                new GeneralInfo("Usuario",
+                new UserInformation("Usuario",
                         "99",
                         "",
                         "",
@@ -88,7 +87,7 @@ public class SessionHelper {
      * Returns the session.
      * @return Session
      */
-    public GeneralInfo getSession() {
+    public UserInformation getSession() {
         return mSession;
     }
 

@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 import java.lang.ref.WeakReference;
 
-import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
-import mx.edu.upqroo.kristenandroid.models.SessionLoaded;
+import mx.edu.upqroo.kristenandroid.database.entities.NotificationLoaded;
+import mx.edu.upqroo.kristenandroid.database.entities.SessionLoaded;
 
 /**
  * <h1>PreferenceManager</h1>

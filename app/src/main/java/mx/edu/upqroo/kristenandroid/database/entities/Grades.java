@@ -1,4 +1,4 @@
-package mx.edu.upqroo.kristenandroid.models;
+package mx.edu.upqroo.kristenandroid.database.entities;
 
 /**
  * Created by RafaelKoh on 07/07/2018.

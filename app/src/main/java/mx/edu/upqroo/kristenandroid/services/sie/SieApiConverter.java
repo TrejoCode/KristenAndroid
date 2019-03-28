@@ -5,12 +5,12 @@ import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
-import mx.edu.upqroo.kristenandroid.models.Config;
-import mx.edu.upqroo.kristenandroid.models.Day;
-import mx.edu.upqroo.kristenandroid.models.GeneralInfo;
-import mx.edu.upqroo.kristenandroid.models.Grades;
-import mx.edu.upqroo.kristenandroid.models.Kardex;
-import mx.edu.upqroo.kristenandroid.models.Subject;
+import mx.edu.upqroo.kristenandroid.database.entities.Config;
+import mx.edu.upqroo.kristenandroid.database.entities.Day;
+import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
+import mx.edu.upqroo.kristenandroid.database.entities.Grades;
+import mx.edu.upqroo.kristenandroid.database.entities.Kardex;
+import mx.edu.upqroo.kristenandroid.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
@@ -24,8 +24,8 @@ class SieApiConverter {
      * @param alumno student
      * @return General information
      */
-    static GeneralInfo AlumnoToGeneralInfo(Alumno alumno) {
-        return new GeneralInfo(alumno.getNombre(),
+    static UserInformation AlumnoToGeneralInfo(Alumno alumno) {
+        return new UserInformation(alumno.getNombre(),
                 alumno.getCarrera(),
                 alumno.getNombreCarrera(),
                 alumno.getCreditos(),

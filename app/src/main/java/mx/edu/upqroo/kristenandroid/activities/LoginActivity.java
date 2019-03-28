@@ -7,19 +7,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import androidx.appcompat.widget.LinearLayoutCompat;
-import io.fabric.sdk.android.Fabric;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.models.NotificationLoaded;
+import mx.edu.upqroo.kristenandroid.database.entities.NotificationLoaded;
+import mx.edu.upqroo.kristenandroid.repositories.UserInformationRepository;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 
 public class LoginActivity extends ThemeActivity {
@@ -27,7 +25,6 @@ public class LoginActivity extends ThemeActivity {
     private TextView mPassword;
     private LinearLayoutCompat mLinearOverlay;
     private Button mButtonLogin;
-    private Button mButtonLoginNoSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +36,22 @@ public class LoginActivity extends ThemeActivity {
         mUserId = findViewById(R.id.field_user_id);
         mPassword = findViewById(R.id.field_password);
         mButtonLogin = findViewById(R.id.button_login);
-        mButtonLoginNoSession = findViewById(R.id.button_login_no_session);
+        final Button mButtonLoginNoSession = findViewById(R.id.button_login_no_session);
         mLinearOverlay.setVisibility(View.GONE);
 
-        mButtonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserId.setEnabled(false);
-                mPassword.setEnabled(false);
-                mLinearOverlay.setVisibility(View.VISIBLE);
-                SessionHelper.getInstance().login(
-                        mUserId.getText().toString(),
-                        mPassword.getText().toString());
-                mButtonLogin.setClickable(false);
-            }
+        mButtonLogin.setOnClickListener(v -> {
+            mUserId.setEnabled(false);
+            mPassword.setEnabled(false);
+            mLinearOverlay.setVisibility(View.VISIBLE);
+            SessionHelper.getInstance().login(
+                    mUserId.getText().toString(),
+                    mPassword.getText().toString());
+            mButtonLogin.setClickable(false);
         });
 
-        mButtonLoginNoSession.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SessionHelper.getInstance().createDefaultSession();
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
+        mButtonLoginNoSession.setOnClickListener(v -> {
+            SessionHelper.getInstance().createDefaultSession();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         });
     }
 
@@ -84,6 +75,7 @@ public class LoginActivity extends ThemeActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageLogin(LoginMessage event) {
         if (event.isResult()) {
+            UserInformationRepository.getInstance(getApplication()).insert(event.getStudent());
             SessionHelper.getInstance().createNewSession(event.getStudent());
             PreferencesManager.getInstance().saveSession(event.getStudent().getUserId(),
                     event.getStudent().getPassword());

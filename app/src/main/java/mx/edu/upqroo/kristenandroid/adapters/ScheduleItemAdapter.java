@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
-import mx.edu.upqroo.kristenandroid.models.Day;
+import mx.edu.upqroo.kristenandroid.database.entities.Day;
 
 public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapter.ViewHolderDatos>{
     private List<Day> mDaysList;

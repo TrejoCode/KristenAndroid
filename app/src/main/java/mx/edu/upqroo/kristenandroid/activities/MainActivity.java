@@ -30,6 +30,7 @@ import androidx.navigation.Navigation;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.fragments.CalendarFragment;
+import mx.edu.upqroo.kristenandroid.repositories.UserInformationRepository;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
@@ -71,7 +72,6 @@ public class MainActivity extends ThemeActivity
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         mNavController.addOnDestinationChangedListener(this);
-        mNavController.navigate(R.id.newsListFragment);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class MainActivity extends ThemeActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            onBackPressed();
+            super.onBackPressed();
         }
     }
 
@@ -139,12 +139,8 @@ public class MainActivity extends ThemeActivity
                 Snackbar.make(findViewById(R.id.bottom_navigation),
                         R.string.login_message,
                         Snackbar.LENGTH_LONG)
-                        .setAction(R.string.button_login, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                            }
-                        })
+                        .setAction(R.string.button_login, v -> startActivity(
+                                new Intent(getApplicationContext(), LoginActivity.class)))
                         .show();
             } else {
                 if (id == R.id.nav_user) {
@@ -213,17 +209,12 @@ public class MainActivity extends ThemeActivity
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.exit_confirmation_message))
                 .setCancelable(false)
-                .setPositiveButton(getString(R.string.yes_option), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        mSession.logout();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    }
+                .setPositiveButton(getString(R.string.yes_option), (dialog, id) -> {
+                    mSession.logout();
+                    UserInformationRepository.getInstance(getApplication()).deleteAll();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 })
-                .setNegativeButton(getString(R.string.no_option), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
+                .setNegativeButton(getString(R.string.no_option), (dialog, id) -> dialog.cancel());
         AlertDialog alert = builder.create();
         alert.show();
     }

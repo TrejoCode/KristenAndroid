@@ -2,7 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.sie.messages;
 
 import java.util.List;
 
-import mx.edu.upqroo.kristenandroid.models.Day;
+import mx.edu.upqroo.kristenandroid.database.entities.Day;
 
 public class ScheduleMessage {
     private boolean successful;

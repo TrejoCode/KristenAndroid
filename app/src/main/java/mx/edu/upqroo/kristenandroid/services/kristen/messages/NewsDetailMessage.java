@@ -1,6 +1,6 @@
 package mx.edu.upqroo.kristenandroid.services.kristen.messages;
 
-import mx.edu.upqroo.kristenandroid.models.NewsDetail;
+import mx.edu.upqroo.kristenandroid.database.entities.NewsDetail;
 
 public class NewsDetailMessage {
     private boolean isSuccessful;

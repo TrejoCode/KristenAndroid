@@ -20,7 +20,7 @@ import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.common.Serializer;
 import mx.edu.upqroo.kristenandroid.common.ViewHelper;
-import mx.edu.upqroo.kristenandroid.models.News;
+import mx.edu.upqroo.kristenandroid.database.entities.News;
 
 public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.ViewHolder> {
     //region Fields

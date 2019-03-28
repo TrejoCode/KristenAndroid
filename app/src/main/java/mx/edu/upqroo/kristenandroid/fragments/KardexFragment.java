@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.KardexItemAdapter;
 import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.models.Kardex;
+import mx.edu.upqroo.kristenandroid.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.KardexListMessage;
 

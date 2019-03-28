@@ -1,6 +1,5 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,18 +10,14 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.flipkart.youtubeview.YouTubePlayerView;
 import com.flipkart.youtubeview.models.ImageLoader;
 import com.flipkart.youtubeview.models.YouTubePlayerType;
-import com.mzelzoghbi.zgallery.ZGallery;
-import com.mzelzoghbi.zgallery.entities.ZColor;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -32,13 +27,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment;
-import mx.edu.upqroo.kristenandroid.models.Content;
-import mx.edu.upqroo.kristenandroid.models.ContentGallery;
-import mx.edu.upqroo.kristenandroid.models.ContentImage;
-import mx.edu.upqroo.kristenandroid.models.ContentLink;
-import mx.edu.upqroo.kristenandroid.models.ContentList;
-import mx.edu.upqroo.kristenandroid.models.ContentTitle;
-import mx.edu.upqroo.kristenandroid.models.ContentVideo;
+import mx.edu.upqroo.kristenandroid.database.entities.Content;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentGallery;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentImage;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentLink;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentList;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentTitle;
+import mx.edu.upqroo.kristenandroid.database.entities.ContentVideo;
 
 public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Content> mContentList;
