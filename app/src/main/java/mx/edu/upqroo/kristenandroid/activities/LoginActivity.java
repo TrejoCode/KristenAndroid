@@ -95,7 +95,9 @@ public class LoginActivity extends ThemeActivity {
                                 .getConfig()
                                 .getUserTopic());
             }
-            startActivity(new Intent(this, MainActivity.class));
+            Intent mainIntent = new Intent(this, MainActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
         } else {
             Toast.makeText(this, event.getMessage(), Toast.LENGTH_LONG).show();
         }

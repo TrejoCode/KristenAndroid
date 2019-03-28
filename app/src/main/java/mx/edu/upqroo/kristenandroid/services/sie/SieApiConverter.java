@@ -1,16 +1,21 @@
 package mx.edu.upqroo.kristenandroid.services.sie;
 
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.Application;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
+import mx.edu.upqroo.kristenandroid.common.SessionHelper;
 import mx.edu.upqroo.kristenandroid.database.entities.Config;
 import mx.edu.upqroo.kristenandroid.database.entities.Day;
 import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
 import mx.edu.upqroo.kristenandroid.database.entities.Grades;
 import mx.edu.upqroo.kristenandroid.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.repositories.DayRepository;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
@@ -76,11 +81,12 @@ class SieApiConverter {
         return kardexList;
     }
 
-    static List<Day> SemanaToSchedule(Semana semana) {
+    static List<Day> SemanaToSchedule(Semana semana, Application application) {
         List<Day> dayList = new ArrayList<>();
+        // Hay que recuperar el ID del dia que se acaba de inseratar para entonces insertar los subjects como sus hijos
         List<Subject> mondaySubjects = new ArrayList<>();
         for (Materia m : semana.getLunes()) {
-            mondaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
+            mondaySubjects.add(new Subject(0, m.getNombre(), m.getProfesor(), m.getHora()));
         }
         List<Subject> tuesdaySubjects = new ArrayList<>();
         for (Materia m : semana.getMartes()) {
@@ -98,16 +104,33 @@ class SieApiConverter {
         for (Materia m : semana.getViernes()) {
             fridaySubjects.add(new Subject(m.getNombre(), m.getProfesor(), m.getHora()));
         }
-        Day lunes = new Day(PreferencesManager
-                .getInstance().getContext().getString(R.string.monday), mondaySubjects);
-        Day martes = new Day(PreferencesManager
-                .getInstance().getContext().getString(R.string.tuesday), tuesdaySubjects);
-        Day miercoles = new Day(PreferencesManager
-                .getInstance().getContext().getString(R.string.wednesday), wednesdaySubjects);
-        Day jueves = new Day(PreferencesManager
-                .getInstance().getContext().getString(R.string.thursday), thursdaySubjects);
-        Day viernes = new Day(PreferencesManager
-                .getInstance().getContext().getString(R.string.friday), fridaySubjects);
+        Day lunes = new Day(0,
+                PreferencesManager.getInstance().getContext().getString(R.string.monday),
+                SessionHelper.getInstance().getSession().getUserId());
+
+        Day martes = new Day(0,
+                PreferencesManager.getInstance().getContext().getString(R.string.tuesday),
+                SessionHelper.getInstance().getSession().getUserId());
+
+        Day miercoles = new Day(0,
+                PreferencesManager.getInstance().getContext().getString(R.string.wednesday),
+                SessionHelper.getInstance().getSession().getUserId());
+
+        Day jueves = new Day(0,
+                PreferencesManager.getInstance().getContext().getString(R.string.thursday),
+                SessionHelper.getInstance().getSession().getUserId());
+
+        Day viernes = new Day(0,
+                PreferencesManager.getInstance().getContext().getString(R.string.friday),
+                SessionHelper.getInstance().getSession().getUserId());
+
+        AsyncTask.execute(() -> {
+            DayRepository.getInstance(application).insert(lunes);
+            DayRepository.getInstance(application).insert(martes);
+            DayRepository.getInstance(application).insert(miercoles);
+            DayRepository.getInstance(application).insert(jueves);
+            DayRepository.getInstance(application).insert(viernes);
+        });
 
         dayList.add(lunes);
         dayList.add(martes);

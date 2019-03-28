@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.Application;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
@@ -20,8 +21,22 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SieApiServices {
+    private static SieApiServices mInstance;
     private static SieApiInterface service;
+    private Application mApp;
     private static final String authorizationToken = "Q2nDsWEgwqFvaCBwYXRyaWEhIHR1cyBzaWVuZXMgZGUgb2xpdmEgZGUgbGEgcGF6IGVsIGFyY8OhbmdlbCBkaXZpbm8=";
+
+    private SieApiServices(Application application) {
+        initializeRestClientAdministration();
+        mApp = application;
+    }
+
+    public static SieApiServices getInstance(Application application) {
+        if (mInstance == null) {
+            mInstance = new SieApiServices(application);
+        }
+        return mInstance;
+    }
 
     /**
      * Initialize the rest client if needed.
@@ -40,7 +55,6 @@ public class SieApiServices {
      * @param password User's password
      */
     public static void login(String user, String password) {
-        initializeRestClientAdministration();
         Call<Alumno> call = service.login(user, password);
         call.enqueue(new Callback<Alumno>() {
             @Override
@@ -87,7 +101,6 @@ public class SieApiServices {
      * @param studentId User's identifier
      */
     public static void getGradesList(String studentId, String token) {
-        initializeRestClientAdministration();
         Call<List<Calificacion>> call = service.listGardes(studentId, token);
         call.enqueue(new Callback<List<Calificacion>>() {
             @Override
@@ -128,7 +141,6 @@ public class SieApiServices {
      * @param studentId s
      */
     public static void getKardexList(String studentId, String token) {
-        initializeRestClientAdministration();
         Call<List<Kardexs>> call = service.listKardex(studentId, token);
         call.enqueue(new Callback<List<Kardexs>>() {
             @Override
@@ -170,7 +182,6 @@ public class SieApiServices {
      * @param studentId User's identifier
      */
     public static void getSchedule(String studentId, String token) {
-        initializeRestClientAdministration();
         Call<Semana> call = service.schedule(studentId, token);
         call.enqueue(new Callback<Semana>() {
             @Override

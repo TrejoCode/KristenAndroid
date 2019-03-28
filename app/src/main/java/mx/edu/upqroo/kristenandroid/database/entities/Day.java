@@ -1,33 +1,47 @@
 package mx.edu.upqroo.kristenandroid.database.entities;
 
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "day",
+        indices = {@Index("userId")},
+        foreignKeys = @ForeignKey(entity = UserInformation.class,
+                parentColumns = "userId",
+                childColumns = "userId",
+                onDelete = CASCADE))
 public class Day {
+
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "dayId")
+    private int dayId;
+
+    @NonNull
+    @ColumnInfo(name = "name")
     private String name;
-    private List<Subject> subjects;
 
-    public Day() {
+    @ColumnInfo(name = "userId")
+    private String userId;
 
-    }
-
-    public Day(String name, List<Subject> subjects) {
+    public Day(int dayId, @NonNull String name, @NonNull String userId) {
+        this.dayId = dayId;
         this.name = name;
-        this.subjects = subjects;
+        this.userId = userId;
     }
 
+    public int getDayId() { return dayId; }
+
+    @NotNull
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Subject> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<Subject> subjects) {
-        this.subjects = subjects;
-    }
+    public String getUserId() { return userId; }
 }

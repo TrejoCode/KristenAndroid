@@ -3,6 +3,7 @@ package mx.edu.upqroo.kristenandroid.database.entities;
 import org.jetbrains.annotations.NotNull;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -12,32 +13,59 @@ public class UserInformation {
 
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "userId")
     private String userId;
+
     @NonNull
+    @ColumnInfo(name = "password")
     private String password;
+
     @NonNull
+    @ColumnInfo(name = "name")
     private String name;
+
     @NonNull
+    @ColumnInfo(name = "career")
     private String career;
+
     @NonNull
+    @ColumnInfo(name = "enrollment")
     private String enrollment;
+
     @NonNull
+    @ColumnInfo(name = "creditsAccumulated")
     private String creditsAccumulated;
+
     @NonNull
+    @ColumnInfo(name = "validity")
     private String validity;
+
     @NonNull
+    @ColumnInfo(name = "entryPeriod")
     private String entryPeriod;
+
     @NonNull
+    @ColumnInfo(name = "curp")
     private String curp;
+
     @NonNull
+    @ColumnInfo(name = "dob")
     private String dob;
+
     @NonNull
+    @ColumnInfo(name = "address")
     private String address;
+
     @NonNull
+    @ColumnInfo(name = "phone")
     private String phone;
+
     @NonNull
+    @ColumnInfo(name = "mobilePhone")
     private String mobilePhone;
+
     @NonNull
+    @ColumnInfo(name = "email")
     private String email;
 
     @NonNull
