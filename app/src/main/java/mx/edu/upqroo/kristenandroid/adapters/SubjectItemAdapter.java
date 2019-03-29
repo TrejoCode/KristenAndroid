@@ -15,8 +15,8 @@ import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 public class SubjectItemAdapter extends RecyclerView.Adapter<SubjectItemAdapter.ViewHolder> {
     private List<Subject> subjectList;
 
-    SubjectItemAdapter(List<Subject> subjectLista) {
-        this.subjectList = subjectLista;
+    SubjectItemAdapter(List<Subject> subjectList) {
+        this.subjectList = subjectList;
     }
 
     @NonNull
@@ -32,6 +32,21 @@ public class SubjectItemAdapter extends RecyclerView.Adapter<SubjectItemAdapter.
         holder.materia.setText(subjectList.get(position).getName());
         holder.professor.setText(subjectList.get(position).getProfessor());
         holder.hora.setText(subjectList.get(position).getTime());
+    }
+
+    public void setData(List<Subject> subjects) {
+        subjectList = subjects;
+        try {
+            notifyDataSetChanged();
+        } catch (IllegalStateException ex) {
+            try {
+                Thread.sleep(150);
+                notifyDataSetChanged();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Override

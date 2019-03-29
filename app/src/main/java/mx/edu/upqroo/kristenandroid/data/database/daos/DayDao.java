@@ -7,8 +7,10 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
+import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
 
 @Dao
 public interface DayDao {
@@ -36,4 +38,8 @@ public interface DayDao {
 
     @Query("SELECT COUNT(*) FROM day")
     int count();
+
+    @Transaction
+    @Query("SELECT * FROM day WHERE userId = :userId")
+    LiveData<List<ScheduleSubject>> getDaysAndSubjectsFromUser(String userId);
 }

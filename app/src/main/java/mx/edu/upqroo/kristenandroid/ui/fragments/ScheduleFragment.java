@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
 import mx.edu.upqroo.kristenandroid.viewModels.ScheduleViewModel;
@@ -30,7 +32,9 @@ import mx.edu.upqroo.kristenandroid.viewModels.ScheduleViewModel;
 public class ScheduleFragment extends Fragment {
 
     private ScheduleViewModel mViewModel;
+    private Observer<List<ScheduleSubject>> mObserver;
     private Observer<List<Day>> mDayObserver;
+    private Observer<List<Subject>> mSubjectObserver;
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleItemAdapter mScheduleAdapter;
@@ -45,12 +49,33 @@ public class ScheduleFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // View model instance
         mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
-        // Observer declaration
-        mDayObserver = days -> {
+        mObserver = scheduleSubjects -> {
             recyclerViewSchedule.setVisibility(View.VISIBLE);
-            mScheduleAdapter.setData(days);
             mProgress.setVisibility(View.GONE);
+            mScheduleAdapter.setData(scheduleSubjects);
         };
+        // Observer declaration
+        /*mDayObserver = days -> {
+            for (Day day : days) {
+                mData.add(new ScheduleSubject(day, new ArrayList<>()));
+            }
+            mViewModel.getSubjects().observe(this, mSubjectObserver);
+        };
+
+        mSubjectObserver = subjects -> {
+            if (!subjects.isEmpty()) {
+                for (ScheduleSubject schedule : mData) {
+                    for (Subject subject : subjects) {
+                        if (subject.getDayId() == schedule.getDay().getDayId()) {
+                            schedule.addSubject(subject);
+                        }
+                    }
+                }
+            }
+            recyclerViewSchedule.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(View.GONE);
+            mScheduleAdapter.setData(mData);
+        };*/
     }
 
     @Override
@@ -59,15 +84,12 @@ public class ScheduleFragment extends Fragment {
         recyclerViewSchedule = v.findViewById(R.id.recycler_schedule);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(v.getContext()));
         recyclerViewSchedule.setVisibility(View.VISIBLE);
-        if (getActivity() != null) {
-            List<Day> daysList = new ArrayList<>();
-            mScheduleAdapter = new ScheduleItemAdapter(daysList, getActivity().getApplication());
-            recyclerViewSchedule.setAdapter(mScheduleAdapter);
-        }
+        mScheduleAdapter = new ScheduleItemAdapter( new ArrayList<>());
+        recyclerViewSchedule.setAdapter(mScheduleAdapter);
         mProgress = v.findViewById(R.id.progress_schedule);
         mProgress.setVisibility(View.VISIBLE);
         mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
-                .observe(this, mDayObserver);
+                .observe(this, mObserver);
         return v;
     }
 }

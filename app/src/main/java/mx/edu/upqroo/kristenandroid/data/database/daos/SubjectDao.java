@@ -32,5 +32,5 @@ public interface SubjectDao {
     LiveData<List<Subject>> getAll();
 
     @Query("SELECT * FROM subject WHERE dayId = :dayId")
-    List<Subject> getByDayId(final long dayId);
+    LiveData<List<Subject>> getByDayId(final long dayId);
 }

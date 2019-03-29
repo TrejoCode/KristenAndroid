@@ -27,7 +27,7 @@
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
-                app:srcCompat="@drawable/ic_launcher_background"
+                app:srcCompat="@color/colorPrimary"
                 tools:ignore="ContentDescription" />
 
             <androidx.appcompat.widget.Toolbar

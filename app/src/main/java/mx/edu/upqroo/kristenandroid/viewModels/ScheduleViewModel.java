@@ -7,7 +7,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
 import mx.edu.upqroo.kristenandroid.repositories.DayRepository;
 import mx.edu.upqroo.kristenandroid.repositories.SubjectRepository;
 
@@ -21,7 +22,15 @@ public class ScheduleViewModel extends AndroidViewModel {
         mSubjectRepository = SubjectRepository.getInstance(application);
     }
 
-    public LiveData<List<Day>> getDays(String userId) {
+    public LiveData<List<ScheduleSubject>> getDays(String userId) {
         return mDayRepository.getDaysByUserId(userId);
+    }
+
+    public LiveData<List<Subject>> getSubjects(long dayId) {
+        return mSubjectRepository.getSubjectsByDayId(dayId);
+    }
+
+    public LiveData<List<Subject>> getSubjects() {
+        return mSubjectRepository.getAll();
     }
 }

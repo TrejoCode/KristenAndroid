@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
@@ -34,12 +35,14 @@ public class DayRepository {
         return mDayDao.getById(id);
     }
 
-    public LiveData<List<Day>> getDaysByUserId(String userId) {
-        LiveData<List<Day>> response = mDayDao.getByUserId(userId);
-        if (mDayDao.count() == 0) {
-            mApi.getSchedule(SessionManager.getInstance().getSession().getUserId(),
-                    SessionManager.getInstance().getSession().getConfig().getUserToken());
-        }
+    public LiveData<List<ScheduleSubject>> getDaysByUserId(String userId) {
+        LiveData<List<ScheduleSubject>> response = mDayDao.getDaysAndSubjectsFromUser(userId);
+        AsyncTask.execute(() -> {
+            if (mDayDao.count() == 0) {
+                mApi.getSchedule(SessionManager.getInstance().getSession().getUserId(),
+                        SessionManager.getInstance().getSession().getConfig().getUserToken());
+            }
+        });
         return response;
     }
 

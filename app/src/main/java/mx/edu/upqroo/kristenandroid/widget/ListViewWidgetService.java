@@ -131,10 +131,7 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
             } catch (Exception ex) {
                 //
             }
-        } else {
-            //todo set visible a text view saying that there was an error
         }
-
         EventBus.getDefault().unregister(this);
     }
 }

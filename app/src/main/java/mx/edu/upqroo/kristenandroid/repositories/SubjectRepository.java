@@ -31,8 +31,12 @@ public class SubjectRepository {
         return mSubjectDao.getById(subjectId);
     }
 
-    public List<Subject> getSubjectsByDayId(long dayId) {
+    public LiveData<List<Subject>> getSubjectsByDayId(long dayId) {
         return mSubjectDao.getByDayId(dayId);
+    }
+
+    public LiveData<List<Subject>> getAll() {
+        return mSubjectDao.getAll();
     }
 
     public void insert(Subject subject) {
