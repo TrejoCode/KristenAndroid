@@ -1,5 +1,7 @@
 package mx.edu.upqroo.kristenandroid.services.sie;
 
+import android.app.Application;
+
 import com.crashlytics.android.Crashlytics;
 
 import org.greenrobot.eventbus.EventBus;
@@ -7,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import mx.edu.upqroo.kristenandroid.Application;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
@@ -54,7 +55,7 @@ public class SieApiServices {
      * @param user User's identifier
      * @param password User's password
      */
-    public static void login(String user, String password) {
+    public void login(String user, String password) {
         Call<Alumno> call = service.login(user, password);
         call.enqueue(new Callback<Alumno>() {
             @Override
@@ -181,7 +182,7 @@ public class SieApiServices {
      * to it.
      * @param studentId User's identifier
      */
-    public static void getSchedule(String studentId, String token) {
+    public void getSchedule(String studentId, String token) {
         Call<Semana> call = service.schedule(studentId, token);
         call.enqueue(new Callback<Semana>() {
             @Override
@@ -190,16 +191,12 @@ public class SieApiServices {
                     case 200:
                         Semana data = response.body();
                         if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new ScheduleMessage(true,
-                                            SieApiConverter.SemanaToSchedule(data)));
+                            SieApiConverter.SemanaToSchedule(data, mApp);
                         } else {
                             Crashlytics.log("200 Error data null while getting the schedule");
                         }
                         break;
                     default:
-                        EventBus.getDefault()
-                                .post(new ScheduleMessage(false,null));
                         Crashlytics.log(response.code() + "Error code while getting schedule");
                         break;
                 }
@@ -207,8 +204,6 @@ public class SieApiServices {
 
             @Override
             public void onFailure(@NotNull Call<Semana> call, @NotNull Throwable t) {
-                EventBus.getDefault()
-                        .post(new ScheduleMessage(false,null));
                 Crashlytics.log(t.getMessage() + " - Error code while getting schedule");
             }
         });

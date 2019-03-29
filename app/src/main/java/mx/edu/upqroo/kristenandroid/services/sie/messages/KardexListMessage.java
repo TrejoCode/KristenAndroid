@@ -2,7 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.sie.messages;
 
 import java.util.List;
 
-import mx.edu.upqroo.kristenandroid.database.entities.Kardex;
+import mx.edu.upqroo.kristenandroid.data.models.Kardex;
 
 public class KardexListMessage {
     private boolean successful;

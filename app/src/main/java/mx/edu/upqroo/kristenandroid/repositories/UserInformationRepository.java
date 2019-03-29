@@ -4,9 +4,9 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
-import mx.edu.upqroo.kristenandroid.database.KristenRoomDatabase;
-import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
-import mx.edu.upqroo.kristenandroid.database.entities.UserInformationDao;
+import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
+import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
+import mx.edu.upqroo.kristenandroid.data.database.daos.UserInformationDao;
 
 public class UserInformationRepository {
     private static UserInformationRepository mInstance;

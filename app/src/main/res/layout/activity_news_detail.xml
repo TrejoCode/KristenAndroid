@@ -5,7 +5,7 @@
     android:id="@+id/coordinator_news_Detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.NewsDetailActivity">
+    tools:context=".ui.activities.NewsDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_news_detail"
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/fragment_detail"
-        android:name="mx.edu.upqroo.kristenandroid.fragments.EmptyFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.EmptyFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

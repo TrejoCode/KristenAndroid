@@ -6,9 +6,9 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
-import mx.edu.upqroo.kristenandroid.database.KristenRoomDatabase;
-import mx.edu.upqroo.kristenandroid.database.entities.Subject;
-import mx.edu.upqroo.kristenandroid.database.entities.SubjectDao;
+import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.data.database.daos.SubjectDao;
 
 public class SubjectRepository {
 
@@ -28,11 +28,11 @@ public class SubjectRepository {
     }
 
     public LiveData<Subject> getSubject(int subjectId) {
-        return mSubjectDao.getSubjectById(subjectId);
+        return mSubjectDao.getById(subjectId);
     }
 
-    public LiveData<List<Subject>> getSubjectsByDayId(int dayId) {
-        return mSubjectDao.getSubjectsByDayId(dayId);
+    public List<Subject> getSubjectsByDayId(long dayId) {
+        return mSubjectDao.getByDayId(dayId);
     }
 
     public void insert(Subject subject) {

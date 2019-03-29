@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
+import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
 import mx.edu.upqroo.kristenandroid.repositories.UserInformationRepository;
 
 public class UserViewModel extends AndroidViewModel {

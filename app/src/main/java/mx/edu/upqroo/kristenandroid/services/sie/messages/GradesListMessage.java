@@ -2,7 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.sie.messages;
 
 import java.util.List;
 
-import mx.edu.upqroo.kristenandroid.database.entities.Grades;
+import mx.edu.upqroo.kristenandroid.data.models.Grades;
 
 public class GradesListMessage {
     private boolean successful;

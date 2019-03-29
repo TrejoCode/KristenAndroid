@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.activities.LoginActivity;
+import mx.edu.upqroo.kristenandroid.ui.activities.LoginActivity;
 
 /**
  * Implementation of App Widget functionality.

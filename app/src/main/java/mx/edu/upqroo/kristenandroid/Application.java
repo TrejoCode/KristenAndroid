@@ -8,9 +8,9 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import java.lang.ref.WeakReference;
 
 import io.fabric.sdk.android.Fabric;
-import mx.edu.upqroo.kristenandroid.common.NotificationHelper;
-import mx.edu.upqroo.kristenandroid.common.PreferencesManager;
-import mx.edu.upqroo.kristenandroid.database.KristenRoomDatabase;
+import mx.edu.upqroo.kristenandroid.helpers.NotificationHelper;
+import mx.edu.upqroo.kristenandroid.managers.PreferencesManager;
+import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 
 public class Application extends android.app.Application {
     private static final String TAG = Application.class.getSimpleName();

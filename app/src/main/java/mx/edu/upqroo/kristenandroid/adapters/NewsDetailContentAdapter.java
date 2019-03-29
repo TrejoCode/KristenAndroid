@@ -28,14 +28,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.fragments.YoutubeFragment;
-import mx.edu.upqroo.kristenandroid.database.entities.Content;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentGallery;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentImage;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentLink;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentList;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentTitle;
-import mx.edu.upqroo.kristenandroid.database.entities.ContentVideo;
+import mx.edu.upqroo.kristenandroid.ui.fragments.YoutubeFragment;
+import mx.edu.upqroo.kristenandroid.data.models.Content;
+import mx.edu.upqroo.kristenandroid.data.models.ContentGallery;
+import mx.edu.upqroo.kristenandroid.data.models.ContentImage;
+import mx.edu.upqroo.kristenandroid.data.models.ContentLink;
+import mx.edu.upqroo.kristenandroid.data.models.ContentList;
+import mx.edu.upqroo.kristenandroid.data.models.ContentTitle;
+import mx.edu.upqroo.kristenandroid.data.models.ContentVideo;
 
 public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Content> mContentList;

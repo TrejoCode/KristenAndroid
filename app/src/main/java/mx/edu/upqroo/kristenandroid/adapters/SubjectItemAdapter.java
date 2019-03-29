@@ -10,7 +10,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 
 public class SubjectItemAdapter extends RecyclerView.Adapter<SubjectItemAdapter.ViewHolder> {
     private List<Subject> subjectList;

@@ -1,7 +1,9 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 
+import android.app.Application;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,29 +15,37 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.ViewHelper;
-import mx.edu.upqroo.kristenandroid.database.entities.Day;
+import mx.edu.upqroo.kristenandroid.helpers.ViewHelper;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.repositories.SubjectRepository;
 
-public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapter.ViewHolderDatos>{
+public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapter.ViewHolderSchedule>{
     private List<Day> mDaysList;
+    private Application mApp;
 
-    public ScheduleItemAdapter(List<Day> daysList) {
+    public ScheduleItemAdapter(List<Day> daysList, Application app) {
         mDaysList = daysList;
+        mApp = app;
     }
 
     @NonNull
     @Override
-    public ViewHolderDatos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderSchedule onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_schedule,parent,false);
-        return new ViewHolderDatos(view);
+        return new ViewHolderSchedule(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderDatos holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderSchedule holder, int position) {
         holder._dayOfWeek.setText(mDaysList.get(position).getName());
-        SubjectItemAdapter adapter = new SubjectItemAdapter(mDaysList.get(position).getSubjects());
-        holder.mRecycler.setAdapter(adapter);
+        AsyncTask.execute(() -> {
+            List<Subject> subjects = SubjectRepository.getInstance(mApp)
+                    .getSubjectsByDayId(mDaysList.get(position).getDayId());
+            SubjectItemAdapter adapter = new SubjectItemAdapter(subjects);
+            holder.mRecycler.setAdapter(adapter);
+        });
 
         if (position + 1 == getItemCount()) {
             ViewHelper.SetBottomMargin(holder.itemView,
@@ -46,17 +56,22 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
         }
     }
 
+    public void setData(List<Day> data) {
+        mDaysList = data;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return mDaysList.size();
     }
 
-    class ViewHolderDatos extends RecyclerView.ViewHolder {
+    class ViewHolderSchedule extends RecyclerView.ViewHolder {
 
         private TextView _dayOfWeek;
         private RecyclerView mRecycler;
 
-        ViewHolderDatos(View itemView) {
+        ViewHolderSchedule(View itemView) {
             super(itemView);
             _dayOfWeek = itemView.findViewById(R.id.titSche);
             mRecycler = itemView.findViewById(R.id.recycler_subject);

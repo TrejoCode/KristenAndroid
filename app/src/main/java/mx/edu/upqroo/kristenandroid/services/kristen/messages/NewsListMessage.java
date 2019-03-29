@@ -2,7 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.kristen.messages;
 
 import java.util.List;
 
-import mx.edu.upqroo.kristenandroid.database.entities.News;
+import mx.edu.upqroo.kristenandroid.data.models.News;
 
 public class NewsListMessage {
     private boolean successful;

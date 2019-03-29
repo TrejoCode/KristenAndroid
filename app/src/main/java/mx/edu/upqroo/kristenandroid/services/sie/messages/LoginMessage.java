@@ -1,6 +1,6 @@
 package mx.edu.upqroo.kristenandroid.services.sie.messages;
 
-import mx.edu.upqroo.kristenandroid.database.entities.UserInformation;
+import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
 
 public class LoginMessage {
     private boolean result;

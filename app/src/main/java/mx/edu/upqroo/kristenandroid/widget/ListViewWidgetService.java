@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.SessionHelper;
-import mx.edu.upqroo.kristenandroid.database.entities.Subject;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.ScheduleMessage;
 
 public class ListViewWidgetService extends RemoteViewsService {
@@ -100,8 +98,8 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
     }
 
     private void generateDays() {
-        SieApiServices.getSchedule(SessionHelper.getInstance().getSession().getUserId(),
-                SessionHelper.getInstance().getSession().getConfig().getUserToken());
+        /*SieApiServices.getSchedule(SessionManager.getInstance().getSession().getUserId(),
+                SessionManager.getInstance().getSession().getConfig().getUserToken());*/
         EventBus.getDefault().register(this);
     }
 
@@ -114,19 +112,19 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
             try {
                 switch (day) {
                     case Calendar.MONDAY:
-                        records.addAll(event.getDays().get(0).getSubjects());
+                        //records.addAll(event.getDays().get(0).getSubjects());
                         break;
                     case Calendar.TUESDAY:
-                        records.addAll(event.getDays().get(1).getSubjects());
+                        //records.addAll(event.getDays().get(1).getSubjects());
                         break;
                     case Calendar.WEDNESDAY:
-                        records.addAll(event.getDays().get(2).getSubjects());
+                        //records.addAll(event.getDays().get(2).getSubjects());
                         break;
                     case Calendar.THURSDAY:
-                        records.addAll(event.getDays().get(3).getSubjects());
+                        //records.addAll(event.getDays().get(3).getSubjects());
                         break;
                     case Calendar.FRIDAY:
-                        records.addAll(event.getDays().get(4).getSubjects());
+                        //records.addAll(event.getDays().get(4).getSubjects());
                         break;
                 }
                 onDataSetChanged();

@@ -12,8 +12,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.common.ViewHelper;
-import mx.edu.upqroo.kristenandroid.database.entities.Grades;
+import mx.edu.upqroo.kristenandroid.helpers.ViewHelper;
+import mx.edu.upqroo.kristenandroid.data.models.Grades;
 
 /**
  * Created by RafaelKoh on 08/07/2018.
