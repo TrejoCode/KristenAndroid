@@ -17,7 +17,7 @@ import mx.edu.upqroo.kristenandroid.helpers.FirebaseNotificationsHelper;
 import mx.edu.upqroo.kristenandroid.managers.PreferencesManager;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.models.NotificationLoaded;
-import mx.edu.upqroo.kristenandroid.repositories.UserInformationRepository;
+import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
 
 public class LoginActivity extends ThemeActivity {

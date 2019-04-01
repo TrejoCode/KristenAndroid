@@ -51,17 +51,12 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
         int abs = Math.abs(mImagesList.size() / 2);
         holder.mImageView.requestLayout();
         holder.mImageView.getLayoutParams().height = Math.abs(600 / abs);
-        holder.mImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ZGallery.with(mFragment.getActivity(), mImagesList)
-                        .setToolbarTitleColor(ZColor.WHITE)
-                        .setGalleryBackgroundColor(ZColor.BLACK)
-                        .setToolbarColorResId(R.color.colorPrimary)
-                        .setTitle(mContext.getString(R.string.gallery_title))
-                        .show();
-            }
-        });
+        holder.mImageView.setOnClickListener(v -> ZGallery.with(mFragment.getActivity(), mImagesList)
+                .setToolbarTitleColor(ZColor.WHITE)
+                .setGalleryBackgroundColor(ZColor.BLACK)
+                .setToolbarColorResId(R.color.colorPrimary)
+                .setTitle(mContext.getString(R.string.gallery_title))
+                .show());
     }
 
     @Override

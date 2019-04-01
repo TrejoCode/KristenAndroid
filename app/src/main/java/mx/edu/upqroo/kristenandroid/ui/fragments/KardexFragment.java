@@ -15,6 +15,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -59,8 +60,9 @@ public class KardexFragment extends Fragment {
 
         mKardexAdapter = new KardexItemAdapter(v.getContext(), mKardexList);
         mRecyclerKardex.setAdapter(mKardexAdapter);
-        SieApiServices.getKardexList(SessionManager.getInstance().getSession().getUserId(),
-                SessionManager.getInstance().getSession().getConfig().getUserToken());
+        SieApiServices.getInstance(Objects.requireNonNull(getActivity()).getApplication())
+                .getKardexList(SessionManager.getInstance().getSession().getUserId(),
+                        SessionManager.getInstance().getSession().getConfig().getUserToken());
         return v;
     }
 

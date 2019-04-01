@@ -18,6 +18,7 @@ import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contenido_;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.PublicacionContenido;
+import mx.edu.upqroo.kristenandroid.util.KristenDateUtils;
 
 /**
  * <h1>KristenApiConverter</h1>
@@ -32,8 +33,6 @@ class KristenApiConverter {
      * @return a new
      */
     private static News PublicationToNews(Publicacion publicacion) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM, yyyy",
-                Locale.getDefault());
         return new News(publicacion.getIdPublicaciones(),
                 publicacion.getUrl(),
                 publicacion.getIdTipos_Publicacion(),
@@ -41,7 +40,7 @@ class KristenApiConverter {
                 publicacion.getDescripcion(),
                 publicacion.getCategorias(),
                 publicacion.getPortada(),
-                formatter.format(publicacion.getFecha()));
+                publicacion.getFecha());
     }
 
     /**

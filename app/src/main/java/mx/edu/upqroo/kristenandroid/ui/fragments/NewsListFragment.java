@@ -19,7 +19,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.dkzwm.widget.srl.RefreshingListenerAdapter;
@@ -34,123 +36,58 @@ import mx.edu.upqroo.kristenandroid.util.Serializer;
 import mx.edu.upqroo.kristenandroid.data.models.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsListMessage;
+import mx.edu.upqroo.kristenandroid.viewModels.NewsViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class NewsListFragment extends Fragment {
-    private RecyclerView mRecyclerNews;
-    private NewsItemAdapter mNewsAdapter;
-    private ArrayList<News> mNewsList;
-    private EndlessRecyclerViewScrollListener mScrollListener;
-    private SmoothRefreshLayout mRefreshLayout;
+    private NewsItemAdapter mAdapter;
     private ProgressBar mProgressBar;
-    private TextView mTextErrorMessage;
 
-    public NewsListFragment() {
+    public static NewsListFragment newInstance() {
+        return new NewsListFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // View model instance
+        NewsViewModel mViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
+        mViewModel.getNews().observe(this, notices -> {
+            mAdapter.submitList(notices);
+            mProgressBar.setVisibility(View.GONE);
+        });
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_news_list, container, false);
-        mNewsList = new ArrayList<>();
 
         mProgressBar = v.findViewById(R.id.progress_news);
         mProgressBar.setIndeterminate(true);
         mProgressBar.setVisibility(View.VISIBLE);
-
-        mTextErrorMessage = v.findViewById(R.id.text_error_message);
+        TextView mTextErrorMessage = v.findViewById(R.id.text_error_message);
         mTextErrorMessage.setVisibility(View.INVISIBLE);
+        SmoothRefreshLayout mRefreshLayout = v.findViewById(R.id.refreshLayout_NewsList);
+        //mRefreshLayout.setHeaderView(new ClassicHeader(getContext()));
+        mAdapter = new NewsItemAdapter(getContext());
 
-        LinearLayoutManager lineaLayoutManager = new LinearLayoutManager(v.getContext());
-        mScrollListener = new EndlessRecyclerViewScrollListener(lineaLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                KristenApiServices
-                        .getPublicationsList(Integer.parseInt(SessionManager
-                                .getInstance()
-                                .getSession()
-                                .getCareer()), page);
-            }
-        };
-
-        mRefreshLayout = v.findViewById(R.id.refreshLayout_NewsList);
-
-        mRefreshLayout.setHeaderView(new ClassicHeader(getContext()));
-        mRefreshLayout.setOnRefreshListener(new RefreshingListenerAdapter() {
-            @Override
-            public void onRefreshBegin(boolean isRefresh) {
-                mNewsList.clear();
-                mTextErrorMessage.setVisibility(View.INVISIBLE);
-                generateCover();
-                mScrollListener.resetState();
-                KristenApiServices
-                        .getPublicationsList(Integer.parseInt(SessionManager
-                                .getInstance()
-                                .getSession()
-                                .getCareer()), 1);
-            }
-        });
-
-        mNewsAdapter = new NewsItemAdapter(v.getContext(), mNewsList);
-        mNewsAdapter.setClickListener(new NewsItemAdapter.ItemClickListener() {
-            @Override
-            public void onNewsItemClick(View view, int position) {
-                if (!mNewsAdapter.getItem(position).getCategory().equals("COVER")){
-                    Intent intent = new Intent(view.getContext(), NewsDetailActivity.class);
-                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS,
-                            Serializer.Serialize(mNewsAdapter.getItem(position)));
-                    startActivity(intent);
-                }
-            }
-        });
-
-        generateCover();
-        mRecyclerNews = v.findViewById(R.id.recycler_news);
+        RecyclerView mRecyclerNews = v.findViewById(R.id.recycler_news);
         mRecyclerNews.setHasFixedSize(true);
-        mRecyclerNews.setLayoutManager(lineaLayoutManager);
-        mRecyclerNews.addOnScrollListener(mScrollListener);
-        mRecyclerNews.setAdapter(mNewsAdapter);
+        mRecyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerNews.setAdapter(mAdapter);
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(NewsListMessage event) {
-        if (event.isSuccessful()) {
-            mNewsList.addAll(event.getNewsList());
-            mNewsAdapter.notifyDataSetChanged();
-            mTextErrorMessage.setVisibility(View.INVISIBLE);
-        } else {
-            mTextErrorMessage.setText(R.string.generic_error_news_list);
-            mTextErrorMessage.setVisibility(View.VISIBLE);
-        }
-        mProgressBar.setVisibility(View.GONE);
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.refreshComplete();
-        }
     }
 
     private void generateCover() {
         Date date = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM", Locale.US);
-        mNewsList.add(new News("0", "", 0, getString(R.string.news_header_title),
+        /*mNewsList.add(new News("0", "", 0, getString(R.string.news_header_title),
                 getString(R.string.news_header_desc),
                 "COVER",
                 "http://www.upqroo.edu.mx/wp-content/uploads/2018/01/bslider_b03.jpg",
-                formatter.format(date)));
+                formatter.format(date)));*/
     }
 }

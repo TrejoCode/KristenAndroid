@@ -65,7 +65,7 @@ public class NewsDetailActivity extends ThemeActivity {
         mCoverImageView = findViewById(R.id.image_cover_news_detail);
         mCollapsingToolbar = findViewById(R.id.collapsing_news_detail);
 
-        KristenApiServices.getPostContent(mNews.getId());
+        KristenApiServices.getInstance().getPostContent(mNews.getId());
     }
 
     @Override

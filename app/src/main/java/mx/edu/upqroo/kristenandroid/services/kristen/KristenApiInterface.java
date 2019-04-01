@@ -2,6 +2,8 @@ package mx.edu.upqroo.kristenandroid.services.kristen;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
+import mx.edu.upqroo.kristenandroid.data.models.News;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contacto;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
@@ -9,6 +11,7 @@ import mx.edu.upqroo.kristenandroid.services.kristen.containers.PublicacionConte
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * <h1>KristenApiInterface</h1>
@@ -45,4 +48,16 @@ public interface KristenApiInterface {
      */
     @GET("Contactos")
     Call<List<Contacto>> getContacts();
+
+    /**
+     * Get all notices
+     */
+    @GET("Aviso")
+    Call<List<Notice>> getNotices(@Query("filter") String filter);
+
+    /**
+     * Get all notices
+     */
+    @GET("Publicacion")
+    Call<List<News>> getNews(@Query("filter") String filter);
 }

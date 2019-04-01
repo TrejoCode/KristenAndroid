@@ -38,14 +38,6 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
         holder.code.setText(gradeList.get(position).getCuarter());
         holder.subject.setText(gradeList.get(position).getSubject());
         holder.generalGrade.setText(gradeList.get(position).getGrade());
-
-        if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView, (int) (84 *
-                    Resources.getSystem().getDisplayMetrics().density));
-        } else {
-            // reset bottom margin back to zero. (your value may be different)
-            ViewHelper.SetBottomMargin(holder.itemView, 0);
-        }
     }
 
     @Override

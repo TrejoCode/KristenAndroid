@@ -11,6 +11,7 @@
     <string name="nave_menu_user">Student</string>
     <string name="nav_menu_schedule">Schedule</string>
     <string name="nav_menu_school">Grades</string>
+    <string name="nav_menu_notice">Notices</string>
     <string name="nav_menu_kardex">Kardex</string>
     <string name="nav_menu_group">Groups</string>
     <string name="nav_menu_logout">Logout</string>

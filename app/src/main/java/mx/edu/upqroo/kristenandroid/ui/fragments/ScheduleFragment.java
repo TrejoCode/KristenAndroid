@@ -33,8 +33,6 @@ public class ScheduleFragment extends Fragment {
 
     private ScheduleViewModel mViewModel;
     private Observer<List<ScheduleSubject>> mObserver;
-    private Observer<List<Day>> mDayObserver;
-    private Observer<List<Subject>> mSubjectObserver;
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleItemAdapter mScheduleAdapter;
@@ -54,28 +52,8 @@ public class ScheduleFragment extends Fragment {
             mProgress.setVisibility(View.GONE);
             mScheduleAdapter.setData(scheduleSubjects);
         };
-        // Observer declaration
-        /*mDayObserver = days -> {
-            for (Day day : days) {
-                mData.add(new ScheduleSubject(day, new ArrayList<>()));
-            }
-            mViewModel.getSubjects().observe(this, mSubjectObserver);
-        };
-
-        mSubjectObserver = subjects -> {
-            if (!subjects.isEmpty()) {
-                for (ScheduleSubject schedule : mData) {
-                    for (Subject subject : subjects) {
-                        if (subject.getDayId() == schedule.getDay().getDayId()) {
-                            schedule.addSubject(subject);
-                        }
-                    }
-                }
-            }
-            recyclerViewSchedule.setVisibility(View.VISIBLE);
-            mProgress.setVisibility(View.GONE);
-            mScheduleAdapter.setData(mData);
-        };*/
+        mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
+                .observe(this, mObserver);
     }
 
     @Override
@@ -84,12 +62,10 @@ public class ScheduleFragment extends Fragment {
         recyclerViewSchedule = v.findViewById(R.id.recycler_schedule);
         recyclerViewSchedule.setLayoutManager(new LinearLayoutManager(v.getContext()));
         recyclerViewSchedule.setVisibility(View.VISIBLE);
-        mScheduleAdapter = new ScheduleItemAdapter( new ArrayList<>());
+        mScheduleAdapter = new ScheduleItemAdapter(new ArrayList<>());
         recyclerViewSchedule.setAdapter(mScheduleAdapter);
         mProgress = v.findViewById(R.id.progress_schedule);
         mProgress.setVisibility(View.VISIBLE);
-        mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
-                .observe(this, mObserver);
         return v;
     }
 }

@@ -34,6 +34,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_calendarFragment_to_noticesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_calendarFragment_to_scheduleFragment">
                               <value>
                                 <LayoutPositions />
@@ -80,6 +85,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_gradesFragment_to_noticesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_gradesFragment_to_scheduleFragment">
                               <value>
                                 <LayoutPositions />
@@ -122,6 +132,11 @@
                               </value>
                             </entry>
                             <entry key="action_kardexFragment_to_newsListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_kardexFragment_to_noticesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -189,6 +204,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_newsListFragment_to_noticesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_newsListFragment_to_scheduleFragment">
                               <value>
                                 <LayoutPositions />
@@ -200,6 +220,57 @@
                               </value>
                             </entry>
                             <entry key="action_newsListFragment_to_userFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="noticesFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-117" />
+                            <option name="y" value="476" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_noticesFragment_to_calendarFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_noticesFragment_to_gradesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_noticesFragment_to_kardexFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_noticesFragment_to_newsListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_noticesFragment_to_scheduleFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_noticesFragment_to_settingsActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_noticesFragment_to_userFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -294,6 +365,11 @@
                               </value>
                             </entry>
                             <entry key="action_userFragment_to_newsListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_userFragment_to_noticesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

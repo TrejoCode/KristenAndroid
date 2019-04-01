@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,8 +55,11 @@ public class GradesFragment extends Fragment {
 
         mGradeAdapter = new GradesItemAdapter(v.getContext(),mGradeList);
         mRecyclerGrade.setAdapter(mGradeAdapter);
-        SieApiServices.getGradesList(SessionManager.getInstance().getSession().getUserId(),
-                SessionManager.getInstance().getSession().getConfig().getUserToken());
+        SieApiServices.getInstance(Objects.requireNonNull(getActivity()).getApplication())
+                .getGradesList(SessionManager.getInstance()
+                                .getSession().getUserId(),
+                        SessionManager.getInstance()
+                                .getSession().getConfig().getUserToken());
         return v;
     }
 

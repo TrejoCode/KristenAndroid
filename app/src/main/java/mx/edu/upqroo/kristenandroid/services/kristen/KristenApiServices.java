@@ -1,14 +1,19 @@
 package mx.edu.upqroo.kristenandroid.services.kristen;
 
+import android.app.Application;
+import android.os.AsyncTask;
+
 import com.crashlytics.android.Crashlytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
+import mx.edu.upqroo.kristenandroid.managers.SessionManager;
+import mx.edu.upqroo.kristenandroid.data.repositories.NoticeRepository;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Contacto;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.services.kristen.containers.PublicacionContenido;
@@ -27,14 +32,18 @@ import retrofit2.Response;
  * Every method response is notify by a EventBus post.
  */
 public class KristenApiServices {
+    private static KristenApiServices mInstance;
     private static KristenApiInterface service;
 
-    /**
-     * Initialize the rest client if needed.
-     */
-    private static void initializeRestClientAdministration() {
-        if (service == null)
-            service = KristenApiClient.createService(KristenApiInterface.class);
+    private KristenApiServices() {
+        service = KristenApiClient.createService(KristenApiInterface.class);
+    }
+
+    public static KristenApiServices getInstance() {
+        if (mInstance == null) {
+            mInstance = new KristenApiServices();
+        }
+        return mInstance;
     }
 
     /**
@@ -44,8 +53,7 @@ public class KristenApiServices {
      * @param career User's career identifier
      * @param page Page number to be retrieved
      */
-    public static void getPublicationsList(int career, int page) {
-        initializeRestClientAdministration();
+    public void getPublicationsList(int career, int page) {
         final Call<List<Publicacion>> repos = service.listPublications(career, page);
         repos.enqueue(new Callback<List<Publicacion>>() {
             @Override
@@ -93,16 +101,13 @@ public class KristenApiServices {
         });
     }
 
-
-
     /**
      * Gets the content of a post by calling the API.
      * When the call is finish a message is posted by EventBus, so the caller must be subscribe
      * to it.
      * @param postId Post's identifier
      */
-    public static void getPostContent(String postId) {
-        initializeRestClientAdministration();
+    public void getPostContent(String postId) {
         Call<PublicacionContenido> call = service.listContents(postId);
         call.enqueue(new Callback<PublicacionContenido>() {
             @Override
@@ -139,8 +144,7 @@ public class KristenApiServices {
         });
     }
 
-    public static void getCalendarUrl() {
-        initializeRestClientAdministration();
+    public void getCalendarUrl() {
         Call<PublicacionContenido> call = service.getCalendarUrl();
         call.enqueue(new Callback<PublicacionContenido>() {
             @Override
@@ -177,8 +181,7 @@ public class KristenApiServices {
         });
     }
 
-    public static void getContacts() {
-        initializeRestClientAdministration();
+    public void getContacts() {
         Call<List<Contacto>> call = service.getContacts();
         call.enqueue(new Callback<List<Contacto>>() {
             @Override
@@ -193,14 +196,14 @@ public class KristenApiServices {
                         } else {
                             EventBus.getDefault()
                                     .post(new ContactListMessage(false,
-                                            new ArrayList<Contacto>()));
+                                            new ArrayList<>()));
                             Crashlytics.log("200 Error data null while getting contacts");
                         }
                         break;
                     default:
                         EventBus.getDefault()
                                 .post(new ContactListMessage(false,
-                                        new ArrayList<Contacto>()));
+                                        new ArrayList<>()));
                         Crashlytics.log(response.code() + "Error code while getting contacts");
                         break;
                 }
@@ -209,10 +212,49 @@ public class KristenApiServices {
             @Override
             public void onFailure(@NotNull Call<List<Contacto>> call, @NotNull Throwable t) {
                 EventBus.getDefault()
-                        .post(new ContactListMessage(false, new ArrayList<Contacto>()));
+                        .post(new ContactListMessage(false, new ArrayList<>()));
                 Crashlytics.log(t.getMessage() + " - Error code while getting contacts");
             }
         });
     }
 
+    public void getNotices(Application application) {
+        String filter = "{\"where\": {\"or\": [{\"idCarrera\": 99},{\"idCarrera\": X}]}, \"order\": \"fecha DESC\", \"skip\": 0, \"limit\": 10}";
+        filter = filter.replace("X", SessionManager.getInstance().getSession().getCareer());
+        Call<List<Notice>> call = service.getNotices(filter);
+        call.enqueue(new Callback<List<Notice>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<Notice>> call,
+                                   @NotNull Response<List<Notice>> response) {
+                switch (response.code()) {
+                    case 200:
+                        List<Notice> data = response.body();
+                        if (data != null) {
+                            NoticeRepository noticeRepo = NoticeRepository.getInstance(application);
+                            AsyncTask.execute(() -> {
+                                noticeRepo.deleteAll();
+                                for (Notice notice: data) {
+                                    noticeRepo.insert(notice);
+                                }
+                            });
+                        } else {
+                            Crashlytics.log("200 Error data null while getting notices");
+                        }
+                        break;
+                    default:
+                        Crashlytics.log(response.code() + "Error code while getting notices");
+                        break;
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<Notice>> call, @NotNull Throwable t) {
+                Crashlytics.log(t.getMessage() + " - Error code while getting notices");
+            }
+        });
+    }
+
+    public KristenApiInterface getService() {
+        return service;
+    }
 }

@@ -45,6 +45,8 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
 
+    implementation "android.arch.paging:runtime:1.0.1"
+
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
 

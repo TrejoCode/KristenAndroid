@@ -1,4 +1,4 @@
-package mx.edu.upqroo.kristenandroid.repositories;
+package mx.edu.upqroo.kristenandroid.data.repositories;
 
 import android.app.Application;
 import android.os.AsyncTask;

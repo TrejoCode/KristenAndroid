@@ -32,7 +32,7 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
     @NonNull
     @Override
     public GradeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = mInflater.inflate(R.layout.item_grades,parent,false);
+        View vista = mInflater.inflate(R.layout.item_grades, parent,false);
         return new GradeViewHolder(vista);
     }
 
@@ -60,14 +60,6 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
         if (!gradeList.get(position).getGradeFive().equals("0")) {
             holder.gradeFive.setVisibility(View.VISIBLE);
             holder.gradeFive.setText(gradeList.get(position).getGradeFive());
-        }
-
-        if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView,
-                    (int) (84 * Resources.getSystem().getDisplayMetrics().density));
-        } else {
-            // reset bottom margin back to zero. (your value may be different)
-            ViewHelper.SetBottomMargin(holder.itemView, 0);
         }
     }
 

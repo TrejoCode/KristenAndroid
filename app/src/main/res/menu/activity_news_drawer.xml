@@ -11,6 +11,10 @@
             android:icon="@drawable/ic_web_black"
             android:title="@string/nav_menu_news" />
         <item
+            android:id="@+id/nav_notices"
+            android:icon="@drawable/ic_announcement_black_24dp"
+            android:title="@string/nav_menu_notice" />
+        <item
             android:id="@+id/nav_user"
             android:icon="@drawable/ic_account_circle_black"
             android:title="@string/nave_menu_user" />

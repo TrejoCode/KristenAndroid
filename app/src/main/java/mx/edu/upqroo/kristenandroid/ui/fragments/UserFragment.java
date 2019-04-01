@@ -60,6 +60,9 @@ public class UserFragment extends Fragment {
             mUserMobilePhoneText.setText(userInformation.getMobilePhone());
             mUserEmailText.setText(userInformation.getEmail());
         };
+
+        mUserViewModel.getUser(SessionManager.getInstance().getSession().getUserId())
+                .observe(this, userObserver);
     }
 
     @Override
@@ -77,9 +80,6 @@ public class UserFragment extends Fragment {
         mUserLocalPhoneText = v.findViewById(R.id.text_alumn_local_phone);
         mUserMobilePhoneText = v.findViewById(R.id.text_alumn_mobile_phone);
         mUserEmailText = v.findViewById(R.id.text_alumn_email);
-
-        mUserViewModel.getUser(SessionManager.getInstance().getSession().getUserId())
-                .observe(this, userObserver);
         return v;
     }
 }

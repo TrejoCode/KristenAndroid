@@ -38,14 +38,6 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
 
         holder.mAdapter = new SubjectItemAdapter(scheduleSubject.getSubjects());
         holder.mRecycler.setAdapter(holder.mAdapter);
-
-        if (position + 1 == getItemCount()) {
-            ViewHelper.SetBottomMargin(holder.itemView,
-                    (int) (84 * Resources.getSystem().getDisplayMetrics().density));
-        } else {
-            // reset bottom margin back to zero. (your value may be different)
-            ViewHelper.SetBottomMargin(holder.itemView, 0);
-        }
     }
 
     public void setData(List<ScheduleSubject> data) {

@@ -29,24 +29,9 @@ public class SubjectItemAdapter extends RecyclerView.Adapter<SubjectItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.materia.setText(subjectList.get(position).getName());
+        holder.subject.setText(subjectList.get(position).getName());
         holder.professor.setText(subjectList.get(position).getProfessor());
-        holder.hora.setText(subjectList.get(position).getTime());
-    }
-
-    public void setData(List<Subject> subjects) {
-        subjectList = subjects;
-        try {
-            notifyDataSetChanged();
-        } catch (IllegalStateException ex) {
-            try {
-                Thread.sleep(150);
-                notifyDataSetChanged();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
+        holder.time.setText(subjectList.get(position).getTime());
     }
 
     @Override
@@ -55,13 +40,13 @@ public class SubjectItemAdapter extends RecyclerView.Adapter<SubjectItemAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView materia, professor, hora;
+        private TextView subject, professor, time;
 
         ViewHolder(View itemView) {
             super(itemView);
             professor = itemView.findViewById(R.id.subject_professor);
-            materia = itemView.findViewById(R.id.subjecttit);
-            hora = itemView.findViewById(R.id.horasubject);
+            subject = itemView.findViewById(R.id.subjecttit);
+            time = itemView.findViewById(R.id.horasubject);
 
         }
     }

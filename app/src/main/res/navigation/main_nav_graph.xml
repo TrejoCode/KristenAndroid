@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_newsListFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_noticesFragment"
+            app:destination="@id/noticesFragment" />
     </fragment>
     <activity
         android:id="@+id/newsDetailActivity"
@@ -60,6 +63,9 @@
         <action
             android:id="@+id/action_gradesFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_gradesFragment_to_noticesFragment"
+            app:destination="@id/noticesFragment" />
     </fragment>
     <fragment
         android:id="@+id/kardexFragment"
@@ -84,6 +90,9 @@
         <action
             android:id="@+id/action_kardexFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_kardexFragment_to_noticesFragment"
+            app:destination="@id/noticesFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -132,6 +141,9 @@
         <action
             android:id="@+id/action_userFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_noticesFragment"
+            app:destination="@id/noticesFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -159,10 +171,40 @@
         <argument
             android:name="urlPdf"
             app:argType="string" />
+        <action
+            android:id="@+id/action_calendarFragment_to_noticesFragment"
+            app:destination="@id/noticesFragment" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
         android:name="mx.edu.upqroo.kristenandroid.ui.activities.SettingsActivity"
         android:label="activity_settings"
         tools:layout="@layout/activity_settings" />
+    <fragment
+        android:id="@+id/noticesFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.NoticesFragment"
+        android:label="@string/nav_menu_notice"
+        tools:layout="@layout/fragment_notices">
+        <action
+            android:id="@+id/action_noticesFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_noticesFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_noticesFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_noticesFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_noticesFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_noticesFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_noticesFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
 </navigation>

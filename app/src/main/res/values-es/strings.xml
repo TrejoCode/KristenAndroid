@@ -5,6 +5,7 @@
     <string name="nave_menu_user">Estudiante</string>
     <string name="nav_menu_schedule">Horario</string>
     <string name="nav_menu_school">Calificaciones</string>
+    <string name="nav_menu_notice">Avisos</string>
     <string name="nav_menu_kardex">Kardex</string>
     <string name="nav_menu_group">Grupos</string>
     <string name="nav_menu_logout">Cerrar Sesión</string>

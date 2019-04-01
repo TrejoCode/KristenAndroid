@@ -34,7 +34,7 @@ public interface SieApiInterface {
      * @return a list with all the grades
      */
     @GET("Calificaciones/{studentId}")
-    Call<List<Calificacion>> listGardes(@Path("studentId") String studentId,
+    Call<List<Calificacion>> listGrades(@Path("studentId") String studentId,
                                         @Query("access_token") String token);
 
     /**

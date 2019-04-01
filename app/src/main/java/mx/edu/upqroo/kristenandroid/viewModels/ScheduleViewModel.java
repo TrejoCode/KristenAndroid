@@ -9,8 +9,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
-import mx.edu.upqroo.kristenandroid.repositories.DayRepository;
-import mx.edu.upqroo.kristenandroid.repositories.SubjectRepository;
+import mx.edu.upqroo.kristenandroid.data.repositories.DayRepository;
+import mx.edu.upqroo.kristenandroid.data.repositories.SubjectRepository;
 
 public class ScheduleViewModel extends AndroidViewModel {
     private DayRepository mDayRepository;

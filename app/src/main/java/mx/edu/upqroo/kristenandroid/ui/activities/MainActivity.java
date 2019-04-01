@@ -29,7 +29,7 @@ import androidx.navigation.Navigation;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment;
-import mx.edu.upqroo.kristenandroid.repositories.UserInformationRepository;
+import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
@@ -66,7 +66,9 @@ public class MainActivity extends ThemeActivity
         mNavigationView.setNavigationItemSelectedListener(this);
 
         if (!mSession.sessionAlive()) {
-            mNavigationView.getMenu().getItem(7).setTitle(R.string.button_login);
+            mNavigationView.getMenu()
+                    .getItem(mNavigationView.getMenu().size() - 1)
+                    .setTitle(R.string.button_login);
         }
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
@@ -128,11 +130,13 @@ public class MainActivity extends ThemeActivity
             }
         } else if (id == R.id.nav_news || id == R.id.news_menu_item) {
             mNavController.navigate(R.id.newsListFragment);
-        }  else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
+        } else if (id == R.id.nav_notices) {
+            mNavController.navigate(R.id.noticesFragment);
+        } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
             }
-            KristenApiServices.getCalendarUrl();
+            KristenApiServices.getInstance().getCalendarUrl();
         } else if (id == R.id.nav_settings) {
             mNavController.navigate(R.id.settingsActivity);
         } else {
@@ -186,6 +190,9 @@ public class MainActivity extends ThemeActivity
                 mBottomNavigationView.getMenu().getItem(2).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
                 break;
+            case R.id.noticesFragment:
+                mNavigationView.setCheckedItem(R.id.nav_notices);
+                mBottomNavigationView.setVisibility(View.GONE);
             case R.id.kardexFragment:
                 mNavigationView.setCheckedItem(R.id.nav_kardex);
                 mBottomNavigationView.setVisibility(View.GONE);

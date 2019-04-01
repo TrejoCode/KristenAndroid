@@ -1,21 +1,33 @@
 package mx.edu.upqroo.kristenandroid.data.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
 public class News {
+    @SerializedName("idPublicaciones")
     private String id;
+    @SerializedName("url")
     private String url;
+    @SerializedName("idTipos_Publicacion")
     private int postType;
+    @SerializedName("titulo")
     private String title;
+    @SerializedName("descripcion")
     private String description;
+    @SerializedName("categorias")
     private String category;
+    @SerializedName("portada")
     private String coverUrl;
-    private String date;
+    @SerializedName("fecha")
+    private Date date;
 
     public News() {
 
     }
 
     public News(String id, String url, int postType, String title, String description, String category,
-                String coverUrl, String date) {
+                String coverUrl, Date date) {
         this.id = id;
         this.url = url;
         this.postType = postType;
@@ -81,11 +93,11 @@ public class News {
         this.category = category;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
