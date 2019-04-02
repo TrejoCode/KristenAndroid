@@ -19,6 +19,7 @@ import mx.edu.upqroo.kristenandroid.viewModels.NoticesViewModel;
 
 public class NoticesFragment extends Fragment {
 
+    private NoticesViewModel mViewModel;
     private NoticesItemAdapter mAdapter;
 
     private ProgressBar mProgressBar;
@@ -32,11 +33,7 @@ public class NoticesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // View model instance
-        NoticesViewModel mViewModel = ViewModelProviders.of(this).get(NoticesViewModel.class);
-        mViewModel.getNotices().observe(this, notices -> {
-            mAdapter.submitList(notices);
-            mProgressBar.setVisibility(View.GONE);
-        });
+        mViewModel = ViewModelProviders.of(this).get(NoticesViewModel.class);
     }
 
     @Override
@@ -49,6 +46,11 @@ public class NoticesFragment extends Fragment {
         mAdapter = new NoticesItemAdapter(getContext());
         mRecyclerNotices.setAdapter(mAdapter);
         mProgressBar = v.findViewById(R.id.progress_notices);
+
+        mViewModel.getNotices().observe(this, notices -> {
+            mAdapter.submitList(notices);
+            mProgressBar.setVisibility(View.GONE);
+        });
         return v;
     }
 

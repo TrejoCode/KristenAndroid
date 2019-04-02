@@ -32,7 +32,6 @@ import mx.edu.upqroo.kristenandroid.viewModels.ScheduleViewModel;
 public class ScheduleFragment extends Fragment {
 
     private ScheduleViewModel mViewModel;
-    private Observer<List<ScheduleSubject>> mObserver;
 
     private RecyclerView recyclerViewSchedule;
     private ScheduleItemAdapter mScheduleAdapter;
@@ -47,13 +46,6 @@ public class ScheduleFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // View model instance
         mViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
-        mObserver = scheduleSubjects -> {
-            recyclerViewSchedule.setVisibility(View.VISIBLE);
-            mProgress.setVisibility(View.GONE);
-            mScheduleAdapter.setData(scheduleSubjects);
-        };
-        mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
-                .observe(this, mObserver);
     }
 
     @Override
@@ -66,6 +58,13 @@ public class ScheduleFragment extends Fragment {
         recyclerViewSchedule.setAdapter(mScheduleAdapter);
         mProgress = v.findViewById(R.id.progress_schedule);
         mProgress.setVisibility(View.VISIBLE);
+
+        mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
+                .observe(this, scheduleSubjects -> {
+                    recyclerViewSchedule.setVisibility(View.VISIBLE);
+                    mProgress.setVisibility(View.GONE);
+                    mScheduleAdapter.setData(scheduleSubjects);
+                });
         return v;
     }
 }

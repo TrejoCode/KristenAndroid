@@ -27,11 +27,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment;
 import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
+import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
+import mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
 
 public class MainActivity extends ThemeActivity

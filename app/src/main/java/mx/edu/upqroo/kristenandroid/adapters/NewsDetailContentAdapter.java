@@ -141,7 +141,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 Picasso.get()
                         .load(contentImage.getSource())
                         .placeholder(R.drawable.side_nav_bar)
-                        .error(R.drawable.side_nav_bar)
+                        .error(R.drawable.android_menu)
                         .into(imageHolder.mImageView);
                 imageHolder.mImageView.setOnClickListener(v -> {
                     Dialog dialog = new Dialog(mContext);
@@ -151,7 +151,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                     Picasso.get()
                             .load(contentImage.getSource())
                             .placeholder(R.drawable.side_nav_bar)
-                            .error(R.drawable.side_nav_bar)
+                            .error(R.drawable.android_menu)
                             .into(myImage);
                     dialog.show();
                 });

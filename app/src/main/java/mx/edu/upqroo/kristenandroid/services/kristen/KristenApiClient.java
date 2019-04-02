@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Class that contains all the main logic for the consume of the API.
  */
 class KristenApiClient {
-    private static final String BASE_URL = "http://api.upqroo.edu.mx/kristen/";
-    //private static final String BASE_URL = "https://kristen-mongodb.glitch.me/";
+    //private static final String BASE_URL = "http://api.upqroo.edu.mx/kristen/";
+    private static final String BASE_URL = "https://kristen-mongodb.glitch.me/";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

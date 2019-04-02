@@ -57,39 +57,6 @@ public class NoticeDataSource extends PageKeyedDataSource<Integer, Notice> {
     @Override
     public void loadBefore(@NonNull LoadParams<Integer> params,
                            @NonNull LoadCallback<Integer, Notice> callback) {
-        /*String filter = mFilter.replace("X", SessionManager.getInstance().getSession().getCareer());
-        filter = filter.replace("Y", String.valueOf(params.key * PAGE_SIZE));
-
-        KristenApiServices.getService().getNotices(filter).enqueue(new Callback<List<Notice>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<Notice>> call,
-                                   @NotNull Response<List<Notice>> response) {
-                switch (response.code()) {
-                    case 200:
-                        List<Notice> data = response.body();
-                        if (data != null) {
-                            Integer adjacentKey = (params.key > 1) ? params.key - 1 : null;
-                            if (response.body() != null) {
-
-                                //passing the loaded data
-                                //and the previous page key
-                                callback.onResult(data, adjacentKey);
-                            }
-                        } else {
-                            Crashlytics.log("200 Error data null while getting notices");
-                        }
-                        break;
-                    default:
-                        Crashlytics.log(response.code() + "Error code while getting notices");
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<List<Notice>> call, @NotNull Throwable t) {
-                Crashlytics.log(t.getMessage() + " - Error code while getting notices");
-            }
-        });*/
     }
 
     @Override

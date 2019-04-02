@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -65,28 +66,23 @@ public class NewsItemAdapter extends PagedListAdapter<News, NewsItemAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.news = getItem(position);
         if (holder.news != null) {
-            if (holder.news.getCategory().equals("COVER")) {
-                holder.imageNews.setVisibility(View.GONE);
-                holder.buttonReadMore.setVisibility(View.GONE);
-                holder.textDate.setVisibility(View.GONE);
-            } else {
-                holder.imageNews.setVisibility(View.VISIBLE);
-                holder.buttonReadMore.setVisibility(View.VISIBLE);
-                holder.textDate.setVisibility(View.VISIBLE);
-                Picasso.get()
-                        .load(holder.news.getCoverUrl())
-                        .error(R.drawable.side_nav_bar)
-                        .placeholder(R.drawable.side_nav_bar)
-                        .into(holder.imageNews);
-            }
+            Picasso.get()
+                    .load(holder.news.getCoverUrl())
+                    .error(R.drawable.android_menu)
+                    .placeholder(R.drawable.side_nav_bar)
+                    .into(holder.imageNews);
             holder.textTitle.setText(holder.news.getTitle());
             holder.textSubtitle.setText(holder.news.getDescription());
             holder.textDate.setText(KristenDateUtils.formatDate(holder.news.getDate()));
+        } else {
+            holder.textTitle.setText("");
+            holder.textSubtitle.setText("");
+            holder.textDate.setText("");
         }
     }
     //endregion
     //region Class ViewHolder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         //region Fields
         News news;
         MaterialCardView mCard;
@@ -106,22 +102,17 @@ public class NewsItemAdapter extends PagedListAdapter<News, NewsItemAdapter.View
             textSubtitle = itemView.findViewById(R.id.text_item_subtitle_news);
             textDate = itemView.findViewById(R.id.text_item_date_news);
             buttonReadMore = itemView.findViewById(R.id.button_item_readmore);
-            buttonReadMore.setOnClickListener(v -> {
-                if (!news.getCategory().equals("COVER")) {
-                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
-                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS, Serializer.Serialize(news));
-                    v.getContext().startActivity(intent);
-                }
-            });
-            mCard.setOnClickListener(v -> {
-                if (!news.getCategory().equals("COVER")) {
-                    Intent intent = new Intent(v.getContext(), NewsDetailActivity.class);
-                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS, Serializer.Serialize(news));
-                    v.getContext().startActivity(intent);
-                }
-            });
+
+            buttonReadMore.setOnClickListener(v -> openDetails(v.getContext()));
+            mCard.setOnClickListener(v -> openDetails(v.getContext()));
         }
         //endregion
+
+        private void openDetails(Context c) {
+            Intent intent = new Intent(c, NewsDetailActivity.class);
+            intent.putExtra(NewsDetailActivity.EXTRA_NEWS, Serializer.Serialize(news));
+            c.startActivity(intent);
+        }
     }
     //endregion
 }

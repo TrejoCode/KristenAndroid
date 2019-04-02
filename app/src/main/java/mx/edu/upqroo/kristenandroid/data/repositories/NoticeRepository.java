@@ -6,20 +6,41 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PageKeyedDataSource;
+import androidx.paging.PagedList;
+import mx.edu.upqroo.kristenandroid.adapters.source.NoticeDataSource;
+import mx.edu.upqroo.kristenandroid.adapters.source.NoticeDataSourceFactory;
 import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 import mx.edu.upqroo.kristenandroid.data.database.daos.NoticeDao;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 
 public class NoticeRepository {
     private static NoticeRepository mInstance;
     private NoticeDao mNoticeDao;
-    private Application mApp;
+
+    private LiveData<PagedList<Notice>> itemPagedList;
+    private LiveData<PageKeyedDataSource<Integer, Notice>> liveDataSource;
+
 
     private NoticeRepository(Application application) {
         KristenRoomDatabase db = KristenRoomDatabase.getInstance(application);
-        mApp = application;
         mNoticeDao = db.noticeDao();
+
+        //getting our data source factory
+        NoticeDataSourceFactory itemDataSourceFactory = new NoticeDataSourceFactory();
+
+        //getting the live data source from data source factory
+        liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
+
+        //Getting PagedList config
+        PagedList.Config pagedListConfig =
+                (new PagedList.Config.Builder())
+                        .setEnablePlaceholders(false)
+                        .setPageSize(NoticeDataSource.PAGE_SIZE).build();
+
+        //Building the paged list
+        itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, pagedListConfig)).build();
     }
 
     public static NoticeRepository getInstance(Application application) {
@@ -29,14 +50,11 @@ public class NoticeRepository {
         return mInstance;
     }
 
+    public LiveData<PagedList<Notice>> getNotices() {
+        return itemPagedList;
+    }
+
     public LiveData<List<Notice>> getAll() {
-        /*AsyncTask.execute(() -> {
-            if (mDayDao.count() == 0) {
-                mApi.getSchedule(SessionManager.getInstance().getSession().getUserId(),
-                        SessionManager.getInstance().getSession().getConfig().getUserToken());
-            }
-        });*/
-        KristenApiServices.getInstance().getNotices(mApp);
         return mNoticeDao.getAll();
     }
 

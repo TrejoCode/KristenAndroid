@@ -138,9 +138,9 @@ public class NewsDetailActivity extends ThemeActivity {
         mCollapsingToolbar.setTitle(title);
         //region collapsing toolbar color setup
         Picasso.get()
-                .load("https://picsum.photos/500/500/?random")
-                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .load(coverUrl)
                 .placeholder(R.color.colorPrimary)
+                .error(R.drawable.android_menu)
                 .into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {

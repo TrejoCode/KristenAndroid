@@ -46,7 +46,7 @@ public class ImageItemAdapter extends RecyclerView.Adapter<ImageItemAdapter.Imag
         Picasso.get()
                 .load(mImagesList.get(position))
                 .placeholder(R.drawable.side_nav_bar)
-                .error(R.drawable.side_nav_bar)
+                .error(R.drawable.android_menu)
                 .into(holder.mImageView);
         int abs = Math.abs(mImagesList.size() / 2);
         holder.mImageView.requestLayout();
