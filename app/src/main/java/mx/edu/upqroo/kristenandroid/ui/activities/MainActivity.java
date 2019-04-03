@@ -49,20 +49,28 @@ public class MainActivity extends ThemeActivity
         super.onCreate(savedInstanceState);
         mSession = SessionManager.getInstance();
         onWidgetUpdateMessage(this);
+        //region toolbar setup
         setContentView(R.layout.activity_main);
         mToolbar = findViewById(R.id.toolbar);
         mToolbar.setTitle(R.string.nav_menu_news);
         setSupportActionBar(mToolbar);
+        //endregion
+        //region drawer layout setup
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        mBottomNavigationView.setOnNavigationItemSelectedListener(this);
-
         mNavigationView = findViewById(R.id.nav_view);
+        View navHeader = mNavigationView.inflateHeaderView(R.layout.nav_header_news);
+        TextView mNavHeaderProfileName = navHeader.findViewById(R.id.text_nav_header_title);
+        TextView mNavHeaderProfileEmail = navHeader.findViewById(R.id.text_nav_header_subtitle);
+        if (mNavHeaderProfileName != null && mNavHeaderProfileEmail != null) {
+            mNavHeaderProfileName.setText(mSession.getSession().getName());
+            mNavHeaderProfileEmail.setText(mSession.getSession().getEmail());
+        }
+
         mNavigationView.setNavigationItemSelectedListener(this);
 
         if (!mSession.sessionAlive()) {
@@ -70,9 +78,15 @@ public class MainActivity extends ThemeActivity
                     .getItem(mNavigationView.getMenu().size() - 1)
                     .setTitle(R.string.button_login);
         }
+        //endregion
+        //region bottom navigation setup
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(this);
+        //endregion
+        //region nav controller setup
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
         mNavController.addOnDestinationChangedListener(this);
+        //endregion
     }
 
     @Override
@@ -99,10 +113,6 @@ public class MainActivity extends ThemeActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.news, menu);
-        TextView mNavHeaderProfileName = findViewById(R.id.text_nav_header_title);
-        mNavHeaderProfileName.setText(mSession.getSession().getName());
-        TextView mNavHeaderProfileEmail = findViewById(R.id.text_nav_header_subtitle);
-        mNavHeaderProfileEmail.setText(mSession.getSession().getEmail());
         return true;
     }
 
