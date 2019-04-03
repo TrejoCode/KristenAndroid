@@ -7,87 +7,63 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.crashlytics.android.Crashlytics;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.KardexItemAdapter;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.data.models.Kardex;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
-import mx.edu.upqroo.kristenandroid.services.sie.messages.KardexListMessage;
+import mx.edu.upqroo.kristenandroid.viewModels.KardexViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class KardexFragment extends Fragment {
 
-    private ArrayList<Kardex> mKardexList;
+    private KardexViewModel mViewModel;
+
     private RecyclerView mRecyclerKardex;
     private KardexItemAdapter mKardexAdapter;
     private ProgressBar mProgress;
 
-    public KardexFragment() {
-        // Required empty public constructor
+    public static KardexFragment newInstance() {
+        return new KardexFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // View model instance
+        mViewModel = ViewModelProviders.of(this).get(KardexViewModel.class);
+    }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_kardex, container, false);
-
-        mKardexList = new ArrayList<>();
-
         mRecyclerKardex =  v.findViewById(R.id.recycler_kardex);
         mRecyclerKardex.setHasFixedSize(true);
         mRecyclerKardex.setLayoutManager(new LinearLayoutManager(v.getContext()));
         mRecyclerKardex.setVisibility(View.GONE);
-
         mProgress = v.findViewById(R.id.progress_kardex);
         mProgress.setVisibility(View.VISIBLE);
-
-        mKardexAdapter = new KardexItemAdapter(v.getContext(), mKardexList);
+        mKardexAdapter = new KardexItemAdapter(v.getContext(), new ArrayList<>());
         mRecyclerKardex.setAdapter(mKardexAdapter);
-        SieApiServices.getInstance(Objects.requireNonNull(getActivity()).getApplication())
-                .getKardexList(SessionManager.getInstance().getSession().getUserId(),
-                        SessionManager.getInstance().getSession().getConfig().getUserToken());
+
+        mViewModel.getKardex(SessionManager.getInstance().getSession().getUserId())
+                .observe(this, kardexList -> {
+                    mRecyclerKardex.setVisibility(View.VISIBLE);
+                    mProgress.setVisibility(View.GONE);
+                    mKardexAdapter.setData(kardexList);
+        });
+
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(KardexListMessage event) {
-        if (event.isSuccessful()) {
-            mRecyclerKardex.setVisibility(View.VISIBLE);
-            mKardexList.addAll(event.getKardexList());
-            mKardexAdapter.notifyDataSetChanged();
-        } else {
-            Crashlytics.log("Llamada de kardex fallida");
-            //todo set visible a text view saying that there was an error
-        }
-        mProgress.setVisibility(View.GONE);
     }
 }

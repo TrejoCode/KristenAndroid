@@ -2,6 +2,7 @@ package mx.edu.upqroo.kristenandroid.services.sie;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
@@ -43,15 +44,15 @@ public interface SieApiInterface {
      * @return a list with all the historic grades
      */
     @GET("Kardexes/{studentId}")
-    Call<List<Kardexs>> listKardex(@Path("studentId") String studentId,
-                                   @Query("access_token") String token);
+    Call<List<Kardex>> getKardex(@Path("studentId") String studentId,
+                                 @Query("access_token") String token);
 
     /**
-     * Method to get the schedule of a user.
+     * Method to get the getSchedule of a user.
      * @param studentId user's identifier
-     * @return returns all the week schedule
+     * @return returns all the week getSchedule
      */
     @GET("Horario/{studentId}")
-    Call<Semana> schedule(@Path("studentId") String studentId,
-                          @Query("access_token") String token);
+    Call<Semana> getSchedule(@Path("studentId") String studentId,
+                             @Query("access_token") String token);
 }

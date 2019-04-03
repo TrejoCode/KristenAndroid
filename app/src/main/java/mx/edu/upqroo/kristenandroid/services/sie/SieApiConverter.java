@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.data.repositories.KardexRepository;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.models.Config;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
 import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
 import mx.edu.upqroo.kristenandroid.data.models.Grades;
-import mx.edu.upqroo.kristenandroid.data.models.Kardex;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.data.repositories.DayRepository;
 import mx.edu.upqroo.kristenandroid.data.repositories.SubjectRepository;
@@ -67,21 +68,16 @@ class SieApiConverter {
         return gradesList;
     }
 
-    private static Kardex KardexToKardex(Kardexs kardexs) {
-        return new Kardex(kardexs.getNombreMat(),
-                kardexs.getCalificacion(),
-                kardexs.getCuatrimestre());
+    static void insertKardex(Application app, List<Kardex> kardexList) {
+        KardexRepository repo = KardexRepository.getInstance(app);
+        AsyncTask.execute(() -> {
+            for (Kardex kardex : kardexList) {
+                repo.insert(kardex);
+            }
+        });
     }
 
-    static List<Kardex> KardexListToKardexList(List<Kardexs> kardexsList) {
-        List<Kardex> kardexList = new ArrayList<>();
-        for (Kardexs c : kardexsList) {
-            kardexList.add(KardexToKardex(c));
-        }
-        return kardexList;
-    }
-
-    static void SemanaToSchedule(Semana semana, Application application) {
+    static void insertSchedule(Semana semana, Application application) {
         AsyncTask.execute(() -> {
             SubjectRepository subjectRepository = SubjectRepository.getInstance(application);
             DayRepository dayRepository = DayRepository.getInstance(application);

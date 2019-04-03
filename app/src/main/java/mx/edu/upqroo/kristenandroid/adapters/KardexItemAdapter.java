@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.helpers.ViewHelper;
-import mx.edu.upqroo.kristenandroid.data.models.Kardex;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 
 public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.KardexViewHolder> {
 
@@ -35,7 +33,7 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
 
     @Override
     public void onBindViewHolder(@NonNull KardexItemAdapter.KardexViewHolder holder, int position) {
-        holder.code.setText(gradeList.get(position).getCuarter());
+        holder.code.setText(gradeList.get(position).getQuarter());
         holder.subject.setText(gradeList.get(position).getSubject());
         holder.generalGrade.setText(gradeList.get(position).getGrade());
     }
@@ -43,6 +41,11 @@ public class KardexItemAdapter extends RecyclerView.Adapter<KardexItemAdapter.Ka
     @Override
     public int getItemCount() {
         return gradeList.size();
+    }
+
+    public void setData(List<Kardex> data) {
+        gradeList = data;
+        notifyDataSetChanged();
     }
 
     class KardexViewHolder extends RecyclerView.ViewHolder {

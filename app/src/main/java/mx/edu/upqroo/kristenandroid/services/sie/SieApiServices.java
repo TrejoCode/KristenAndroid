@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
-import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Semana;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.KardexListMessage;
@@ -133,18 +133,16 @@ public class SieApiServices {
      * @param studentId s
      */
     public void getKardexList(String studentId, String token) {
-        Call<List<Kardexs>> call = service.listKardex(studentId, token);
-        call.enqueue(new Callback<List<Kardexs>>() {
+        Call<List<Kardex>> call = service.getKardex(studentId, token);
+        call.enqueue(new Callback<List<Kardex>>() {
             @Override
-            public void onResponse(@NotNull Call<List<Kardexs>> call,
-                                   @NotNull Response<List<Kardexs>> response) {
+            public void onResponse(@NotNull Call<List<Kardex>> call,
+                                   @NotNull Response<List<Kardex>> response) {
                 switch (response.code()) {
                     case 200:
-                        List<Kardexs> data = response.body();
+                        List<Kardex> data = response.body();
                         if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new KardexListMessage(true,
-                                            SieApiConverter.KardexListToKardexList(data)));
+                            SieApiConverter.insertKardex(mApp, data);
                         } else {
                             Crashlytics.log("200 Error data null while getting kardex");
                         }
@@ -158,7 +156,7 @@ public class SieApiServices {
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<Kardexs>> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<List<Kardex>> call, @NotNull Throwable t) {
                 EventBus.getDefault()
                         .post(new KardexListMessage(false, null));
                 Crashlytics.log(t.getMessage() + " - Error code while getting kardex");
@@ -168,13 +166,13 @@ public class SieApiServices {
 
 
     /**
-     * Get's the user's weekly schedule by calling the API.
+     * Get's the user's weekly getSchedule by calling the API.
      * When the call is finish a message is posted by EventBus, so the caller must be subscribe
      * to it.
      * @param studentId User's identifier
      */
     public void getSchedule(String studentId, String token) {
-        Call<Semana> call = service.schedule(studentId, token);
+        Call<Semana> call = service.getSchedule(studentId, token);
         call.enqueue(new Callback<Semana>() {
             @Override
             public void onResponse(@NotNull Call<Semana> call, @NotNull Response<Semana> response) {
@@ -182,20 +180,20 @@ public class SieApiServices {
                     case 200:
                         Semana data = response.body();
                         if (data != null) {
-                            SieApiConverter.SemanaToSchedule(data, mApp);
+                            SieApiConverter.insertSchedule(data, mApp);
                         } else {
-                            Crashlytics.log("200 Error data null while getting the schedule");
+                            Crashlytics.log("200 Error data null while getting the getSchedule");
                         }
                         break;
                     default:
-                        Crashlytics.log(response.code() + "Error code while getting schedule");
+                        Crashlytics.log(response.code() + "Error code while getting getSchedule");
                         break;
                 }
             }
 
             @Override
             public void onFailure(@NotNull Call<Semana> call, @NotNull Throwable t) {
-                Crashlytics.log(t.getMessage() + " - Error code while getting schedule");
+                Crashlytics.log(t.getMessage() + " - Error code while getting getSchedule");
             }
         });
     }
