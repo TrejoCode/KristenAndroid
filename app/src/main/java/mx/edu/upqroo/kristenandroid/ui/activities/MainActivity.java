@@ -28,6 +28,7 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
+import mx.edu.upqroo.kristenandroid.managers.FragmentManager;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
@@ -43,6 +44,7 @@ public class MainActivity extends ThemeActivity
     private NavigationView mNavigationView;
     private BottomNavigationView mBottomNavigationView;
     private NavController mNavController;
+    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class MainActivity extends ThemeActivity
         //endregion
         //region nav controller setup
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        mFragmentManager = FragmentManager.NEWS_FRAGMENT;
         mNavController.addOnDestinationChangedListener(this);
         //endregion
     }
@@ -138,11 +141,11 @@ public class MainActivity extends ThemeActivity
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
             }
-        } else if (id == R.id.nav_news || id == R.id.news_menu_item) {
+        } else if ((id == R.id.nav_news || id == R.id.news_menu_item) && mFragmentManager != FragmentManager.NEWS_FRAGMENT) {
             mNavController.navigate(R.id.newsListFragment);
-        } else if (id == R.id.nav_notices) {
+        } else if (id == R.id.nav_notices && mFragmentManager != FragmentManager.NOTICES_FRAGMENT) {
             mNavController.navigate(R.id.noticesFragment);
-        } else if (id == R.id.nav_calendar || id == R.id.calendar_menu_item) {
+        } else if ((id == R.id.nav_calendar || id == R.id.calendar_menu_item) && mFragmentManager != FragmentManager.CALENDAR_FRAGMENT) {
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
             }
@@ -158,13 +161,13 @@ public class MainActivity extends ThemeActivity
                                 new Intent(getApplicationContext(), LoginActivity.class)))
                         .show();
             } else {
-                if (id == R.id.nav_user) {
+                if (id == R.id.nav_user && mFragmentManager != FragmentManager.USER_FRAGMENT) {
                     mNavController.navigate(R.id.userFragment);
-                } else if (id == R.id.nav_schedule || id == R.id.schedule_menu_item) {
+                } else if ((id == R.id.nav_schedule || id == R.id.schedule_menu_item) && mFragmentManager != FragmentManager.SCHEDULE_FRAGMENT) {
                     mNavController.navigate(R.id.scheduleFragment);
-                } else if (id == R.id.nav_school || id == R.id.grades_menu_item) {
+                } else if ((id == R.id.nav_school || id == R.id.grades_menu_item) && mFragmentManager != FragmentManager.GRADES_FRAGMENT) {
                     mNavController.navigate(R.id.gradesFragment);
-                } else if (id == R.id.nav_kardex) {
+                } else if (id == R.id.nav_kardex && mFragmentManager != FragmentManager.KARDEX_FRAGMENT) {
                     mNavController.navigate(R.id.kardexFragment);
                 }
             }
@@ -185,32 +188,39 @@ public class MainActivity extends ThemeActivity
                 mNavigationView.setCheckedItem(R.id.nav_news);
                 mBottomNavigationView.getMenu().getItem(0).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+                mFragmentManager = FragmentManager.NEWS_FRAGMENT;
                 break;
             case R.id.userFragment:
                 mNavigationView.setCheckedItem(R.id.nav_user);
                 mBottomNavigationView.setVisibility(View.GONE);
+                mFragmentManager = FragmentManager.USER_FRAGMENT;
                 break;
             case R.id.scheduleFragment:
                 mNavigationView.setCheckedItem(R.id.nav_schedule);
                 mBottomNavigationView.getMenu().getItem(1).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+                mFragmentManager = FragmentManager.SCHEDULE_FRAGMENT;
                 break;
             case R.id.gradesFragment:
                 mNavigationView.setCheckedItem(R.id.nav_school);
                 mBottomNavigationView.getMenu().getItem(2).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+                mFragmentManager = FragmentManager.GRADES_FRAGMENT;
                 break;
             case R.id.noticesFragment:
                 mNavigationView.setCheckedItem(R.id.nav_notices);
                 mBottomNavigationView.setVisibility(View.GONE);
+                mFragmentManager = FragmentManager.NOTICES_FRAGMENT;
             case R.id.kardexFragment:
                 mNavigationView.setCheckedItem(R.id.nav_kardex);
                 mBottomNavigationView.setVisibility(View.GONE);
+                mFragmentManager = FragmentManager.KARDEX_FRAGMENT;
                 break;
             case R.id.calendarFragment:
                 mNavigationView.setCheckedItem(R.id.nav_calendar);
                 mBottomNavigationView.getMenu().getItem(3).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+                mFragmentManager = FragmentManager.CALENDAR_FRAGMENT;
                 break;
         }
     }
