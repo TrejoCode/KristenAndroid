@@ -7,11 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import mx.edu.upqroo.kristenandroid.data.database.daos.DayDao;
+import mx.edu.upqroo.kristenandroid.data.database.daos.GradeDao;
 import mx.edu.upqroo.kristenandroid.data.database.daos.KardexDao;
 import mx.edu.upqroo.kristenandroid.data.database.daos.NoticeDao;
 import mx.edu.upqroo.kristenandroid.data.database.daos.SubjectDao;
 import mx.edu.upqroo.kristenandroid.data.database.daos.UserInformationDao;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
@@ -22,7 +24,8 @@ import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
             Day.class,
             Subject.class,
             Notice.class,
-            Kardex.class
+            Kardex.class,
+            Grade.class
         },
         version = 1,
         exportSchema = false)
@@ -34,6 +37,7 @@ public abstract class KristenRoomDatabase extends RoomDatabase {
     public abstract SubjectDao subjectDao();
     public abstract NoticeDao noticeDao();
     public abstract KardexDao kardexDao();
+    public abstract GradeDao gradeDao();
 
     private static volatile KristenRoomDatabase mInstance;
 

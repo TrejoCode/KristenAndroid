@@ -61,17 +61,9 @@ public class Kardex {
         return kardexId;
     }
 
-    public void setKardexId(long kardexId) {
-        this.kardexId = kardexId;
-    }
-
     @NotNull
     public String getSubject() {
         return subject;
-    }
-
-    public void setSubject(@NotNull String subject) {
-        this.subject = subject;
     }
 
     @NotNull
@@ -79,25 +71,13 @@ public class Kardex {
         return grade;
     }
 
-    public void setGrade(@NotNull String grade) {
-        this.grade = grade;
-    }
-
     @NotNull
     public String getQuarter() {
         return quarter;
     }
 
-    public void setQuarter(@NotNull String quarter) {
-        this.quarter = quarter;
-    }
-
     @NotNull
     public String getUserId() {
         return userId;
-    }
-
-    public void setUserId(@NotNull String userId) {
-        this.userId = userId;
     }
 }

@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +11,14 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.helpers.ViewHelper;
-import mx.edu.upqroo.kristenandroid.data.models.Grades;
-
-/**
- * Created by RafaelKoh on 08/07/2018.
- */
+import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 
 public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.GradeViewHolder> {
 
-    private List<Grades> gradeList;
+    private List<Grade> gradeList;
     private LayoutInflater mInflater;
 
-    public GradesItemAdapter(Context context, List<Grades> gradeList) {
+    public GradesItemAdapter(Context context, List<Grade> gradeList) {
         this.mInflater = LayoutInflater.from(context);
         this.gradeList = gradeList;
     }
@@ -66,6 +60,11 @@ public class GradesItemAdapter extends RecyclerView.Adapter<GradesItemAdapter.Gr
     @Override
     public int getItemCount() {
         return gradeList.size();
+    }
+
+    public void setData(List<Grade> data) {
+        gradeList = data;
+        notifyDataSetChanged();
     }
 
     class GradeViewHolder extends RecyclerView.ViewHolder {

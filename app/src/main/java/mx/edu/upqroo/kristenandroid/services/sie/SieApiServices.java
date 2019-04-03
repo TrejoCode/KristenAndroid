@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
@@ -87,49 +88,39 @@ public class SieApiServices {
     }
 
     /**
-     * Gets the actual grade´s list of a user by calling the API.
-     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
-     * to it.
+     * Gets the actual grade´s list of a user by calling the API and inserts it to the database
      * @param studentId User's identifier
      */
     public void getGradesList(String studentId, String token) {
-        Call<List<Calificacion>> call = service.listGrades(studentId, token);
-        call.enqueue(new Callback<List<Calificacion>>() {
+        Call<List<Grade>> call = service.getGrades(studentId, token);
+        call.enqueue(new Callback<List<Grade>>() {
             @Override
-            public void onResponse(@NotNull Call<List<Calificacion>> call,
-                                   @NotNull Response<List<Calificacion>> response) {
+            public void onResponse(@NotNull Call<List<Grade>> call,
+                                   @NotNull Response<List<Grade>> response) {
                 switch (response.code()) {
                     case 200:
-                        List<Calificacion> data = response.body();
+                        List<Grade> data = response.body();
                         if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new GradesListMessage(true, SieApiConverter
-                                            .CalificacionListToGradeList(data)));
+                            SieApiConverter.insertGrades(mApp, data);
                         } else {
                             Crashlytics.log("200 Error data null while getting grades list");
                         }
                         break;
                     default:
-                        EventBus.getDefault()
-                                .post(new GradesListMessage(false, null));
                         Crashlytics.log(response.code() + "Error code while getting grades");
                         break;
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<Calificacion>> call, @NotNull Throwable t) {
-                EventBus.getDefault()
-                        .post(new GradesListMessage(false, null));
+            public void onFailure(@NotNull Call<List<Grade>> call, @NotNull Throwable t) {
                 Crashlytics.log(t.getMessage() + " - Error code while getting grades");
             }
         });
     }
 
     /**
-     * Gets the user's kardex by calling the API.
-     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
-     * to it.
+     * Gets the user's kardex by calling the API and inserts it to the database
      * @param studentId s
      */
     public void getKardexList(String studentId, String token) {
@@ -148,8 +139,6 @@ public class SieApiServices {
                         }
                         break;
                     default:
-                        EventBus.getDefault()
-                                .post(new KardexListMessage(false, null));
                         Crashlytics.log(response.code() + "Error code while getting kardex");
                         break;
                 }
@@ -157,8 +146,6 @@ public class SieApiServices {
 
             @Override
             public void onFailure(@NotNull Call<List<Kardex>> call, @NotNull Throwable t) {
-                EventBus.getDefault()
-                        .post(new KardexListMessage(false, null));
                 Crashlytics.log(t.getMessage() + " - Error code while getting kardex");
             }
         });
@@ -166,9 +153,7 @@ public class SieApiServices {
 
 
     /**
-     * Get's the user's weekly getSchedule by calling the API.
-     * When the call is finish a message is posted by EventBus, so the caller must be subscribe
-     * to it.
+     * Get's the user's weekly getSchedule by calling the API and inserts it to the database
      * @param studentId User's identifier
      */
     public void getSchedule(String studentId, String token) {

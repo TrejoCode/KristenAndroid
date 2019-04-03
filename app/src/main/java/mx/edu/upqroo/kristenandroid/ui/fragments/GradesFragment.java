@@ -13,29 +13,43 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.data.models.Grades;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
 import mx.edu.upqroo.kristenandroid.services.sie.messages.GradesListMessage;
+import mx.edu.upqroo.kristenandroid.viewModels.GradesViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GradesFragment extends Fragment {
-    private ArrayList<Grades> mGradeList;
+
+    private GradesViewModel mViewModel;
+
     private RecyclerView mRecyclerGrade;
     private GradesItemAdapter mGradeAdapter;
     private ProgressBar mProgress;
 
-    public GradesFragment() {
-        // Required empty public constructor
+    public static GradesFragment newInstance() {
+        return new GradesFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // View model instance
+        mViewModel = ViewModelProviders.of(this).get(GradesViewModel.class);
     }
 
     @Override
@@ -43,45 +57,22 @@ public class GradesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_grades, container, false);
-
-        mGradeList = new ArrayList<>();
-
         mRecyclerGrade =  v.findViewById(R.id.recycler_grades);
         mRecyclerGrade.setHasFixedSize(true);
-        mRecyclerGrade.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        mRecyclerGrade.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerGrade.setVisibility(View.GONE);
         mProgress = v.findViewById(R.id.progress_grades);
         mProgress.setVisibility(View.VISIBLE);
 
-        mGradeAdapter = new GradesItemAdapter(v.getContext(),mGradeList);
+        mGradeAdapter = new GradesItemAdapter(getContext(), new ArrayList<>());
         mRecyclerGrade.setAdapter(mGradeAdapter);
-        SieApiServices.getInstance(Objects.requireNonNull(getActivity()).getApplication())
-                .getGradesList(SessionManager.getInstance()
-                                .getSession().getUserId(),
-                        SessionManager.getInstance()
-                                .getSession().getConfig().getUserToken());
+
+        mViewModel.getGrades(SessionManager.getInstance().getSession().getUserId())
+                .observe(this, grades -> {
+                    mRecyclerGrade.setVisibility(View.VISIBLE);
+                    mProgress.setVisibility(View.GONE);
+                    mGradeAdapter.setData(grades);
+        });
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(GradesListMessage event) {
-        if (event.isSuccessful()) {
-            mGradeList.addAll(event.getGradesList());
-            mGradeAdapter.notifyDataSetChanged();
-            mRecyclerGrade.setVisibility(View.VISIBLE);
-        }
-        mProgress.setVisibility(View.GONE);
     }
 }

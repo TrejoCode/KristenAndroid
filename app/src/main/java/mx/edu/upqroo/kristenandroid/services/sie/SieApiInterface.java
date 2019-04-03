@@ -2,10 +2,10 @@ package mx.edu.upqroo.kristenandroid.services.sie;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
-import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Semana;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -35,8 +35,8 @@ public interface SieApiInterface {
      * @return a list with all the grades
      */
     @GET("Calificaciones/{studentId}")
-    Call<List<Calificacion>> listGrades(@Path("studentId") String studentId,
-                                        @Query("access_token") String token);
+    Call<List<Grade>> getGrades(@Path("studentId") String studentId,
+                                @Query("access_token") String token);
 
     /**
      * Method to get all the historic grades of a user.

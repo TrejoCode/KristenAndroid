@@ -7,27 +7,35 @@ public class Calificacion {
     @SerializedName("matricula")
     @Expose
     private String matricula;
+
     @SerializedName("nombre_mat")
     @Expose
     private String nombreMat;
+
     @SerializedName("grupo")
     @Expose
     private String grupo;
+
     @SerializedName("calificacion")
     @Expose
     private String calificacion;
+
     @SerializedName("parcial_1")
     @Expose
     private String parcial1;
+
     @SerializedName("parcial_2")
     @Expose
     private String parcial2;
+
     @SerializedName("parcial_3")
     @Expose
     private String parcial3;
+
     @SerializedName("parcial_4")
     @Expose
     private String parcial4;
+
     @SerializedName("parcial_5")
     @Expose
     private String parcial5;

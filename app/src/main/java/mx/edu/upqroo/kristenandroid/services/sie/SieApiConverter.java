@@ -7,19 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.data.repositories.GradeRepository;
 import mx.edu.upqroo.kristenandroid.data.repositories.KardexRepository;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.models.Config;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
 import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
-import mx.edu.upqroo.kristenandroid.data.models.Grades;
+import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.data.repositories.DayRepository;
 import mx.edu.upqroo.kristenandroid.data.repositories.SubjectRepository;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
-import mx.edu.upqroo.kristenandroid.services.sie.containers.Kardexs;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Materia;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Semana;
 
@@ -52,20 +52,13 @@ class SieApiConverter {
         );
     }
 
-    private static Grades CalificacionToGrade(Calificacion calificacion) {
-        return new Grades(calificacion.getGrupo(), calificacion.getNombreMat(),
-                calificacion.getCalificacion(), calificacion.getParcial1(),
-                calificacion.getParcial2(), calificacion.getParcial3(),
-                calificacion.getParcial4(), calificacion.getParcial5());
-    }
-
-    static List<Grades> CalificacionListToGradeList(
-            List<Calificacion> calificacionList) {
-        List<Grades> gradesList = new ArrayList<>();
-        for (Calificacion c : calificacionList) {
-            gradesList.add(CalificacionToGrade(c));
-        }
-        return gradesList;
+    static void insertGrades(Application app, List<Grade> grades) {
+        GradeRepository repo = GradeRepository.getInstance(app);
+        AsyncTask.execute(() -> {
+            for (Grade grade : grades) {
+                repo.insert(grade);
+            }
+        });
     }
 
     static void insertKardex(Application app, List<Kardex> kardexList) {

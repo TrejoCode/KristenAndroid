@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
-import mx.edu.upqroo.kristenandroid.helpers.ViewHelper;
 
 public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapter.ViewHolderSchedule>{
     private List<ScheduleSubject> mDaysList;
