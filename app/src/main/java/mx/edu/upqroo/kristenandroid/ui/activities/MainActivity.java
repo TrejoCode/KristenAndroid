@@ -271,7 +271,8 @@ public class MainActivity extends ThemeActivity
                     mSession.logout();
                     UserInformationRepository.getInstance(getApplication()).deleteAll();
                     Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
-                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(loginIntent);
                 })
                 .setNegativeButton(getString(R.string.no_option), (dialog, id) -> dialog.cancel());
