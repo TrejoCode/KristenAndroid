@@ -6,10 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.NoticesFragment">
 
-    <me.dkzwm.widget.srl.SmoothRefreshLayout
-        android:id="@+id/refreshLayout_notices"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/refreshLayout_notices"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -40,6 +40,6 @@
                 tools:listitem="@layout/item_notice" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </me.dkzwm.widget.srl.SmoothRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.paging.PagedList;
+import mx.edu.upqroo.kristenandroid.adapters.source.NoticeDataSourceFactory;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
 import mx.edu.upqroo.kristenandroid.data.repositories.NoticeRepository;
 
@@ -18,5 +19,8 @@ public class NoticesViewModel extends AndroidViewModel {
 
     public LiveData<PagedList<Notice>> getNotices() {
         return mNoticeRepo.getNotices();
+    }
+    public NoticeDataSourceFactory getDataSourceFactory() {
+        return mNoticeRepo.getDataSourceFactory();
     }
 }

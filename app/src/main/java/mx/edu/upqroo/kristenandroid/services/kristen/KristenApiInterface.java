@@ -18,14 +18,6 @@ import retrofit2.http.Query;
  * This interface is used to declare all the api services that are used in the application.
  */
 public interface KristenApiInterface {
-    /**
-     * This method retrieves a list of publications.
-     * @param career career of the user
-     * @param page page that is desired
-     * @return a list of publications
-     */
-    @GET("Publicacion/FeedApp/{career}/{page}")
-    Call<List<Publicacion>> listPublications(@Path("career") int career, @Path("page") int page);
 
     /**
      * This method retrieves the details of a post.

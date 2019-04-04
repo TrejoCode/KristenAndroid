@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
+import mx.edu.upqroo.kristenandroid.adapters.source.NewsDataSourceFactory;
 import mx.edu.upqroo.kristenandroid.adapters.source.NoticeDataSource;
 import mx.edu.upqroo.kristenandroid.adapters.source.NoticeDataSourceFactory;
 import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
@@ -20,7 +21,7 @@ public class NoticeRepository {
     private NoticeDao mNoticeDao;
 
     private LiveData<PagedList<Notice>> itemPagedList;
-    private LiveData<PageKeyedDataSource<Integer, Notice>> liveDataSource;
+    private NoticeDataSourceFactory mDataSourceFactory;
 
 
     private NoticeRepository(Application application) {
@@ -28,10 +29,7 @@ public class NoticeRepository {
         mNoticeDao = db.noticeDao();
 
         //getting our data source factory
-        NoticeDataSourceFactory itemDataSourceFactory = new NoticeDataSourceFactory();
-
-        //getting the live data source from data source factory
-        liveDataSource = itemDataSourceFactory.getItemLiveDataSource();
+        mDataSourceFactory = new NoticeDataSourceFactory();
 
         //Getting PagedList config
         PagedList.Config pagedListConfig =
@@ -40,7 +38,7 @@ public class NoticeRepository {
                         .setPageSize(NoticeDataSource.PAGE_SIZE).build();
 
         //Building the paged list
-        itemPagedList = (new LivePagedListBuilder(itemDataSourceFactory, pagedListConfig)).build();
+        itemPagedList = (new LivePagedListBuilder(mDataSourceFactory, pagedListConfig)).build();
     }
 
     public static NoticeRepository getInstance(Application application) {
@@ -56,6 +54,10 @@ public class NoticeRepository {
 
     public LiveData<List<Notice>> getAll() {
         return mNoticeDao.getAll();
+    }
+
+    public NoticeDataSourceFactory getDataSourceFactory() {
+        return mDataSourceFactory;
     }
 
     public void insert(Notice notice) {

@@ -47,61 +47,6 @@ public class KristenApiServices {
     }
 
     /**
-     * Gets a publication list page by calling the API.
-     * When the method finish a message is posted by EventBus, so the caller must be subscribe
-     * to it.
-     * @param career User's career identifier
-     * @param page Page number to be retrieved
-     */
-    public void getPublicationsList(int career, int page) {
-        final Call<List<Publicacion>> repos = service.listPublications(career, page);
-        repos.enqueue(new Callback<List<Publicacion>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<Publicacion>> call,
-                                   @NotNull Response<List<Publicacion>> response) {
-                switch (response.code()) {
-                    case 200:
-                        List<Publicacion> data = response.body();
-                        if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new NewsListMessage(true, KristenApiConverter
-                                            .PublicationListToNewsList(data)));
-                        } else {
-                            EventBus.getDefault().post(
-                                    new NewsListMessage(false,
-                                            KristenApiConverter.PublicationListToNewsList(
-                                                    new ArrayList<Publicacion>())));
-                            Crashlytics.log("200 Error data null while getting posts");
-                        }
-                        break;
-                    case 404:
-                        EventBus.getDefault().post(
-                                new NewsListMessage(true,
-                                        KristenApiConverter.PublicationListToNewsList(
-                                                new ArrayList<Publicacion>())));
-                        break;
-                    default:
-                        EventBus.getDefault().post(
-                                new NewsListMessage(false,
-                                        KristenApiConverter.PublicationListToNewsList(
-                                                new ArrayList<Publicacion>())));
-                        Crashlytics.log(response.code() + "Error code while getting posts");
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<List<Publicacion>> call, @NotNull Throwable t) {
-                EventBus.getDefault().post(
-                        new NewsListMessage(false,
-                                KristenApiConverter.PublicationListToNewsList(
-                                        new ArrayList<Publicacion>())));
-                Crashlytics.log(t.getMessage() + " - Error code while getting posts");
-            }
-        });
-    }
-
-    /**
      * Gets the content of a post by calling the API.
      * When the call is finish a message is posted by EventBus, so the caller must be subscribe
      * to it.

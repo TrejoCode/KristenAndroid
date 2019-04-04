@@ -21,7 +21,7 @@ public class NoticeDataSourceFactory extends DataSource.Factory {
         return itemDataSource;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Notice>> getItemLiveDataSource() {
+    public MutableLiveData<PageKeyedDataSource<Integer, Notice>> getLiveDataSource() {
         return itemLiveDataSource;
     }
 }
