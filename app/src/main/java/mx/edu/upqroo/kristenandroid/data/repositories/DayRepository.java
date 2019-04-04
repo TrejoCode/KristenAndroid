@@ -31,6 +31,10 @@ public class DayRepository {
         return mInstance;
     }
 
+    public static DayRepository getInstance() {
+        return mInstance;
+    }
+
     public LiveData<Day> getDay(int id) {
         return mDayDao.getById(id);
     }
@@ -45,6 +49,11 @@ public class DayRepository {
         });
         return response;
     }
+
+    public List<ScheduleSubject> getDayByUserIdSync(String userId) {
+        return mDayDao.getDaysAndSubjectsFromUserSync(userId);
+    }
+
 
     public void insert(Day day, OnDayInserted listeners) {
         AsyncTask.execute(() -> {

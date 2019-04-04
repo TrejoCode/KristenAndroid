@@ -27,13 +27,34 @@ public class ScheduleWidget extends AppWidgetProvider {
     public static final String EXTRA_ITEM = "EXTRA_ITEM";
     private static final String ACTION_SCHEDULED_UPDATE = "SCHEDULED_UPDATE";
 
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
+        if (Objects.requireNonNull(intent.getAction()).equals(UPDATE_MEETING_ACTION)) {
+            int appWidgetIds[] = mgr.getAppWidgetIds(new ComponentName(context, ScheduleWidget.class));
+            mgr.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_widget);
+        }
+        super.onReceive(context, intent);
+    }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // There may be multiple widgets active, so update all of them
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+        scheduleNextUpdate(context);
+    }
+
+    static void updateAppWidget(Context context,
+                                AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+
         Date date = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("EEEE, d MMMM",
-                Locale.getDefault());
+        SimpleDateFormat formatter = new SimpleDateFormat(
+                "EEEE, MMMM d", Locale.getDefault());
         CharSequence widgetText = formatter.format(date);
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.schedule_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
@@ -57,35 +78,6 @@ public class ScheduleWidget extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.button_refresh_widget, getPendingSelfIntent(context, UPDATE_MEETING_ACTION));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
-        if (Objects.requireNonNull(intent.getAction()).equals(UPDATE_MEETING_ACTION)) {
-            int appWidgetIds[] = mgr.getAppWidgetIds(new ComponentName(context, ScheduleWidget.class));
-            mgr.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_widget);
-        }
-        super.onReceive(context, intent);
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-        scheduleNextUpdate(context);
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
     }
 
     private static void scheduleNextUpdate(Context context) {

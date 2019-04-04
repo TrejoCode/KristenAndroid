@@ -29,7 +29,9 @@ public class SieApiServices {
 
     private SieApiServices(Application application) {
         mApp = application;
-        service = SieApiClient.createService(SieApiInterface.class, authorizationToken);
+        if (service == null) {
+            service = SieApiClient.createService(SieApiInterface.class, authorizationToken);
+        }
     }
 
     public static SieApiServices getInstance(Application application) {
@@ -151,7 +153,6 @@ public class SieApiServices {
         });
     }
 
-
     /**
      * Get's the user's weekly getSchedule by calling the API and inserts it to the database
      * @param studentId User's identifier
@@ -181,5 +182,12 @@ public class SieApiServices {
                 Crashlytics.log(t.getMessage() + " - Error code while getting getSchedule");
             }
         });
+    }
+
+    public static SieApiInterface getService() {
+        if (service == null) {
+            service = SieApiClient.createService(SieApiInterface.class, authorizationToken);
+        }
+        return service;
     }
 }

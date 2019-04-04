@@ -42,4 +42,8 @@ public interface DayDao {
     @Transaction
     @Query("SELECT * FROM day WHERE userId = :userId")
     LiveData<List<ScheduleSubject>> getDaysAndSubjectsFromUser(String userId);
+
+    @Transaction
+    @Query("SELECT * FROM day WHERE userId = :userId")
+    List<ScheduleSubject> getDaysAndSubjectsFromUserSync(String userId);
 }

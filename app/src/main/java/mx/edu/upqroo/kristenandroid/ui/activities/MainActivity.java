@@ -258,9 +258,9 @@ public class MainActivity extends ThemeActivity
     }
 
     protected void onWidgetUpdateMessage(Context context) {
-        Intent intent_meeting_update = new Intent(context, ScheduleWidget.class);
-        intent_meeting_update.setAction(ScheduleWidget.UPDATE_MEETING_ACTION);
-        sendBroadcast(intent_meeting_update);
+        Intent widgetUpdateIntent = new Intent(context, ScheduleWidget.class);
+        widgetUpdateIntent.setAction(ScheduleWidget.UPDATE_MEETING_ACTION);
+        sendBroadcast(widgetUpdateIntent);
     }
 
     private void showLogoutDialog() {
