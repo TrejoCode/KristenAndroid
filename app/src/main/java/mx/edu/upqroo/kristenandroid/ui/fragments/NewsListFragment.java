@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.ui.fragments;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -71,7 +73,12 @@ public class NewsListFragment extends Fragment {
 
         RecyclerView mRecyclerNews = v.findViewById(R.id.recycler_news);
         mRecyclerNews.setHasFixedSize(true);
-        mRecyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerNews.setLayoutManager(new LinearLayoutManager(getContext()));
+        } else {
+            mRecyclerNews.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
         mAdapter = new NewsItemAdapter(getContext());
         mRecyclerNews.setAdapter(mAdapter);
 
