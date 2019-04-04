@@ -10,7 +10,6 @@ import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
 
 public class UserViewModel extends AndroidViewModel {
     private UserInformationRepository mUserInfoRepo;
-    private LiveData<UserInformation> mUserInfo;
 
     public UserViewModel(@NonNull Application application) {
         super(application);
