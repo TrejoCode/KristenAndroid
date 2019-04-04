@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -42,6 +44,7 @@ public class GradesFragment extends Fragment {
     private RecyclerView mRecyclerGrade;
     private GradesItemAdapter mGradeAdapter;
     private ProgressBar mProgress;
+    private ConstraintLayout mImageEmptyGrades;
 
     private SwipeRefreshLayout mSwipeContainer;
 
@@ -68,6 +71,8 @@ public class GradesFragment extends Fragment {
         mProgress = v.findViewById(R.id.progress_grades);
         mProgress.setVisibility(View.VISIBLE);
 
+        mImageEmptyGrades = v.findViewById(R.id.image_empty_grades);
+
         mGradeAdapter = new GradesItemAdapter(getContext(), new ArrayList<>());
         mRecyclerGrade.setAdapter(mGradeAdapter);
 
@@ -92,9 +97,14 @@ public class GradesFragment extends Fragment {
 
         mViewModel.getGrades(SessionManager.getInstance().getSession().getUserId())
                 .observe(this, grades -> {
-                    mRecyclerGrade.setVisibility(View.VISIBLE);
+                    if (grades.size() == 0) {
+                        mImageEmptyGrades.setVisibility(View.VISIBLE);
+                    } else {
+                        mRecyclerGrade.setVisibility(View.VISIBLE);
+                        mGradeAdapter.setData(grades);
+                        mImageEmptyGrades.setVisibility(View.GONE);
+                    }
                     mProgress.setVisibility(View.GONE);
-                    mGradeAdapter.setData(grades);
         });
         return v;
     }

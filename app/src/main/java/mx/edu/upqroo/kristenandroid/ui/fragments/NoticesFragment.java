@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ public class NoticesFragment extends Fragment {
 
     private ProgressBar mProgressBar;
     private SwipeRefreshLayout mSwipeContainer;
+    private ConstraintLayout mImageEmptyNotices;
 
     public static NoticesFragment newInstance() {
         return new NoticesFragment();
@@ -48,6 +50,7 @@ public class NoticesFragment extends Fragment {
         mAdapter = new NoticesItemAdapter(getContext());
         mRecyclerNotices.setAdapter(mAdapter);
         mProgressBar = v.findViewById(R.id.progress_notices);
+        mImageEmptyNotices = v.findViewById(R.id.image_empty_notices);
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_notices);
         // Setup refresh listener which triggers new data loading

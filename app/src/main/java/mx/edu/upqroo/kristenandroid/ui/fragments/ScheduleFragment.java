@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -40,7 +41,7 @@ public class ScheduleFragment extends Fragment {
     private ScheduleItemAdapter mScheduleAdapter;
     private ProgressBar mProgress;
     private SwipeRefreshLayout mSwipeContainer;
-
+    private ConstraintLayout mImageEmptySchedule;
 
     public static ScheduleFragment newInstance() {
         return new ScheduleFragment();
@@ -63,6 +64,7 @@ public class ScheduleFragment extends Fragment {
         recyclerViewSchedule.setAdapter(mScheduleAdapter);
         mProgress = v.findViewById(R.id.progress_schedule);
         mProgress.setVisibility(View.VISIBLE);
+        mImageEmptySchedule = v.findViewById(R.id.image_empty_schedule);
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_schedule);
         // Setup refresh listener which triggers new data loading
@@ -85,9 +87,14 @@ public class ScheduleFragment extends Fragment {
 
         mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
                 .observe(this, scheduleSubjects -> {
-                    recyclerViewSchedule.setVisibility(View.VISIBLE);
+                    if (scheduleSubjects.size() == 0) {
+                        mImageEmptySchedule.setVisibility(View.VISIBLE);
+                    } else {
+                        recyclerViewSchedule.setVisibility(View.VISIBLE);
+                        mScheduleAdapter.setData(scheduleSubjects);
+                        mImageEmptySchedule.setVisibility(View.GONE);
+                    }
                     mProgress.setVisibility(View.GONE);
-                    mScheduleAdapter.setData(scheduleSubjects);
                 });
         return v;
     }

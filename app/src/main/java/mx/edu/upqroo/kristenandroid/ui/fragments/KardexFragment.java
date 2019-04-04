@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ public class KardexFragment extends Fragment {
     private RecyclerView mRecyclerKardex;
     private KardexItemAdapter mKardexAdapter;
     private ProgressBar mProgress;
+    private ConstraintLayout mImageEmptyKardex;
 
     private SwipeRefreshLayout mSwipeContainer;
 
@@ -61,6 +63,8 @@ public class KardexFragment extends Fragment {
         mKardexAdapter = new KardexItemAdapter(v.getContext(), new ArrayList<>());
         mRecyclerKardex.setAdapter(mKardexAdapter);
 
+        mImageEmptyKardex = v.findViewById(R.id.image_empty_kardex);
+
         mSwipeContainer = v.findViewById(R.id.refreshLayout_kardex);
         // Setup refresh listener which triggers new data loading
         mSwipeContainer.setOnRefreshListener(() -> {
@@ -82,10 +86,16 @@ public class KardexFragment extends Fragment {
 
         mViewModel.getKardex(SessionManager.getInstance().getSession().getUserId())
                 .observe(this, kardexList -> {
-                    mRecyclerKardex.setVisibility(View.VISIBLE);
+                    if (kardexList.size() == 0) {
+                        mImageEmptyKardex.setVisibility(View.VISIBLE);
+                    } else {
+                        mRecyclerKardex.setVisibility(View.VISIBLE);
+                        mKardexAdapter.setData(kardexList);
+                        mImageEmptyKardex.setVisibility(View.GONE);
+
+                    }
                     mProgress.setVisibility(View.GONE);
-                    mKardexAdapter.setData(kardexList);
-        });
+                });
 
         return v;
     }

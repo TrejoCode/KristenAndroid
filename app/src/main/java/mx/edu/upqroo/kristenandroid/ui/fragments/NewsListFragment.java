@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -33,6 +34,7 @@ public class NewsListFragment extends Fragment {
     private NewsItemAdapter mAdapter;
     private ProgressBar mProgressBar;
     private SwipeRefreshLayout mSwipeContainer;
+    private ConstraintLayout mImageEmptyNews;
 
     public static NewsListFragment newInstance() {
         return new NewsListFragment();
@@ -67,6 +69,7 @@ public class NewsListFragment extends Fragment {
                 R.color.colorPrimaryDark,
                 R.color.colorPrimaryDarker);
 
+        mImageEmptyNews = v.findViewById(R.id.image_empty_news);
 
         TextView mTextErrorMessage = v.findViewById(R.id.text_error_message);
         mTextErrorMessage.setVisibility(View.INVISIBLE);
@@ -84,8 +87,8 @@ public class NewsListFragment extends Fragment {
 
         mViewModel.getNews().observe(this, news -> {
             mAdapter.submitList(news);
-            mProgressBar.setVisibility(View.GONE);
             mSwipeContainer.setRefreshing(false);
+            mProgressBar.setVisibility(View.GONE);
         });
         return v;
     }
