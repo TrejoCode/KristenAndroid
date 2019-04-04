@@ -22,6 +22,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
@@ -40,6 +42,8 @@ public class GradesFragment extends Fragment {
     private RecyclerView mRecyclerGrade;
     private GradesItemAdapter mGradeAdapter;
     private ProgressBar mProgress;
+
+    private SwipeRefreshLayout mSwipeContainer;
 
     public static GradesFragment newInstance() {
         return new GradesFragment();
@@ -66,6 +70,25 @@ public class GradesFragment extends Fragment {
 
         mGradeAdapter = new GradesItemAdapter(getContext(), new ArrayList<>());
         mRecyclerGrade.setAdapter(mGradeAdapter);
+
+        mSwipeContainer = v.findViewById(R.id.refreshLayout_grades);
+        // Setup refresh listener which triggers new data loading
+        mSwipeContainer.setOnRefreshListener(() -> {
+            /*trigger the load of the data to the service*/
+            AsyncTask.execute(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mSwipeContainer.setRefreshing(false);
+            });
+        });
+        // Configure the refreshing colors
+        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
+                R.color.colorPrimary,
+                R.color.colorPrimaryDark,
+                R.color.colorPrimaryDarker);
 
         mViewModel.getGrades(SessionManager.getInstance().getSession().getUserId())
                 .observe(this, grades -> {

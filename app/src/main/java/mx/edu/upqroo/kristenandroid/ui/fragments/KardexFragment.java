@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.KardexItemAdapter;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
@@ -31,6 +33,8 @@ public class KardexFragment extends Fragment {
     private RecyclerView mRecyclerKardex;
     private KardexItemAdapter mKardexAdapter;
     private ProgressBar mProgress;
+
+    private SwipeRefreshLayout mSwipeContainer;
 
     public static KardexFragment newInstance() {
         return new KardexFragment();
@@ -56,6 +60,25 @@ public class KardexFragment extends Fragment {
         mProgress.setVisibility(View.VISIBLE);
         mKardexAdapter = new KardexItemAdapter(v.getContext(), new ArrayList<>());
         mRecyclerKardex.setAdapter(mKardexAdapter);
+
+        mSwipeContainer = v.findViewById(R.id.refreshLayout_kardex);
+        // Setup refresh listener which triggers new data loading
+        mSwipeContainer.setOnRefreshListener(() -> {
+            /*trigger the load of the data to the service*/
+            AsyncTask.execute(() -> {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                mSwipeContainer.setRefreshing(false);
+            });
+        });
+        // Configure the refreshing colors
+        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
+                R.color.colorPrimary,
+                R.color.colorPrimaryDark,
+                R.color.colorPrimaryDarker);
 
         mViewModel.getKardex(SessionManager.getInstance().getSession().getUserId())
                 .observe(this, kardexList -> {

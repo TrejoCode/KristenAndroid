@@ -52,7 +52,7 @@ public class NewsListFragment extends Fragment {
         mProgressBar.setIndeterminate(true);
         mProgressBar.setVisibility(View.VISIBLE);
 
-        mSwipeContainer = v.findViewById(R.id.refreshLayout_NewsList);
+        mSwipeContainer = v.findViewById(R.id.refreshLayout_news);
         // Setup refresh listener which triggers new data loading
         mSwipeContainer.setOnRefreshListener(() -> Objects.requireNonNull(
                 mViewModel.getDataSourceFactory()
