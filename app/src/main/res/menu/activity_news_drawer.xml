@@ -23,7 +23,7 @@
             android:icon="@drawable/ic_schedule_black"
             android:title="@string/nav_menu_schedule" />
         <item
-            android:id="@+id/nav_school"
+            android:id="@+id/nav_grades"
             android:icon="@drawable/ic_school_black"
             android:title="@string/nav_menu_school" />
         <item

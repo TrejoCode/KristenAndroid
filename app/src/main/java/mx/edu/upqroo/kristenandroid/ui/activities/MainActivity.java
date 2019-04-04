@@ -44,6 +44,7 @@ public class MainActivity extends ThemeActivity
     private NavigationView mNavigationView;
     private BottomNavigationView mBottomNavigationView;
     private NavController mNavController;
+    private DrawerLayout mDrawerLayout;
     private FragmentManager mFragmentManager;
 
     @Override
@@ -58,10 +59,10 @@ public class MainActivity extends ThemeActivity
         setSupportActionBar(mToolbar);
         //endregion
         //region drawer layout setup
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         mNavigationView = findViewById(R.id.nav_view);
@@ -105,9 +106,8 @@ public class MainActivity extends ThemeActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -141,18 +141,30 @@ public class MainActivity extends ThemeActivity
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(loginIntent);
             }
-        } else if ((id == R.id.nav_news || id == R.id.news_menu_item) && mFragmentManager != FragmentManager.NEWS_FRAGMENT) {
+        } else if ((id == R.id.nav_news || id == R.id.news_menu_item)
+                && mFragmentManager != FragmentManager.NEWS_FRAGMENT) {
+
             mNavController.navigate(R.id.newsListFragment);
-        } else if (id == R.id.nav_notices && mFragmentManager != FragmentManager.NOTICES_FRAGMENT) {
+
+        } else if (id == R.id.nav_notices
+                && mFragmentManager != FragmentManager.NOTICES_FRAGMENT) {
+
             mNavController.navigate(R.id.noticesFragment);
-        } else if ((id == R.id.nav_calendar || id == R.id.calendar_menu_item) && mFragmentManager != FragmentManager.CALENDAR_FRAGMENT) {
+
+        } else if ((id == R.id.nav_calendar || id == R.id.calendar_menu_item)
+                && mFragmentManager != FragmentManager.CALENDAR_FRAGMENT) {
+
             if (!EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().register(this);
             }
             KristenApiServices.getInstance().getCalendarUrl();
+
         } else if (id == R.id.nav_settings) {
+
             mNavController.navigate(R.id.settingsActivity);
+
         } else {
+
             if (!mSession.sessionAlive()) {
                 Snackbar.make(findViewById(R.id.bottom_navigation),
                         R.string.login_message,
@@ -160,21 +172,33 @@ public class MainActivity extends ThemeActivity
                         .setAction(R.string.button_login, v -> startActivity(
                                 new Intent(getApplicationContext(), LoginActivity.class)))
                         .show();
+
             } else {
-                if (id == R.id.nav_user && mFragmentManager != FragmentManager.USER_FRAGMENT) {
+
+                if (id == R.id.nav_user
+                        && mFragmentManager != FragmentManager.USER_FRAGMENT) {
+
                     mNavController.navigate(R.id.userFragment);
-                } else if ((id == R.id.nav_schedule || id == R.id.schedule_menu_item) && mFragmentManager != FragmentManager.SCHEDULE_FRAGMENT) {
+
+                } else if ((id == R.id.nav_schedule || id == R.id.schedule_menu_item)
+                        && mFragmentManager != FragmentManager.SCHEDULE_FRAGMENT) {
+
                     mNavController.navigate(R.id.scheduleFragment);
-                } else if ((id == R.id.nav_school || id == R.id.grades_menu_item) && mFragmentManager != FragmentManager.GRADES_FRAGMENT) {
+
+                } else if ((id == R.id.nav_grades || id == R.id.grades_menu_item)
+                        && mFragmentManager != FragmentManager.GRADES_FRAGMENT) {
+
                     mNavController.navigate(R.id.gradesFragment);
-                } else if (id == R.id.nav_kardex && mFragmentManager != FragmentManager.KARDEX_FRAGMENT) {
+
+                } else if (id == R.id.nav_kardex
+                        && mFragmentManager != FragmentManager.KARDEX_FRAGMENT) {
+
                     mNavController.navigate(R.id.kardexFragment);
+
                 }
             }
         }
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -188,38 +212,46 @@ public class MainActivity extends ThemeActivity
                 mNavigationView.setCheckedItem(R.id.nav_news);
                 mBottomNavigationView.getMenu().getItem(0).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+
                 mFragmentManager = FragmentManager.NEWS_FRAGMENT;
                 break;
             case R.id.userFragment:
                 mNavigationView.setCheckedItem(R.id.nav_user);
                 mBottomNavigationView.setVisibility(View.GONE);
+
                 mFragmentManager = FragmentManager.USER_FRAGMENT;
                 break;
             case R.id.scheduleFragment:
                 mNavigationView.setCheckedItem(R.id.nav_schedule);
                 mBottomNavigationView.getMenu().getItem(1).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+
                 mFragmentManager = FragmentManager.SCHEDULE_FRAGMENT;
                 break;
             case R.id.gradesFragment:
-                mNavigationView.setCheckedItem(R.id.nav_school);
+                mNavigationView.setCheckedItem(R.id.nav_grades);
                 mBottomNavigationView.getMenu().getItem(2).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+
                 mFragmentManager = FragmentManager.GRADES_FRAGMENT;
                 break;
             case R.id.noticesFragment:
                 mNavigationView.setCheckedItem(R.id.nav_notices);
                 mBottomNavigationView.setVisibility(View.GONE);
+
                 mFragmentManager = FragmentManager.NOTICES_FRAGMENT;
+                break;
             case R.id.kardexFragment:
                 mNavigationView.setCheckedItem(R.id.nav_kardex);
                 mBottomNavigationView.setVisibility(View.GONE);
+
                 mFragmentManager = FragmentManager.KARDEX_FRAGMENT;
                 break;
             case R.id.calendarFragment:
                 mNavigationView.setCheckedItem(R.id.nav_calendar);
                 mBottomNavigationView.getMenu().getItem(3).setChecked(true);
                 mBottomNavigationView.setVisibility(View.VISIBLE);
+
                 mFragmentManager = FragmentManager.CALENDAR_FRAGMENT;
                 break;
         }
