@@ -1,7 +1,7 @@
 package mx.edu.upqroo.kristenandroid.ui.activities;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +16,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -27,12 +29,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
+import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
 import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
 import mx.edu.upqroo.kristenandroid.managers.FragmentManager;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment;
+import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager;
 import mx.edu.upqroo.kristenandroid.widget.ScheduleWidgetProvider;
 
 public class MainActivity extends ThemeActivity
@@ -51,7 +56,16 @@ public class MainActivity extends ThemeActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mSession = SessionManager.getInstance();
-        onWidgetUpdateMessage(this);
+        //region widget update
+        AsyncTask.execute(() -> {
+            List<ScheduleSubject> scheduleSubjects = KristenRoomDatabase
+                    .getInstance(getApplicationContext())
+                    .dayDao()
+                    .getDaysAndSubjectsFromUserSync(mSession.getSession().getUserId());
+            DataWidgetManager.updateSchedule(scheduleSubjects, getApplicationContext());
+            ScheduleWidgetProvider.sendRefreshBroadcast(getApplicationContext());
+        });
+        //endregion
         //region toolbar setup
         setContentView(R.layout.activity_main);
         mToolbar = findViewById(R.id.toolbar);
@@ -255,12 +269,6 @@ public class MainActivity extends ThemeActivity
                 mFragmentManager = FragmentManager.CALENDAR_FRAGMENT;
                 break;
         }
-    }
-
-    protected void onWidgetUpdateMessage(Context context) {
-        Intent widgetUpdateIntent = new Intent(context, ScheduleWidgetProvider.class);
-        widgetUpdateIntent.setAction(ScheduleWidgetProvider.UPDATE_SCHEDULE_ACTION);
-        sendBroadcast(widgetUpdateIntent);
     }
 
     private void showLogoutDialog() {

@@ -21,6 +21,13 @@ public class Serializer {
         return gson.toJson(obj);
     }
 
+    //region Serialize
+    public static <T> String Serialize(T obj, Type listItemType) {
+        Gson gson = new Gson();
+        return gson.toJson(obj, listItemType);
+    }
+    //endregion
+
     /**
      * Deserialize an object
      * @param json object to be deserialize

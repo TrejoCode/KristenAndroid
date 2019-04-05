@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import mx.edu.upqroo.kristenandroid.data.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.data.models.SessionLoaded;
 import mx.edu.upqroo.kristenandroid.helpers.FirebaseNotificationsHelper;
+import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager;
 
 /**
  * <h1>PreferenceManager</h1>
