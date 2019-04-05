@@ -33,7 +33,7 @@ import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
 import mx.edu.upqroo.kristenandroid.services.kristen.messages.CalendarUrlMessage;
 import mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment;
-import mx.edu.upqroo.kristenandroid.widget.ScheduleWidget;
+import mx.edu.upqroo.kristenandroid.widget.ScheduleWidgetProvider;
 
 public class MainActivity extends ThemeActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -258,8 +258,8 @@ public class MainActivity extends ThemeActivity
     }
 
     protected void onWidgetUpdateMessage(Context context) {
-        Intent widgetUpdateIntent = new Intent(context, ScheduleWidget.class);
-        widgetUpdateIntent.setAction(ScheduleWidget.UPDATE_MEETING_ACTION);
+        Intent widgetUpdateIntent = new Intent(context, ScheduleWidgetProvider.class);
+        widgetUpdateIntent.setAction(ScheduleWidgetProvider.UPDATE_SCHEDULE_ACTION);
         sendBroadcast(widgetUpdateIntent);
     }
 

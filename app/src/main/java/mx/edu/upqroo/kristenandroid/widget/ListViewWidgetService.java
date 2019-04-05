@@ -7,26 +7,15 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import mx.edu.upqroo.kristenandroid.Application;
 import mx.edu.upqroo.kristenandroid.R;
+import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
 import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
-import mx.edu.upqroo.kristenandroid.data.repositories.DayRepository;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
-import mx.edu.upqroo.kristenandroid.services.sie.containers.Semana;
-import mx.edu.upqroo.kristenandroid.services.sie.messages.ScheduleMessage;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ListViewWidgetService extends RemoteViewsService {
 
@@ -77,7 +66,7 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
         rv.setTextViewText(R.id.text_time_widget, time);
 
         Bundle extras = new Bundle();
-        extras.putInt(ScheduleWidget.EXTRA_ITEM, position);
+        extras.putInt(ScheduleWidgetProvider.EXTRA_ITEM, position);
         Intent fillInIntent = new Intent();
         fillInIntent.putExtra("widget_name", name);
         fillInIntent.putExtra("widget_time", time);
@@ -114,33 +103,32 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
     }
 
     private void generateDays() {
-        DayRepository repo = DayRepository.getInstance();
-        if (repo != null) {
-            List<ScheduleSubject> scheduleSubjects = repo.getDayByUserIdSync(
-                    SessionManager.getInstance().getSession().getUserId());
-            Calendar calendar = Calendar.getInstance();
-            int day = calendar.get(Calendar.DAY_OF_WEEK);
-            try {
-                switch (day) {
-                    case Calendar.MONDAY:
-                        records = scheduleSubjects.get(0).getSubjects();
-                        break;
-                    case Calendar.TUESDAY:
-                        records = scheduleSubjects.get(1).getSubjects();
-                        break;
-                    case Calendar.WEDNESDAY:
-                        records = scheduleSubjects.get(2).getSubjects();
-                        break;
-                    case Calendar.THURSDAY:
-                        records = scheduleSubjects.get(3).getSubjects();
-                        break;
-                    case Calendar.FRIDAY:
-                        records = scheduleSubjects.get(4).getSubjects();
-                        break;
-                }
-            } catch (Exception ex) {
-                //
+        KristenRoomDatabase database = KristenRoomDatabase.getInstance(mContext);
+
+        List<ScheduleSubject> scheduleSubjects = database.dayDao().getDaysAndSubjectsFromUserSync(
+                SessionManager.getInstance().getSession().getUserId());
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        try {
+            switch (day) {
+                case Calendar.MONDAY:
+                    records = scheduleSubjects.get(0).getSubjects();
+                    break;
+                case Calendar.TUESDAY:
+                    records = scheduleSubjects.get(1).getSubjects();
+                    break;
+                case Calendar.WEDNESDAY:
+                    records = scheduleSubjects.get(2).getSubjects();
+                    break;
+                case Calendar.THURSDAY:
+                    records = scheduleSubjects.get(3).getSubjects();
+                    break;
+                case Calendar.FRIDAY:
+                    records = scheduleSubjects.get(4).getSubjects();
+                    break;
             }
+        } catch (Exception ex) {
+            //
         }
     }
 }

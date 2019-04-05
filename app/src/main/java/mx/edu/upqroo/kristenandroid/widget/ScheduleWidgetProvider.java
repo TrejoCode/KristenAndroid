@@ -22,17 +22,19 @@ import mx.edu.upqroo.kristenandroid.ui.activities.LoginActivity;
 /**
  * Implementation of App Widget functionality.
  */
-public class ScheduleWidget extends AppWidgetProvider {
-    public static final String UPDATE_MEETING_ACTION = "APPWIDGET_UPDATE";
+public class ScheduleWidgetProvider extends AppWidgetProvider {
+    public static final String UPDATE_SCHEDULE_ACTION = "APPWIDGET_UPDATE";
     public static final String EXTRA_ITEM = "EXTRA_ITEM";
     private static final String ACTION_SCHEDULED_UPDATE = "SCHEDULED_UPDATE";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        AppWidgetManager mgr = AppWidgetManager.getInstance(context);
-        if (Objects.requireNonNull(intent.getAction()).equals(UPDATE_MEETING_ACTION)) {
-            int appWidgetIds[] = mgr.getAppWidgetIds(new ComponentName(context, ScheduleWidget.class));
-            mgr.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_widget);
+        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+        if (Objects.requireNonNull(intent.getAction())
+                .equals(UPDATE_SCHEDULE_ACTION)) {
+            int appWidgetIds[] = widgetManager.getAppWidgetIds(
+                    new ComponentName(context, ScheduleWidgetProvider.class));
+            widgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.list_widget);
         }
         super.onReceive(context, intent);
     }
@@ -75,7 +77,7 @@ public class ScheduleWidget extends AppWidgetProvider {
                 startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.appwidget_text, startActivityPendingIntent);
 
-        views.setOnClickPendingIntent(R.id.button_refresh_widget, getPendingSelfIntent(context, UPDATE_MEETING_ACTION));
+        views.setOnClickPendingIntent(R.id.button_refresh_widget, getPendingSelfIntent(context, UPDATE_SCHEDULE_ACTION));
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -83,8 +85,7 @@ public class ScheduleWidget extends AppWidgetProvider {
     private static void scheduleNextUpdate(Context context) {
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        // Substitute AppWidget for whatever you named your AppWidgetProvider subclass
-        Intent intent = new Intent(context, ScheduleWidget.class);
+        Intent intent = new Intent(context, ScheduleWidgetProvider.class);
         intent.setAction(ACTION_SCHEDULED_UPDATE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
@@ -107,7 +108,7 @@ public class ScheduleWidget extends AppWidgetProvider {
     }
 
     protected static PendingIntent getPendingSelfIntent(Context context, String action) {
-        Intent intent = new Intent(context, ScheduleWidget.class);
+        Intent intent = new Intent(context, ScheduleWidgetProvider.class);
         intent.setAction(action);
         return PendingIntent.getBroadcast(context, 0, intent, 0);
     }

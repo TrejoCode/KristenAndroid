@@ -71,7 +71,7 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
 
-        <receiver android:name=".widget.ScheduleWidget">
+        <receiver android:name=".widget.ScheduleWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
