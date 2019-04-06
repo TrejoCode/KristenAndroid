@@ -16,7 +16,7 @@ import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.models.NotificationLoaded;
 import mx.edu.upqroo.kristenandroid.data.models.SessionLoaded;
 import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository;
-import mx.edu.upqroo.kristenandroid.services.sie.messages.LoginMessage;
+import mx.edu.upqroo.kristenandroid.api.sie.messages.LoginMessage;
 
 public class LoadActivity extends ThemeActivity {
 

@@ -10,7 +10,7 @@ import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 import mx.edu.upqroo.kristenandroid.data.database.daos.GradeDao;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.api.sie.SieApiServices;
 
 public class GradeRepository {
     private static GradeRepository mInstance;

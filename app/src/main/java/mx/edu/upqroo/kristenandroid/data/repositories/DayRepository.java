@@ -11,7 +11,7 @@ import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
 import mx.edu.upqroo.kristenandroid.data.database.daos.DayDao;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.api.sie.SieApiServices;
 
 public class DayRepository {
     private static DayRepository mInstance;

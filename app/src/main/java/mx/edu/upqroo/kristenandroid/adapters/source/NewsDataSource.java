@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 import mx.edu.upqroo.kristenandroid.data.models.News;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.api.kristen.KristenApiServices;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

@@ -10,7 +10,7 @@ import mx.edu.upqroo.kristenandroid.data.database.KristenRoomDatabase;
 import mx.edu.upqroo.kristenandroid.data.database.daos.KardexDao;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
+import mx.edu.upqroo.kristenandroid.api.sie.SieApiServices;
 
 public class KardexRepository {
     private static KardexRepository mInstance;

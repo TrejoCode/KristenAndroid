@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -35,8 +34,8 @@ import mx.edu.upqroo.kristenandroid.util.Serializer;
 import mx.edu.upqroo.kristenandroid.data.models.Content;
 import mx.edu.upqroo.kristenandroid.data.models.News;
 import mx.edu.upqroo.kristenandroid.ui.fragments.NewsDetailFragment;
-import mx.edu.upqroo.kristenandroid.services.kristen.KristenApiServices;
-import mx.edu.upqroo.kristenandroid.services.kristen.messages.NewsDetailMessage;
+import mx.edu.upqroo.kristenandroid.api.kristen.KristenApiServices;
+import mx.edu.upqroo.kristenandroid.api.kristen.messages.NewsDetailMessage;
 import mx.edu.upqroo.kristenandroid.util.KristenColorUtils;
 
 public class NewsDetailActivity extends ThemeActivity {

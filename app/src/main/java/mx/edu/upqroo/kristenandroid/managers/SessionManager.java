@@ -5,8 +5,7 @@ import android.app.Application;
 import mx.edu.upqroo.kristenandroid.data.models.Config;
 import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
 import mx.edu.upqroo.kristenandroid.helpers.FirebaseNotificationsHelper;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
-import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager;
+import mx.edu.upqroo.kristenandroid.api.sie.SieApiServices;
 
 /**
  * <h1>SessionManager</h1>

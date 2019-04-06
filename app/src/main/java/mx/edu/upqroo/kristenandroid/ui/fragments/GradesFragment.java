@@ -5,33 +5,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import mx.edu.upqroo.kristenandroid.R;
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
-import mx.edu.upqroo.kristenandroid.services.sie.SieApiServices;
-import mx.edu.upqroo.kristenandroid.services.sie.messages.GradesListMessage;
 import mx.edu.upqroo.kristenandroid.viewModels.GradesViewModel;
 
 /**
