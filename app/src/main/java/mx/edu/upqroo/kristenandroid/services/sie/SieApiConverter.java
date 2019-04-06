@@ -55,6 +55,7 @@ class SieApiConverter {
     static void insertGrades(Application app, List<Grade> grades) {
         GradeRepository repo = GradeRepository.getInstance(app);
         AsyncTask.execute(() -> {
+            repo.deleteAll();
             for (Grade grade : grades) {
                 repo.insert(grade);
             }

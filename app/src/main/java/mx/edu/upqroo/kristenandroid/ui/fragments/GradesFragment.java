@@ -78,17 +78,7 @@ public class GradesFragment extends Fragment {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_grades);
         // Setup refresh listener which triggers new data loading
-        mSwipeContainer.setOnRefreshListener(() -> {
-            /*trigger the load of the data to the service*/
-            AsyncTask.execute(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mSwipeContainer.setRefreshing(false);
-            });
-        });
+        mSwipeContainer.setOnRefreshListener(() -> mViewModel.updateGradesFromService());
         // Configure the refreshing colors
         mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
                 R.color.colorPrimary,
@@ -104,6 +94,7 @@ public class GradesFragment extends Fragment {
                         mGradeAdapter.setData(grades);
                         mImageEmptyGrades.setVisibility(View.GONE);
                     }
+                    mSwipeContainer.setRefreshing(false);
                     mProgress.setVisibility(View.GONE);
         });
         return v;

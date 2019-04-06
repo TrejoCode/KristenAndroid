@@ -21,4 +21,8 @@ public class GradesViewModel extends AndroidViewModel {
     public LiveData<List<Grade>> getGrades(String userId) {
         return mRepo.getGrades(userId);
     }
+
+    public void updateGradesFromService() {
+        mRepo.updateGradesFromService();
+    }
 }

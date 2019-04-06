@@ -41,6 +41,11 @@ public class GradeRepository {
         return response;
     }
 
+    public void updateGradesFromService() {
+        mApi.getGradesList(SessionManager.getInstance().getSession().getUserId(),
+                SessionManager.getInstance().getSession().getConfig().getUserToken());
+    }
+
     public void insert(Grade kardex) {
         AsyncTask.execute(() -> mGradeDao.insert(kardex));
     }
