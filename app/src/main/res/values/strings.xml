@@ -35,12 +35,12 @@
     <string name="settings_op_desc_2">Turn on or off the notifications for my career</string>
     <string name="news_header_title">Polytechnic University of Quintana Roo</string>
     <string name="news_header_desc">Welcome to the official app</string>
-    <string name="user_name">Names and lastname</string>
+    <string name="user_name">Names and last name</string>
     <string name="user_career">Career</string>
     <string name="user_credits">Accumulated credits</string>
     <string name="user_status">Current status</string>
     <string name="user_entry">Period of entry</string>
-    <string name="user_bod">Birthdate</string>
+    <string name="user_bod">Birthday</string>
     <string name="user_address">Address</string>
     <string name="user_home_phone">Home phone</string>
     <string name="user_mobile">Mobile phone</string>
@@ -59,7 +59,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="login_message">You must be log in to watch this</string>
+    <string name="login_message">You must be log in</string>
     <string name="quarter_label">Quarter</string>
-    <string name="todo">TODO</string>
+    <string name="todo" translatable="false">TODO</string>
+    <string name="no_items_message">Look like there is nothing here.</string>
 </resources>
