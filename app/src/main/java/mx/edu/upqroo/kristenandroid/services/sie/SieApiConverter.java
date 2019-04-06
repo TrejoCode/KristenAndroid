@@ -65,6 +65,7 @@ class SieApiConverter {
     static void insertKardex(Application app, List<Kardex> kardexList) {
         KardexRepository repo = KardexRepository.getInstance(app);
         AsyncTask.execute(() -> {
+            repo.deleteAll();
             for (Kardex kardex : kardexList) {
                 repo.insert(kardex);
             }

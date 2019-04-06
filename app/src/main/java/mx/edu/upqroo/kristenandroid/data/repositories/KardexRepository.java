@@ -41,6 +41,11 @@ public class KardexRepository {
         return response;
     }
 
+    public void updateKardexFromService() {
+        mApi.getKardexList(SessionManager.getInstance().getSession().getUserId(),
+                SessionManager.getInstance().getSession().getConfig().getUserToken());
+    }
+
     public void insert(Kardex kardex) {
         AsyncTask.execute(() -> mKardexDao.insert(kardex));
     }

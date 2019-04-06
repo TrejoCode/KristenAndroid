@@ -67,17 +67,7 @@ public class KardexFragment extends Fragment {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_kardex);
         // Setup refresh listener which triggers new data loading
-        mSwipeContainer.setOnRefreshListener(() -> {
-            /*trigger the load of the data to the service*/
-            AsyncTask.execute(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mSwipeContainer.setRefreshing(false);
-            });
-        });
+        mSwipeContainer.setOnRefreshListener(() -> mViewModel.updateKardexFromService());
         // Configure the refreshing colors
         mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
                 R.color.colorPrimary,
@@ -94,6 +84,7 @@ public class KardexFragment extends Fragment {
                         mImageEmptyKardex.setVisibility(View.GONE);
 
                     }
+                    mSwipeContainer.setRefreshing(false);
                     mProgress.setVisibility(View.GONE);
                 });
 

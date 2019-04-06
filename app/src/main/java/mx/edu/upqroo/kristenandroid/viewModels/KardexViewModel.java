@@ -21,4 +21,8 @@ public class KardexViewModel extends AndroidViewModel {
     public LiveData<List<Kardex>> getKardex(String userId) {
         return mRepo.getKardex(userId);
     }
+
+    public void updateKardexFromService() {
+        mRepo.updateKardexFromService();
+    }
 }
