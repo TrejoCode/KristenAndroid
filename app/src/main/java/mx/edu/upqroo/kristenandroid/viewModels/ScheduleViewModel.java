@@ -26,6 +26,11 @@ public class ScheduleViewModel extends AndroidViewModel {
         return mDayRepository.getDaysByUserId(userId);
     }
 
+    public void updateScheduleFromService() {
+        mDayRepository.updateScheduleFromService();
+    }
+
+
     public LiveData<List<Subject>> getSubjects(long dayId) {
         return mSubjectRepository.getSubjectsByDayId(dayId);
     }

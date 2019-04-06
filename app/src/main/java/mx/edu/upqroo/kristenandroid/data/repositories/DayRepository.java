@@ -50,6 +50,11 @@ public class DayRepository {
         return response;
     }
 
+    public void updateScheduleFromService() {
+        mApi.getSchedule(SessionManager.getInstance().getSession().getUserId(),
+                SessionManager.getInstance().getSession().getConfig().getUserToken());
+    }
+
     public List<ScheduleSubject> getDayByUserIdSync(String userId) {
         return mDayDao.getDaysAndSubjectsFromUserSync(userId);
     }

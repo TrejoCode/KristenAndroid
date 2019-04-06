@@ -3,23 +3,21 @@ package mx.edu.upqroo.kristenandroid.services.sie;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.data.repositories.GradeRepository;
-import mx.edu.upqroo.kristenandroid.data.repositories.KardexRepository;
-import mx.edu.upqroo.kristenandroid.managers.SessionManager;
-import mx.edu.upqroo.kristenandroid.data.models.Config;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
-import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Grade;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Subject;
+import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation;
+import mx.edu.upqroo.kristenandroid.data.models.Config;
 import mx.edu.upqroo.kristenandroid.data.repositories.DayRepository;
+import mx.edu.upqroo.kristenandroid.data.repositories.GradeRepository;
+import mx.edu.upqroo.kristenandroid.data.repositories.KardexRepository;
 import mx.edu.upqroo.kristenandroid.data.repositories.SubjectRepository;
+import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Alumno;
-import mx.edu.upqroo.kristenandroid.services.sie.containers.Calificacion;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Materia;
 import mx.edu.upqroo.kristenandroid.services.sie.containers.Semana;
 

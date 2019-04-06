@@ -29,6 +29,7 @@ import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day;
 import mx.edu.upqroo.kristenandroid.viewModels.ScheduleViewModel;
+import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,17 +69,7 @@ public class ScheduleFragment extends Fragment {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_schedule);
         // Setup refresh listener which triggers new data loading
-        mSwipeContainer.setOnRefreshListener(() -> {
-            /*trigger the load of the data to the service*/
-            AsyncTask.execute(() -> {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                mSwipeContainer.setRefreshing(false);
-            });
-        });
+        mSwipeContainer.setOnRefreshListener(() -> mViewModel.updateScheduleFromService());
         // Configure the refreshing colors
         mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
                 R.color.colorPrimary,
@@ -87,6 +78,7 @@ public class ScheduleFragment extends Fragment {
 
         mViewModel.getDays(SessionManager.getInstance().getSession().getUserId())
                 .observe(this, scheduleSubjects -> {
+                    DataWidgetManager.updateWidgetAsync(getContext());
                     if (scheduleSubjects.size() == 0) {
                         mImageEmptySchedule.setVisibility(View.VISIBLE);
                     } else {
@@ -95,6 +87,7 @@ public class ScheduleFragment extends Fragment {
                         mImageEmptySchedule.setVisibility(View.GONE);
                     }
                     mProgress.setVisibility(View.GONE);
+                    mSwipeContainer.setRefreshing(false);
                 });
         return v;
     }

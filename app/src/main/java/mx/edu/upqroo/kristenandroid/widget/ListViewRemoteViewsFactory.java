@@ -83,6 +83,7 @@ class ListViewRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactor
     }
 
     private void generateDays() {
+        records.clear();
         List<ScheduleSubject> scheduleSubjects = DataWidgetManager.getSchedule(mContext);
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_WEEK);

@@ -57,14 +57,7 @@ public class MainActivity extends ThemeActivity
         super.onCreate(savedInstanceState);
         mSession = SessionManager.getInstance();
         //region widget update
-        AsyncTask.execute(() -> {
-            List<ScheduleSubject> scheduleSubjects = KristenRoomDatabase
-                    .getInstance(getApplicationContext())
-                    .dayDao()
-                    .getDaysAndSubjectsFromUserSync(mSession.getSession().getUserId());
-            DataWidgetManager.updateSchedule(scheduleSubjects, getApplicationContext());
-            ScheduleWidgetProvider.sendRefreshBroadcast(getApplicationContext());
-        });
+        DataWidgetManager.updateWidgetAsync(getApplicationContext());
         //endregion
         //region toolbar setup
         setContentView(R.layout.activity_main);
@@ -277,6 +270,7 @@ public class MainActivity extends ThemeActivity
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes_option), (dialog, id) -> {
                     mSession.logout();
+                    DataWidgetManager.deleteSchedule(getApplicationContext());
                     UserInformationRepository.getInstance(getApplication()).deleteAll();
                     Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
                     loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
