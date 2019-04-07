@@ -164,38 +164,64 @@ public class MainActivity extends ThemeActivity
 
             mNavController.navigate(R.id.settingsActivity);
 
+        } else if (id == R.id.nav_contact
+                && mFragmentManager != FragmentManager.CONTACT_FRAGMENT) {
+            mNavController.navigate(R.id.contactFragment);
         } else {
+            if (id == R.id.nav_user
+                    && mFragmentManager != FragmentManager.USER_FRAGMENT) {
+                if (!mSession.sessionAlive()) {
+                    Snackbar.make(findViewById(R.id.bottom_navigation),
+                            R.string.login_message,
+                            Snackbar.LENGTH_LONG)
+                            .setAction(R.string.button_login, v -> startActivity(
+                                    new Intent(getApplicationContext(), LoginActivity.class)))
+                            .show();
 
-            if (!mSession.sessionAlive()) {
-                Snackbar.make(findViewById(R.id.bottom_navigation),
-                        R.string.login_message,
-                        Snackbar.LENGTH_LONG)
-                        .setAction(R.string.button_login, v -> startActivity(
-                                new Intent(getApplicationContext(), LoginActivity.class)))
-                        .show();
-
-            } else {
-
-                if (id == R.id.nav_user
-                        && mFragmentManager != FragmentManager.USER_FRAGMENT) {
-
+                } else {
                     mNavController.navigate(R.id.userFragment);
+                }
+            } else if ((id == R.id.nav_schedule || id == R.id.schedule_menu_item)
+                    && mFragmentManager != FragmentManager.SCHEDULE_FRAGMENT) {
+                if (!mSession.sessionAlive()) {
+                    Snackbar.make(findViewById(R.id.bottom_navigation),
+                            R.string.login_message,
+                            Snackbar.LENGTH_LONG)
+                            .setAction(R.string.button_login, v -> startActivity(
+                                    new Intent(getApplicationContext(), LoginActivity.class)))
+                            .show();
 
-                } else if ((id == R.id.nav_schedule || id == R.id.schedule_menu_item)
-                        && mFragmentManager != FragmentManager.SCHEDULE_FRAGMENT) {
-
+                } else {
                     mNavController.navigate(R.id.scheduleFragment);
+                }
 
-                } else if ((id == R.id.nav_grades || id == R.id.grades_menu_item)
-                        && mFragmentManager != FragmentManager.GRADES_FRAGMENT) {
+            } else if ((id == R.id.nav_grades || id == R.id.grades_menu_item)
+                    && mFragmentManager != FragmentManager.GRADES_FRAGMENT) {
+                if (!mSession.sessionAlive()) {
+                    Snackbar.make(findViewById(R.id.bottom_navigation),
+                            R.string.login_message,
+                            Snackbar.LENGTH_LONG)
+                            .setAction(R.string.button_login, v -> startActivity(
+                                    new Intent(getApplicationContext(), LoginActivity.class)))
+                            .show();
 
+                } else {
                     mNavController.navigate(R.id.gradesFragment);
+                }
 
-                } else if (id == R.id.nav_kardex
-                        && mFragmentManager != FragmentManager.KARDEX_FRAGMENT) {
+            } else if (id == R.id.nav_kardex
+                    && mFragmentManager != FragmentManager.KARDEX_FRAGMENT) {
+                if (!mSession.sessionAlive()) {
+                    Snackbar.make(findViewById(R.id.bottom_navigation),
+                            R.string.login_message,
+                            Snackbar.LENGTH_LONG)
+                            .setAction(R.string.button_login, v -> startActivity(
+                                    new Intent(getApplicationContext(), LoginActivity.class)))
+                            .show();
+
+                } else {
 
                     mNavController.navigate(R.id.kardexFragment);
-
                 }
             }
         }
@@ -254,6 +280,11 @@ public class MainActivity extends ThemeActivity
                 mBottomNavigationView.setVisibility(View.VISIBLE);
 
                 mFragmentManager = FragmentManager.CALENDAR_FRAGMENT;
+                break;
+            case R.id.contactFragment:
+                mNavigationView.setCheckedItem(R.id.nav_contact);
+                mBottomNavigationView.setVisibility(View.GONE);
+                mFragmentManager = FragmentManager.CONTACT_FRAGMENT;
                 break;
         }
     }

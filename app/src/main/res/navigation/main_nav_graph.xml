@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_newsListFragment_to_noticesFragment"
             app:destination="@id/noticesFragment" />
+        <action
+            android:id="@+id/action_newsListFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <activity
         android:id="@+id/newsDetailActivity"
@@ -66,6 +69,9 @@
         <action
             android:id="@+id/action_gradesFragment_to_noticesFragment"
             app:destination="@id/noticesFragment" />
+        <action
+            android:id="@+id/action_gradesFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/kardexFragment"
@@ -93,6 +99,9 @@
         <action
             android:id="@+id/action_kardexFragment_to_noticesFragment"
             app:destination="@id/noticesFragment" />
+        <action
+            android:id="@+id/action_kardexFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -117,6 +126,9 @@
         <action
             android:id="@+id/action_scheduleFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_scheduleFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -144,6 +156,9 @@
         <action
             android:id="@+id/action_userFragment_to_noticesFragment"
             app:destination="@id/noticesFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <fragment
         android:id="@+id/calendarFragment"
@@ -174,6 +189,9 @@
         <action
             android:id="@+id/action_calendarFragment_to_noticesFragment"
             app:destination="@id/noticesFragment" />
+        <action
+            android:id="@+id/action_calendarFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
@@ -206,5 +224,38 @@
         <action
             android:id="@+id/action_noticesFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_noticesFragment_to_contactFragment"
+            app:destination="@id/contactFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.ContactFragment"
+        android:label="@string/nav_contact"
+        tools:layout="@layout/fragment_contact" >
+        <action
+            android:id="@+id/action_contactFragment_to_noticesFragment"
+            app:destination="@id/noticesFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_kardexFragment"
+            app:destination="@id/kardexFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_gradesFragment"
+            app:destination="@id/gradesFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_scheduleFragment"
+            app:destination="@id/scheduleFragment" />
+        <action
+            android:id="@+id/action_contactFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
     </fragment>
 </navigation>

@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Contact;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
 import mx.edu.upqroo.kristenandroid.managers.SessionManager;
 import mx.edu.upqroo.kristenandroid.data.repositories.NoticeRepository;
@@ -124,75 +125,30 @@ public class KristenApiServices {
         });
     }
 
-    public void getContacts() {
-        Call<List<Contacto>> call = service.getContacts();
-        call.enqueue(new Callback<List<Contacto>>() {
+    public void getContacts(Application application) {
+        Call<List<Contact>> call = service.getContacts();
+        call.enqueue(new Callback<List<Contact>>() {
             @Override
-            public void onResponse(@NotNull Call<List<Contacto>> call,
-                                   @NotNull Response<List<Contacto>> response) {
+            public void onResponse(@NotNull Call<List<Contact>> call,
+                                   @NotNull Response<List<Contact>> response) {
                 switch (response.code()) {
                     case 200:
-                        List<Contacto> data = response.body();
+                        List<Contact> data = response.body();
                         if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new ContactListMessage(true, data));
+                            KristenApiConverter.insertContacts(data, application);
                         } else {
-                            EventBus.getDefault()
-                                    .post(new ContactListMessage(false,
-                                            new ArrayList<>()));
                             Crashlytics.log("200 Error data null while getting contacts");
                         }
                         break;
                     default:
-                        EventBus.getDefault()
-                                .post(new ContactListMessage(false,
-                                        new ArrayList<>()));
                         Crashlytics.log(response.code() + "Error code while getting contacts");
                         break;
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<Contacto>> call, @NotNull Throwable t) {
-                EventBus.getDefault()
-                        .post(new ContactListMessage(false, new ArrayList<>()));
+            public void onFailure(@NotNull Call<List<Contact>> call, @NotNull Throwable t) {
                 Crashlytics.log(t.getMessage() + " - Error code while getting contacts");
-            }
-        });
-    }
-
-    public void getNotices(Application application) {
-        String filter = "{\"where\": {\"or\": [{\"idCarrera\": 99},{\"idCarrera\": X}]}, \"order\": \"fecha DESC\", \"skip\": 0, \"limit\": 10}";
-        filter = filter.replace("X", SessionManager.getInstance().getSession().getCareer());
-        Call<List<Notice>> call = service.getNotices(filter);
-        call.enqueue(new Callback<List<Notice>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<Notice>> call,
-                                   @NotNull Response<List<Notice>> response) {
-                switch (response.code()) {
-                    case 200:
-                        List<Notice> data = response.body();
-                        if (data != null) {
-                            NoticeRepository noticeRepo = NoticeRepository.getInstance(application);
-                            AsyncTask.execute(() -> {
-                                noticeRepo.deleteAll();
-                                for (Notice notice: data) {
-                                    noticeRepo.insert(notice);
-                                }
-                            });
-                        } else {
-                            Crashlytics.log("200 Error data null while getting notices");
-                        }
-                        break;
-                    default:
-                        Crashlytics.log(response.code() + "Error code while getting notices");
-                        break;
-                }
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<List<Notice>> call, @NotNull Throwable t) {
-                Crashlytics.log(t.getMessage() + " - Error code while getting notices");
             }
         });
     }

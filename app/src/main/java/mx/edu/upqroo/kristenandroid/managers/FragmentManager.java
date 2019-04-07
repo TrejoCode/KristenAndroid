@@ -7,5 +7,6 @@ public enum FragmentManager {
     NEWS_FRAGMENT,
     NOTICES_FRAGMENT,
     SCHEDULE_FRAGMENT,
-    USER_FRAGMENT;
+    USER_FRAGMENT,
+    CONTACT_FRAGMENT
 }

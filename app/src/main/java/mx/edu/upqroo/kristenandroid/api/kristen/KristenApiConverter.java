@@ -1,8 +1,12 @@
 package mx.edu.upqroo.kristenandroid.api.kristen;
 
+import android.app.Application;
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Contact;
 import mx.edu.upqroo.kristenandroid.data.models.Content;
 import mx.edu.upqroo.kristenandroid.data.models.ContentGallery;
 import mx.edu.upqroo.kristenandroid.data.models.ContentImage;
@@ -16,6 +20,7 @@ import mx.edu.upqroo.kristenandroid.api.kristen.containers.Contenido;
 import mx.edu.upqroo.kristenandroid.api.kristen.containers.Contenido_;
 import mx.edu.upqroo.kristenandroid.api.kristen.containers.Publicacion;
 import mx.edu.upqroo.kristenandroid.api.kristen.containers.PublicacionContenido;
+import mx.edu.upqroo.kristenandroid.data.repositories.ContactRepository;
 
 /**
  * <h1>KristenApiConverter</h1>
@@ -96,5 +101,43 @@ class KristenApiConverter {
             }
         }
         return contents;
+    }
+
+    /***
+     * This method will receive a list of contacts to inset only if they are different from
+     * the ones that are already in the database, in case that there is no contact in the databse
+     * then they will be inserted without comparing anything.
+     * @param contacts contacts from service
+     * @param application application to get the repository instance
+     */
+    static void insertContacts(List<Contact> contacts, Application application) {
+        ContactRepository repo = ContactRepository.getInstance(application);
+        AsyncTask.execute(() -> {
+            for (Contact contact: contacts) {
+                repo.upsert(contact);
+            }
+        });
+    }
+
+    private static boolean equalsContactsLists(List<Contact> listA, List<Contact> listB) {
+        if (listA.size() != listB.size())
+            return false;
+
+        int initialSize = listA.size();
+
+        for (Contact a: listA) {
+            for (Contact b: listB) {
+                if (equalContact(a, b)) {
+
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean equalContact(Contact a, Contact b) {
+        return a.getContactId().equals(b.getContactId()) &&
+                a.getEmail().equals(b.getEmail()) &&
+                a.getName().equals(b.getName());
     }
 }

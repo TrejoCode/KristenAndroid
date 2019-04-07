@@ -2,6 +2,7 @@ package mx.edu.upqroo.kristenandroid.api.kristen;
 
 import java.util.List;
 
+import mx.edu.upqroo.kristenandroid.data.database.entities.Contact;
 import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
 import mx.edu.upqroo.kristenandroid.data.models.News;
 import mx.edu.upqroo.kristenandroid.api.kristen.containers.Contacto;
@@ -37,7 +38,7 @@ public interface KristenApiInterface {
      * @return a list with all the contacts
      */
     @GET("Contactos")
-    Call<List<Contacto>> getContacts();
+    Call<List<Contact>> getContacts();
 
     /**
      * Get all notices

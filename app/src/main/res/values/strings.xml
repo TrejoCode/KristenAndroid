@@ -63,4 +63,5 @@
     <string name="quarter_label">Quarter</string>
     <string name="todo" translatable="false">TODO</string>
     <string name="no_items_message">Look like there is nothing here.</string>
+    <string name="nav_contact">Contacts</string>
 </resources>
