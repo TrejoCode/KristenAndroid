@@ -2,42 +2,40 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:contentPadding="16dp">
+    app:contentPadding="16dp"
+    style="@style/itemCardStyle">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/text_item_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="10"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_item_subject"
-            tools:text="UINGIX2ACC" />
-
-        <TextView
             android:id="@+id/text_item_subject"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorTitle"
-            android:textSize="21sp"
+            style="@style/titleTextCardStyle"
             app:layout_constraintEnd_toStartOf="@+id/text_item_generalGrade"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Programación Móvil" />
 
         <TextView
+            android:id="@+id/text_item_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="10"
+            style="@style/smallTextCardStyle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_item_subject"
+            tools:text="UINGIX2ACC" />
+
+        <TextView
             android:id="@+id/text_item_generalGrade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="21sp"
+            style="@style/bigTextCardStyle"
+            android:paddingTop="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="9.2" />
@@ -46,9 +44,7 @@
             android:id="@+id/text_item_gradeOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            style="@style/smallTextCardStyle"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_item_code"
@@ -58,9 +54,7 @@
             android:id="@+id/text_item_gradeTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            style="@style/smallTextCardStyle"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/text_item_code"
@@ -70,9 +64,7 @@
             android:id="@+id/text_item_gradeThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            style="@style/smallTextCardStyle"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toBottomOf="@+id/text_item_code"
@@ -82,9 +74,7 @@
             android:id="@+id/text_item_gradeFour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            style="@style/smallTextCardStyle"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toBottomOf="@+id/text_item_code"
@@ -94,9 +84,7 @@
             android:id="@+id/text_item_gradeFive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            style="@style/smallTextCardStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/text_item_code"

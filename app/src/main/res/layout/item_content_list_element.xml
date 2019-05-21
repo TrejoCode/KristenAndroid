@@ -9,23 +9,23 @@
         android:id="@+id/text_list_element_item"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+        style="@style/mediumTextStyle"
+        android:paddingTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bullet_list_image"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintStart_toEndOf="@+id/bullet_list_image"
+        app:layout_constraintTop_toTopOf="@+id/bullet_list_image"
+        tools:text="TextView" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/bullet_list_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        style="@style/mediumTextStyle"
+        android:paddingTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_circle_black_24dp" />
+        app:srcCompat="@drawable/ic_circle_black_24dp"
+        android:contentDescription="@string/content_description" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,11 +38,11 @@
 
             <TextView
                 android:id="@+id/textView"
+                style="@style/mediumTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/notifications"
                 android:textColor="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,24 +51,22 @@
 
             <TextView
                 android:id="@+id/textView2"
+                style="@style/titleTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/settings_op_1"
-                android:textColor="?attr/colorTitle"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/check_general_notification"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textView23"
+                style="@style/subtitleTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/settings_op_desc_1"
                 app:layout_constraintEnd_toStartOf="@+id/check_general_notification"
@@ -88,34 +86,29 @@
 
             <View
                 android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+                app:layout_constraintTop_toBottomOf="@+id/textView23"
+                style="@style/dividerStyle" />
 
             <TextView
                 android:id="@+id/textView24"
+                style="@style/titleTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/settings_op_2"
-                android:textColor="?attr/colorTitle"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/check_career_notifications"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
 
             <TextView
                 android:id="@+id/textView25"
+                style="@style/subtitleTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/settings_op_desc_2"
                 app:layout_constraintEnd_toStartOf="@+id/check_career_notifications"
@@ -135,35 +128,30 @@
 
             <View
                 android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                app:layout_constraintTop_toBottomOf="@+id/textView25"
+                style="@style/dividerStyle" />
 
             <TextView
                 android:id="@+id/textView6"
+                style="@style/titleTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/settings_op_3"
-                android:textColor="?attr/colorTitle"
-                android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/switch_dark_theme"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
                 android:id="@+id/textView7"
+                style="@style/subtitleTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/settings_op_desc_3"
                 app:layout_constraintEnd_toStartOf="@+id/switch_dark_theme"
@@ -183,14 +171,11 @@
 
             <View
                 android:id="@+id/view13"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:color/darker_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintTop_toBottomOf="@+id/textView7"
+                style="@style/dividerStyle" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

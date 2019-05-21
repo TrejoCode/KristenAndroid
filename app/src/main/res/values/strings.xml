@@ -64,4 +64,6 @@
     <string name="todo" translatable="false">TODO</string>
     <string name="no_items_message">Look like there is nothing here.</string>
     <string name="nav_contact">Contacts</string>
+    <string name="curp">CURP:</string>
+    <string name="content_description">TODO</string>
 </resources>

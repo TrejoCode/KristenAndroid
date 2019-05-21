@@ -9,12 +9,12 @@
         android:id="@+id/recycler_news_detail"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_content_gallery">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/item_content_gallery" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

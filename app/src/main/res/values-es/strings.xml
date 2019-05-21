@@ -50,4 +50,6 @@
     <string name="quarter_label">Cuatrimestre</string>
     <string name="no_items_message">Parece que no hay nada por aquí.</string>
     <string name="nav_contact">Contactos</string>
+    <string name="curp">CURP:</string>
+    <string name="content_description">TODO</string>
 </resources>

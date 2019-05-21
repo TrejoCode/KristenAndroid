@@ -56,6 +56,8 @@
         android:name="mx.edu.upqroo.kristenandroid.ui.fragments.EmptyFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/medium_padding"
+        android:layout_marginEnd="@dimen/medium_padding"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layout="@layout/fragment_news_detail" />
 
