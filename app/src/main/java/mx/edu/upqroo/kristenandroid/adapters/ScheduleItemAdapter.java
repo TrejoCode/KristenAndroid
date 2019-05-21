@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.adapters;
 
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,23 @@ public class ScheduleItemAdapter extends RecyclerView.Adapter<ScheduleItemAdapte
             super(itemView);
             _dayOfWeek = itemView.findViewById(R.id.titSche);
             mRecycler = itemView.findViewById(R.id.recycler_subject);
-            mRecycler.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH) {
+                mRecycler.setLayoutManager(new LinearLayoutManager(itemView.getContext(),
+                        LinearLayoutManager.VERTICAL, false){
+                    @Override
+                    public boolean canScrollHorizontally() {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                });
+            } else {
+                mRecycler.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
+            }
+
         }
     }
 }

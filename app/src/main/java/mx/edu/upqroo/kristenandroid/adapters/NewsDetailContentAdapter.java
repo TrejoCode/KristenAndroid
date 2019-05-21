@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ClickableSpan;
@@ -125,7 +126,21 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 GalleryViewHolder galleryHolder = (GalleryViewHolder) holder;
                 ContentGallery contentGallery = (ContentGallery) mContentList.get(position);
                 int abs = Math.abs(contentGallery.getImages().size() / 2);
-                galleryHolder.mRecycler.setLayoutManager(new GridLayoutManager(mContext, abs));
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH) {
+                    galleryHolder.mRecycler.setLayoutManager(new GridLayoutManager(mContext, abs){
+                        @Override
+                        public boolean canScrollHorizontally() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    });
+                } else {
+                    galleryHolder.mRecycler.setLayoutManager(new GridLayoutManager(mContext, abs));
+                }
                 galleryHolder.mRecycler
                         .setAdapter(new ImageItemAdapter(contentGallery.getImages(), mContext,
                                 mFragment));
@@ -174,7 +189,21 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
                 ListViewHolder listHolder = (ListViewHolder) holder;
                 ContentList contentList = (ContentList) mContentList.get(position);
                 listHolder.mTextView.setText(contentList.getTitle());
-                listHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH) {
+                    listHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext){
+                        @Override
+                        public boolean canScrollHorizontally() {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    });
+                } else {
+                    listHolder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+                }
                 listHolder.mRecyclerView
                         .setAdapter(new ListElementItemAdapter(contentList.getElements(),
                                 mContext));
