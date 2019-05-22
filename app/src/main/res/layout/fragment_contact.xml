@@ -33,8 +33,6 @@
                 android:id="@+id/recycler_contacts"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
