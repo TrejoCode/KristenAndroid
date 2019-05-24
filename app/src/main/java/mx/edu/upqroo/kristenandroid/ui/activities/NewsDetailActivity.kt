@@ -24,7 +24,6 @@ import java.util.ArrayList
 
 import androidx.appcompat.widget.Toolbar
 import androidx.core.graphics.ColorUtils
-import androidx.fragment.app.FragmentTransaction
 import androidx.palette.graphics.Palette
 import mx.edu.upqroo.kristenandroid.R
 import mx.edu.upqroo.kristenandroid.helpers.PostTypeHelper
@@ -56,7 +55,7 @@ class NewsDetailActivity : ThemeActivity() {
         mToolbar.setNavigationOnClickListener { onBackPressed() }
 
         if (intent.hasExtra(EXTRA_NEWS)) {
-            mNews = Serializer.Deserialize<News>(intent.getStringExtra(EXTRA_NEWS), News::class.java)
+            mNews = Serializer.deserialize(intent.getStringExtra(EXTRA_NEWS), News::class.java)
         } else {
             Crashlytics.log("Noticia no existente")
             onBackPressed()

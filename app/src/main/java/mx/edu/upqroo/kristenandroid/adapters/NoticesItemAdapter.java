@@ -50,7 +50,7 @@ public class NoticesItemAdapter extends PagedListAdapter<Notice, NoticesItemAdap
         if (notice != null) {
             holder.title.setText(notice.getTitle());
             holder.body.setText(notice.getBody());
-            holder.date.setText(KristenDateUtils.formatDate(notice.getDate()));
+            holder.date.setText(KristenDateUtils.INSTANCE.formatDate(notice.getDate()));
         }
     }
 

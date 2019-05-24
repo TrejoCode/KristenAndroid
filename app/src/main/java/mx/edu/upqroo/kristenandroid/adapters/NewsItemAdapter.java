@@ -2,7 +2,6 @@ package mx.edu.upqroo.kristenandroid.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import mx.edu.upqroo.kristenandroid.R;
-import mx.edu.upqroo.kristenandroid.data.database.entities.Notice;
 import mx.edu.upqroo.kristenandroid.ui.activities.NewsDetailActivity;
 import mx.edu.upqroo.kristenandroid.util.KristenDateUtils;
 import mx.edu.upqroo.kristenandroid.util.Serializer;
-import mx.edu.upqroo.kristenandroid.helpers.ViewHelper;
 import mx.edu.upqroo.kristenandroid.data.models.News;
 
 public class NewsItemAdapter extends PagedListAdapter<News, NewsItemAdapter.ViewHolder> {
@@ -73,7 +67,7 @@ public class NewsItemAdapter extends PagedListAdapter<News, NewsItemAdapter.View
                     .into(holder.imageNews);
             holder.textTitle.setText(holder.news.getTitle());
             holder.textSubtitle.setText(holder.news.getDescription());
-            holder.textDate.setText(KristenDateUtils.formatDate(holder.news.getDate()));
+            holder.textDate.setText(KristenDateUtils.INSTANCE.formatDate(holder.news.getDate()));
         } else {
             holder.textTitle.setText("");
             holder.textSubtitle.setText("");
@@ -110,7 +104,7 @@ public class NewsItemAdapter extends PagedListAdapter<News, NewsItemAdapter.View
 
         private void openDetails(Context c) {
             Intent intent = new Intent(c, NewsDetailActivity.class);
-            intent.putExtra(NewsDetailActivity.EXTRA_NEWS, Serializer.Serialize(news));
+            intent.putExtra(NewsDetailActivity.EXTRA_NEWS, Serializer.INSTANCE.serialize(news));
             c.startActivity(intent);
         }
     }

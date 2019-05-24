@@ -19,9 +19,9 @@ public class DataWidgetManager {
     private static final String DATA_KEY = "DataWidgetManagerSaved";
     private static final String PREFERENCE_FILE_NAME = "WidgetDataSaved";
 
-    public static void updateSchedule(List<ScheduleSubject> scheduleSubjects, Context context) {
+    private static void updateSchedule(List<ScheduleSubject> scheduleSubjects, Context context) {
         Type scheduleSubjectType = new TypeToken<List<ScheduleSubject>>(){}.getType();
-        String serialize = Serializer.Serialize(scheduleSubjects, scheduleSubjectType);
+        String serialize = Serializer.INSTANCE.serialize(scheduleSubjects, scheduleSubjectType);
 
         SharedPreferences mSharedPref = context
                 .getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
@@ -43,23 +43,19 @@ public class DataWidgetManager {
                 .getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE);
         String data = mSharedPref.getString(DataWidgetManager.DATA_KEY, "");
         Type listType = new TypeToken<ArrayList<ScheduleSubject>>(){}.getType();
-        return Serializer.Deserialize(data, listType);
+        return Serializer.INSTANCE.deserialize(data, listType);
     }
 
     public static void updateWidgetAsync(Context context) {
         AsyncTask.execute(() -> {
-            if (SessionManager.Companion.getInstance().getSession() != null) {
-                List<ScheduleSubject> scheduleSubjects = KristenRoomDatabase
-                        .getInstance(context)
-                        .dayDao()
-                        .getDaysAndSubjectsFromUserSync(SessionManager.Companion.getInstance()
-                                .getSession().getUserId());
-                updateSchedule(scheduleSubjects, context);
-                ScheduleWidgetProvider.sendRefreshBroadcast(context);
-            } else {
-                deleteSchedule(context);
-                ScheduleWidgetProvider.sendRefreshBroadcast(context);
-            }
+            SessionManager.Companion.getInstance().getSession();
+            List<ScheduleSubject> scheduleSubjects = KristenRoomDatabase
+                    .getInstance(context)
+                    .dayDao()
+                    .getDaysAndSubjectsFromUserSync(SessionManager.Companion.getInstance()
+                            .getSession().getUserId());
+            updateSchedule(scheduleSubjects, context);
+            ScheduleWidgetProvider.sendRefreshBroadcast(context);
         });
     }
 }
