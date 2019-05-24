@@ -41,7 +41,7 @@ public class NotificationHelper {
      */
     public static NotificationHelper GetInstance() {
         if (mInstance == null) {
-            mContext = Application.getAppContext();
+            mContext = Application.Companion.getAppContext();
             mInstance = new NotificationHelper();
         }
         return mInstance;
