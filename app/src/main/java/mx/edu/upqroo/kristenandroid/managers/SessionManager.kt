@@ -19,7 +19,7 @@ private constructor() {
      * Returns the session.
      * @return Session
      */
-    var session: UserInformation? = null
+    lateinit var session: UserInformation
         private set
 
     /**
@@ -67,14 +67,14 @@ private constructor() {
      */
     fun logout() {
         FirebaseNotificationsHelper
-                .UnsubscribeNotifications(session!!.config
-                        .generalTopic, session!!.config.userTopic)
-        session = null
+                .UnsubscribeNotifications(session.config
+                        .generalTopic, session.config.userTopic)
+        createDefaultSession()
         PreferencesManager.instance.clearSession()
     }
 
     fun sessionAlive(): Boolean {
-        return session!!.config.userToken != ""
+        return session.config.userToken != ""
     }
 
     companion object {

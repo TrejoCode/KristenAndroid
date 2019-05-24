@@ -47,7 +47,7 @@ class LoginActivity : ThemeActivity() {
                     application)
         }
 
-        mButtonLoginNoSession.setOnClickListener { v ->
+        mButtonLoginNoSession.setOnClickListener {
             SessionManager.instance.createDefaultSession()
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }
