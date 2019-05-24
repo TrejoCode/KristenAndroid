@@ -86,7 +86,12 @@ public class NewsListFragment extends Fragment {
         mRecyclerNews.setAdapter(mAdapter);
 
         mViewModel.getNews().observe(this, news -> {
-            mAdapter.submitList(news);
+            if (news.size() == 0) {
+                mImageEmptyNews.setVisibility(View.VISIBLE);
+            } else {
+                mAdapter.submitList(news);
+                mImageEmptyNews.setVisibility(View.GONE);
+            }
             mSwipeContainer.setRefreshing(false);
             mProgressBar.setVisibility(View.GONE);
         });

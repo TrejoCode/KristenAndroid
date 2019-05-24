@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule"
+    app:startDestination="@id/scheduleFragment">
+
+
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.ScheduleFragment"
+        android:label="@string/nav_menu_schedule"
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_settingsActivity7"
+            app:destination="@id/settingsActivity7" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity7"
+        android:name="mx.edu.upqroo.kristenandroid.ui.activities.SettingsActivity"
+        android:label="@string/action_settings"
+        tools:layout="@layout/activity_settings" />
+</navigation>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news"
+    app:startDestination="@id/newsListFragment">
+
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.NewsListFragment"
+        android:label="@string/nav_menu_news"
+        tools:layout="@layout/fragment_news_list" >
+        <action
+            android:id="@+id/action_newsListFragment_to_settingsActivity5"
+            app:destination="@id/settingsActivity5" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity5"
+        android:name="mx.edu.upqroo.kristenandroid.ui.activities.SettingsActivity"
+        android:label="@string/action_settings"
+        tools:layout="@layout/activity_settings" />
+</navigation>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendar"
+    app:startDestination="@id/calendarFragment">
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment"
+        android:label="@string/nav_menu_calendar"
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="mx.edu.upqroo.kristenandroid.ui.activities.SettingsActivity"
+        android:label="@string/action_settings"
+        tools:layout="@layout/activity_settings" />
+</navigation>

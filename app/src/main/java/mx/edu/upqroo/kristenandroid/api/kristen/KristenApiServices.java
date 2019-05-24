@@ -57,24 +57,21 @@ public class KristenApiServices {
             @Override
             public void onResponse(@NotNull Call<PublicacionContenido> call,
                                    @NotNull Response<PublicacionContenido> response) {
-                switch (response.code()) {
-                    case 200:
-                        PublicacionContenido data = response.body();
-                        if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new NewsDetailMessage(true, KristenApiConverter
-                                            .PublicacionToNewsDetail(data)));
-                        } else {
-                            EventBus.getDefault()
-                                    .post(new NewsDetailMessage(false, null));
-                            Crashlytics.log("200 Error data null while getting post content");
-                        }
-                        break;
-                    default:
+                if (response.code() == 200) {
+                    PublicacionContenido data = response.body();
+                    if (data != null) {
+                        EventBus.getDefault()
+                                .post(new NewsDetailMessage(true, KristenApiConverter
+                                        .PublicacionToNewsDetail(data)));
+                    } else {
                         EventBus.getDefault()
                                 .post(new NewsDetailMessage(false, null));
-                        Crashlytics.log(response.code() + "Error code while getting content");
-                        break;
+                        Crashlytics.log("200 Error data null while getting post content");
+                    }
+                } else {
+                    EventBus.getDefault()
+                            .post(new NewsDetailMessage(false, null));
+                    Crashlytics.log(response.code() + "Error code while getting content");
                 }
             }
 
@@ -94,25 +91,22 @@ public class KristenApiServices {
             @Override
             public void onResponse(@NotNull Call<PublicacionContenido> call,
                                    @NotNull Response<PublicacionContenido> response) {
-                switch (response.code()) {
-                    case 200:
-                        PublicacionContenido data = response.body();
-                        if (data != null) {
-                            EventBus.getDefault()
-                                    .post(new CalendarUrlMessage(
-                                            data.getContenidos().get(0).getContenido().getTexto(),
-                                            data.getContenidos().get(0).getContenido().getUrl()));
-                        } else {
-                            EventBus.getDefault()
-                                    .post(new CalendarUrlMessage("", ""));
-                            Crashlytics.log("200 Error data null while getting the calendar");
-                        }
-                        break;
-                    default:
+                if (response.code() == 200) {
+                    PublicacionContenido data = response.body();
+                    if (data != null) {
+                        EventBus.getDefault()
+                                .post(new CalendarUrlMessage(
+                                        data.getContenidos().get(0).getContenido().getTexto(),
+                                        data.getContenidos().get(0).getContenido().getUrl()));
+                    } else {
                         EventBus.getDefault()
                                 .post(new CalendarUrlMessage("", ""));
-                        Crashlytics.log(response.code() + "Error code while getting calendar");
-                        break;
+                        Crashlytics.log("200 Error data null while getting the calendar");
+                    }
+                } else {
+                    EventBus.getDefault()
+                            .post(new CalendarUrlMessage("", ""));
+                    Crashlytics.log(response.code() + "Error code while getting calendar");
                 }
             }
 
@@ -131,18 +125,15 @@ public class KristenApiServices {
             @Override
             public void onResponse(@NotNull Call<List<Contact>> call,
                                    @NotNull Response<List<Contact>> response) {
-                switch (response.code()) {
-                    case 200:
-                        List<Contact> data = response.body();
-                        if (data != null) {
-                            KristenApiConverter.insertContacts(data, application);
-                        } else {
-                            Crashlytics.log("200 Error data null while getting contacts");
-                        }
-                        break;
-                    default:
-                        Crashlytics.log(response.code() + "Error code while getting contacts");
-                        break;
+                if (response.code() == 200) {
+                    List<Contact> data = response.body();
+                    if (data != null) {
+                        KristenApiConverter.insertContacts(data, application);
+                    } else {
+                        Crashlytics.log("200 Error data null while getting contacts");
+                    }
+                } else {
+                    Crashlytics.log(response.code() + "Error code while getting contacts");
                 }
             }
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/grades"
+    app:startDestination="@id/gradesFragment">
+
+    <fragment
+        android:id="@+id/gradesFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.GradesFragment"
+        android:label="@string/nav_menu_school"
+        tools:layout="@layout/fragment_grades" >
+        <action
+            android:id="@+id/action_gradesFragment_to_settingsActivity3"
+            app:destination="@id/settingsActivity3" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity3"
+        android:name="mx.edu.upqroo.kristenandroid.ui.activities.SettingsActivity"
+        android:label="@string/action_settings"
+        tools:layout="@layout/activity_settings" />
+</navigation>

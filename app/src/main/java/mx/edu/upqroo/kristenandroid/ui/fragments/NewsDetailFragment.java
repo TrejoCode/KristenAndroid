@@ -30,7 +30,7 @@ public class NewsDetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_news_detail, container, false);
         RecyclerView mRecycler = view.findViewById(R.id.recycler_news_detail);
         mRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        List<Content> mContentList = NewsDetailActivity.NEWS_CONTENT;
+        List<Content> mContentList = NewsDetailActivity.Companion.getNEWS_CONTENT();
         NewsDetailContentAdapter mAdapter =
                 new NewsDetailContentAdapter(getContext(), mContentList, this);
         mRecycler.setAdapter(mAdapter);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/details">
+
+    <fragment
+        android:id="@+id/noticesFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.NoticesFragment"
+        android:label="fragment_notices"
+        tools:layout="@layout/fragment_notices" />
+    <fragment
+        android:id="@+id/emptyFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.EmptyFragment"
+        android:label="fragment_empty"
+        tools:layout="@layout/fragment_empty" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
+    <fragment
+        android:id="@+id/kardexFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.KardexFragment"
+        android:label="fragment_kardex"
+        tools:layout="@layout/fragment_kardex" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="mx.edu.upqroo.kristenandroid.ui.fragments.ContactFragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" />
+</navigation>
