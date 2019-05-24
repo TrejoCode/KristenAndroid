@@ -218,7 +218,7 @@ public class NewsDetailContentAdapter extends RecyclerView.Adapter<RecyclerView.
 
                 String videoId = contentVideo.getId();
 
-                videoHolder.mPlayerView.initPlayer(YoutubeFragment.API_KEY, videoId,
+                videoHolder.mPlayerView.initPlayer(YoutubeFragment.Companion.getAPI_KEY(), videoId,
                         "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/" +
                                 "60bae1a1/youtube-android/youtube_iframe_player.html",
                         YouTubePlayerType.STRICT_NATIVE,
