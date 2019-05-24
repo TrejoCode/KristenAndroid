@@ -34,16 +34,16 @@ public class GradeRepository {
         LiveData<List<Grade>> response = mGradeDao.getByUserId(userId);
         AsyncTask.execute(() -> {
             if (mGradeDao.count() == 0) {
-                mApi.getGradesList(SessionManager.getInstance().getSession().getUserId(),
-                        SessionManager.getInstance().getSession().getConfig().getUserToken());
+                mApi.getGradesList(SessionManager.Companion.getInstance().getSession().getUserId(),
+                        SessionManager.Companion.getInstance().getSession().getConfig().getUserToken());
             }
         });
         return response;
     }
 
     public void updateGradesFromService() {
-        mApi.getGradesList(SessionManager.getInstance().getSession().getUserId(),
-                SessionManager.getInstance().getSession().getConfig().getUserToken());
+        mApi.getGradesList(SessionManager.Companion.getInstance().getSession().getUserId(),
+                SessionManager.Companion.getInstance().getSession().getConfig().getUserToken());
     }
 
     public void insert(Grade kardex) {

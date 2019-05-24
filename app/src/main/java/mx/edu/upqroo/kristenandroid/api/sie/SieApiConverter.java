@@ -77,7 +77,7 @@ class SieApiConverter {
             dayRepository.deleteAll();
 
             dayRepository.insert(new Day(0, application.getString(R.string.monday),
-                    SessionManager.getInstance().getSession().getUserId()), id -> {
+                    SessionManager.Companion.getInstance().getSession().getUserId()), id -> {
                 for (Materia m : semana.getLunes()) {
                     subjectRepository.insert(
                             new Subject(0,
@@ -89,7 +89,7 @@ class SieApiConverter {
             });
             dayRepository.insert(new Day(0,
                     application.getString(R.string.tuesday),
-                    SessionManager.getInstance().getSession().getUserId()), id -> {
+                    SessionManager.Companion.getInstance().getSession().getUserId()), id -> {
                 for (Materia m : semana.getMartes()) {
                     subjectRepository.insert(
                             new Subject(0,
@@ -101,7 +101,7 @@ class SieApiConverter {
             });
             dayRepository.insert(new Day(0,
                     application.getString(R.string.wednesday),
-                    SessionManager.getInstance().getSession().getUserId()), id -> {
+                    SessionManager.Companion.getInstance().getSession().getUserId()), id -> {
                 for (Materia m : semana.getMiercoles()) {
                     subjectRepository.insert(
                             new Subject(0,
@@ -113,7 +113,7 @@ class SieApiConverter {
             });
             dayRepository.insert(new Day(0,
                     application.getString(R.string.thursday),
-                    SessionManager.getInstance().getSession().getUserId()), id -> {
+                    SessionManager.Companion.getInstance().getSession().getUserId()), id -> {
                 for (Materia m : semana.getJueves()) {
                     subjectRepository.insert(
                             new Subject(0,
@@ -124,7 +124,7 @@ class SieApiConverter {
                 }
             });
             dayRepository.insert(new Day(0, application.getString(R.string.friday),
-                    SessionManager.getInstance().getSession().getUserId()), id -> {
+                    SessionManager.Companion.getInstance().getSession().getUserId()), id -> {
                 for (Materia m : semana.getViernes()) {
                     subjectRepository.insert(
                             new Subject(0,

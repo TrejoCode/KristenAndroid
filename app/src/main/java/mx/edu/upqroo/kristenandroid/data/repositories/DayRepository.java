@@ -43,16 +43,16 @@ public class DayRepository {
         LiveData<List<ScheduleSubject>> response = mDayDao.getDaysAndSubjectsFromUser(userId);
         AsyncTask.execute(() -> {
             if (mDayDao.count() == 0) {
-                mApi.getSchedule(SessionManager.getInstance().getSession().getUserId(),
-                        SessionManager.getInstance().getSession().getConfig().getUserToken());
+                mApi.getSchedule(SessionManager.Companion.getInstance().getSession().getUserId(),
+                        SessionManager.Companion.getInstance().getSession().getConfig().getUserToken());
             }
         });
         return response;
     }
 
     public void updateScheduleFromService() {
-        mApi.getSchedule(SessionManager.getInstance().getSession().getUserId(),
-                SessionManager.getInstance().getSession().getConfig().getUserToken());
+        mApi.getSchedule(SessionManager.Companion.getInstance().getSession().getUserId(),
+                SessionManager.Companion.getInstance().getSession().getConfig().getUserToken());
     }
 
     public List<ScheduleSubject> getDayByUserIdSync(String userId) {

@@ -3,7 +3,7 @@ package mx.edu.upqroo.kristenandroid.ui.activities
 import android.os.Bundle
 import androidx.navigation.Navigation
 import mx.edu.upqroo.kristenandroid.R
-import mx.edu.upqroo.kristenandroid.managers.FragmentManager
+import mx.edu.upqroo.kristenandroid.util.Fragments
 
 class DetailsActivity : ThemeActivity() {
     companion object {
@@ -14,10 +14,10 @@ class DetailsActivity : ThemeActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         val destination: Int = when (intent.getStringExtra(FRAGMENT_TO_SHOW)) {
-            FragmentManager.NOTICES_FRAGMENT.name -> R.id.noticesFragment
-            FragmentManager.USER_FRAGMENT.name -> R.id.userFragment
-            FragmentManager.KARDEX_FRAGMENT.name -> R.id.kardexFragment
-            FragmentManager.CONTACT_FRAGMENT.name -> R.id.contactFragment
+            Fragments.NOTICES_FRAGMENT.value -> R.id.noticesFragment
+            Fragments.USER_FRAGMENT.value -> R.id.userFragment
+            Fragments.KARDEX_FRAGMENT.value -> R.id.kardexFragment
+            Fragments.CONTACT_FRAGMENT.value -> R.id.contactFragment
             else -> R.id.userFragment
         }
 

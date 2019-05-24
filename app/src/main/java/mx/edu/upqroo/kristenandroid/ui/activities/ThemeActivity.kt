@@ -13,7 +13,7 @@ abstract class ThemeActivity : AppCompatActivity() {
     }
 
     fun applyTheme() {
-        if (PreferencesManager.getInstance().loadDarkThemeConfig()) {
+        if (PreferencesManager.instance.loadDarkThemeConfig()) {
             setTheme(R.style.AppThemeDark)
         } else {
             setTheme(R.style.AppTheme)

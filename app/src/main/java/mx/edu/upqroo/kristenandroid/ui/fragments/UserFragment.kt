@@ -75,7 +75,7 @@ class UserFragment : Fragment() {
                 R.color.colorPrimaryDark,
                 R.color.colorPrimaryDarker)
 
-        mViewModel.getUser(SessionManager.getInstance().session.userId)
+        mViewModel.getUser(SessionManager.instance.session.userId)
                 .observe(this, Observer<UserInformation>{ userInformation ->
                     mUserNameText.text = userInformation.name
                     mUserCareerText.text = userInformation.enrollment

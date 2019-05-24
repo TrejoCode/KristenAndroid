@@ -29,7 +29,7 @@ class SettingsActivity : ThemeActivity() {
         val mCheckBoxCareer = findViewById<CheckBox>(R.id.check_career_notifications)
         val mSwitchDarkTheme = findViewById<Switch>(R.id.switch_dark_theme)
 
-        mPrefManager = PreferencesManager.getInstance()
+        mPrefManager = PreferencesManager.instance
 
         val notificationLoaded = mPrefManager.loadNotificationsPreference()
         mCheckBoxGeneral.isChecked = notificationLoaded.isGeneral

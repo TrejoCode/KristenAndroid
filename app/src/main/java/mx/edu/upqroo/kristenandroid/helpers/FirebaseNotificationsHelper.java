@@ -60,6 +60,6 @@ public class FirebaseNotificationsHelper extends
         FirebaseMessaging firebaseMessaging = FirebaseMessaging.getInstance();
         firebaseMessaging.unsubscribeFromTopic(channel);
         firebaseMessaging.unsubscribeFromTopic(userChannel);
-        PreferencesManager.getInstance().saveNotificationsPreference(false, false);
+        PreferencesManager.Companion.getInstance().saveNotificationsPreference(false, false);
     }
 }

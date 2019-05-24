@@ -62,7 +62,7 @@ class ScheduleFragment : Fragment() {
                 R.color.colorPrimaryDark,
                 R.color.colorPrimaryDarker)
 
-        mViewModel.getDays(SessionManager.getInstance().session.userId)
+        mViewModel.getDays(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<ScheduleSubject>>{ scheduleSubjects ->
                     DataWidgetManager.updateWidgetAsync(context)
                     if (scheduleSubjects.isEmpty()) {

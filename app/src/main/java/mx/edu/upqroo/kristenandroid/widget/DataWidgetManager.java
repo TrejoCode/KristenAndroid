@@ -48,11 +48,11 @@ public class DataWidgetManager {
 
     public static void updateWidgetAsync(Context context) {
         AsyncTask.execute(() -> {
-            if (SessionManager.getInstance().getSession() != null) {
+            if (SessionManager.Companion.getInstance().getSession() != null) {
                 List<ScheduleSubject> scheduleSubjects = KristenRoomDatabase
                         .getInstance(context)
                         .dayDao()
-                        .getDaysAndSubjectsFromUserSync(SessionManager.getInstance()
+                        .getDaysAndSubjectsFromUserSync(SessionManager.Companion.getInstance()
                                 .getSession().getUserId());
                 updateSchedule(scheduleSubjects, context);
                 ScheduleWidgetProvider.sendRefreshBroadcast(context);

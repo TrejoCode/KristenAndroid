@@ -24,7 +24,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, News> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params,
                             @NonNull LoadInitialCallback<Integer, News> callback) {
-        String filter = mFilter.replace("X", SessionManager.getInstance().getSession().getCareer());
+        String filter = mFilter.replace("X", SessionManager.Companion.getInstance().getSession().getCareer());
         filter = filter.replace("Y", String.valueOf(FIRST_PAGE));
 
         KristenApiServices.getInstance().getService().getNews(filter)
@@ -62,7 +62,7 @@ public class NewsDataSource extends PageKeyedDataSource<Integer, News> {
     @Override
     public void loadAfter(@NonNull LoadParams<Integer> params,
                           @NonNull LoadCallback<Integer, News> callback) {
-        String filter = mFilter.replace("X", SessionManager.getInstance().getSession().getCareer());
+        String filter = mFilter.replace("X", SessionManager.Companion.getInstance().getSession().getCareer());
         filter = filter.replace("Y", String.valueOf(params.key * PAGE_SIZE));
 
         KristenApiServices.getInstance().getService().getNews(filter)

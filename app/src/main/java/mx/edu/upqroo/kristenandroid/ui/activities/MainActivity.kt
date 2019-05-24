@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -21,16 +20,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import mx.edu.upqroo.kristenandroid.R
 import mx.edu.upqroo.kristenandroid.api.kristen.KristenApiServices
-import mx.edu.upqroo.kristenandroid.api.kristen.messages.CalendarUrlMessage
 import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository
-import mx.edu.upqroo.kristenandroid.managers.FragmentManager
+import mx.edu.upqroo.kristenandroid.util.Fragments
 import mx.edu.upqroo.kristenandroid.managers.SessionManager
-import mx.edu.upqroo.kristenandroid.ui.fragments.CalendarFragment
 import mx.edu.upqroo.kristenandroid.util.setupWithNavController
 import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : ThemeActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -46,7 +40,7 @@ class MainActivity : ThemeActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSession = SessionManager.getInstance()
+        mSession = SessionManager.instance
         //region widget update
         DataWidgetManager.updateWidgetAsync(applicationContext)
         //endregion
@@ -141,7 +135,7 @@ class MainActivity : ThemeActivity(),
                 mDrawerLayout.closeDrawer(GravityCompat.START)
             }
             R.id.nav_contact -> {
-                openDetailActivity(FragmentManager.CONTACT_FRAGMENT.name)
+                openDetailActivity(Fragments.CONTACT_FRAGMENT.value)
                 mDrawerLayout.closeDrawer(GravityCompat.START)
             }
             else -> {
@@ -149,9 +143,9 @@ class MainActivity : ThemeActivity(),
                     showLoginMessage()
                 } else {
                     when (id) {
-                        R.id.nav_user -> openDetailActivity(FragmentManager.USER_FRAGMENT.name)
-                        R.id.nav_kardex -> openDetailActivity(FragmentManager.KARDEX_FRAGMENT.name)
-                        R.id.nav_notices -> openDetailActivity(FragmentManager.NOTICES_FRAGMENT.name)
+                        R.id.nav_user -> openDetailActivity(Fragments.USER_FRAGMENT.value)
+                        R.id.nav_kardex -> openDetailActivity(Fragments.KARDEX_FRAGMENT.value)
+                        R.id.nav_notices -> openDetailActivity(Fragments.NOTICES_FRAGMENT.value)
                     }
                     mDrawerLayout.closeDrawer(GravityCompat.START)
                 }

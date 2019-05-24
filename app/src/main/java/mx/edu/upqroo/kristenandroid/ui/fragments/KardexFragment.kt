@@ -60,7 +60,7 @@ class KardexFragment : Fragment() {
                 R.color.colorPrimaryDark,
                 R.color.colorPrimaryDarker)
 
-        mViewModel.getKardex(SessionManager.getInstance().session.userId)
+        mViewModel.getKardex(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<Kardex>> { kardexList ->
                     if (kardexList.isEmpty()) {
                         mImageEmptyKardex.visibility = View.VISIBLE

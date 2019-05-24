@@ -92,7 +92,7 @@ class NewsDetailActivity : ThemeActivity() {
                     val sendIntent = Intent()
                     sendIntent.action = Intent.ACTION_SEND
                     sendIntent.putExtra(Intent.EXTRA_TEXT,
-                            mNews.title + "\n" + SessionManager.getInstance().session
+                            mNews.title + "\n" + SessionManager.instance.session
                                     .config.baseAddress + "evento/" + mNews.url)
                     sendIntent.type = "text/plain"
                     startActivity(Intent.createChooser(sendIntent, "Share"))
@@ -101,7 +101,7 @@ class NewsDetailActivity : ThemeActivity() {
                     val sendIntent = Intent()
                     sendIntent.action = Intent.ACTION_SEND
                     sendIntent.putExtra(Intent.EXTRA_TEXT,
-                            mNews.title + "\n" + SessionManager.getInstance().session
+                            mNews.title + "\n" + SessionManager.instance.session
                                     .config.baseAddress + "noticia/" + mNews.url)
                     sendIntent.type = "text/plain"
                     startActivity(Intent.createChooser(sendIntent, "Share"))
@@ -110,7 +110,7 @@ class NewsDetailActivity : ThemeActivity() {
                     val sendIntent = Intent()
                     sendIntent.action = Intent.ACTION_SEND
                     sendIntent.putExtra(Intent.EXTRA_TEXT,
-                            mNews.title + "\n" + SessionManager.getInstance().session
+                            mNews.title + "\n" + SessionManager.instance.session
                                     .config.baseAddress + "trabajo/" + mNews.url)
                     sendIntent.type = "text/plain"
                     startActivity(Intent.createChooser(sendIntent, "Share"))

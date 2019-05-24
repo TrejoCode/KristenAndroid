@@ -34,16 +34,16 @@ public class KardexRepository {
         LiveData<List<Kardex>> response = mKardexDao.getByUserId(userId);
         AsyncTask.execute(() -> {
             if (mKardexDao.count() == 0) {
-                mApi.getKardexList(SessionManager.getInstance().getSession().getUserId(),
-                        SessionManager.getInstance().getSession().getConfig().getUserToken());
+                mApi.getKardexList(SessionManager.Companion.getInstance().getSession().getUserId(),
+                        SessionManager.Companion.getInstance().getSession().getConfig().getUserToken());
             }
         });
         return response;
     }
 
     public void updateKardexFromService() {
-        mApi.getKardexList(SessionManager.getInstance().getSession().getUserId(),
-                SessionManager.getInstance().getSession().getConfig().getUserToken());
+        mApi.getKardexList(SessionManager.Companion.getInstance().getSession().getUserId(),
+                SessionManager.Companion.getInstance().getSession().getConfig().getUserToken());
     }
 
     public void insert(Kardex kardex) {

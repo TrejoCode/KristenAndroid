@@ -21,7 +21,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         mContext = new WeakReference<>(getApplicationContext());
-        PreferencesManager.getInstance().setContext(mContext);
+        PreferencesManager.Companion.getInstance().setContext(mContext);
 
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())

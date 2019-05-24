@@ -21,27 +21,27 @@ class LoadActivity : ThemeActivity() {
         setContentView(R.layout.activity_load)
 
         // think about a way to kill a session if x time has passed
-        val sessionLoaded = PreferencesManager.getInstance().loadSession()
+        val sessionLoaded = PreferencesManager.instance.loadSession()
         if (!TextUtils.isEmpty(sessionLoaded.user) || !TextUtils.isEmpty(sessionLoaded.password)) {
             val loadSession = {
-                SessionManager.getInstance().createNewSession(
+                SessionManager.instance.createNewSession(
                         UserInformationRepository.getInstance(application)
                                 .getUserInformationNotLive(sessionLoaded.user))
 
                 val notificationLoaded = PreferencesManager
-                        .getInstance()
+                        .instance
                         .loadNotificationsPreference()
 
                 // Load of the notification preferences
                 if (notificationLoaded.isGeneral) {
                     FirebaseNotificationsHelper
-                            .SubscribeNotifications(SessionManager.getInstance().session
+                            .SubscribeNotifications(SessionManager.instance.session
                                     .config
                                     .generalTopic)
                 }
                 if (notificationLoaded.isCareer) {
                     FirebaseNotificationsHelper
-                            .SubscribeNotifications(SessionManager.getInstance().session
+                            .SubscribeNotifications(SessionManager.instance.session
                                     .config
                                     .userTopic)
                 }
@@ -51,7 +51,7 @@ class LoadActivity : ThemeActivity() {
             }
             AsyncTask.execute(loadSession)
         } else {
-            SessionManager.getInstance().createDefaultSession()
+            SessionManager.instance.createDefaultSession()
             startActivity(Intent(this, MainActivity::class.java))
         }
     }
@@ -62,32 +62,32 @@ class LoadActivity : ThemeActivity() {
             // Insert of the information to the database
             UserInformationRepository.getInstance(application).insert(event.student)
             // Creation of a new the session in the session helper
-            SessionManager.getInstance().createNewSession(event.student)
+            SessionManager.instance.createNewSession(event.student)
             // This may change, now i have the info in the database so i can use that instead of the preference manager
-            PreferencesManager.getInstance().saveSession(event.student.userId,
+            PreferencesManager.instance.saveSession(event.student.userId,
                     event.student.password)
 
             // I should take this to the database to
             val notificationLoaded = PreferencesManager
-                    .getInstance()
+                    .instance
                     .loadNotificationsPreference()
 
             // Load of the notification preferences
             if (notificationLoaded.isGeneral) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.getInstance().session
+                        .SubscribeNotifications(SessionManager.instance.session
                                 .config
                                 .generalTopic)
             }
             if (notificationLoaded.isCareer) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.getInstance().session
+                        .SubscribeNotifications(SessionManager.instance.session
                                 .config
                                 .userTopic)
             }
         } else {
             // When there is no one logged in then a create a default session
-            SessionManager.getInstance().createDefaultSession()
+            SessionManager.instance.createDefaultSession()
             // If there is no one logged in i have to delete the User information data
             UserInformationRepository.getInstance(application).deleteAll()
         }

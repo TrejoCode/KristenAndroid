@@ -59,7 +59,7 @@ class GradesFragment : Fragment() {
                 R.color.colorPrimaryDark,
                 R.color.colorPrimaryDarker)
 
-        mViewModel.getGrades(SessionManager.getInstance().session.userId)
+        mViewModel.getGrades(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<Grade>> { grades ->
                     if (grades.isEmpty()) {
                         mImageEmptyGrades.visibility = View.VISIBLE

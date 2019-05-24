@@ -41,14 +41,14 @@ class LoginActivity : ThemeActivity() {
             mPassword.isEnabled = false
             mLinearOverlay.visibility = View.VISIBLE
             mButtonLogin.isClickable = false
-            SessionManager.getInstance().login(
+            SessionManager.instance.login(
                     mUserId.text.toString(),
                     mPassword.text.toString(),
                     application)
         }
 
         mButtonLoginNoSession.setOnClickListener { v ->
-            SessionManager.getInstance().createDefaultSession()
+            SessionManager.instance.createDefaultSession()
             startActivity(Intent(applicationContext, MainActivity::class.java))
         }
     }
@@ -78,22 +78,22 @@ class LoginActivity : ThemeActivity() {
     fun onMessageLogin(event: LoginMessage) {
         if (event.isResult) {
             UserInformationRepository.getInstance(application).insert(event.student)
-            SessionManager.getInstance().createNewSession(event.student)
-            PreferencesManager.getInstance().saveSession(event.student.userId,
+            SessionManager.instance.createNewSession(event.student)
+            PreferencesManager.instance.saveSession(event.student.userId,
                     event.student.password)
 
             val notificationLoaded = PreferencesManager
-                    .getInstance()
+                    .instance
                     .loadNotificationsPreference()
             if (notificationLoaded.isGeneral) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.getInstance().session
+                        .SubscribeNotifications(SessionManager.instance.session
                                 .config
                                 .generalTopic)
             }
             if (notificationLoaded.isCareer) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.getInstance().session
+                        .SubscribeNotifications(SessionManager.instance.session
                                 .config
                                 .userTopic)
             }
