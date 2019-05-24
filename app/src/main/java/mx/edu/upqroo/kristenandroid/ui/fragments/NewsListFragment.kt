@@ -53,7 +53,7 @@ class NewsListFragment : Fragment() {
             Objects.requireNonNull<PageKeyedDataSource<Int, News>>(
                     mViewModel.dataSourceFactory
                             .liveDataSource
-                            .value)
+                            !!.value)
                     .invalidate()
         }
         mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
@@ -78,12 +78,7 @@ class NewsListFragment : Fragment() {
         mRecyclerNews.adapter = mAdapter
 
         mViewModel.news.observe(this, Observer<PagedList<News>> { news ->
-            if (news.isEmpty()) {
-                mImageEmptyNews.visibility = View.VISIBLE
-            } else {
-                mAdapter.submitList(news)
-                mImageEmptyNews.visibility = View.GONE
-            }
+            mAdapter.submitList(news)
             mSwipeContainer.isRefreshing = false
             mProgressBar.visibility = View.GONE
         })

@@ -33,7 +33,7 @@ class YoutubeFragment : Fragment() {
         val videoId: String = arguments!!.getString("videoId", "bOwsLtwa2Ts")
         playerView = view.findViewById(R.id.youtube_player_view)
         playerView.initPlayer(API_KEY, videoId, "https://cdn.rawgit.com/flipkart-incubator/inline-youtube-view/60bae1a1/youtube-android/youtube_iframe_player.html",
-                YouTubePlayerType.AUTO, null, this, imageLoader)
+                YouTubePlayerType.STRICT_NATIVE, null, this, imageLoader)
         return view
     }
 
