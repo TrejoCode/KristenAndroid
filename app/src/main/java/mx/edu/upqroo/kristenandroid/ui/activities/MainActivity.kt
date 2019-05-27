@@ -36,7 +36,7 @@ class MainActivity : ThemeActivity(),
     private lateinit var mBottomNavigationView: BottomNavigationView
     private lateinit var mDrawerLayout: DrawerLayout
 
-    private var currentNavController: LiveData<NavController>? = null
+    private var mCurrentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,9 +82,6 @@ class MainActivity : ThemeActivity(),
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
-        // Now that BottomNavigationBar has restored its instance state
-        // and its selectedItemId, we can proceed with setting up the
-        // BottomNavigationBar with Navigation
         setupBottomNavigationBar()
     }
 
@@ -92,14 +89,14 @@ class MainActivity : ThemeActivity(),
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            if (currentNavController?.value?.popBackStack() != true) {
+            if (mCurrentNavController?.value?.popBackStack() != true) {
                 super.onBackPressed()
             }
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return currentNavController?.value?.navigateUp() ?: false
+        return mCurrentNavController?.value?.navigateUp() ?: false
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -154,11 +151,19 @@ class MainActivity : ThemeActivity(),
         return false
     }
 
+    private var scrollToTop: Int = 0
     override fun onDestinationChanged(controller: NavController,
                                       destination: NavDestination,
                                       arguments: Bundle?) {
-        if (destination.id == R.id.calendarFragment) {
+        val id = destination.id
+        if (id == R.id.calendarFragment) {
             KristenApiServices.getInstance().getCalendarUrl()
+        } else if (id == R.id.newsListFragment) {
+            scrollToTop += 1
+            if (scrollToTop == 2) {
+                //Send message to fragment
+                scrollToTop = 0
+            }
         }
     }
 
@@ -180,7 +185,7 @@ class MainActivity : ThemeActivity(),
             setupActionBarWithNavController(this, navController)
             navController.addOnDestinationChangedListener(this)
         })
-        currentNavController = controller
+        mCurrentNavController = controller
     }
 
     private fun openDetailActivity(fragmentToShow: String) {
