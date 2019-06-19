@@ -66,7 +66,7 @@ class ScheduleFragment : Fragment() {
 
         mViewModel.getDays(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<ScheduleSubject>>{ scheduleSubjects ->
-                    DataWidgetManager.updateWidgetAsync(context)
+                    context?.let { DataWidgetManager.updateWidgetAsync(it) }
                     if (scheduleSubjects.isEmpty()) {
                         mImageEmptySchedule.visibility = View.VISIBLE
                     } else {
