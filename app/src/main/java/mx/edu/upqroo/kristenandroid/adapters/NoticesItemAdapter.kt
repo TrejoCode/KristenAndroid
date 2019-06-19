@@ -25,7 +25,7 @@ class NoticesItemAdapter(context: Context) : PagedListAdapter<Notice, NoticesIte
         if (notice != null) {
             holder.title.text = notice.title
             holder.body.text = notice.body
-            holder.date.text = KristenDateUtils.formatDate(notice.date)
+            holder.date.text = KristenDateUtils.formatDate(notice.date!!)
         }
     }
 

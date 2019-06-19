@@ -48,11 +48,11 @@ object DataWidgetManager {
         AsyncTask.execute {
             SessionManager.instance.session
             val scheduleSubjects = KristenRoomDatabase
-                    .getInstance(context)
-                    .dayDao()
-                    .getDaysAndSubjectsFromUserSync(SessionManager.instance
+                    .getInstance(context)?.dayDao()?.getDaysAndSubjectsFromUserSync(SessionManager.instance
                             .session.userId)
-            updateSchedule(scheduleSubjects, context)
+            if (scheduleSubjects != null) {
+                updateSchedule(scheduleSubjects, context)
+            }
             ScheduleWidgetProvider.sendRefreshBroadcast(context)
         }
     }
