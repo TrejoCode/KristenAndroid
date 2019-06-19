@@ -122,10 +122,10 @@ class NewsDetailActivity : ThemeActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessage(event: NewsDetailMessage) {
         if (event.isSuccessful) {
-            setUpToolbar(mNews.coverUrl, mNews.title)
+            setUpToolbar(mNews.coverUrl!!, mNews.title!!)
             NEWS_CONTENT = ArrayList()
-            NEWS_CONTENT!!.add(Content(mNews.description))
-            NEWS_CONTENT!!.addAll(event.newsDetail.contentList)
+            NEWS_CONTENT!!.add(Content(mNews.description!!))
+            NEWS_CONTENT!!.addAll(event.newsDetail.contentList!!)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_detail, NewsDetailFragment.newInstance())
             fragmentTransaction.commit()

@@ -107,7 +107,7 @@ class NewsDetailContentAdapter(private val mContext: Context,
             0 -> {
                 val galleryHolder = holder as GalleryViewHolder
                 val contentGallery = mContentList[position] as ContentGallery
-                val abs = Math.abs(contentGallery.images.size / 2)
+                val abs = Math.abs(contentGallery.getImages().size / 2)
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH) {
                     galleryHolder.mRecycler.layoutManager = object : GridLayoutManager(mContext, abs) {
                         override fun canScrollHorizontally(): Boolean {
@@ -121,7 +121,7 @@ class NewsDetailContentAdapter(private val mContext: Context,
                 } else {
                     galleryHolder.mRecycler.layoutManager = GridLayoutManager(mContext, abs)
                 }
-                galleryHolder.mRecycler.adapter = ImageItemAdapter(contentGallery.images, mContext,
+                galleryHolder.mRecycler.adapter = ImageItemAdapter(contentGallery.getImages(), mContext,
                         mFragment)
             }
             1 -> {
@@ -137,7 +137,7 @@ class NewsDetailContentAdapter(private val mContext: Context,
                         .placeholder(R.drawable.side_nav_bar)
                         .error(R.drawable.android_menu)
                         .into(imageHolder.mImageView)
-                imageHolder.mImageView.setOnClickListener { v ->
+                imageHolder.mImageView.setOnClickListener {
                     val dialog = Dialog(mContext)
                     dialog.setContentView(R.layout.image_dialog_layout)
                     dialog.setTitle("Image")
@@ -159,7 +159,7 @@ class NewsDetailContentAdapter(private val mContext: Context,
                 }, 0, contentLink.url.length,
                         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 linkHolder.mTextView.text = clickableText
-                linkHolder.mTextView.setOnClickListener { v ->
+                linkHolder.mTextView.setOnClickListener {
                     mContext.startActivity(Intent(
                             Intent.ACTION_VIEW).setData(Uri.parse(contentLink.text)))
                 }
@@ -181,7 +181,7 @@ class NewsDetailContentAdapter(private val mContext: Context,
                 } else {
                     listHolder.mRecyclerView.layoutManager = LinearLayoutManager(mContext)
                 }
-                listHolder.mRecyclerView.adapter = ListElementItemAdapter(contentList.elements,
+                listHolder.mRecyclerView.adapter = ListElementItemAdapter(contentList.getElements(),
                         mContext)
             }
             5 -> {

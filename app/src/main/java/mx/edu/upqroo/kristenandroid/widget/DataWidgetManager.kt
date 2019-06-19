@@ -8,6 +8,7 @@ import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject
 import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.util.Serializer
 import java.util.*
+import kotlin.collections.ArrayList
 
 object DataWidgetManager {
     private const val DATA_KEY = "DataWidgetManagerSaved"
@@ -34,13 +35,11 @@ object DataWidgetManager {
         editor.apply()
     }
 
-    internal fun getSchedule(context: Context): List<ScheduleSubject> {
+    internal fun getSchedule(context: Context): ArrayList<ScheduleSubject> {
         val mSharedPref = context
                 .getSharedPreferences(PREFERENCE_FILE_NAME, Context.MODE_PRIVATE)
         val data = mSharedPref.getString(DATA_KEY, "")
-        val listType = object : TypeToken<ArrayList<ScheduleSubject>>() {
-
-        }.type
+        val listType = object : TypeToken<ArrayList<ScheduleSubject>>() {}.type
         return Serializer.deserialize(data!!, listType)
     }
 

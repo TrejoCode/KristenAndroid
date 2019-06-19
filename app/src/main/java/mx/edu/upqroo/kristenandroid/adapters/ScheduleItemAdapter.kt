@@ -22,7 +22,7 @@ class ScheduleItemAdapter(private var mDaysList: List<ScheduleSubject>?)
 
     override fun onBindViewHolder(holder: ViewHolderSchedule, position: Int) {
         val scheduleSubject = mDaysList!![position]
-        holder.dayOfWeek.text = scheduleSubject.day.name
+        holder.dayOfWeek.text = scheduleSubject.day!!.name
 
         holder.mAdapter = SubjectItemAdapter(scheduleSubject.subjects)
         holder.mRecycler.adapter = holder.mAdapter

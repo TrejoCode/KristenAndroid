@@ -43,7 +43,7 @@ class NewsItemAdapter (context: Context)
                     .into(holder.imageNews)
             holder.textTitle.text = holder.news!!.title
             holder.textSubtitle.text = holder.news!!.description
-            holder.textDate.text = KristenDateUtils.formatDate(holder.news!!.date)
+            holder.textDate.text = KristenDateUtils.formatDate(holder.news!!.date!!)
         } else {
             holder.textTitle.text = ""
             holder.textSubtitle.text = ""
