@@ -51,7 +51,7 @@ class SieApiConverter {
     }
 
     static void insertGrades(Application app, List<Grade> grades) {
-        GradeRepository repo = GradeRepository.getInstance(app);
+        GradeRepository repo = GradeRepository.Companion.getInstance(app);
         AsyncTask.execute(() -> {
             repo.deleteAll();
             for (Grade grade : grades) {
@@ -61,7 +61,7 @@ class SieApiConverter {
     }
 
     static void insertKardex(Application app, List<Kardex> kardexList) {
-        KardexRepository repo = KardexRepository.getInstance(app);
+        KardexRepository repo = KardexRepository.Companion.getInstance(app);
         AsyncTask.execute(() -> {
             repo.deleteAll();
             for (Kardex kardex : kardexList) {
@@ -72,8 +72,8 @@ class SieApiConverter {
 
     static void insertSchedule(Semana semana, Application application) {
         AsyncTask.execute(() -> {
-            SubjectRepository subjectRepository = SubjectRepository.getInstance(application);
-            DayRepository dayRepository = DayRepository.getInstance(application);
+            SubjectRepository subjectRepository = SubjectRepository.Companion.getInstance(application);
+            DayRepository dayRepository = DayRepository.Companion.getInstance(application);
             dayRepository.deleteAll();
 
             dayRepository.insert(new Day(0, application.getString(R.string.monday),

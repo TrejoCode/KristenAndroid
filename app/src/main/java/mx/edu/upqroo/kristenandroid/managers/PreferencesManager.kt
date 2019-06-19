@@ -59,8 +59,8 @@ private constructor() {
      */
     fun loadSession(): SessionLoaded {
         val result = SessionLoaded()
-        val session = mSharedPref!!.getString(SessionManager.SESSION_KEY, "")
-        val pass = mSharedPref!!.getString(SessionManager.PASS_KEY, "")
+        val session = mSharedPref!!.getString(SessionManager.SESSION_KEY, "")!!
+        val pass = mSharedPref!!.getString(SessionManager.PASS_KEY, "")!!
         if (session != "") {
             result.user = session
             result.password = pass

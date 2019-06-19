@@ -73,7 +73,7 @@ class KristenApiConverter {
      * @param application application to get the repository instance
      */
     static void insertContacts(List<Contact> contacts, Application application) {
-        ContactRepository repo = ContactRepository.getInstance(application);
+        ContactRepository repo = ContactRepository.Companion.getInstance(application);
         AsyncTask.execute(() -> {
             for (Contact contact: contacts) {
                 repo.upsert(contact);
