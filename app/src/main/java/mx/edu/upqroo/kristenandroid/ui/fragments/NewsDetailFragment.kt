@@ -19,7 +19,9 @@ class NewsDetailFragment : Fragment() {
         val mRecycler = view.findViewById<RecyclerView>(R.id.recycler_news_detail)
         mRecycler.layoutManager = LinearLayoutManager(context)
         val mContentList = NewsDetailActivity.NEWS_CONTENT
-        val mAdapter = NewsDetailContentAdapter(context, mContentList, this)
+        val mAdapter = mContentList?.let {
+            context?.let { it1 -> NewsDetailContentAdapter(it1, it, this) }
+        }
         mRecycler.adapter = mAdapter
         return view
     }

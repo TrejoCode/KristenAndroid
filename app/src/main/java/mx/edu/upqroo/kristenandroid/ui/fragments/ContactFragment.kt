@@ -51,7 +51,7 @@ class ContactFragment : Fragment() {
         mProgress = v.findViewById(R.id.progress_contacts)
         mProgress.visibility = View.VISIBLE
 
-        mContactAdapter = ContactItemAdapter(context, ArrayList<Contact>())
+        mContactAdapter = context?.let { ContactItemAdapter(it, ArrayList()) }!!
         mRecyclerContact.adapter = mContactAdapter
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_contacts)

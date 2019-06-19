@@ -74,7 +74,7 @@ class NewsListFragment : Fragment() {
         } else {
             mRecyclerNews.layoutManager = GridLayoutManager(context, 2)
         }
-        mAdapter = NewsItemAdapter(context)
+        mAdapter = context?.let { NewsItemAdapter(it) }!!
         mRecyclerNews.adapter = mAdapter
 
         mViewModel.news.observe(this, Observer<PagedList<News>> { news ->

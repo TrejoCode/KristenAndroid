@@ -55,7 +55,7 @@ class GradesFragment : Fragment() {
 
         mImageEmptyGrades = v.findViewById(R.id.image_empty_grades)
 
-        mGradeAdapter = GradesItemAdapter(context, ArrayList<Grade>())
+        mGradeAdapter = context?.let { GradesItemAdapter(it, ArrayList()) }!!
         mRecyclerGrade.adapter = mGradeAdapter
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_grades)

@@ -46,7 +46,7 @@ class NoticesFragment : Fragment() {
             mRecyclerNotices.layoutManager = GridLayoutManager(context, 2)
         }
         mRecyclerNotices.visibility = View.VISIBLE
-        mAdapter = NoticesItemAdapter(context)
+        mAdapter = context?.let { NoticesItemAdapter(it) }!!
         mRecyclerNotices.adapter = mAdapter
         mProgressBar = v.findViewById(R.id.progress_notices)
         mImageEmptyNotices = v.findViewById(R.id.image_empty_notices)
