@@ -1,5 +1,6 @@
 package mx.edu.upqroo.kristenandroid.ui.fragments
 
+import android.content.res.Configuration
 import androidx.lifecycle.ViewModelProviders
 
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 
 import java.util.ArrayList
 
@@ -40,7 +42,11 @@ class ContactFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_contact, container, false)
         mRecyclerContact = v.findViewById(R.id.recycler_contacts)
         mRecyclerContact.setHasFixedSize(true)
-        mRecyclerContact.layoutManager = LinearLayoutManager(context)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerContact.layoutManager = LinearLayoutManager(context)
+        } else {
+            mRecyclerContact.layoutManager = GridLayoutManager(context, 2)
+        }
         mRecyclerContact.visibility = View.GONE
         mProgress = v.findViewById(R.id.progress_contacts)
         mProgress.visibility = View.VISIBLE

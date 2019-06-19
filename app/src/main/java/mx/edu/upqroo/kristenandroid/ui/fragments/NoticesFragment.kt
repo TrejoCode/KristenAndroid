@@ -1,5 +1,6 @@
 package mx.edu.upqroo.kristenandroid.ui.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -38,7 +40,11 @@ class NoticesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_notices, container, false)
         val mRecyclerNotices = v.findViewById<RecyclerView>(R.id.recycler_notices)
-        mRecyclerNotices.layoutManager = LinearLayoutManager(v.context)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerNotices.layoutManager = LinearLayoutManager(context)
+        } else {
+            mRecyclerNotices.layoutManager = GridLayoutManager(context, 2)
+        }
         mRecyclerNotices.visibility = View.VISIBLE
         mAdapter = NoticesItemAdapter(context)
         mRecyclerNotices.adapter = mAdapter
@@ -59,14 +65,9 @@ class NoticesFragment : Fragment() {
                 R.color.colorPrimaryDarker)
 
         mViewModel.notices.observe(this, Observer<PagedList<Notice>> { notices ->
-            if (notices.isEmpty()) {
-                mImageEmptyNotices.visibility = View.VISIBLE
-            } else {
-                mAdapter.submitList(notices)
-                mImageEmptyNotices.visibility = View.GONE
-            }
-            mProgressBar.visibility = View.GONE
+            mAdapter.submitList(notices)
             mSwipeContainer.isRefreshing = false
+            mProgressBar.visibility = View.GONE
         })
         return v
     }

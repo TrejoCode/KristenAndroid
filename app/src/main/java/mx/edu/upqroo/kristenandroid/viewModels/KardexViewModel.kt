@@ -7,11 +7,7 @@ import mx.edu.upqroo.kristenandroid.data.database.entities.Kardex
 import mx.edu.upqroo.kristenandroid.data.repositories.KardexRepository
 
 class KardexViewModel(application: Application) : AndroidViewModel(application) {
-    private val mRepo: KardexRepository
-
-    init {
-        mRepo = KardexRepository.getInstance(application)
-    }
+    private val mRepo: KardexRepository = KardexRepository.getInstance(application)
 
     fun getKardex(userId: String): LiveData<List<Kardex>> {
         return mRepo.getKardex(userId)

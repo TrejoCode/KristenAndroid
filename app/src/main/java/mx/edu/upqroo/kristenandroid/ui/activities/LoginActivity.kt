@@ -63,17 +63,6 @@ class LoginActivity : ThemeActivity() {
         EventBus.getDefault().unregister(this)
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-        // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show()
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show()
-        }
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageLogin(event: LoginMessage) {
         if (event.isResult) {

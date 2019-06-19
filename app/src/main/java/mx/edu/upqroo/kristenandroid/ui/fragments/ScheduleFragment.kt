@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.ui.fragments
 
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -47,7 +49,7 @@ class ScheduleFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_schedule, container, false)
         recyclerViewSchedule = v.findViewById(R.id.recycler_schedule)
-        recyclerViewSchedule.layoutManager = LinearLayoutManager(v.context)
+        recyclerViewSchedule.layoutManager = LinearLayoutManager(context)
         recyclerViewSchedule.visibility = View.VISIBLE
         mScheduleAdapter = ScheduleItemAdapter(ArrayList())
         recyclerViewSchedule.adapter = mScheduleAdapter
