@@ -60,12 +60,12 @@ class LoadActivity : ThemeActivity() {
     fun onMessageLogin(event: LoginMessage) {
         if (event.isResult) {
             // Insert of the information to the database
-            UserInformationRepository.getInstance(application).insert(event.student)
+            UserInformationRepository.getInstance(application).insert(event.student!!)
             // Creation of a new the session in the session helper
-            SessionManager.instance.createNewSession(event.student)
+            SessionManager.instance.createNewSession(event.student!!)
             // This may change, now i have the info in the database so i can use that instead of the preference manager
-            PreferencesManager.instance.saveSession(event.student.userId,
-                    event.student.password)
+            PreferencesManager.instance.saveSession(event.student!!.userId,
+                    event.student!!.password)
 
             // I should take this to the database to
             val notificationLoaded = PreferencesManager

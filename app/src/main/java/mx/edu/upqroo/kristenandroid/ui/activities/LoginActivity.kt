@@ -65,10 +65,10 @@ class LoginActivity : ThemeActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageLogin(event: LoginMessage) {
         if (event.isResult) {
-            UserInformationRepository.getInstance(application).insert(event.student)
-            SessionManager.instance.createNewSession(event.student)
-            PreferencesManager.instance.saveSession(event.student.userId,
-                    event.student.password)
+            UserInformationRepository.getInstance(application).insert(event.student!!)
+            SessionManager.instance.createNewSession(event.student!!)
+            PreferencesManager.instance.saveSession(event.student!!.userId,
+                    event.student!!.password)
 
             val notificationLoaded = PreferencesManager
                     .instance
