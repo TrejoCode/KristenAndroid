@@ -23,7 +23,7 @@ class Application : android.app.Application() {
         Fabric.with(fabric)
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-        NotificationHelper.GetInstance()
+        NotificationHelper.instance()
 
         KristenRoomDatabase.getInstance(this)
     }

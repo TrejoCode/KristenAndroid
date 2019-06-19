@@ -21,14 +21,16 @@ class FirebaseNotificationsHelper : com.google.firebase.messaging.FirebaseMessag
         val title = data["title"]
         val body = data["body"]
 
-        NotificationHelper.GetInstance().createNotification(title, body)
+        if (title != null && body != null) {
+            NotificationHelper.instance().createNotification(title, body)
+        }
     }
 
     override fun onDeletedMessages() {}
 
     companion object {
-        var GENERAL_NOTIFICATION_KEY = "GEN"
-        var CAREER_NOTIFICATION_KEY = "CAR"
+        const val GENERAL_NOTIFICATION_KEY = "GEN"
+        const val CAREER_NOTIFICATION_KEY = "CAR"
 
         /**
          * Subscribe the application to a new channel from firebase.
