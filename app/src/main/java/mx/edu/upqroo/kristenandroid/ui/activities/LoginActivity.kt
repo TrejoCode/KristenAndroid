@@ -86,7 +86,7 @@ class LoginActivity : ThemeActivity() {
                                 .userTopic)
             }
             val mainIntent = Intent(this, MainActivity::class.java)
-            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(mainIntent)
         } else {
             Toast.makeText(this, event.message, Toast.LENGTH_LONG).show()

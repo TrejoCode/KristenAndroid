@@ -19,7 +19,7 @@ class NoticeDataSource : PageKeyedDataSource<Int, Notice>() {
         var filter = mFilter.replace("X", SessionManager.instance.session.career)
         filter = filter.replace("Y", FIRST_PAGE.toString())
 
-        KristenApiServices.getInstance().service.getNotices(filter)
+        KristenApiServices.instance.service.getNotices(filter)
                 .enqueue(object : Callback<List<Notice>> {
                     override fun onResponse(call: Call<List<Notice>>,
                                             response: Response<List<Notice>>) {
@@ -48,7 +48,7 @@ class NoticeDataSource : PageKeyedDataSource<Int, Notice>() {
         var filter = mFilter.replace("X", SessionManager.instance.session.career)
         filter = filter.replace("Y", (params.key * PAGE_SIZE).toString())
 
-        KristenApiServices.getInstance().service.getNotices(filter)
+        KristenApiServices.instance.service.getNotices(filter)
                 .enqueue(object : Callback<List<Notice>> {
                     override fun onResponse(call: Call<List<Notice>>,
                                             response: Response<List<Notice>>) {

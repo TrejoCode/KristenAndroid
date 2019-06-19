@@ -157,7 +157,7 @@ class MainActivity : ThemeActivity(),
                                       arguments: Bundle?) {
         val id = destination.id
         if (id == R.id.calendarFragment) {
-            KristenApiServices.getInstance().getCalendarUrl()
+            KristenApiServices.instance.getCalendarUrl()
         } else if (id == R.id.newsListFragment) {
             scrollToTop += 1
             if (scrollToTop == 2) {

@@ -23,7 +23,7 @@ class ContactRepository private constructor(private val mApp: Application) {
     init {
         val db = KristenRoomDatabase.getInstance(mApp)
         mContactDao = db.contactDao()
-        mApi = KristenApiServices.getInstance()
+        mApi = KristenApiServices.instance
     }
 
     fun updateContacts() {

@@ -64,7 +64,7 @@ class NewsDetailActivity : ThemeActivity() {
         mCoverImageView = findViewById(R.id.image_cover_news_detail)
         mCollapsingToolbar = findViewById(R.id.collapsing_news_detail)
 
-        KristenApiServices.getInstance().getPostContent(mNews.id)
+        KristenApiServices.instance.getPostContent(mNews.id!!)
     }
 
     override fun onStart() {
@@ -125,7 +125,7 @@ class NewsDetailActivity : ThemeActivity() {
             setUpToolbar(mNews.coverUrl!!, mNews.title!!)
             NEWS_CONTENT = ArrayList()
             NEWS_CONTENT!!.add(Content(mNews.description!!))
-            NEWS_CONTENT!!.addAll(event.newsDetail.contentList!!)
+            NEWS_CONTENT!!.addAll(event.newsDetail!!.contentList!!)
             val fragmentTransaction = supportFragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.fragment_detail, NewsDetailFragment.newInstance())
             fragmentTransaction.commit()

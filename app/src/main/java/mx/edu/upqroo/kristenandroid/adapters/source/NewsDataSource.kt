@@ -17,7 +17,7 @@ class NewsDataSource : PageKeyedDataSource<Int, News>() {
         var filter = mFilter.replace("X", SessionManager.instance.session.career)
         filter = filter.replace("Y", FIRST_PAGE.toString())
 
-        KristenApiServices.getInstance().service.getNews(filter)
+        KristenApiServices.instance.service.getNews(filter)
                 .enqueue(object : Callback<List<News>> {
                     override fun onResponse(call: Call<List<News>>,
                                             response: Response<List<News>>) {
@@ -47,7 +47,7 @@ class NewsDataSource : PageKeyedDataSource<Int, News>() {
         var filter = mFilter.replace("X", SessionManager.instance.session.career)
         filter = filter.replace("Y", (params.key * PAGE_SIZE).toString())
 
-        KristenApiServices.getInstance().service.getNews(filter)
+        KristenApiServices.instance.service.getNews(filter)
                 .enqueue(object : Callback<List<News>> {
                     override fun onResponse(call: Call<List<News>>,
                                             response: Response<List<News>>) {
