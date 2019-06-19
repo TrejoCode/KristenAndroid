@@ -67,7 +67,7 @@ private constructor() {
      */
     fun logout() {
         FirebaseNotificationsHelper
-                .UnsubscribeNotifications(session.config
+                .unsubscribeNotifications(session.config
                         .generalTopic, session.config.userTopic)
         createDefaultSession()
         PreferencesManager.instance.clearSession()

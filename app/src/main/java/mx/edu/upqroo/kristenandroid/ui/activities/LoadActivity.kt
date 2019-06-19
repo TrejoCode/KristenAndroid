@@ -35,13 +35,13 @@ class LoadActivity : ThemeActivity() {
                 // Load of the notification preferences
                 if (notificationLoaded.isGeneral) {
                     FirebaseNotificationsHelper
-                            .SubscribeNotifications(SessionManager.instance.session
+                            .subscribeNotifications(SessionManager.instance.session
                                     .config
                                     .generalTopic)
                 }
                 if (notificationLoaded.isCareer) {
                     FirebaseNotificationsHelper
-                            .SubscribeNotifications(SessionManager.instance.session
+                            .subscribeNotifications(SessionManager.instance.session
                                     .config
                                     .userTopic)
                 }
@@ -75,13 +75,13 @@ class LoadActivity : ThemeActivity() {
             // Load of the notification preferences
             if (notificationLoaded.isGeneral) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.instance.session
+                        .subscribeNotifications(SessionManager.instance.session
                                 .config
                                 .generalTopic)
             }
             if (notificationLoaded.isCareer) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.instance.session
+                        .subscribeNotifications(SessionManager.instance.session
                                 .config
                                 .userTopic)
             }

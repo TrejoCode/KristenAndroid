@@ -8,7 +8,6 @@ import java.lang.ref.WeakReference
 import mx.edu.upqroo.kristenandroid.data.models.NotificationLoaded
 import mx.edu.upqroo.kristenandroid.data.models.SessionLoaded
 import mx.edu.upqroo.kristenandroid.helpers.FirebaseNotificationsHelper
-import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager
 
 /**
  * <h1>PreferenceManager</h1>
@@ -101,22 +100,22 @@ private constructor() {
             editor.putBoolean(FirebaseNotificationsHelper.GENERAL_NOTIFICATION_KEY, config)
             if (config) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager
+                        .subscribeNotifications(SessionManager
                                 .instance.session.config.generalTopic)
             } else {
                 FirebaseNotificationsHelper
-                        .UnsubscribeNotifications(SessionManager
+                        .unsubscribeNotifications(SessionManager
                                 .instance.session.config.generalTopic)
             }
         } else if (channel == FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY) {
             editor.putBoolean(FirebaseNotificationsHelper.CAREER_NOTIFICATION_KEY, config)
             if (config) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager
+                        .subscribeNotifications(SessionManager
                                 .instance.session.config.userTopic)
             } else {
                 FirebaseNotificationsHelper
-                        .UnsubscribeNotifications(SessionManager
+                        .unsubscribeNotifications(SessionManager
                                 .instance.session.config.generalTopic)
             }
         }

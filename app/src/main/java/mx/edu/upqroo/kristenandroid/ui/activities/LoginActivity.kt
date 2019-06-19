@@ -1,7 +1,6 @@
 package mx.edu.upqroo.kristenandroid.ui.activities
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -76,13 +75,13 @@ class LoginActivity : ThemeActivity() {
                     .loadNotificationsPreference()
             if (notificationLoaded.isGeneral) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.instance.session
+                        .subscribeNotifications(SessionManager.instance.session
                                 .config
                                 .generalTopic)
             }
             if (notificationLoaded.isCareer) {
                 FirebaseNotificationsHelper
-                        .SubscribeNotifications(SessionManager.instance.session
+                        .subscribeNotifications(SessionManager.instance.session
                                 .config
                                 .userTopic)
             }
