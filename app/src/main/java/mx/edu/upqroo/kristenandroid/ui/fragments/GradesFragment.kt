@@ -18,8 +18,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import mx.edu.upqroo.kristenandroid.R
 import mx.edu.upqroo.kristenandroid.adapters.GradesItemAdapter
 import mx.edu.upqroo.kristenandroid.data.database.entities.Grade
+import mx.edu.upqroo.kristenandroid.helpers.ScrollToTop
 import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.viewModels.GradesViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
@@ -78,5 +82,22 @@ class GradesFragment : Fragment() {
                     mProgress.visibility = View.GONE
                 })
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun scrollOnTop(who: ScrollToTop) {
+        if (who.id == R.id.grades) {
+            mRecyclerGrade.smoothScrollToPosition(0)
+        }
     }
 }

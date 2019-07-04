@@ -25,8 +25,12 @@ import mx.edu.upqroo.kristenandroid.data.database.entities.Subject
 import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject
 import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.data.database.entities.Day
+import mx.edu.upqroo.kristenandroid.helpers.ScrollToTop
 import mx.edu.upqroo.kristenandroid.viewModels.ScheduleViewModel
 import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * A simple [Fragment] subclass.
@@ -78,6 +82,23 @@ class ScheduleFragment : Fragment() {
                     mSwipeContainer.isRefreshing = false
                 })
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun scrollOnTop(who: ScrollToTop) {
+        if (who.id == R.id.schedule) {
+            recyclerViewSchedule.smoothScrollToPosition(0)
+        }
     }
 }
 

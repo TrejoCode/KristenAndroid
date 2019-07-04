@@ -16,7 +16,7 @@ object KristenColorUtils {
                 palette.darkMutedSwatch != null -> return palette.darkMutedSwatch!!.rgb
                 palette.lightVibrantSwatch != null -> return palette.lightVibrantSwatch!!.rgb
                 palette.lightMutedSwatch != null -> return palette.lightMutedSwatch!!.rgb
-                palette.swatches.isNotEmpty() -> return Collections.max<Palette.Swatch>(
+                palette.swatches.isNotEmpty() -> return Collections.max(
                         palette.swatches, SwatchComparator.instance).rgb
             }
         }

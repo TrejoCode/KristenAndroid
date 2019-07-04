@@ -21,7 +21,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import mx.edu.upqroo.kristenandroid.R
 import mx.edu.upqroo.kristenandroid.adapters.NewsItemAdapter
 import mx.edu.upqroo.kristenandroid.data.models.News
+import mx.edu.upqroo.kristenandroid.helpers.ScrollToTop
 import mx.edu.upqroo.kristenandroid.viewModels.NewsViewModel
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 /**
@@ -34,6 +38,7 @@ class NewsListFragment : Fragment() {
     private lateinit var mProgressBar: ProgressBar
     private lateinit var mSwipeContainer: SwipeRefreshLayout
     private lateinit var mImageEmptyNews: ConstraintLayout
+    private lateinit var mRecycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,16 +71,16 @@ class NewsListFragment : Fragment() {
         val mTextErrorMessage = v.findViewById<TextView>(R.id.text_error_message)
         mTextErrorMessage.visibility = View.INVISIBLE
 
-        val mRecyclerNews = v.findViewById<RecyclerView>(R.id.recycler_news)
-        mRecyclerNews.setHasFixedSize(true)
+        mRecycler = v.findViewById(R.id.recycler_news)
+        mRecycler.setHasFixedSize(true)
 
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mRecyclerNews.layoutManager = LinearLayoutManager(context)
+            mRecycler.layoutManager = LinearLayoutManager(context)
         } else {
-            mRecyclerNews.layoutManager = GridLayoutManager(context, 2)
+            mRecycler.layoutManager = GridLayoutManager(context, 2)
         }
         mAdapter = context?.let { NewsItemAdapter(it) }!!
-        mRecyclerNews.adapter = mAdapter
+        mRecycler.adapter = mAdapter
 
         mViewModel.news.observe(this, Observer<PagedList<News>> { news ->
             mAdapter.submitList(news)
@@ -83,5 +88,22 @@ class NewsListFragment : Fragment() {
             mProgressBar.visibility = View.GONE
         })
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun scrollOnTop(who: ScrollToTop) {
+        if (who.id == R.id.news) {
+            mRecycler.smoothScrollToPosition(0)
+        }
     }
 }

@@ -16,15 +16,11 @@ class NewsViewModel : ViewModel() {
     val dataSourceFactory: NewsDataSourceFactory = NewsDataSourceFactory()
 
     init {
-        //getting our data source factory
-
-        //Getting PagedList config
         val pagedListConfig = PagedList.Config.Builder()
                 .setEnablePlaceholders(true)
                 .setPageSize(NewsDataSource.PAGE_SIZE)
                 .build()
 
-        //Building the paged list
         news = LivePagedListBuilder(dataSourceFactory, pagedListConfig).build()
     }
 }

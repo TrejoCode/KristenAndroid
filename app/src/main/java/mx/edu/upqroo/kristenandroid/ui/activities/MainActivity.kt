@@ -15,16 +15,19 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import mx.edu.upqroo.kristenandroid.R
 import mx.edu.upqroo.kristenandroid.api.kristen.KristenApiServices
 import mx.edu.upqroo.kristenandroid.data.repositories.UserInformationRepository
+import mx.edu.upqroo.kristenandroid.helpers.ScrollToTop
 import mx.edu.upqroo.kristenandroid.util.Fragments
 import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.util.setupWithNavController
 import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager
+import org.greenrobot.eventbus.EventBus
 
 class MainActivity : ThemeActivity(),
         NavigationView.OnNavigationItemSelectedListener,
@@ -35,6 +38,7 @@ class MainActivity : ThemeActivity(),
     private lateinit var mNavigationView: NavigationView
     private lateinit var mBottomNavigationView: BottomNavigationView
     private lateinit var mDrawerLayout: DrawerLayout
+    private lateinit var mAppBar: AppBarLayout
 
     private var mCurrentNavController: LiveData<NavController>? = null
 
@@ -47,6 +51,7 @@ class MainActivity : ThemeActivity(),
         //region toolbar setup
         setContentView(R.layout.activity_main)
         mToolbar = findViewById(R.id.toolbar)
+        mAppBar = findViewById(R.id.main_app_bar)
         setSupportActionBar(mToolbar)
         //endregion
         //region drawer layout setup
@@ -151,19 +156,13 @@ class MainActivity : ThemeActivity(),
         return false
     }
 
-    private var scrollToTop: Int = 0
     override fun onDestinationChanged(controller: NavController,
                                       destination: NavDestination,
                                       arguments: Bundle?) {
         val id = destination.id
+        mAppBar.setExpanded(true, true)
         if (id == R.id.calendarFragment) {
             KristenApiServices.instance.getCalendarUrl()
-        } else if (id == R.id.newsListFragment) {
-            scrollToTop += 1
-            if (scrollToTop == 2) {
-                //Send message to fragment
-                scrollToTop = 0
-            }
         }
     }
 
@@ -179,6 +178,11 @@ class MainActivity : ThemeActivity(),
                 containerId = R.id.nav_host_fragment,
                 intent = intent
         )
+
+        mBottomNavigationView.setOnNavigationItemReselectedListener {
+            mAppBar.setExpanded(true, true)
+            EventBus.getDefault().post(ScrollToTop(it.itemId))
+        }
 
         // Whenever the selected controller changes, setup the action bar.
         controller.observe(this, Observer { navController ->
