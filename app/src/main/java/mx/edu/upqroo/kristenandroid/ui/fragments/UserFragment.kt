@@ -70,10 +70,6 @@ class UserFragment : Fragment() {
                 mSwipeContainer.isRefreshing = false
             }
         }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mViewModel.getUser(SessionManager.instance.session.userId)
                 .observe(this, Observer<UserInformation>{ userInformation ->

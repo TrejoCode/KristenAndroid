@@ -49,9 +49,6 @@ class SettingsActivity : ThemeActivity() {
         mSwitchDarkTheme.setOnCheckedChangeListener { _, isChecked ->
             mPrefManager.saveDarkThemeConfig(isChecked)
             applyTheme()
-            HAS_THEME_CHANGED = true
-            startActivity(Intent(applicationContext, SettingsActivity::class.java))
-            finish()
         }
     }
 
@@ -63,15 +60,5 @@ class SettingsActivity : ThemeActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        if (HAS_THEME_CHANGED) {
-            val mainIntent = Intent(this, MainActivity::class.java)
-            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(mainIntent)
-        } else {
-            super.onBackPressed()
-        }
     }
 }

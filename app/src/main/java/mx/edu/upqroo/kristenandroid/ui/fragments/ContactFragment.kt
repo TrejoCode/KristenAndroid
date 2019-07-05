@@ -56,10 +56,6 @@ class ContactFragment : Fragment() {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_contacts)
         mSwipeContainer.setOnRefreshListener { mViewModel.updateFromService() }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mViewModel.contacts.observe(this, Observer<List<Contact>> {
             contacts -> mRecyclerContact.visibility = View.VISIBLE

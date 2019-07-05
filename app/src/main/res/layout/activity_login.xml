@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.LoginActivity">
+    tools:context=".ui.activities.LoginActivity"
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/imageView"
@@ -31,6 +32,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        app:hintTextColor="@color/colorAccent"
+        app:boxStrokeColor="@color/colorAccent"
+        app:helperTextTextColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/password_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -55,6 +59,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        app:hintTextColor="@color/colorAccent"
+        app:boxStrokeColor="@color/colorAccent"
+        app:helperTextTextColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -75,6 +82,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login"
         style="@style/Widget.MaterialComponents.Button"
+        android:backgroundTint="@color/colorAccent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -122,11 +130,13 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_login_no_session"
         style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/colorAccent"
+        app:rippleColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Continuar sin iniciar sesión"
+        android:text="@string/continue_text_button_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

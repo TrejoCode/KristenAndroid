@@ -25,13 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="?attr/bottomNavigationBackgroundColor"
-            app:itemIconTint="@drawable/bottom_navigation_colors"
-            app:itemTextColor="@drawable/bottom_navigation_colors"
+            android:background="?attr/colorPrimary"
+            app:itemIconTint="@color/colorAccent"
+            app:itemTextColor="?attr/colorTitle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/activity_main_button_navigation" />
+            app:menu="@menu/activity_main_button_navigation"
+            app:elevation="2dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -42,6 +43,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:menu="@menu/activity_news_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

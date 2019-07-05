@@ -64,10 +64,6 @@ class GradesFragment : Fragment() {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_grades)
         mSwipeContainer.setOnRefreshListener { mViewModel.updateGradesFromService() }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mViewModel.getGrades(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<Grade>> { grades ->

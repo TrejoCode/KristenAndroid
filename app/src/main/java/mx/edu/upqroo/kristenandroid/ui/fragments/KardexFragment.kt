@@ -61,10 +61,6 @@ class KardexFragment : Fragment() {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_kardex)
         mSwipeContainer.setOnRefreshListener { mViewModel.updateKardexFromService() }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mViewModel.getKardex(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<Kardex>> { kardexList ->

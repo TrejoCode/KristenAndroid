@@ -52,4 +52,5 @@
     <string name="nav_contact">Contactos</string>
     <string name="curp">CURP:</string>
     <string name="content_description">TODO</string>
+    <string name="continue_text_button_login">Continuar sin iniciar sesión</string>
 </resources>

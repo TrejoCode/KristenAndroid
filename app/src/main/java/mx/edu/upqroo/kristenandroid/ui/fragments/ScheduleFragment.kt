@@ -63,10 +63,6 @@ class ScheduleFragment : Fragment() {
 
         mSwipeContainer = v.findViewById(R.id.refreshLayout_schedule)
         mSwipeContainer.setOnRefreshListener { mViewModel.updateScheduleFromService() }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mViewModel.getDays(SessionManager.instance.session.userId)
                 .observe(this, Observer<List<ScheduleSubject>>{ scheduleSubjects ->

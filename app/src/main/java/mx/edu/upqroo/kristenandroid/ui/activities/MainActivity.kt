@@ -1,6 +1,7 @@
 package mx.edu.upqroo.kristenandroid.ui.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -221,6 +222,12 @@ class MainActivity : ThemeActivity(),
                 }
                 .setNegativeButton(getString(R.string.no_option)) { dialog, _ -> dialog.cancel() }
         val alert = builder.create()
+        alert.setOnShowListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getColor(R.color.colorAccent))
+                alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getColor(R.color.colorAccent))
+            }
+        }
         alert.show()
     }
 }

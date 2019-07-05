@@ -61,10 +61,6 @@ class NewsListFragment : Fragment() {
                             !!.value)
                     .invalidate()
         }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mImageEmptyNews = v.findViewById(R.id.image_empty_news)
 

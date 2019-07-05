@@ -59,10 +59,6 @@ class NoticesFragment : Fragment() {
                             .value)
                     .invalidate()
         }
-        mSwipeContainer.setColorSchemeResources(R.color.colorAccent,
-                R.color.colorPrimary,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDarker)
 
         mViewModel.notices.observe(this, Observer<PagedList<Notice>> { notices ->
             mAdapter.submitList(notices)

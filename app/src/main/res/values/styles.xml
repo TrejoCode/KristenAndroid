@@ -1,39 +1,19 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorTitle">@color/black</item>
-        <item name="bottomNavigationBackgroundColor">@color/white</item>
-
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
         <item name="fontFamily">@font/roboto</item>
     </style>
 
-    <style name="AppThemeDark" parent="ThemeOverlay.MaterialComponents.Dark">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorTitle">@color/white</item>
-        <item name="bottomNavigationBackgroundColor">@color/gray</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="fontFamily">@font/roboto</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
     <style name="ToolBarWithNavigationBack">
-        <item name="navigationIcon">@drawable/ic_arrow_back_white</item>
+        <item name="navigationIcon">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="AppTheme.Launcher">
@@ -128,6 +108,8 @@
     <style name="buttonCardStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="rippleColor">@color/colorAccent</item>
     </style>
 
 </resources>

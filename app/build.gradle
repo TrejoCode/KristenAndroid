@@ -31,13 +31,13 @@ dependencies {
     // Android Jetpack
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.exifinterface:exifinterface:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.android.support:palette-v7:28.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha01"
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha02"
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha02'
     // Room components
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
@@ -47,15 +47,15 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
     // Google
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.firebase:firebase-appindexing:19.0.0'
     implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-messaging:19.0.0'
+    implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     // Squareup
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     // Eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'

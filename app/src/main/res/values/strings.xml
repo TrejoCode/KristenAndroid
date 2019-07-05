@@ -66,4 +66,5 @@
     <string name="nav_contact">Contacts</string>
     <string name="curp">CURP:</string>
     <string name="content_description">TODO</string>
+    <string name="continue_text_button_login">Continue without a session</string>
 </resources>
