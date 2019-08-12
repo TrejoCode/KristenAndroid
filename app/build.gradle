@@ -35,9 +35,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.android.support:palette-v7:28.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha02"
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03'
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:2.2.0-alpha03"
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha03'
     // Room components
     implementation 'android.arch.persistence.room:runtime:1.1.1'
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
@@ -47,10 +47,10 @@ dependencies {
     implementation 'android.arch.navigation:navigation-fragment:1.0.0'
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
     // Google
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.firebase:firebase-appindexing:19.0.0'
-    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-core:17.0.1'
     implementation 'com.google.firebase:firebase-messaging:19.0.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     // Squareup

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 
 import java.util.ArrayList
@@ -34,7 +35,7 @@ class ContactFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProviders.of(this).get(ContactViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(ContactViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
