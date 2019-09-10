@@ -1,37 +1,29 @@
 package mx.edu.upqroo.kristenandroid.ui.fragments
 
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-
-import java.util.ArrayList
-import java.util.Objects
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import io.fabric.sdk.android.services.concurrency.AsyncTask
 import mx.edu.upqroo.kristenandroid.R
 import mx.edu.upqroo.kristenandroid.adapters.ScheduleItemAdapter
-import mx.edu.upqroo.kristenandroid.data.database.entities.Subject
 import mx.edu.upqroo.kristenandroid.data.models.ScheduleSubject
-import mx.edu.upqroo.kristenandroid.managers.SessionManager
-import mx.edu.upqroo.kristenandroid.data.database.entities.Day
 import mx.edu.upqroo.kristenandroid.helpers.ScrollToTop
+import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.viewModels.ScheduleViewModel
 import mx.edu.upqroo.kristenandroid.widget.DataWidgetManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.

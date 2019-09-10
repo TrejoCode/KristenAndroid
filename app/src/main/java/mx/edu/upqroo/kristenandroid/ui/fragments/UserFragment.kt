@@ -6,17 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import java.util.Objects
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import io.fabric.sdk.android.services.concurrency.AsyncTask
 import mx.edu.upqroo.kristenandroid.R
-import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.data.database.entities.UserInformation
+import mx.edu.upqroo.kristenandroid.managers.SessionManager
 import mx.edu.upqroo.kristenandroid.viewModels.UserViewModel
 
 /**

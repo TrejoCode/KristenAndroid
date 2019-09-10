@@ -1,6 +1,8 @@
 package mx.edu.upqroo.kristenandroid
 
 import android.content.Context
+import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import com.crashlytics.android.Crashlytics
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.fabric.sdk.android.Fabric
@@ -9,7 +11,7 @@ import mx.edu.upqroo.kristenandroid.helpers.NotificationHelper
 import mx.edu.upqroo.kristenandroid.managers.PreferencesManager
 import java.lang.ref.WeakReference
 
-class Application : android.app.Application() {
+class Application : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -26,6 +28,11 @@ class Application : android.app.Application() {
         NotificationHelper.instance()
 
         KristenRoomDatabase.getInstance(this)
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
     companion object {

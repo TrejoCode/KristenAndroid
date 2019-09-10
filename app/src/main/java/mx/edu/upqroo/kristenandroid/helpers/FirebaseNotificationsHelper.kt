@@ -16,8 +16,10 @@ class FirebaseNotificationsHelper : com.google.firebase.messaging.FirebaseMessag
      * Called when a new notification is send from firebase.
      * @param remoteMessage Content sent in the message
      */
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        val data = remoteMessage!!.data
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        super.onMessageReceived(remoteMessage)
+
+        val data = remoteMessage.data
         val title = data["title"]
         val body = data["body"]
 
