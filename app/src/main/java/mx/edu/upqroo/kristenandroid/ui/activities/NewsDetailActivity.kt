@@ -120,7 +120,7 @@ class NewsDetailActivity : ThemeActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessage(event: NewsDetailMessage) {
+    public fun onMessage(event: NewsDetailMessage) {
         if (event.isSuccessful) {
             setUpToolbar(mNews.coverUrl!!, mNews.title!!)
             NEWS_CONTENT = ArrayList()

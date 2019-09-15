@@ -57,7 +57,7 @@ class LoadActivity : ThemeActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageLogin(event: LoginMessage) {
+    public fun onMessageLogin(event: LoginMessage) {
         if (event.isResult) {
             // Insert of the information to the database
             UserInformationRepository.getInstance(application).insert(event.student!!)

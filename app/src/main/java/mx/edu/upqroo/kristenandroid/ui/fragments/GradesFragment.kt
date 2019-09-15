@@ -91,7 +91,7 @@ class GradesFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun scrollOnTop(who: ScrollToTop) {
+    public fun scrollOnTop(who: ScrollToTop) {
         if (who.id == R.id.grades) {
             mRecyclerGrade.smoothScrollToPosition(0)
         }

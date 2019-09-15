@@ -63,7 +63,7 @@ class LoginActivity : ThemeActivity() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageLogin(event: LoginMessage) {
+    public fun onMessageLogin(event: LoginMessage) {
         if (event.isResult) {
             UserInformationRepository.getInstance(application).insert(event.student!!)
             SessionManager.instance.createNewSession(event.student!!)

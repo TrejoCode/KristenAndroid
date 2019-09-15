@@ -44,7 +44,7 @@ class CalendarFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun calendarServiceResponse(message: CalendarUrlMessage) {
+    public fun calendarServiceResponse(message: CalendarUrlMessage) {
         if (message.calendarUrl.isNotEmpty()) {
             mWebView.loadUrl(
                     "https://docs.google.com/gview?embedded=true&url=" + message.calendarUrl)

@@ -97,7 +97,7 @@ class NewsListFragment : Fragment() {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun scrollOnTop(who: ScrollToTop) {
+    public fun scrollOnTop(who: ScrollToTop) {
         if (who.id == R.id.news) {
             mRecycler.smoothScrollToPosition(0)
         }
